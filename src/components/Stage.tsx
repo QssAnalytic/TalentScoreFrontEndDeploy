@@ -14,6 +14,7 @@ import ProgramSkills from "./Stages/ProgramSkills/ProgramSkillsQuestionsForm";
 import JobExperienceForm from "./Stages/JobExperience/JobExperienceForm";
 import SpecialSkillsCertifcateQuestionsForm from "./Stages/SpecialSkills/SpecialSkillsCertifcateQuestionsForm";
 
+
 const Stage = () => {
   const { data, error, isLoading } = useGetStageQuery();
 
@@ -59,73 +60,63 @@ const Stage = () => {
         return (
           <GeneralQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
       case "orta-texniki-ve-ali-tehsil-suallari":
         return (
           <EducationQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
 
       case "olimpiada-suallar":
         return (
           <OlympiadQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
 
       case "dil-bilikleri-substage":
         return (
           <LanguangeQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
       case "xususi-bacariqlar-substage":
         return (
           <SpecialSkillsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
       case "xususi-bacariqlar-sertifikat-substage":
         return (
           <SpecialSkillsCertifcateQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
       case "idman-substage":
         return (
           <SportForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
       case "idman-substage2":
         return (
           <SportForm2
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
       case "is-tecrubesi-substage":
         return (
           <JobExperienceForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
       case "proqram-bilikleri-substage":
         return (
           <ProgramSkills
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""}
-          />
+            subStageSlug={subStageSlug || ""} num={0}          />
         );
     }
   };
