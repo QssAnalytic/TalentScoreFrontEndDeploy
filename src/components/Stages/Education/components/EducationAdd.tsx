@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import {IQuestionQuestion} from 'types';
 import {EducationQuestionsFormValues} from '../EducationQuestionsForm';
 import PesheTehsil from './PesheTehsil';
+import {AddEduFormValues} from './FormEducations';
 interface RootState {
 	dataa: {
 		tehsilPage: number;
@@ -13,9 +14,9 @@ interface RootState {
 }
 
 interface Edu {
-	questions: IQuestionQuestion[];
+	questions: IQuestionQuestion[] | undefined;
 	formData: EducationQuestionsFormValues;
-	handleAddEdu: () => void;
+	handleAddEdu: (eduData: AddEduFormValues) => void;
 }
 const EducationAdd = ({questions, formData, handleAddEdu}: Edu) => {
 	const tehsilPage = useSelector((state: RootState) => state.dataa.tehsilPage);

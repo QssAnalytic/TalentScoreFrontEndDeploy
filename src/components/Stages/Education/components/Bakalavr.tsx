@@ -1,10 +1,10 @@
 import {IQuestionQuestion} from 'types';
-import FormEducations from './FormEducations';
+import FormEducations, {AddEduFormValues} from './FormEducations';
 import {EducationQuestionsFormValues} from '../EducationQuestionsForm';
 interface Edu {
-	questions: IQuestionQuestion[];
+	questions: IQuestionQuestion[] | undefined;
 	formData: EducationQuestionsFormValues;
-	handleAddEdu: () => void;
+	handleAddEdu: (eduData: AddEduFormValues) => void;
 }
 const Bakalavr = ({questions, formData, handleAddEdu}: Edu) => {
 	return (

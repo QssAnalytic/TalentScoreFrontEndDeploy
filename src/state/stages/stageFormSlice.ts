@@ -3,12 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { GeneralQuestionsFormValues } from "../../components/Stages/Education/GeneralQuestionsForm";
 import { EducationQuestionsFormValues } from "../../components/Stages/Education/EducationQuestionsForm";
 import { OlympiadQuestionsFormValues } from "../../components/Stages/Education/OlympiadQuestionsForm";
-import { LanguangeQuestionsFormValues } from "../../components/Stages/Languange/LanguageQuestionsForm";
+import { LanguageQuestionsFormValues } from "../../components/Stages/Languange/LanguageQuestionsForm";
 import { SpecialSkillsFormValues } from "../../components/Stages/SpecialSkills/SpecialSkillsQuestionsForm";
 import { SportFormValues } from "../../components/Stages/Sport/SportQuestionsForm";
 import { ProgramSkillsValues } from "../../components/Stages/ProgramSkills/ProgramSkillsQuestionsForm";
-import { OptionalLanguangeQuestionsFormValues } from "../../components/Stages/Languange/OptionalLanguangeQuestionsForm";
 import { JobExperienceValues } from "../../components/Stages/JobExperience/JobExperienceForm";
+
 export interface IInitialState<T> {
   name: string;
   formData: T;
@@ -18,11 +18,10 @@ type FormDataTypes =
   | GeneralQuestionsFormValues
   | EducationQuestionsFormValues
   | OlympiadQuestionsFormValues
-  | LanguangeQuestionsFormValues
+  | LanguageQuestionsFormValues
   | SpecialSkillsFormValues
   | ProgramSkillsValues
   | SportFormValues
-  | OptionalLanguangeQuestionsFormValues
   | JobExperienceValues;
 
 const initialState = [] as IInitialState<FormDataTypes>[];

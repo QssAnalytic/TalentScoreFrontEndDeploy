@@ -78,7 +78,7 @@ const GeneralQuestionsForm = ({
   useEffect(() => {
     const subscription = watch((value) => {
       console.log(value);
-      dispatch(addTehsil(value.education.answer))
+      dispatch(addTehsil(value.education!.answer))
       dispatch(
         updateStageForm({
           name: subStageSlug,

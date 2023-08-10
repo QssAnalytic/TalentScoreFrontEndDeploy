@@ -161,12 +161,14 @@ const ProgramSkills = ({
                         {lang + " " + questions?.[2]?.question_title}*
                       </label>
                       <div className="flex gap-5">
-               
-                            <Radio
+                         
+                              <Radio
                               options={questions?.[2]?.answers}
-                              value={watch(lang)}
+                              value={watch()?.lang}
                               register={register(lang)}
                             />
+                        
+                           
                     
                       </div>
                     </div>

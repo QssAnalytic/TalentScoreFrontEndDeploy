@@ -13,7 +13,7 @@ import SportForm2 from "./Stages/Sport/ProLevelList";
 import ProgramSkills from "./Stages/ProgramSkills/ProgramSkillsQuestionsForm";
 import JobExperienceForm from "./Stages/JobExperience/JobExperienceForm";
 import SpecialSkillsCertifcateQuestionsForm from "./Stages/SpecialSkills/SpecialSkillsCertifcateQuestionsForm";
-
+import { number } from "yup";
 
 const Stage = () => {
   const { data, error, isLoading } = useGetStageQuery();
@@ -59,6 +59,7 @@ const Stage = () => {
       case "umumi-suallar":
         return (
           <GeneralQuestionsForm
+            
             stageIndex={stageIndex}
             subStageSlug={subStageSlug || ""} num={0}          />
         );
