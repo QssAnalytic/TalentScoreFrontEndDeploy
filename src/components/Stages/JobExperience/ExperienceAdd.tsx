@@ -22,11 +22,11 @@ type ExperienceAdd = {
 
 const schema = yup.object({
   id: yup.string(),
-  haveExperience: yup.string().required(),
+  haveExperience: yup.object({answer:yup.string().required(),weight:yup.string().required()}).required(),
   company: yup.string().required(),
   profession: yup.string().required(),
-  workingActivityForm: yup.object({ id: yup.number(), answer: yup.string() }),
-  degreeOfProfes: yup.object({ id: yup.number(), answer: yup.string() }),
+  workingActivityForm: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+  degreeOfProfes: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
   startDate: yup.string().required(),
   endDate: yup.string(),
   currentWorking: yup.boolean(),
@@ -109,13 +109,13 @@ const ExperienceAdd = ({
               label={data?.[2]?.question_title}
               options={data?.[2].answers}
               register={inputProps[3].register}
-              value={watch()?.workingActivityForm?.answer}
+              value={watch()?.workingActivityForm}
             />
             <Select
               label={data?.[6]?.question_title}
               options={data?.[6].answers}
               register={inputProps[4].register}
-              value={watch()?.degreeOfProfes?.answer}
+              value={watch()?.degreeOfProfes}
             />
           </div>
           <div className="flex gap-2.5">

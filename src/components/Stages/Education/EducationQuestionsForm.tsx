@@ -23,6 +23,7 @@ import * as yup from "yup";
 import EducationAdd from "./components/EducationAdd";
 import { AddEduFormValues } from "./components/FormEducations";
 import Educations from "./components/Educations";
+import { addData } from "state/dataSlice";
 
 const schema = yup.object({
   education: yup.array().required(),
@@ -134,6 +135,8 @@ const EducationQuestionsForm = ({
     // setIsAdding(false);
   }
 
+console.log(page);
+
   
   return (
     <form
@@ -154,7 +157,7 @@ const EducationQuestionsForm = ({
         }}
         type="outline"
         label="Geri"
-        disabled={formData?.education?.length!==0?true:false}
+        disabled={formData?.education?.length!==0 || page!==1?true:false}
         className="absolute left-0 -bottom-20"
       />
 

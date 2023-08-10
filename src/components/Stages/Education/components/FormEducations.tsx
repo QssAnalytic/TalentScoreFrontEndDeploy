@@ -24,19 +24,58 @@ interface RootState {
     elave:boolean
   };
 }
-
+interface Copy {
+  id:number,
+  country?: string|undefined,
+  university?: string|undefined,
+  specialty: any,
+  local:any,
+  tehsil:any,
+  date: any,
+  criterian:any,
+  criteria?: {
+    criterion_type?:any,
+    lokal_test?:any,
+    application?:[
+      {
+        application_type:string,
+        score?:string
+      },
+      {
+        application_type:string,
+        language_type:[
+          {
+            language_name:string,
+            language_score?:string
+          },
+          {
+              language_name:string,
+              language_score?:string     
+          }
+        ]
+      },
+      {
+        application_type:string,
+        score?:string
+      },
+      {
+        other_test:any
+      } 
+    ]
+  },
+}
 const schema = yup
   .object({
-    id: yup.string().required(),
-    tehsil:yup.object({ answer: yup.string().required(), weight: yup.string().required() }),
+    id: yup.number().required(),
+    tehsil:yup.object({ answer: yup.string(), weight: yup.string() }),
     country: yup.string(),
     university: yup.string(),
     specialty: yup.object({ answer: yup.string().required(), weight: yup.string().required() }),
     date: yup.object({ start: yup.string(), end: yup.string() }),
-    criteria: yup.object({
+    criterian: yup.object({
       answer: yup.string().required(),
       weight:yup.string().required()
-    }).required(),
+    }),
     local: yup.object({
       examName: yup.string(),
       score: yup.string(),
@@ -59,7 +98,7 @@ type EducationAdd = {
   name:string,
   questions:IQuestionQuestion[] |undefined,
   formData:EducationQuestionsFormValues,
-  handleAddEdu: () => void
+  handleAddEdu: (eduData:AddEduFormValues) => void
 };
 const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => {
   const {
@@ -71,13 +110,13 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
     formState: { errors },
   } = useForm<AddEduFormValues>({
     defaultValues:{
-      id:"",
+      id:0,
       tehsil:{answer:"", weight:""},
       country: "",
       university:"",
       specialty: {answer:"", weight:""},
       date:{start:"",end:""},
-      criteria: {answer:"",weight:""},
+      criterian: {answer:"",weight:""},
       local: {examName:"",score:"",maxScore:""},
       Att: "",
       SAT:"",
@@ -99,14 +138,17 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
   const tehsil= useSelector((state: RootState) => state.dataa.tehsil);
   const elave= useSelector((state: RootState) => state.dataa.elave);
   const [ count,setCount] = useState(0)
-  const copy = {
+  const copy:Copy = {
     id:formData.education.length+1,
     country: watch().country,
     university: watch().university,
     specialty: watch().specialty,
     date: watch().date,
+    local:undefined,
+    tehsil:undefined,
+    criterian:undefined,
     criteria: {
-      criterion_type:watch().criteria,
+      criterion_type:watch().criterian,
       lokal_test:watch().local,
       application:[
         {
@@ -142,7 +184,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
   const handleDelete =useCallback((elem:any)=>{
     const copyy  = watch("application")?.indexOf(elem)
     if (copyy !==-1) {
-      watch("application")?.splice(copyy,1)
+      watch("application")?.splice(copyy as number,1)
     }
 
     setCount(count+1)
@@ -162,6 +204,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
 
   }
 
+  console.log(watch());
   
   return (
     <div className="h-[460px] overflow-y-scroll">
@@ -235,12 +278,12 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         <label className="mt-5">{questions?.[4]?.question_title}</label>
         <div className="flex items-center justify-between mt-3 mb-3">
             
-                    <Radio value={watch().criteria}  options={questions?.[4]?.answers}  register={register("criteria")}/>
+                    <Radio value={watch().criterian}  options={questions?.[4]?.answers}  register={register("criterian")}/>
 
             
         </div>
         {
-          watch()?.criteria?.answer === 'Lokal imtahan'?
+          watch()?.criterian?.answer === 'Lokal imtahan'?
             <div>
                 <label>
         {questions?.[5]?.question_title}
@@ -266,7 +309,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
           :null
         }
         {
-          watch()?.criteria?.answer === 'Müraciyyət'?
+          watch()?.criterian?.answer === 'Müraciyyət'?
             <div>
                <label>{questions?.[6]?.question_title}</label>
         <div className="flex">
@@ -285,7 +328,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
           :null
         }
        {
-        watch()?.criteria?.answer ==='Hər ikisi'?
+        watch()?.criterian?.answer ==='Hər ikisi'?
         <div>
             <label>
         {questions?.[5]?.question_title}
@@ -325,7 +368,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         :null
        }
        {
-        watch()?.criteria?.answer ==='Hər ikisi' || watch()?.criteria?.answer === 'Müraciyyət'?
+        watch()?.criterian?.answer ==='Hər ikisi' || watch()?.criterian?.answer === 'Müraciyyət'?
         <div>
           {
             watch("application")?.map((elem,index)=>(

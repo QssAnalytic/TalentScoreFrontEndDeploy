@@ -13,17 +13,14 @@ import SelectMult from "components/SelectMult";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
 export type SpecialSkillsFormValues = {
-  haveSpecialSkills: string;
+  haveSpecialSkills: {answer:string,weight:string};
   specialSkills: string[];
   levelSkill: string;
   certSkill: "";
 };
 
 
-const levels = [
-  { answer_title: "Həvəskar", id: 0 },
-  { answer_title: "Peşəkar", id: 1 },
-];
+
 
 const SpecialSkillsForm = ({
   stageIndex,
@@ -70,7 +67,7 @@ const SpecialSkillsForm = ({
     SpecialSkillsFormValues | any
   >({
     defaultValues: {
-      haveSpecialSkills: "",
+      haveSpecialSkills: {},
       specialSkills: [],
       levelSkill: "",
       certSkill: "",
@@ -108,7 +105,7 @@ const SpecialSkillsForm = ({
     { register: register("certSkill") },
   ];
 
-console.log(watch());
+
 
   return (
     <form
@@ -175,7 +172,7 @@ console.log(watch());
                       <div className="flex  w-full justify-between">
                         
                           <Radio          
-                            options={levels}
+                            options={questions?.[2]?.answers}
                             value={watch(item)}
                             register={register(item)}
                           />

@@ -34,6 +34,7 @@ const Educations = ({formData,setValue}:Edu)=> {
     const handleDelete =(id:number)=>{
 		dispatch(addPop(true))
 		setId(id)
+
        
 	}; 
 	if (remove===true) {
@@ -42,6 +43,7 @@ const Educations = ({formData,setValue}:Edu)=> {
 			
 		);
 		setValue('education',copy)
+
 		dispatch(addRemove(false))
 	}
 	

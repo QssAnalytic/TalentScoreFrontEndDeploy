@@ -234,7 +234,7 @@ const LanguageQuestionsForm = ({
                   </div>
                   <div className="border-r">
                     <div className="level p-2.5">
-                      {lang.langLevel?.substring(0, 2)}
+                      {lang.langLevel?.answer?.substring(0, 2)}
                     </div>
                   </div>
                   <div className="w-48">
