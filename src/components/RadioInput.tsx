@@ -5,8 +5,8 @@ import { IAnswer, ISelectedValue } from "types";
 interface IRadioProps {
   options?: IAnswer[];
   label?: string;
-  register?: any;
-  value?: ISelectedValue;
+  register: any;
+  value: ISelectedValue;
 }
 
 const Radio = ({ options, label, register, value }: IRadioProps) => {

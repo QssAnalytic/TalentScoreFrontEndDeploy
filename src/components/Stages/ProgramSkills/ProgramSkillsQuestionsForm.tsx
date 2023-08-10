@@ -12,17 +12,20 @@ import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
 import { setShowReport } from "../../../state/report/reportSlice";
 import SelectMult from "components/SelectMult";
+import { ISelectedValue } from "types";
 
-export type ProgramSkillsValues = {
-  haveProgramSkills: string;
-  whichProgram: string[];
-  whichScore: string[];
-  whichLevel: { answer: number; weight: string };
-  whichLang: { id: number; answer: string };
-  msOffice: string[];
-  programs: string[];
-  design: string[];
-};
+export type ProgramSkillsValues =
+  | {
+      haveProgramSkills: string;
+      whichProgram: string[];
+      whichScore: string[];
+      whichLevel: { answer: number; weight: string };
+      whichLang: { id: number; answer: string };
+      msOffice: string[];
+      programs: string[];
+      design: string[];
+    }
+  | Partial<Record<string, ISelectedValue | any>>;
 
 const ProgramSkills = ({
   stageIndex,
@@ -75,7 +78,8 @@ const ProgramSkills = ({
         whichLang: { id: 0, answer: "" },
         msOffice: [],
         programs: [],
-        design: [],
+        
+        
       },
     }
   );
@@ -112,7 +116,9 @@ const ProgramSkills = ({
     { register: register(`whichLevel`) },
   ];
 
-  console.log(formData);
+  console.log(watch());
+  console.log(questions);
+  
 
   return (
     <form
@@ -155,7 +161,7 @@ const ProgramSkills = ({
                   placeholder="Select Programs"
                 />
                 {formData.msOffice.length > 0 &&
-                  formData?.msOffice?.map((lang, index) => (
+                  formData?.msOffice?.map((lang:any, index:any) => (
                     <div key={index} className="space-y-2">
                       <label className="pl-2">
                         {lang + " " + questions?.[2]?.question_title}*
@@ -164,7 +170,7 @@ const ProgramSkills = ({
                          
                               <Radio
                               options={questions?.[2]?.answers}
-                              value={watch()?.lang}
+                              value={watch(lang)}
                               register={register(lang)}
                             />
                         
@@ -185,7 +191,7 @@ const ProgramSkills = ({
                   placeholder="Select Programs"
                 />
                 {formData.programs.length > 0 &&
-                  formData?.programs?.map((lang, index) => (
+                  formData?.programs?.map((lang:any, index:any) => (
                     <div key={index} className="space-y-2">
                       <label className="pl-2">
                         {lang + " " + questions?.[2]?.question_title}*
@@ -208,28 +214,7 @@ const ProgramSkills = ({
                 register={inputProps[3].register}
                 value={formData?.whichLang?.answer}
               /> */}
-                {formData.whichLang.answer && (
-                  <div className="space-y-2">
-                    <label className="pl-2">
-                      {formData.whichLang.answer +
-                        " " +
-                        questions?.[4]?.question_title}
-                      *
-                    </label>
-                    <div className="flex gap-5">
-                      {questions?.[4]?.answers?.map(
-                        ({ answer_title, id }, idx) => (
-                          <Radio
-                            key={id}
-                            label={answer_title}
-                            value={idx}
-                            register={inputProps[4].register}
-                          />
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
+               
               </>
             )}
 
@@ -243,7 +228,7 @@ const ProgramSkills = ({
                   placeholder="Select Programs"
                 />
                 {formData.design.length > 0 &&
-                  formData?.design?.map((lang, index) => (
+                  formData?.design?.map((lang:any, index:any) => (
                     <div key={index} className="space-y-2">
                       <label className="pl-2">
                         {lang + " " + questions?.[2]?.question_title}*
@@ -265,28 +250,7 @@ const ProgramSkills = ({
                 register={inputProps[3].register}
                 value={formData?.whichLang?.answer}
               /> */}
-                {formData.whichLang.answer && (
-                  <div className="space-y-2">
-                    <label className="pl-2">
-                      {formData.whichLang.answer +
-                        " " +
-                        questions?.[4]?.question_title}
-                      *
-                    </label>
-                    <div className="flex gap-5">
-                      {questions?.[4]?.answers?.map(
-                        ({ answer_title, id }, idx) => (
-                          <Radio
-                            key={id}
-                            label={answer_title}
-                            value={idx}
-                            register={inputProps[4].register}
-                          />
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
+                
               </>
             )}
           </div>
