@@ -154,7 +154,7 @@ const EducationQuestionsForm = ({
         }}
         type="outline"
         label="Geri"
-        disabled={formData?.education?.length!==0?true:false}
+        disabled={formData?.education?.length!==0 || page!==1?true:false}
         className="absolute left-0 -bottom-20"
       />
 
