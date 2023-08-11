@@ -78,7 +78,7 @@ const ProgramSkills = ({
         whichLang: { id: 0, answer: "" },
         msOffice: [],
         programs: [],
-        
+        design:[]
         
       },
     }
@@ -116,8 +116,7 @@ const ProgramSkills = ({
     { register: register(`whichLevel`) },
   ];
 
-  console.log(watch());
-  console.log(questions);
+  console.log(formData);
   
 
   return (
