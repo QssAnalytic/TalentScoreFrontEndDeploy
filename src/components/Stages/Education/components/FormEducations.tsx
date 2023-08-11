@@ -88,7 +88,7 @@ const schema = yup
       maxScore: yup.string(),}).optional(),
   ielts:yup.string(),
   toefl:yup.string(),
-  
+  currentWorking:yup.boolean(),
     application: yup.array()
   })
   .required();
@@ -132,6 +132,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
   
   const [other,setOther] = useState(false)
   const dispatch: Dispatch = useDispatch();
+  const [end,setEnd] = useState(false)
   const onSubmit = handleSubmit((data) => {
     console.log(data);
   });
@@ -205,7 +206,10 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
   }
 
   console.log(watch());
-  
+  const handleEndDate = ()=>{
+      setEnd(!end)
+      setValue("date.end","Hazırda çalışıram")
+  }
   return (
     <div className="h-[460px] overflow-y-scroll">
       {
@@ -273,8 +277,17 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         label={tehsil==="Peşə təhsili"?"Kolleci bitirmə tarixi ":"Universiteti  bitirmə tarixi"}
         type="date"
         register={register("date.end")}
+        disabled={end===true?true:false}
         />
         </div>
+        <div className="flex w-full justify-end">   
+      <label className="self-end">
+            Hal hazırda çalışıram{" "}
+            <input
+              type="checkbox"
+              onClick={handleEndDate}
+            />
+          </label></div>
         <label className="mt-5">{questions?.[4]?.question_title}</label>
         <div className="flex items-center justify-between mt-3 mb-3">
             
@@ -376,7 +389,9 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
                  <div className={` border rounded-xl p-5 mt-5 `}>
               <div className="flex justify-between  mb-3">
                 <label><span style={{color:'#038477'}}>{elem}</span> üzrə, nəticəni qeyd edin</label>
-                <Icon icon="flat-color-icons:cancel"  onClick={()=> handleDelete(elem)} />
+                <Icon
+          icon="typcn:delete-outline"
+          className="cursor-pointer text-2xl text-[#EE4A4A]/75 hover:text-[#EE4A4A]" onClick={()=> handleDelete(elem)} />
               </div>
               {
                 elem==='Language test (IELTS TOEFL)'?
@@ -398,7 +413,9 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         other? <div className="border rounded-xl p-5 mt-5">
         <div className="flex justify-between  mb-3">
             <label>Seçdiyiniz imtahanın adını,balınızı və max.bal qeyd edin</label>
-            <Icon icon="flat-color-icons:cancel" onClick={()=> setOther(false)} />
+            <Icon
+          icon="typcn:delete-outline"
+          className="cursor-pointer text-2xl text-[#EE4A4A]/75 hover:text-[#EE4A4A]" onClick={()=> setOther(false)} />
         </div>
         <div className="flex gap-3">        
         <div className="w-3/4">
