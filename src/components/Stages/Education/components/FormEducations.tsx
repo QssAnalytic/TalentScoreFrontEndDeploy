@@ -411,7 +411,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
 </div>:null
        }
        <div className="w-full flex items-center justify-center mt-5">
-         <button onClick={handleClick} className="border p-2 rounded-full px-5 items-center bg-qss-input flex">Yadda saxla <Icon icon="ic:round-done" className="text-xl" /></button>
+         <button onClick={handleClick} className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-5 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500">Yadda saxla <Icon icon="tabler:check" className="text-white" style={{fontSize:"25px"}}/></button>
        </div>
         
     </div>

@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Radio from "../../../components/RadioInput";
 import TextInput from "../../../components/TextInput";
-import ok from "../../../assets/ok.svg";
+import { Icon } from '@iconify/react';
 import DateInput from "../../DateInput";
 type ExperienceAdd = {
   data: IQuestionQuestion[] | undefined;
@@ -140,12 +140,12 @@ const ExperienceAdd = ({
             />
           </label>
           <button
-            className="save py-2 px-4 w-40 h-10 rounded-2xl flex justify-evenly self-center"
+            className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-2 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500"
             type="button"
             onClick={handleClick}
           >
             <span> Yadda saxla </span>
-            <img src={ok} alt="ok" />
+            <Icon icon="tabler:check" className="text-white" style={{fontSize:"25px"}}/>
           </button>
           {!displayRadio && (
             <button

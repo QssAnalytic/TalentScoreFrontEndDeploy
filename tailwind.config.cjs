@@ -14,6 +14,7 @@ module.exports = {
 			},
 			colors: {
 				qss: {
+					saveBtn: '#103557',
 					primary: '#103557',
 					white: '#FFFFFF',
 					secondary: '#038477',
