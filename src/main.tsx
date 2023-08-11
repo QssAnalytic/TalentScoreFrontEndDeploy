@@ -1,15 +1,41 @@
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./state/store";
-import { StrictMode } from "react";
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import {store} from './state/store';
+import {Children} from 'react';
+import Landing from 'pages/Landing/Landing';
+import Login from 'pages/Auth/Login/Login';
+import Register from 'pages/Auth/Register/Register';
+import Stages from 'pages/Stages';
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <App />,
+		children: [
+			{
+				path: '/',
+				element: <Landing />
+			},
+			{
+				path: '/login',
+				element: <Login />
+			},
+			{
+				path: '/register',
+				element: <Register />
+			},
+			{
+				path: '/stages/:stageSlug/:subStageSlug',
+				element: <Stages />
+			}
+		]
+	}
+]);
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+	<Provider store={store}>
+		<RouterProvider router={router} />
+	</Provider>
 );
