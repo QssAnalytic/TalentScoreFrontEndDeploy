@@ -18,6 +18,7 @@ import { Dispatch } from 'redux';
 import { addData, addElave, addTehsilPage } from "state/dataSlice";
 import { EducationQuestionsFormValues } from '../EducationQuestionsForm';
 import { IQuestionQuestion } from "types";
+import SelectSearch from "components/SelectSearch";
 interface RootState {
   dataa: {
     tehsil:string,
@@ -26,7 +27,7 @@ interface RootState {
 }
 interface Copy {
   id:number,
-  country?: string|undefined,
+  country: any,
   university?: string|undefined,
   specialty: any,
   local:any,
@@ -68,7 +69,7 @@ const schema = yup
   .object({
     id: yup.number().required(),
     tehsil:yup.object({ answer: yup.string(), weight: yup.string() }),
-    country: yup.string(),
+    country: yup.object({ answer: yup.string().required(), weight: yup.string().required() }),
     university: yup.string(),
     specialty: yup.object({ answer: yup.string().required(), weight: yup.string().required() }),
     date: yup.object({ start: yup.string(), end: yup.string() }),
@@ -112,7 +113,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
     defaultValues:{
       id:0,
       tehsil:{answer:"", weight:""},
-      country: "",
+      country: {answer:"", weight:""},
       university:"",
       specialty: {answer:"", weight:""},
       date:{start:"",end:""},
@@ -190,7 +191,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
 
     setCount(count+1)
   },[count])
-  console.log(tehsil,name);
+  console.log(questions);
   
   const handleClick=()=>{
     if (tehsil!==name) {
@@ -243,9 +244,10 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
       }
       <div className="mb-5 mt-3">
         <label><span style={{color:'#038477'}}>{elave===true? watch("tehsil").answer:name}-</span>{ `${questions?.[0]?.question_title}`}</label>
-        <TextInput
-          placeholder="Ölkə"
-          value={watch().country}
+        <SelectSearch
+        label=""
+          options={questions?.[0]?.answers}
+          value={watch("country")}
           register={register("country")}
           />
       </div>
