@@ -26,9 +26,10 @@ const Stage = () => {
 
   const stageIndex = useMemo(
     () => data?.findIndex(({ stage_name }) => stageName === stage_name),
-    [data, stageName]
+    [data, stageName,progress]
   );
-
+    
+    
   const subStageIndex = useMemo(
     () =>
       data?.[stageIndex || 0]?.stage_children?.findIndex(
@@ -153,7 +154,7 @@ const Stage = () => {
                 : subStageName}
             </span>
           </h1>
-          <ProgressBar progress={progress} subStageIndex={subStageIndex} />
+          <ProgressBar progress={progress} subStageIndex={subStageIndex} stageIndex={stageIndex}/>
 
           {getSubStageForm()}
         </div>
