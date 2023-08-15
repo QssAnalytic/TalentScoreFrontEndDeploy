@@ -23,7 +23,7 @@ interface RootState {
 }
 const schema = yup.object({
   languageSkills: yup.array().required(),
-  haveLanguageSkills: yup.object().required()
+  haveLanguageSkills: yup.object({answer:yup.string().required(),weight:yup.string().required()}).required()
 });
 
 export type LanguageQuestionsFormValues = yup.InferType<typeof schema>;
@@ -74,7 +74,7 @@ const LanguageQuestionsForm = ({
       resolver: yupResolver(schema),
       defaultValues: {
         languageSkills: [],
-        haveLanguageSkills: {}
+        haveLanguageSkills: {answer:'',weight:''}
       },
     });
 

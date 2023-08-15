@@ -13,7 +13,7 @@ import SelectMult from "components/SelectMult";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
 export type SpecialSkillsFormValues = {
-  haveSpecialSkills: string;
+  haveSpecialSkills: {answer:string,weight:string};
   specialSkills: string[];
   levelSkill: string;
   certSkill: "";
@@ -67,7 +67,7 @@ const SpecialSkillsForm = ({
     SpecialSkillsFormValues | any
   >({
     defaultValues: {
-      haveSpecialSkills: {},
+      haveSpecialSkills: {answer:"",weight:''},
       specialSkills: [],
       levelSkill: "",
       certSkill: "",
