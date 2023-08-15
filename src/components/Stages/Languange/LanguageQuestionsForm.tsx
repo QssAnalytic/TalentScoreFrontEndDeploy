@@ -15,15 +15,17 @@ import { Icon } from "@iconify/react";
 import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
-import { addPop, addRemove } from "state/dataSlice";
-const schema = yup.object({
-  languageSkills: yup.array().required(),
-});
+import { addRemove,addPop } from "state/dataSlice";
 interface RootState {
 	dataa: {
 		removeFunc: boolean;
 	};
 }
+const schema = yup.object({
+  languageSkills: yup.array().required(),
+  haveLanguageSkills: yup.object().required()
+});
+
 export type LanguageQuestionsFormValues = yup.InferType<typeof schema>;
 
 const LanguageQuestionsForm = ({
@@ -58,7 +60,8 @@ const LanguageQuestionsForm = ({
     error: questionsError,
     isLoading,
   } = useGetQuestionsQuery(subSlugName);
-
+  const remove = useSelector((state: RootState) => state.dataa.removeFunc);
+	const [idd,setId] = useState(0)
   const dispatch = useAppDispatch();
 
   const { formData } =
@@ -66,19 +69,19 @@ const LanguageQuestionsForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: LanguageQuestionsFormValues }) || {};
 
-  const { register, handleSubmit, watch, reset, setValue } =
+  const { register, handleSubmit, watch, reset: ParentReset, setValue } =
     useForm<LanguageQuestionsFormValues>({
       resolver: yupResolver(schema),
       defaultValues: {
         languageSkills: [],
+        haveLanguageSkills: {}
       },
     });
 
   const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {
     console.log(data);
   };
-  const remove = useSelector((state: RootState) => state.dataa.removeFunc);
-	const [idd,setId] = useState(0)
+
   const [isAdding, setIsAdding] = useState(true);
   const [isEditing, setIsEditing] = useState<{
     edit: boolean;
@@ -86,16 +89,14 @@ const LanguageQuestionsForm = ({
   }>({ edit: false });
   const [displayListButton, setDisplayListButton] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [chooseLang, setChooseLang] = useState(false);
+  const [chooseLang, setChooseLang] = useState(true);
 
   const handleAdd = (lang: LanguageQuestionsFormValues) => {
     const data = formData?.languageSkills;
     setValue("languageSkills", [...data, lang]);
     setIsAdding(false);
   };
- 
 
-  
   const handleRemove = (landIndex: number) => {
     dispatch(addPop(true))
 		setId(landIndex)
@@ -132,7 +133,7 @@ const LanguageQuestionsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
+      // console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -141,7 +142,7 @@ const LanguageQuestionsForm = ({
       );
     });
 
-    reset(formData);
+    ParentReset(formData);
 
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
@@ -150,47 +151,43 @@ const LanguageQuestionsForm = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
-  console.log(formData);
-  
+
+  console.log(watch('haveLanguageSkills'));
+
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="mt-5 flex-col flex gap-5 h-[460px] overflow-y-auto overflow-hidden"
     >
-      {chooseLang === false ? (
+      {isAdding ? (
         <>
-          <h3 className="pl-2">Əlavə xarici dil biliklərinizi qeyd edin</h3>
-          <div className=" flex items-center">
-            <button
-              className="add py-2 px-4 w-full rounded-full flex justify-center items-center"
-              type="button"
-              onClick={() => {
-                setChooseLang(true);
-              }}
-            >
-              Əlavə et +
-            </button>
-            <div className="space-y-2">
-              <div className="flex gap-5 w-48 py-2 px-4 -mt-3">
-                <Radio
-                  value={{ answer: "Yoxdur", weight: "" }}
-                  register={"nese"}
-                  options={[{answer_title:"Yoxdur", answer_dependens_on:null,answer_weight:null,id:123,stage_fit:""}]}
-           
-                />
-              </div>
-            </div>
+          <h3 className="pl-2">{questions?.[1].question_title}</h3>
+          <div className="flex items-center relative">
+            <LanguageAdd
+              data={questions}
+              addLang={handleAdd}
+              setChooseLang={setChooseLang}
+              isAdding={isAdding}
+              setIsAdding={setIsAdding}
+              displayListButton={displayListButton}
+              formData={formData}
+              parentReset={ParentReset}
+            />
+            {
+              formData?.languageSkills?.length === 0 &&
+              (<div className="">
+                <div className="flex gap-5 w-48 py-2 px-4">
+                  <Radio
+                    value={watch('haveLanguageSkills')}
+                    register={register('haveLanguageSkills')}
+                    options={questions?.[0].answers}
+                  />
+                </div>
+              </div>)
+            }
           </div>
         </>
-      ) : isAdding ? (
-        <LanguageAdd
-          data={questions}
-          addLang={handleAdd}
-          setChooseLang={setChooseLang}
-          isAdding={isAdding}
-          setIsAdding={setIsAdding}
-          displayListButton={displayListButton}
-        />
       ) : isEditing.edit ? (
         <LanguageAdd
           data={questions}
@@ -220,7 +217,7 @@ const LanguageQuestionsForm = ({
             <span>Sertifikat</span>
           </div>
           <ul>
-            {formData?.languageSkills.map(
+            {formData?.languageSkills?.map(
               (lang: AddLangFormValues, index: number) => (
                 <li
                   key={index}
@@ -277,8 +274,8 @@ const LanguageQuestionsForm = ({
                           alt="remove"
                           onClick={() => {
                            
-                              handleRemove(index);
-                          }}
+                            handleRemove(index);
+                        }}
                         />
                       </div>
                     </div>

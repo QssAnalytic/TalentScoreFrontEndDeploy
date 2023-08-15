@@ -86,15 +86,15 @@ const SelectSearch = ({
           )}
         </Listbox.Button>
         <Listbox.Options className="absolute z-10 min-h-full max-h-40 overflow-y-auto top-10 bg-qss-input ml-4 rounded w-full max-w-[245px] text-qss-inputText text-sm">
-            <div className="flex items-center text-2xl pl-3">
+            <div className="flex items-center text-2xl pl-2 bg-qss-input">
             <Icon icon="mdi:search" style={{color:'#7D7D7D'}}/>
-            <input className="w-full relative focus:outline-none rounded-lg border-none  px-3 py-2" onChange={handlechange} placeholder="Axtarın..."/>
+            <input className="w-full relative focus:outline-none rounded-lg border-none  px-3 py-2 " onChange={handlechange} placeholder="Axtarın..."/>
 
             </div>
           {search(datas)?.map((item:any,index:any) => (
             <Listbox.Option
               key={index}
-              className="px-4 py-2.5 flex items-center justify-between group hover:bg-qss-base-400 cursor-pointer hover:text-qss-secondary hover:font-medium"
+              className=" px-4 py-2.5 flex items-center justify-between group hover:bg-qss-base-400 cursor-pointer hover:text-qss-secondary hover:font-medium"
               value={{ answer: item.answer_title, weight: item.answer_weight }}
                onClick={handleClick}>
               <>

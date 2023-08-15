@@ -13,7 +13,7 @@ import SelectMult from "components/SelectMult";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
 export type SpecialSkillsFormValues = {
-  haveSpecialSkills: {answer:string,weight:string};
+  haveSpecialSkills: string;
   specialSkills: string[];
   levelSkill: string;
   certSkill: "";
@@ -79,7 +79,7 @@ const SpecialSkillsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
+      // console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -87,11 +87,34 @@ const SpecialSkillsForm = ({
         })
       );
     });
-
     reset(formData);
-
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
+  console.log(formData);
+
+  console.log(formData?.haveSpecialSkills);
+  
+  useEffect(() => {
+    if (formData?.haveSpecialSkills?.answer === "Yoxdur") {
+      reset({
+        ...formData,
+        specialSkills: [],
+        levelSkill: "",
+        certSkill: "",
+      })
+    }
+
+  }, [formData?.haveSpecialSkills?.answer])
+
+  useEffect(() => {
+    if (formData?.specialSkills?.length !== 0) {
+      reset({
+        ...formData,
+        haveSpecialSkills: {}
+      })
+    }
+
+  }, [formData?.specialSkills?.length])
 
   if (isLoading) return <div>Loading...</div>;
   if (questionsError) return <div>Error</div>;
@@ -105,8 +128,7 @@ const SpecialSkillsForm = ({
     { register: register("certSkill") },
   ];
 
-
-
+  // console.log(formData);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -114,77 +136,74 @@ const SpecialSkillsForm = ({
     >
       <div className="space-y-7">
         <div className="space-y-2">
-          <label className="pl-2">{questions?.[0]?.question_title}*</label>
-
+          <label className="pl-2">{questions?.[1]?.question_title}*</label>
           <div className="flex gap-5">
-            
+            <div className="w-[70%]">
+              <SelectMult
+                value={formData?.specialSkills}
+                options={questions?.[1]?.answers}
+                register={inputProps[1].register}
+                placeholder={"Xüsusi bacarığını seç"}
+              />
+            </div>
+            {
               <Radio
                 options={questions?.[0]?.answers}
                 value={formData?.haveSpecialSkills}
                 register={inputProps[0].register}
               />
-           
+            }
           </div>
         </div>
 
-        {formData?.haveSpecialSkills?.answer === "Bəli" && (
-          <>
+        <>
+          {formData?.specialSkills?.length > 0 ? (
             <div className="space-y-2 animate-fade-in">
-              <div className="flex gap-5 flex-wrap w-full">
-                <SelectMult
-                  label={`${questions?.[1]?.question_title}*`}
-                  value={formData?.specialSkills}
-                  options={questions?.[1]?.answers}
-                  register={inputProps[1].register}
-                  placeholder={"Xüsusi bacarığını seç"}
-                />
+              <label className="pl-2">
+                {questions?.[2]?.question_title}*
+              </label>
+
+              <div className="flex gap-5 flex-col">
+                {formData?.specialSkills?.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex justify-between animate-fade-in w-full gap-4"
+                  >
+                    <div className="py-2 px-2 gap-1 rounded-full whitespace-nowrap bg-qss-input flex justify-center items-center w-64">
+                      <span className="w-3/4 flex justify-center">
+                        {item}
+                      </span>
+                      <XCircleIcon
+                        onClick={() => {
+                          setValue(
+                            "specialSkills",
+                            formData?.specialSkills?.filter(
+                              (specialSkill) => specialSkill !== item
+                            )
+                          )
+                          setValue(
+                            `${item}`, undefined
+                          )
+                        }
+                        }
+                        className="w-5 h-5 text-red-400 cursor-pointer"
+                      />
+                    </div>
+                    <div className="flex  w-full justify-between">
+
+                      <Radio
+                        options={questions?.[2]?.answers}
+                        value={watch(item)}
+                        register={register(item)}
+                      />
+
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {formData?.specialSkills?.length > 0 ? (
-              <div className="space-y-2 animate-fade-in">
-                <label className="pl-2">
-                  {questions?.[2]?.question_title}*
-                </label>
-
-                <div className="flex gap-5 flex-col">
-                  {formData?.specialSkills?.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex justify-between animate-fade-in w-full gap-4"
-                    >
-                      <div className="py-2 px-2 gap-1 rounded-full whitespace-nowrap bg-qss-input flex justify-center items-center w-64">
-                        <span className="w-3/4 flex justify-center">
-                          {item}
-                        </span>
-                        <XCircleIcon
-                          onClick={() =>
-                            setValue(
-                              "specialSkills",
-                              formData?.specialSkills?.filter(
-                                (specialSkill) => specialSkill !== item
-                              )
-                            )
-                          }
-                          className="w-5 h-5 text-red-400 cursor-pointer"
-                        />
-                      </div>
-                      <div className="flex  w-full justify-between">
-                        
-                          <Radio          
-                            options={questions?.[2]?.answers}
-                            value={watch(item)}
-                            register={register(item)}
-                          />
-                       
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-          </>
-        )}
+          ) : null}
+        </>
       </div>
 
       <LinkButton

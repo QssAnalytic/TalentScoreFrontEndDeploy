@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 
 interface ISelectMult {
   placeholder: string;
-  label: string;
+  label?: string;
   options?: IAnswer[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register?: any;
