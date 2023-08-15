@@ -314,7 +314,7 @@ const LanguageAdd = ({
             <button
               type="button"
               onClick={handleClick}
-              className=" bg-qss-input px-12 py-2.5 items-center gap-1 font-medium text-base flex mt-5 mx-auto rounded-full"
+              className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-5 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500"
             >
               Yadda saxla
               <Icon icon="ic:round-done" className="text-xl" />

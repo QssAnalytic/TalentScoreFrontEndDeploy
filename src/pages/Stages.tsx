@@ -44,7 +44,7 @@ const Stages = () => {
 		}
 	};
 	return (
-		<div className="relative">
+		<div className={`relative ${popUp && 'overflow-hidden'}`}>
 			<PopUp display={popUp === true ? 'block' : 'hidden'} />
 			<Pattern className="absolute left-0 top-0" />
 			<div className="w-[3px] h-[314px] bg-white absolute left-4" />

@@ -79,7 +79,6 @@ const SpecialSkillsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      // console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
