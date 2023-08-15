@@ -336,7 +336,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
             register={register("application")}
             />
             </div>
-            <button className="ms-5  rounded-full "  onClick={()=> setOther(!other)}>Əlavə et +</button>
+            <button className="ms-5  rounded-full bg-qss-input px-[30px] transition duration-500   py-[2px] hover:text-qss-secondary"  onClick={()=> setOther(!other)}>Əlavə et +</button>
         </div>
         
             </div>
@@ -375,7 +375,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
             register={register("application")}
             />
             </div>
-            <button className="ms-5  rounded-full " onClick={()=> setOther(!other)}>Əlavə et +</button>
+            <button className="ms-5  rounded-full bg-qss-input px-[30px] transition duration-500  hover:text-qss-secondary" onClick={()=> setOther(!other)}>Əlavə et +</button>
         </div>
         
         </div>
