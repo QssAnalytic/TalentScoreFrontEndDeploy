@@ -245,6 +245,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
       <div className="mb-5 mt-3">
         <label><span style={{color:'#038477'}}>{elave===true? watch("tehsil").answer:name}-</span>{ `${questions?.[0]?.question_title}`}</label>
         <SelectSearch
+        defaultValue="Ölkə"
         label=""
           options={questions?.[0]?.answers}
           value={watch("country")}
@@ -260,12 +261,13 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         />
       </div>
       <div className="mb-5">
-      <Select
-          label={questions?.[2]?.question_title}
+      <SelectSearch
+        label={questions?.[2]?.question_title}
+        defaultValue="İnformasiya Texnologiyaları"
           options={questions?.[2]?.answers}
-          value={watch().specialty}
+          value={watch("specialty")}
           register={register("specialty")}
-        />
+          />
       </div>
 
 

@@ -95,6 +95,8 @@ const EducationQuestionsForm = ({
 
 
   const questions = questionsData?.[0]?.questions;
+  console.log(questions);
+  
   useEffect(() => {
     const subscription = watch((value) => {
       console.log(value);

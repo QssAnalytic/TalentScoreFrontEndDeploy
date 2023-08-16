@@ -12,13 +12,15 @@ interface ISelect {
   defaultValue?: string;
   onChange?: any;
 }
-
+interface EventTarget {
+  value:string
+}
 const SelectSearch = ({
   label,
   options,
   register,
   value,
-  defaultValue = "Ölkə",
+  defaultValue  ,
   disabled = false,
   onChange,
 }: ISelect) => {
@@ -85,10 +87,15 @@ const SelectSearch = ({
             </Listbox.Label>
           )}
         </Listbox.Button>
-        <Listbox.Options className="absolute z-10 min-h-full max-h-40 overflow-y-auto top-10 bg-qss-input ml-4 rounded w-full max-w-[245px] text-qss-inputText text-sm">
+        <Listbox.Options onKeyDown={(e:any)=> {
+        if(e.key===" "){
+        e.preventDefault() 
+        e.target.value+=' '
+        }
+      }} className="absolute z-10 min-h-full max-h-40 overflow-y-auto top-10 bg-qss-input ml-4 rounded w-full max-w-[245px] text-qss-inputText text-sm">
             <div className="flex items-center text-2xl pl-2 bg-qss-input">
             <Icon icon="mdi:search" style={{color:'#7D7D7D'}}/>
-            <input className="w-full relative focus:outline-none rounded-lg border-none  px-3 py-2 " onChange={handlechange} placeholder="Axtarın..."/>
+            <input    className="w-full relative focus:outline-none rounded-lg border-none  px-3 py-2 " onChange={handlechange} placeholder="Axtarın..."/>
 
             </div>
           {search(datas)?.map((item:any,index:any) => (
