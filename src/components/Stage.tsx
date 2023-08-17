@@ -13,7 +13,7 @@ import SportForm2 from "./Stages/Sport/ProLevelList";
 import ProgramSkills from "./Stages/ProgramSkills/ProgramSkillsQuestionsForm";
 import JobExperienceForm from "./Stages/JobExperience/JobExperienceForm";
 import SpecialSkillsCertifcateQuestionsForm from "./Stages/SpecialSkills/SpecialSkillsCertifcateQuestionsForm";
-import { number } from "yup";
+import ClockLoader from "react-spinners/ClockLoader";
 
 const Stage = () => {
   const { data, error, isLoading } = useGetStageQuery();
@@ -131,7 +131,7 @@ const Stage = () => {
 
   if (isLoading)
     return (
-      <div className="flex items-center w-full justify-center">Loading...</div>
+      <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>
     );
   if (error || stageName === "")
     return <div className="flex items-center w-full justify-center">Error</div>;

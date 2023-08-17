@@ -9,8 +9,7 @@ import LinkButton from "../../LinkButton";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
-import SelectMult from "components/SelectMult";
-import { XCircleIcon } from "@heroicons/react/24/outline";
+import ClockLoader from 'react-spinners/ClockLoader'
 import TextInput from "components/TextInput";
 
 const SpecialSkillsCertifcateQuestionsForm = ({
@@ -82,7 +81,7 @@ const SpecialSkillsCertifcateQuestionsForm = ({
   }, [subStageSlug, watch]);
   console.log(prevFormData);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;

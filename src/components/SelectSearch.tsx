@@ -12,9 +12,6 @@ interface ISelect {
   defaultValue?: string;
   onChange?: any;
 }
-interface EventTarget {
-  value:string
-}
 const SelectSearch = ({
   label,
   options,

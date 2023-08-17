@@ -11,7 +11,7 @@ import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { GeneralQuestionsFormProps } from "./GeneralQuestionsForm";
 import { ISelectedValue } from "types";
-import {useSelector} from 'react-redux';
+import ClockLoader from 'react-spinners/ClockLoader'
 import RadioInput from "../../RadioInput";
 export type OlympiadQuestionsFormValues = {
   wonOlympics: ISelectedValue;
@@ -81,7 +81,7 @@ const OlympiadQuestionsForm = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;

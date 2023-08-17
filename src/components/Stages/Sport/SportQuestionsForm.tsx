@@ -13,9 +13,7 @@ import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
 import { Icon } from "@iconify/react";
 import SelectMult from "../../SelectMult";
 import * as yup from "yup";
-import removeIcon from "../../../assets/Vector.svg";
-import { yupResolver } from "@hookform/resolvers/yup";
-import DetailedSportInfo from "./ProLevelList";
+import ClockLoader from 'react-spinners/ClockLoader'
 import SportLevels from "./components/SportLevels";
 import { ISelectedValue } from "types";
 
@@ -170,7 +168,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     }
   }, [formData?.whichSport?.length])
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
   const selectedLevel = (item: IItem) => {

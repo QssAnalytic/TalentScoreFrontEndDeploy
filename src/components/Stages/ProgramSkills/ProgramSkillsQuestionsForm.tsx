@@ -13,7 +13,7 @@ import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
 import { setShowReport } from "../../../state/report/reportSlice";
 import SelectMult from "components/SelectMult";
 import { ISelectedValue } from "types";
-
+import ClockLoader from 'react-spinners/ClockLoader'
 export type ProgramSkillsValues =
   | {
       haveProgramSkills: string;
@@ -103,7 +103,7 @@ const ProgramSkills = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
@@ -116,7 +116,7 @@ const ProgramSkills = ({
     { register: register(`whichLevel`) },
   ];
 
-  console.log(formData);
+  console.log(questions);
   
 
   return (

@@ -16,6 +16,7 @@ import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 import { addRemove,addPop } from "state/dataSlice";
+import ClockLoader from 'react-spinners/ClockLoader'
 interface RootState {
 	dataa: {
 		removeFunc: boolean;
@@ -147,7 +148,7 @@ const LanguageQuestionsForm = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;

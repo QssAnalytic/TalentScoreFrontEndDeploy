@@ -16,14 +16,12 @@ import {
   GeneralQuestionsFormProps,
   GeneralQuestionsFormValues,
 } from "./GeneralQuestionsForm";
-import Select from "components/Select";
-import { ISelectedValue } from "types";
-
+import ClockLoader from "react-spinners/ClockLoader";
 import * as yup from "yup";
 import EducationAdd from "./components/EducationAdd";
 import { AddEduFormValues } from "./components/FormEducations";
 import Educations from "./components/Educations";
-import { addData } from "state/dataSlice";
+
 
 const schema = yup.object({
   education: yup.array().required(),
@@ -127,7 +125,7 @@ const EducationQuestionsForm = ({
     };
   }, [subStageSlug, watch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
 
