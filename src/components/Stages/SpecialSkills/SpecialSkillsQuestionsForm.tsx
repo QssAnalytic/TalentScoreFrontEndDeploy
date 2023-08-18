@@ -13,14 +13,13 @@ import SelectMult from "components/SelectMult";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import ClockLoader from 'react-spinners/ClockLoader'
 export type SpecialSkillsFormValues = {
-  haveSpecialSkills: {answer:string,weight:string};
+  haveSpecialSkills: { answer: string, weight: string };
   specialSkills: string[];
   levelSkill: string;
   certSkill: "";
+  ameturs: [],
+  professionals: []
 };
-
-
-
 
 const SpecialSkillsForm = ({
   stageIndex,
@@ -29,6 +28,10 @@ const SpecialSkillsForm = ({
   const { data: stagesData } = useGetStageQuery();
 
   const { stage_children } = stagesData?.[stageIndex] || {};
+  const { formData } =
+    (useAppSelector((state) => state.stageForm)?.find(
+      ({ name }) => name === subStageSlug
+    ) as { formData: SpecialSkillsFormValues }) || {};
 
   const {
     slug: nextSlugName,
@@ -58,21 +61,19 @@ const SpecialSkillsForm = ({
 
   const dispatch = useAppDispatch();
 
-  const { formData } =
-    (useAppSelector((state) => state.stageForm)?.find(
-      ({ name }) => name === subStageSlug
-    ) as { formData: SpecialSkillsFormValues }) || {};
+
 
   const { register, handleSubmit, watch, reset, setValue } = useForm<
     SpecialSkillsFormValues | any
   >({
     defaultValues: {
-      haveSpecialSkills: {answer:"",weight:''},
+      haveSpecialSkills: { answer: "", weight: '' },
       specialSkills: [],
       levelSkill: "",
       certSkill: "",
     },
   });
+
 
   const onSubmit: SubmitHandler<SpecialSkillsFormValues> = (data) =>
     console.log(data);
@@ -89,10 +90,7 @@ const SpecialSkillsForm = ({
     reset(formData);
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
-  console.log(formData);
 
-  console.log(formData?.haveSpecialSkills);
-  
   useEffect(() => {
     if (formData?.haveSpecialSkills?.answer === "Yoxdur") {
       reset({
@@ -100,6 +98,10 @@ const SpecialSkillsForm = ({
         specialSkills: [],
         levelSkill: "",
         certSkill: "",
+        Musiqi: undefined,
+        Rəsm: undefined,
+        Rəqs: undefined,
+        Yazıçılıq: undefined
       })
     }
 
@@ -119,6 +121,7 @@ const SpecialSkillsForm = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
+  console.log(formData);
 
   const inputProps = [
     { register: register("haveSpecialSkills") },
@@ -127,7 +130,6 @@ const SpecialSkillsForm = ({
     { register: register("certSkill") },
   ];
 
-  // console.log(formData);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -183,6 +185,8 @@ const SpecialSkillsForm = ({
                           setValue(
                             `${item}`, undefined
                           )
+                          console.log(item);
+
                         }
                         }
                         className="w-5 h-5 text-red-400 cursor-pointer"

@@ -131,7 +131,7 @@ const Stage = () => {
 
   if (isLoading)
     return (
-      <div className="absolute top-[150%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader size={90} color="#038477" /></div>
+      <div className="absolute  top-[150%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader size={90} color="#038477" /></div>
     );
   if (error || stageName === "")
     return <div className="flex items-center w-full justify-center">Error</div>;

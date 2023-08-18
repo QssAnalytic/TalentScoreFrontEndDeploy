@@ -103,22 +103,20 @@ const LanguageAdd = ({
   const handleClick = () => {
     setValue(
       "langLevel",
-      handleLangLevel(watch("engCertResult.answer"), watch("langLevel"))
+      handleLangLevel(watch("engCertResult.answer"))
     );
 
     editLang ? editLang(watch()) : addLang(watch());
   };
+
   const handleLangLevel = (
     engCertResult: string | undefined,
-    langLevel: any
   ) => {
-    console.log(engCertResult);
-
     switch (engCertResult) {
       case "4.0":
       case "4.5-5.0":
       case "32-45":
-        langLevel.answer = "B1";
+        setValue('langLevel', { answer: 'B1 (İlkin orta)', weight: "" })
         break;
       case "5.5":
       case "6.0":
@@ -126,27 +124,24 @@ const LanguageAdd = ({
       case "46-59":
       case "60-78":
       case "70-93":
-        langLevel.answer = "B2";
+        setValue('langLevel', { answer: 'B2 (Orta)', weight: "" })
         break;
       case "7.0-7.5":
       case "94-109":
-        langLevel.answer = "C1";
+        setValue('langLevel', { answer: 'C1 (Üst orta)', weight: "" })
         break;
       case "8.0-9.0":
       case "110-120":
-        langLevel.answer = "C2";
+        setValue('langLevel', { answer: 'C2 (İrəli)', weight: "" })
         break;
       case "31":
-        langLevel.answer = "A2";
+        setValue('langLevel', { answer: 'A2 (Elementar)', weight: "" })
         break;
       default:
-        langLevel.answer;
         break;
     }
-    return langLevel;
+    return watch('langLevel');
   };
-
-
   useEffect(() => {
     if (formData?.haveLanguageSkills?.answer === "Yoxdur") {
       reset()
@@ -157,14 +152,53 @@ const LanguageAdd = ({
     if (watch().language !== undefined && editData === undefined) {
       parentReset({
         ...formData,
-        haveLanguageSkills: {}
+        haveLanguageSkills: { answer: '', weight: '' }
       })
-      console.log(watch('language'));
-
     }
   }, [watch("language")])
 
+  useEffect(() => {
+    if (!editData) {
+      setValue('engCertResult.answer', '')
+    }
 
+    if (editData && watch('engLangCert.answer') !== editData?.engLangCert?.answer) {
+      setValue('engCertResult.answer', '')
+    }
+  }, [watch('engLangCert.answer')])
+
+  useEffect(() => {
+    if (watch('engLangCert.answer') === 'Öz sertifikatın' || watch('engLangCert.answer') === 'Yoxdur') {
+      setValue('engCertResult', { answer: '', weight: '' })
+    }
+
+    if (watch('engLangCert.answer') !== 'Öz sertifikatın' && watch('language.answer') === 'Ingilis dili') {
+      setValue('langCertName', '')
+      setValue('langCertResult', '')
+    }
+    if (watch('language.answer') !== 'Ingilis dili') {
+      setValue('engLangCert', { answer: '', weight: '' })
+      setValue('engCertResult', { answer: '', weight: '' })
+    }
+    if (watch('langCert.answer') === 'Xeyr') {
+      setValue('langCertName', '')
+      setValue('langCertResult', '')
+    }
+    if (editData?.language?.answer !== watch('language.answer') && watch('language.answer') === 'Ingilis dili') {
+      setValue('langLevel.answer', '')
+      setValue('langCert.answer', '')
+    }
+
+    if (editData?.language?.answer !== watch('language.answer') && editData?.language?.answer === "Ingilis dili" && watch('language.answer') !== 'Ingilis dili') {
+      setValue('langCertName', '')
+      setValue('langCertResult', '')
+    }
+
+  }, [watch('language.answer'), watch('langCert.answer'), watch('engLangCert.answer')])
+  console.log(editData);
+
+
+  console.log(watch());
   return (
     <div className="w-full">
       <div>
@@ -238,25 +272,25 @@ const LanguageAdd = ({
                   </div>
                 </div>
                 <div className="space-y-2">
-                  {watch().engLangCert?.answer === "İELTS" && (
+                  {watch('engLangCert')?.answer === "İELTS" && (
                     <>
                       <Select
                         label={data?.[6]?.question_title}
                         options={data?.[6]?.answers}
                         register={inputProps[5].register}
-                        value={watch().engCertResult}
+                        value={watch('engCertResult')}
                       />
                     </>
                   )}
-                  {watch().engLangCert?.answer === "TOEFL" && (
+                  {watch("engLangCert")?.answer === "TOEFL" && (
                     <Select
                       label={data?.[7]?.question_title}
                       options={data?.[7]?.answers}
                       register={inputProps[5].register}
-                      value={watch().engCertResult}
+                      value={watch('engCertResult')}
                     />
                   )}
-                  {watch().engLangCert?.answer === "Öz sertifikatın" && (
+                  {watch("engLangCert")?.answer === "Öz sertifikatın" && (
                     <>
                       <div className="space-y-2">
                         <label className="pl-2">
@@ -314,7 +348,7 @@ const LanguageAdd = ({
             <button
               type="button"
               onClick={handleClick}
-              className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-5 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500"
+              className=" bg-qss-input px-12 py-2.5 items-center gap-1 font-medium text-base flex mt-5 mx-auto rounded-full"
             >
               Yadda saxla
               <Icon icon="ic:round-done" className="text-xl" />

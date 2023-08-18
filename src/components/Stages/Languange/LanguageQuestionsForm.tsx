@@ -15,16 +15,16 @@ import { Icon } from "@iconify/react";
 import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
-import { addRemove,addPop } from "state/dataSlice";
+import { addRemove, addPop } from "state/dataSlice";
 import ClockLoader from 'react-spinners/ClockLoader'
 interface RootState {
-	dataa: {
-		removeFunc: boolean;
-	};
+  dataa: {
+    removeFunc: boolean;
+  };
 }
 const schema = yup.object({
   languageSkills: yup.array().required(),
-  haveLanguageSkills: yup.object({answer:yup.string().required(),weight:yup.string().required()}).required()
+  haveLanguageSkills: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required()
 });
 
 export type LanguageQuestionsFormValues = yup.InferType<typeof schema>;
@@ -62,7 +62,7 @@ const LanguageQuestionsForm = ({
     isLoading,
   } = useGetQuestionsQuery(subSlugName);
   const remove = useSelector((state: RootState) => state.dataa.removeFunc);
-	const [idd,setId] = useState(0)
+  const [idd, setId] = useState(0)
   const dispatch = useAppDispatch();
 
   const { formData } =
@@ -75,7 +75,7 @@ const LanguageQuestionsForm = ({
       resolver: yupResolver(schema),
       defaultValues: {
         languageSkills: [],
-        haveLanguageSkills: {answer:'',weight:''}
+        haveLanguageSkills: { answer: '', weight: '' }
       },
     });
 
@@ -100,17 +100,17 @@ const LanguageQuestionsForm = ({
 
   const handleRemove = (landIndex: number) => {
     dispatch(addPop(true))
-		setId(landIndex)
-   
+    setId(landIndex)
+
   };
-  if (remove===true) {
+  if (remove === true) {
     const filterData = formData?.languageSkills?.filter(
       (_, index) => index !== idd
     );
     formData?.languageSkills.length === 1 && setIsAdding(true);
     setValue("languageSkills", filterData);
-		dispatch(addRemove(false))
-	}
+    dispatch(addRemove(false))
+  }
   const handleEdit = (langIndex: number) => {
     const data = formData?.languageSkills?.[langIndex] as AddLangFormValues;
     setEditingIndex(langIndex);
@@ -148,13 +148,12 @@ const LanguageQuestionsForm = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
-  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
+  if (isLoading) return  <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
+  console.log(formData);
+
 
   const questions = questionsData?.[0]?.questions;
-
-  console.log(watch('haveLanguageSkills'));
-
 
   return (
     <form
@@ -244,7 +243,7 @@ const LanguageQuestionsForm = ({
                           <span> {lang.langCertResult}</span>{" "}
                         </>
                       )}
-                      {lang.engLangCert?.answer === "IELTS" && (
+                      {lang.engLangCert?.answer === "İELTS" && (
                         <p className="w-48">
                           {" "}
                           IELTS {lang.engCertResult?.answer}
@@ -274,9 +273,9 @@ const LanguageQuestionsForm = ({
                           src={removeIcon}
                           alt="remove"
                           onClick={() => {
-                           
+
                             handleRemove(index);
-                        }}
+                          }}
                         />
                       </div>
                     </div>

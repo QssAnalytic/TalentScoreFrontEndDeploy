@@ -16,16 +16,16 @@ import { ISelectedValue } from "types";
 import ClockLoader from 'react-spinners/ClockLoader'
 export type ProgramSkillsValues =
   | {
-      haveProgramSkills: string;
-      whichProgram: string[];
-      whichScore: string[];
-      whichLevel: { answer: number; weight: string };
-      whichLang: { id: number; answer: string };
-      msOffice: string[];
-      programs: string[];
-      design: string[];
-    }
-  | Partial<Record<string, ISelectedValue | any>>;
+    haveProgramSkills: { answer: string, weight: string };
+    whichProgram: string[];
+    whichScore: string[];
+    whichLevel: { answer: number; weight: string };
+    whichLang: { id: number; answer: string };
+    msOffice: string[];
+    programs: string[];
+    design: string[];
+  }
+  | Partial<Record<string, ISelectedValue | any>>;
 
 const ProgramSkills = ({
   stageIndex,
@@ -54,7 +54,7 @@ const ProgramSkills = ({
 
   const { slug: nextSubSlugName, stage_name: nextSubStageName } =
     nextStageChildren?.[0] || {};
-  console.log(subSlugName);
+  // console.log(subSlugName);
 
   const {
     data: questionsData,
@@ -69,17 +69,16 @@ const ProgramSkills = ({
       ({ name }) => name === subStageSlug
     ) as { formData: ProgramSkillsValues }) || {};
 
-  const { register, handleSubmit, watch, reset } = useForm<ProgramSkillsValues>(
+  const { register, handleSubmit, watch, reset, setValue } = useForm<ProgramSkillsValues>(
     {
       defaultValues: {
-        haveProgramSkills: "0",
+        haveProgramSkills: { answer: '', weight: '' },
         whichProgram: [],
         whichScore: [],
         whichLang: { id: 0, answer: "" },
         msOffice: [],
         programs: [],
-        design:[]
-        
+        design: []
       },
     }
   );
@@ -89,7 +88,7 @@ const ProgramSkills = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
+      // console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -103,6 +102,30 @@ const ProgramSkills = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
+  useEffect(() => {
+    if (watch('haveProgramSkills.answer') === 'Yoxdur') {
+      reset()
+      setValue('haveProgramSkills', { answer: 'Yoxdur', weight: '' })
+    }
+
+  }, [formData?.haveProgramSkills?.answer])
+
+  useEffect(() => {
+    if (watch('whichProgram').length !== 0) {
+      setValue('haveProgramSkills', { answer: '', weight: '' })
+    }
+  }, [formData?.whichProgram?.length])
+
+  useEffect(() => {
+    if (watch('msOffice').length === 0) {
+      setValue('Word', undefined)
+      setValue('Excel', undefined)
+      setValue('PowerPoint', undefined)
+    }
+  }, [formData?.msOffice?.length])
+
+  console.log(formData);
+
   if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
@@ -114,10 +137,8 @@ const ProgramSkills = ({
     { register: register("programs") },
     { register: register("design") },
     { register: register(`whichLevel`) },
+    { register: register('haveProgramSkills') }
   ];
-
-  console.log(questions);
-  
 
   return (
     <form
@@ -125,56 +146,50 @@ const ProgramSkills = ({
       className="mt-7 flex-col flex gap-5"
     >
       <div className="space-y-5">
-        {/* <div className="space-y-2"> */}
-        {/* <label className="pl-2">{questions?.[0]?.question_title}*</label>
-
-          <div className="flex gap-5">
-            {questions?.[0]?.answers?.map(({ answer_title, id }, idx) => (
-              <Radio
-                key={id}
-                label={answer_title}
-                value={idx}
+        <div>
+          <label>{`${questions?.[1]?.question_title}*`}</label>
+          <div className="flex items-center gap-2">
+            <div className="w-[70%]">
+              <SelectMult
+                options={questions?.[1]?.answers}
                 register={inputProps[0].register}
+                value={formData?.whichProgram}
+                placeholder="Select Programs"
               />
-            ))}
+            </div>
+            <div className="flex gap-5 w-48 py-2 px-4">
+              <Radio
+                value={watch('haveProgramSkills')}
+                register={inputProps[5]?.register}
+                options={questions?.[0].answers}
+              />
+            </div>
           </div>
-        </div> */}
-
-        <SelectMult
-          label={`${questions?.[0]?.question_title}*`}
-          options={questions?.[0]?.answers}
-          register={inputProps[0].register}
-          value={formData?.whichProgram}
-          placeholder="Select Programs"
-        />
-
+        </div>
         {formData?.whichProgram?.length > 0 ? (
           <div className="overflow-y-auto h-96 pb-4 space-y-4">
             {formData?.whichProgram?.includes("MS Office") && (
               <>
                 <SelectMult
-                  label={`${questions?.[1]?.question_title}*`}
-                  options={questions?.[1]?.answers.slice(0, 3)}
+                  label={`${questions?.[2]?.question_title}*`}
+                  options={questions?.[2]?.answers.slice(0, 3)}
                   register={inputProps[1]?.register}
                   value={formData?.msOffice}
                   placeholder="Select Programs"
                 />
                 {formData.msOffice.length > 0 &&
-                  formData?.msOffice?.map((lang:any, index:any) => (
+                  formData?.msOffice?.map((lang: any, index: any) => (
                     <div key={index} className="space-y-2">
                       <label className="pl-2">
-                        {lang + " " + questions?.[2]?.question_title}*
+                        {lang + " " + questions?.[3]?.question_title}*
                       </label>
                       <div className="flex gap-5">
-                         
-                              <Radio
-                              options={questions?.[2]?.answers}
-                              value={watch(lang)}
-                              register={register(lang)}
-                            />
-                        
-                           
-                    
+
+                        <Radio
+                          options={questions?.[3]?.answers}
+                          value={watch(lang)}
+                          register={register(lang)}
+                        />
                       </div>
                     </div>
                   ))}
@@ -183,27 +198,25 @@ const ProgramSkills = ({
             {formData?.whichProgram?.includes("Proqramlaşdırma dilləri") && (
               <>
                 <SelectMult
-                  label={`${questions?.[3]?.question_title}*`}
-                  options={questions?.[3]?.answers.slice(0, 3)}
+                  label={`${questions?.[4]?.question_title}*`}
+                  options={questions?.[4]?.answers.slice(0, 3)}
                   register={inputProps[2]?.register}
                   value={formData?.programs}
                   placeholder="Select Programs"
                 />
                 {formData.programs.length > 0 &&
-                  formData?.programs?.map((lang:any, index:any) => (
+                  formData?.programs?.map((lang: any, index: any) => (
                     <div key={index} className="space-y-2">
                       <label className="pl-2">
-                        {lang + " " + questions?.[2]?.question_title}*
+                        {lang + " " + questions?.[5]?.question_title}*
                       </label>
                       <div className="flex gap-1">
-        
-                            <Radio
-                           
-                              options={questions?.[4]?.answers}
-                              value={watch(lang)}
-                              register={register(lang)}
-                            />
-           
+                        <Radio
+                          options={questions?.[5]?.answers}
+                          value={watch(lang)}
+                          register={register(lang)}
+                        />
+
                       </div>
                     </div>
                   ))}
@@ -213,33 +226,33 @@ const ProgramSkills = ({
                 register={inputProps[3].register}
                 value={formData?.whichLang?.answer}
               /> */}
-               
+
               </>
             )}
 
             {formData?.whichProgram?.includes("Dizayn Proqramları") && (
               <>
                 <SelectMult
-                  label={`${questions?.[5]?.question_title}*`}
-                  options={questions?.[5]?.answers.slice(0, 3)}
+                  label={`${questions?.[6]?.question_title}*`}
+                  options={questions?.[6]?.answers.slice(0, 3)}
                   register={inputProps[3]?.register}
                   value={formData?.design}
                   placeholder="Select Programs"
                 />
                 {formData.design.length > 0 &&
-                  formData?.design?.map((lang:any, index:any) => (
+                  formData?.design?.map((lang: any, index: any) => (
                     <div key={index} className="space-y-2">
                       <label className="pl-2">
-                        {lang + " " + questions?.[2]?.question_title}*
+                        {lang + " " + questions?.[7]?.question_title}*
                       </label>
                       <div className="flex gap-1">
-                   
-                            <Radio
-                              options={questions?.[4]?.answers}
-                              value={watch(lang)}
-                              register={register(lang)}
-                            />
-               
+
+                        <Radio
+                          options={questions?.[7]?.answers}
+                          value={watch(lang)}
+                          register={register(lang)}
+                        />
+
                       </div>
                     </div>
                   ))}
@@ -249,7 +262,7 @@ const ProgramSkills = ({
                 register={inputProps[3].register}
                 value={formData?.whichLang?.answer}
               /> */}
-                
+
               </>
             )}
           </div>

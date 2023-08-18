@@ -9,9 +9,10 @@ import LinkButton from "../../LinkButton";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
-import ClockLoader from 'react-spinners/ClockLoader'
+import SelectMult from "components/SelectMult";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 import TextInput from "components/TextInput";
-
+import ClockLoader from 'react-spinners/ClockLoader'
 const SpecialSkillsCertifcateQuestionsForm = ({
   stageIndex,
   subStageSlug,
@@ -79,14 +80,26 @@ const SpecialSkillsCertifcateQuestionsForm = ({
 
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
-  console.log(prevFormData);
+
 
   if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
-  console.log();
 
+  // useEffect(() => {
+
+  // }, [])
+
+  const arrName: any = []
+  function DisplayMap() {
+    prevFormData?.specialSkills?.map((i: string) => {
+      if (prevFormData[i].answer === 'Peşəkar') {
+        arrName.push(i)
+      }
+    })
+  }
+  DisplayMap()
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -95,18 +108,20 @@ const SpecialSkillsCertifcateQuestionsForm = ({
       <div className="space-y-7">
         <div className="space-y-2">
           <div className="flex flex-col gap-5">
-            {prevFormData?.specialSkills?.map(
-              (specialSkill: string, idx: Key | null | undefined) => (
-                < TextInput
-                  key={idx}
-                  value={watch()}
-                  label={`${specialSkill} ${questions?.[3]?.question_title
-                    .split(" ")
-                    .slice(1)
-                    .join(" ")}*`}
-                  register={register(`${specialSkill.toLowerCase()}Certifcate`)}
-                />
-              )
+            {arrName?.map(
+              (specialSkill: string, idx: Key | null | undefined) => {
+                return (
+                  < TextInput
+                    key={idx}
+                    value={watch()}
+                    label={`${specialSkill} ${questions?.[3]?.question_title
+                      .split(" ")
+                      .slice(1)
+                      .join(" ")}*`}
+                    register={register(`${specialSkill.toLowerCase()}Certifcate`)}
+                  />
+                )
+              }
             )}
           </div>
         </div>
