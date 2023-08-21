@@ -102,6 +102,7 @@ const ProgramSkills = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
+
   useEffect(() => {
     if (watch('haveProgramSkills.answer') === 'Yoxdur') {
       reset()
@@ -130,6 +131,8 @@ const ProgramSkills = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
+  console.log(questions);
+
 
   const inputProps = [
     { register: register("whichProgram") },

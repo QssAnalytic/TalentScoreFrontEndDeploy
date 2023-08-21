@@ -195,10 +195,7 @@ const LanguageAdd = ({
     }
 
   }, [watch('language.answer'), watch('langCert.answer'), watch('engLangCert.answer')])
-  console.log(editData);
 
-
-  console.log(watch());
   return (
     <div className="w-full">
       <div>

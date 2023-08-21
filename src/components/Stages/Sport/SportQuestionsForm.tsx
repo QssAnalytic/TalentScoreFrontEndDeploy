@@ -119,6 +119,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
 
   const { register, handleSubmit, watch, reset, setValue } =
     useForm<SportFormValues>({
+
       defaultValues: {
         sport: {},
         whichSport: [],
@@ -216,7 +217,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
           <div className="flex items-center gap-5">
             <div className="w-[70%]">
               <SelectMult
-            
+
                 placeholder="Idman Secimi"
                 options={questions?.[1]?.answers}
                 register={inputProps[1].register}

@@ -11,26 +11,28 @@ import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { ISelectedValue } from "types";
 import { addTehsil } from "state/dataSlice";
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import ClockLoader from "react-spinners/ClockLoader";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Schema } from "yup";
 export type GeneralQuestionsFormValues = {
   firstName: string;
   lastName: string;
   curOccupation: ISelectedValue;
   education: ISelectedValue;
   educationGrant: ISelectedValue;
-  
+
 };
 interface RootState {
-	dataa: {
-		tehsil: string;
-	};
+  dataa: {
+    tehsil: string;
+  };
 }
 export type GeneralQuestionsFormProps = {
   subStageSlug: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   stageIndex: any;
-  num:number
+  num: number
 };
 
 const GeneralQuestionsForm = ({
@@ -48,7 +50,7 @@ const GeneralQuestionsForm = ({
 
 
   const { slug: subSlugName, stage_name: subStageName } =
-  stage_children?.[stageIndex + 1] || {};
+    stage_children?.[stageIndex + 1] || {};
 
   const {
     data: questionsData,
@@ -73,8 +75,8 @@ const GeneralQuestionsForm = ({
         educationGrant: { answer: "", weight: "" },
       },
     });
-   
-    
+
+
   const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) => data;
   useEffect(() => {
     const subscription = watch((value) => {
@@ -87,7 +89,7 @@ const GeneralQuestionsForm = ({
         })
       );
     });
-   
+
     reset(formData);
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);

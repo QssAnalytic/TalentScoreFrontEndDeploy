@@ -62,7 +62,7 @@ const LoginRegisterDatePickerInput = ({ register, label, errors, trigger, day, m
     return (
         <div className="input-container">
             <label className="label">
-                <span className={`${errors.day ? "text-red-500" : correctDay ? "text-green-600 focus:text-green-600" : "text-qss-primary"} label-text`} >{label}</span>
+                <span className={`${errors.day ? "text-red-500" : "text-qss-primary"} label-text`} >{label}</span>
                 <div
                     className=" text-qss-primary tooltip label-text"
                 >
@@ -71,7 +71,7 @@ const LoginRegisterDatePickerInput = ({ register, label, errors, trigger, day, m
             <div className="w-full justify-between flex gap-4">
                 <div className="form-control w-full">
                     <select
-                        className={`${errors.day ? "border-red-500 focus:border-red-500 text-red-500" : correctDay ? "border-green-600 focus:border-green-600 text-green-600" : "border-gray-300 focus:border-qss-primary"}  cursor-pointer transition-all duration-200  w-full  select-bordered border  bg-white focus:outline-none focus:ring-0 `}
+                        className={`${errors.day ? "border-red-500 focus:border-red-500 text-red-500" : correctDay ? "text-green-600" : "border-qss-border "}  cursor-pointer transition-all duration-200 border-qss-border bg-qss-background  w-full  select-bordered border focus:outline-none focus:ring-0 `}
                         id="day"
                         value={selectedDay}
                         {...register('day')}
@@ -99,7 +99,7 @@ const LoginRegisterDatePickerInput = ({ register, label, errors, trigger, day, m
 
                 <div className="form-control w-full">
                     <select
-                        className={`${errors.month ? "text-red-500 border-red-500 focus:border-red-500" : correctMonth ? "border-green-600 focus:border-green-600 text-green-600" : "border-gray-300 focus:border-qss-primary"} cursor-pointer transition-all duration-200 w-full select select-bordered border border-gray-300 bg-white focus:outline-none focus:ring-0 shadow-sm`}
+                        className={`${errors.month ? "text-red-500 border-red-500 focus:border-red-500" : correctMonth ? "text-green-600" : "border-gray-300 focus:border-qss-primary"} cursor-pointer transition-all duration-200 w-full select select-bordered border border-qss-border bg-qss-background focus:outline-none focus:ring-0 shadow-sm`}
                         value={selectedMonth}
                         id="month"
                         {...register('month')}
@@ -125,7 +125,7 @@ const LoginRegisterDatePickerInput = ({ register, label, errors, trigger, day, m
 
                 <div className="text-qss-primary form-control w-full">
                     <select
-                        className={`${errors.year ? "border-red-500 focus:border-red-500 text-red-500" : correctYear ? "border-green-600 focus:border-green-600 text-green-600" : "text-qss-primary border-gray-300 focus:border-qss-primary"} w-full cursor-pointer transition-all duration-200  select select-bordered border border-gray-300 bg-white focus:outline-none focus:ring-0 shadow-sm`}
+                        className={`${errors.year ? "border-red-500 focus:border-red-500 text-red-500" : correctYear ? " text-green-600" : "text-qss-primary border-gray-300 focus:border-qss-primary"} w-full cursor-pointer transition-all duration-200  select select-bordered border border-qss-border bg-qss-background focus:outline-none focus:ring-0 shadow-sm`}
                         id="year"
                         value={selectedYear}
                         {...register('year')}

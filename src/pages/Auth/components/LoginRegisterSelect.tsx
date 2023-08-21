@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { CheckIcon } from '@heroicons/react/20/solid'
 import { Icon } from '@iconify/react'
 
 interface ILoginRegisterSelect {
@@ -12,7 +12,7 @@ interface ILoginRegisterSelect {
     errors?: any
 }
 
-const LoginRegisterSelect = ({ options, label, register, defaultvalue, value, errors }: ILoginRegisterSelect) => {
+const LoginRegisterSelect = ({ options, label, register, defaultvalue, errors }: ILoginRegisterSelect) => {
     const [selected, setSelected] = useState("")
     return (
         <div className="">
@@ -30,8 +30,8 @@ const LoginRegisterSelect = ({ options, label, register, defaultvalue, value, er
                 }}
             >
                 <div className="relative mt-1">
-                    <Listbox.Label className={`${errors ? "text-red-500" : selected ? "text-green-600" : "text-qss-primary"}`}>{label}</Listbox.Label>
-                    <label className={`${errors ? "border-red-500 focus-within:border-red-500" : selected ? "border-green-600 focus-within:border-green-600" : ""}group w-full flex items-center gap-2 py-2 px-3 border border-gray-300 rounded-3xl`} >
+                    <Listbox.Label className={`${errors ? "text-red-500" : "text-qss-primary"}`}>{label}</Listbox.Label>
+                    <label className={`${errors ? "border-red-500 focus-within:border-red-500" : ""}group w-full flex items-center gap-2 py-2 px-3 border border-qss-input bg-qss-background rounded-3xl`} >
                         <Icon
                             icon={`${selected === "Male" && selected ? "mdi:gender-male" : selected === "Female" && selected ? "mdi:gender-female" : "mdi:gender-male-female"}`}
                             className={`${errors ? "text-red-500" : selected ? "text-green-600" : "text-gray-400"} text-lg transition-all duration-900 group-hover:text-qss-primary`} />
@@ -51,7 +51,7 @@ const LoginRegisterSelect = ({ options, label, register, defaultvalue, value, er
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Listbox.Options className="absolute top-20 left-0 border border-gray-300 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            <Listbox.Options className="absolute top-20 left-0 border bg-white border-gray-300 max-h-60 w-full overflow-auto rounded-md  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                 {options.map((option, idx) => (
                                     <Listbox.Option
                                         key={idx}

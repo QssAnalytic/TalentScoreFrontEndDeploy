@@ -9,7 +9,7 @@ type btnType = "button" | "submit";
 
 const LoginRegisterButton = ({ text, type, buttonClassName }: ILoginRegisterButton) => {
     return (
-        <button type={type} className={`${buttonClassName} transition duration-500 border border-qss-primary hover:text-qss-primary hover:bg-white`} >
+        <button type={type} className={`${buttonClassName} transition duration-500 border hover:bg-black`} >
             {text}
         </button>
     )

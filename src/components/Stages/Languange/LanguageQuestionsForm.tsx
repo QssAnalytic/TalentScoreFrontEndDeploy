@@ -70,7 +70,7 @@ const LanguageQuestionsForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: LanguageQuestionsFormValues }) || {};
 
-  const { register, handleSubmit, watch, reset: ParentReset, setValue } =
+  const { register, handleSubmit, watch, reset: ParentReset, setValue, formState: { errors } } =
     useForm<LanguageQuestionsFormValues>({
       resolver: yupResolver(schema),
       defaultValues: {
@@ -82,6 +82,9 @@ const LanguageQuestionsForm = ({
   const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {
     console.log(data);
   };
+
+  console.log(errors.haveLanguageSkills);
+
 
   const [isAdding, setIsAdding] = useState(true);
   const [isEditing, setIsEditing] = useState<{
@@ -148,9 +151,8 @@ const LanguageQuestionsForm = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
-  if (isLoading) return  <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
+  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
-  console.log(formData);
 
 
   const questions = questionsData?.[0]?.questions;
