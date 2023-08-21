@@ -20,7 +20,7 @@ const RegisterSchema = Yup.object().shape({
     gender: Yup.string().required("Please enter the gender"),
     email: Yup.string().required("Email is required").matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter the valid email"),
     password: Yup.string().required("Password is required").min(8, "Password length must be minimum 8 characters ").max(50),
-    confirmpassword: Yup.string().oneOf([Yup.ref('password')], 'Please confirm password'),
+    confirmpassword: Yup.string().required().oneOf([Yup.ref('password')], 'Please confirm password'),
     day: Yup.string().required(""),
     month: Yup.string().required(""),
     year: Yup.string().required("")
