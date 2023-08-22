@@ -9,20 +9,21 @@ import Select from "../../Select";
 import LinkButton from "../../LinkButton";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
-import { ISelectedValue } from "types";
-import { addTehsil } from "state/dataSlice";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { addSelect, addTehsil } from "state/dataSlice";
 import { useSelector } from 'react-redux';
 import ClockLoader from "react-spinners/ClockLoader";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Schema } from "yup";
-export type GeneralQuestionsFormValues = {
-  firstName: string;
-  lastName: string;
-  curOccupation: ISelectedValue;
-  education: ISelectedValue;
-  educationGrant: ISelectedValue;
+import * as yup from "yup";
+import ButtonSave from "components/ButtonSave";
+const schema = yup
+  .object({
+    curOccupation: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    education: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    educationGrant: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+  }).required();
 
-};
+export type GeneralQuestionsFormValues = yup.InferType<typeof schema>;
+
 interface RootState {
   dataa: {
     tehsil: string;
@@ -30,7 +31,6 @@ interface RootState {
 }
 export type GeneralQuestionsFormProps = {
   subStageSlug: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   stageIndex: any;
   num: number
 };
@@ -60,28 +60,28 @@ const GeneralQuestionsForm = ({
 
   const dispatch = useAppDispatch();
 
+
   const { formData } =
     (useAppSelector((state) => state.stageForm)?.find(
       ({ name }) => name === subStageSlug
     ) as { formData: GeneralQuestionsFormValues }) || {};
 
-  const { register, handleSubmit, watch, reset } =
+  const { register, handleSubmit, watch, reset, formState: { errors }, trigger } =
     useForm<GeneralQuestionsFormValues>({
+      resolver: yupResolver(schema),
       defaultValues: {
-        firstName: "",
-        lastName: "",
         curOccupation: { answer: "", weight: "" },
         education: { answer: "", weight: "" },
         educationGrant: { answer: "", weight: "" },
       },
     });
 
-
-  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) => data;
+  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) => console.log(data);
+  ;
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
       dispatch(addTehsil(value.education!.answer))
+      trigger()
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -96,7 +96,6 @@ const GeneralQuestionsForm = ({
 
   if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
-
   const questions = questionsData?.[0]?.questions;
   return (
     <form
@@ -110,6 +109,9 @@ const GeneralQuestionsForm = ({
         options={questions?.[0]?.answers}
         register={register("curOccupation")}
         value={formData?.curOccupation}
+        errors={errors.curOccupation}
+        trigger={trigger}
+        name='curOccupation'
       />
 
       <Select
@@ -117,6 +119,10 @@ const GeneralQuestionsForm = ({
         options={questions?.[1]?.answers}
         register={register("education")}
         value={formData?.education}
+        errors={errors.education}
+        trigger={trigger}
+        name='education'
+
       />
 
       <Select
@@ -124,16 +130,23 @@ const GeneralQuestionsForm = ({
         options={questions?.[2]?.answers}
         register={register("educationGrant")}
         value={formData?.educationGrant}
-      />
+        errors={errors.educationGrant}
+        trigger={trigger}
+        name='educationGrant'
 
-      <LinkButton
-        nav={{
-          state: { stageName, subStageName },
-          path: { slugName, subSlugName },
-        }}
-        label="Növbəti"
-        className="absolute right-0 -bottom-20"
       />
+      {
+          Object.keys(errors).length === 0 ?       <LinkButton
+          nav={{
+            state: { stageName, subStageName },
+            path: { slugName, subSlugName },
+          }}
+          label="Növbəti"
+          className="absolute right-0 -bottom-20"
+        />:      <ButtonSave trigger={trigger} label="Növbəti" className="absolute right-0 -bottom-20" onClick={()=> dispatch(addSelect(true))}/>
+      }
+
+
     </form>
   );
 };

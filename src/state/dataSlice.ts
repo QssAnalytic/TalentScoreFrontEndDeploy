@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, isAction, PayloadAction } from '@reduxjs/toolkit';
 
 
   interface MyState {
@@ -8,7 +8,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
     tehsilPage:number,
     elave:boolean,
     popUp:boolean,
-    removeFunc:boolean
+    removeFunc:boolean,
+    validationSelect:boolean
    
   }
   
@@ -17,6 +18,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
     currentPage:1,
     tehsilPage:1,
     elave:false,
+    validationSelect:false,
     popUp:false,
     removeFunc:false
   };
@@ -44,9 +46,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
         },
        addRemove: (state,action)=>{
            state.removeFunc = action.payload
+        },
+        addSelect:(state,action) =>{
+          state.validationSelect =action.payload 
         }
 
 }});
   
-  export const {addData ,addTehsil,addTehsilPage,addElave,changeTehsilPage,addPop,addRemove} = dataSlice.actions;
+  export const {addData ,addTehsil,addTehsilPage,addElave,changeTehsilPage,addPop,addRemove,addSelect} = dataSlice.actions;
   export default dataSlice.reducer;

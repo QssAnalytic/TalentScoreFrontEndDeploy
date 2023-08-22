@@ -110,6 +110,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
     reset,
     formState: { errors },
   } = useForm<AddEduFormValues>({
+  
     defaultValues:{
       id:0,
       tehsil:{answer:"", weight:""},

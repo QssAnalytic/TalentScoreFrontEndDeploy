@@ -12,7 +12,7 @@ type ProgressBarType = {
 
 const ProgressBar = ({ progress = 0,subStageIndex,stageIndex }: ProgressBarType) => {
   const { data: stagesData } = useGetStageQuery();
-  console.log(stagesData);
+
   
   const { stage_children } = stagesData?.[stageIndex] || {};
   

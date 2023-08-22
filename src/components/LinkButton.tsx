@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Icon } from '@iconify/react';
+import {Link} from 'react-router-dom';
+import {Icon} from '@iconify/react';
 
 interface ILinkButton {
 	label: string;
@@ -14,11 +14,11 @@ interface ILinkButton {
 type btnType = 'outline';
 
 type navType = {
-	path: { slugName?: string; subSlugName?: string };
-	state: { subStageName?: string; stageName?: string };
+	path: {slugName?: string; subSlugName?: string};
+	state: {subStageName?: string; stageName?: string};
 };
 
-const LinkButton = ({ disabled, label, type, nav, className, haveIcon = true, onClick }: ILinkButton) => {
+const LinkButton = ({disabled, label, type, nav, className, haveIcon = true, onClick}: ILinkButton) => {
 	return (
 		<Link
 			to={`/stages/${nav.path.slugName}/${nav.path.subSlugName}`}
@@ -30,7 +30,7 @@ const LinkButton = ({ disabled, label, type, nav, className, haveIcon = true, on
 			onClick={onClick}
 		>
 			<button
-				type='submit'
+				type="submit"
 				className={`w-[180px] flex rounded-full justify-center items-center py-3.5 gap-4 ${type === 'outline'
 					? 'flex-row-reverse border border-qss-secondary text-qss-secondary bg-transparent'
 					: 'bg-qss-secondary flex-row text-white'}`}

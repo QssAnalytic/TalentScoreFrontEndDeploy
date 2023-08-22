@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { IAnswer, ISelectedValue } from "../types";
 import { Listbox } from "@headlessui/react";
 import { Icon } from "@iconify/react";
+import { useSelector } from "react-redux";
 interface ISelect {
   label?: string;
   options?: IAnswer[];
@@ -11,8 +12,15 @@ interface ISelect {
   disabled?: boolean;
   defaultValue?: string;
   onChange?: any;
+  errors?: any
+  trigger?: any
+  name?: string
 }
-
+interface RootState {
+  dataa: {
+    validationSelect: boolean;
+  };
+}
 const Select = ({
   label,
   options,
@@ -21,19 +29,32 @@ const Select = ({
   defaultValue = "Seçin..",
   disabled = false,
   onChange,
+  errors,
+  trigger,
+  name
 }: ISelect) => {
   const [selected, setSelected] = useState(value);
   const copy = {
     answer: '',
     weight: ''
   }
+
+  const [errorState, setErrorState] = useState(false)
+  const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
+  const handleErrors = async () => {
+    trigger(name)
+  }
+  console.log(selectValid);
+  
   return (
     <Listbox
       as="div"
       placeholder={selected?.answer}
       value={value?.answer === '' ? copy : selected}
       className="flex flex-col gap-2 w-full"
+      onBlur={handleErrors}
       onChange={(value) => {
+        handleErrors()
         setSelected(value);
         register.onChange(
           {
@@ -48,12 +69,12 @@ const Select = ({
       disabled={disabled}
     >
       <Listbox.Label>{label}</Listbox.Label>
-      <div className="w-full relative">
-        <Listbox.Button as={Fragment}>
+      <div className="w-full relative" >
+        <Listbox.Button as={Fragment} >
           {({ value, open }) => (
             <Listbox.Label
-              className={`relative w-full text-left flex items-center border  bg-qss-input py-2 px-4 rounded-full outline-none ${open && "text-qss-secondary border border-qss-base-200"
-                } ${value?.answer ? "text-qss-secondary" : "text-qss-base-300"} `}
+              className={`relative w-full text-left flex items-center border-2 transition-all duration-200 bg-qss-input py-2 px-4 rounded-full outline-none ${(errors && selectValid) ? "border-red-300 border-2" : ''}  ${open && "text-qss-secondary border border-qss-base-200"
+                } ${value?.answer ? "text-qss-secondary" : "text-qss-base-300 "} `}
             >
               {value?.answer || defaultValue}
               <span className={`absolute right-6 ${open && "rotate-180"}`}>
