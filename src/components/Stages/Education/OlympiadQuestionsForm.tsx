@@ -21,13 +21,27 @@ export type OlympiadQuestionsFormValues = {
   highestOlympiad: ISelectedValue;
   rankOlympiad: ISelectedValue;
 };
-const schema = yup
-  .object({
-    wonOlympics: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
-    subjectOlympiad: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
-    highestOlympiad: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
-    rankOlympiad:yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
-  }).required();
+const schema = yup.object().shape({
+  wonOlympics: yup.object().shape({
+    answer: yup.string().required('This field is required'),
+    weight: yup.string(),
+  }).required(),
+
+  subjectOlympiad: yup.object().shape({
+    answer: yup.string().required('This field is required'),
+    weight: yup.string(),
+  }).required(),
+
+  highestOlympiad: yup.object().shape({
+    answer: yup.string().required('This field is required'),
+    weight: yup.string().required(),
+  }).required(),
+
+  rankOlympiad: yup.object().shape({
+    answer: yup.string().required('This field is required'),
+    weight: yup.string().required(),
+  }).required(),
+});
 const OlympiadQuestionsForm = ({
   stageIndex,
   subStageSlug,
@@ -69,7 +83,7 @@ const OlympiadQuestionsForm = ({
 
   const { register, handleSubmit, watch, reset, formState:{errors} } =
     useForm<OlympiadQuestionsFormValues>({
-
+      resolver:yupResolver<OlympiadQuestionsFormValues>(schema),
       defaultValues: {
         wonOlympics: { answer: "", weight:"" },
         subjectOlympiad: { answer: "", weight: "" },
@@ -103,7 +117,9 @@ const OlympiadQuestionsForm = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
- 
+console.log(questions);
+
+  
   const inputProps = [
     { register: register("wonOlympics") },
     { register: register("subjectOlympiad") },
@@ -111,6 +127,7 @@ const OlympiadQuestionsForm = ({
     { register: register("rankOlympiad") },
   ];
   console.log(errors);
+  
   
   
   return (

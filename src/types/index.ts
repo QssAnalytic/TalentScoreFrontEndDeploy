@@ -56,5 +56,5 @@ export interface IAnswer {
 
 export interface ISelectedValue {
   answer: string;
-  weight: string ;
+  weight?: string|undefined ;
 }

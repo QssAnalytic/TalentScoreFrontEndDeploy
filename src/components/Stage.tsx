@@ -71,7 +71,7 @@ const Stage = () => {
             subStageSlug={subStageSlug || ""} num={0}          />
         );
 
-      case "olimpiada-suallar":
+      case "olimpiada-suallari":
         return (
           <OlympiadQuestionsForm
             stageIndex={stageIndex}
