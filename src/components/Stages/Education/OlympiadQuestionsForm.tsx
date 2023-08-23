@@ -13,13 +13,21 @@ import { GeneralQuestionsFormProps } from "./GeneralQuestionsForm";
 import { ISelectedValue } from "types";
 import ClockLoader from 'react-spinners/ClockLoader'
 import RadioInput from "../../RadioInput";
+import * as yup   from 'yup'
+import { yupResolver } from "@hookform/resolvers/yup";
 export type OlympiadQuestionsFormValues = {
   wonOlympics: ISelectedValue;
   subjectOlympiad: ISelectedValue;
   highestOlympiad: ISelectedValue;
   rankOlympiad: ISelectedValue;
 };
-
+const schema = yup
+  .object({
+    wonOlympics: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    subjectOlympiad: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    highestOlympiad: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    rankOlympiad:yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+  }).required();
 const OlympiadQuestionsForm = ({
   stageIndex,
   subStageSlug,
@@ -59,11 +67,21 @@ const OlympiadQuestionsForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: OlympiadQuestionsFormValues }) || {};
 
-  const { register, handleSubmit, watch, reset } =
-    useForm<OlympiadQuestionsFormValues>();
+  const { register, handleSubmit, watch, reset, formState:{errors} } =
+    useForm<OlympiadQuestionsFormValues>({
+
+      defaultValues: {
+        wonOlympics: { answer: "", weight:"" },
+        subjectOlympiad: { answer: "", weight: "" },
+        highestOlympiad: { answer: "", weight: "" },
+        rankOlympiad:{answer:"",weight:""}
+      },
+
+    });
 
   const onSubmit: SubmitHandler<OlympiadQuestionsFormValues> = (data) =>
-    console.log(data);
+   console.log(data);
+   
   
   useEffect(() => {
     const subscription = watch((value) => {
@@ -85,14 +103,16 @@ const OlympiadQuestionsForm = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
-
+ 
   const inputProps = [
     { register: register("wonOlympics") },
     { register: register("subjectOlympiad") },
     { register: register("highestOlympiad") },
     { register: register("rankOlympiad") },
   ];
-
+  console.log(errors);
+  
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -142,7 +162,7 @@ const OlympiadQuestionsForm = ({
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-
+  <button type="submit">Saxla</button>
       <LinkButton
         nav={{
           state: { stageName: nextStageName, subStageName: nextSubSlugName },

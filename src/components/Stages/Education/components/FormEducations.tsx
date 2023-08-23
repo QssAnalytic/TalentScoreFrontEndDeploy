@@ -28,36 +28,36 @@ interface RootState {
 interface Copy {
   id:number,
   country: any,
-  university?: string|undefined,
+  university: string,
   specialty: any,
   local:any,
   tehsil:any,
   date: any,
   criterian:any,
-  criteria?: {
-    criterion_type?:any,
-    lokal_test?:any,
-    application?:[
+  criteria: {
+    criterion_type:any,
+    lokal_test:any,
+    application:[
       {
         application_type:string,
-        score?:string
+        score:any
       },
       {
         application_type:string,
         language_type:[
           {
             language_name:string,
-            language_score?:string
+            language_score:any
           },
           {
               language_name:string,
-              language_score?:string     
+              language_score:any     
           }
         ]
       },
       {
         application_type:string,
-        score?:string
+        score:any
       },
       {
         other_test:any
@@ -68,29 +68,29 @@ interface Copy {
 const schema = yup
   .object({
     id: yup.number().required(),
-    tehsil:yup.object({ answer: yup.string(), weight: yup.string() }),
-    country: yup.object({ answer: yup.string().required(), weight: yup.string().required() }),
-    university: yup.string(),
-    specialty: yup.object({ answer: yup.string().required(), weight: yup.string().required() }),
-    date: yup.object({ start: yup.string(), end: yup.string() }),
+    tehsil:yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    country: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    university: yup.string().required(),
+    specialty: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    date: yup.object({ start: yup.string().required(), end: yup.string().required() }).required(),
     criterian: yup.object({
       answer: yup.string().required(),
       weight:yup.string().required()
-    }),
+    }).required(),
     local: yup.object({
-      examName: yup.string(),
-      score: yup.string(),
-      maxScore: yup.string(),
-    }),
-    Att: yup.string(),
-    SAT:yup.string(),
-    otherExam:yup.object({name:yup.string(),    
-      score: yup.string(),
-      maxScore: yup.string(),}).optional(),
-  ielts:yup.string(),
-  toefl:yup.string(),
-  currentWorking:yup.boolean(),
-    application: yup.array()
+      examName: yup.string().required(),
+      score: yup.string().required(),
+      maxScore: yup.string().required(),
+    }).required(),
+    Att: yup.string().optional(),
+    SAT:yup.string().optional(),
+    otherExam:yup.object({name:yup.string().optional(),    
+      score: yup.string().optional(),
+      maxScore: yup.string().optional(),}).optional(),
+  ielts:yup.string().optional(),
+  toefl:yup.string().optional(),
+  currentWorking:yup.boolean().optional(),
+    application: yup.array().optional()
   })
   .required();
 
@@ -110,7 +110,6 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
     reset,
     formState: { errors },
   } = useForm<AddEduFormValues>({
-  
     defaultValues:{
       id:0,
       tehsil:{answer:"", weight:""},
@@ -125,10 +124,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
       otherExam:{name:"",score:"",maxScore:""},
     ielts:"",
     toefl:"",
-    
-      application: []
-
-
+    application: []
     }
   });
   
