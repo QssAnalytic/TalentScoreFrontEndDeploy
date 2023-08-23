@@ -39,12 +39,10 @@ const Select = ({
     weight: ''
   }
 
-  const [errorState, setErrorState] = useState(false)
   const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
   const handleErrors = async () => {
     trigger(name)
   }
-  console.log(selectValid);
   
   return (
     <Listbox

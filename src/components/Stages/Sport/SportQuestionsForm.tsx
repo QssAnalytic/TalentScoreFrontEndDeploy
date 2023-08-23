@@ -16,6 +16,7 @@ import * as yup from "yup";
 import ClockLoader from 'react-spinners/ClockLoader'
 import SportLevels from "./components/SportLevels";
 import { ISelectedValue } from "types";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup
   .object({
@@ -38,18 +39,18 @@ const schema = yup
         name: yup.string().required(),
         level: yup.object().shape({
           answer: yup.string().required(),
-          weight: yup.string().required(),
-        }),
+          weight: yup.string().optional().nullable(),
+        }).required(),
         whichScore: yup
           .object({
             answer: yup.string().required(),
-            weight: yup.string().required(),
+            weight: yup.string().optional().nullable(),
           })
           .required(),
         whichPlace: yup
           .object({
             answer: yup.string().required(),
-            weight: yup.string().required(),
+            weight: yup.string().optional().nullable(),
           })
           .required(),
       })
@@ -59,10 +60,10 @@ const schema = yup
         name: yup.string().required(),
         level: yup.object().shape({
           answer: yup.string().required(),
-          weight: yup.string().required(),
+          weight: yup.string().optional().nullable(),
         }),
       })
-    ),
+    ).required(),
   })
   .required();
 
@@ -119,7 +120,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
 
   const { register, handleSubmit, watch, reset, setValue } =
     useForm<SportFormValues>({
-
+      resolver:yupResolver<SportFormValues>(schema),
       defaultValues: {
         sport: {},
         whichSport: [],

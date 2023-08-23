@@ -13,8 +13,10 @@ import { GeneralQuestionsFormProps } from "./GeneralQuestionsForm";
 import { ISelectedValue } from "types";
 import ClockLoader from 'react-spinners/ClockLoader'
 import RadioInput from "../../RadioInput";
+import { addSelect } from "state/dataSlice";
 import * as yup   from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
+import ButtonSave from "components/ButtonSave";
 export type OlympiadQuestionsFormValues = {
   wonOlympics: ISelectedValue;
   subjectOlympiad: ISelectedValue;
@@ -24,12 +26,12 @@ export type OlympiadQuestionsFormValues = {
 const schema = yup.object().shape({
   wonOlympics: yup.object().shape({
     answer: yup.string().required('This field is required'),
-    weight: yup.string(),
+    weight: yup.string().optional().nullable(),
   }).required(),
 
   subjectOlympiad: yup.object().shape({
     answer: yup.string().required('This field is required'),
-    weight: yup.string(),
+    weight: yup.string().optional().nullable(),
   }).required(),
 
   highestOlympiad: yup.object().shape({
@@ -81,7 +83,7 @@ const OlympiadQuestionsForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: OlympiadQuestionsFormValues }) || {};
 
-  const { register, handleSubmit, watch, reset, formState:{errors} } =
+  const { register, handleSubmit, watch, reset, formState:{errors},trigger } =
     useForm<OlympiadQuestionsFormValues>({
       resolver:yupResolver<OlympiadQuestionsFormValues>(schema),
       defaultValues: {
@@ -100,6 +102,7 @@ const OlympiadQuestionsForm = ({
   useEffect(() => {
     const subscription = watch((value) => {
       console.log(value);
+      trigger()
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -126,8 +129,9 @@ console.log(questions);
     { register: register("highestOlympiad") },
     { register: register("rankOlympiad") },
   ];
-  console.log(errors);
   
+  
+  console.log(formData);
   
   
   return (
@@ -142,31 +146,43 @@ console.log(questions);
             options={questions?.[0]?.answers}
             register={inputProps[0]?.register}
             value={formData?.wonOlympics}
+            errors={errors.wonOlympics}
+            trigger={trigger}
           />
         </div>
         {formData?.wonOlympics?.answer?.includes("Bəli") && (
-          <>
-            <Select
-              label={`${questions?.[1]?.question_title}*`}
-              options={questions?.[1]?.answers}
-              register={inputProps[1].register}
-              value={formData?.subjectOlympiad}
-            />
+         <>
+         <Select
+           label={`${questions?.[1]?.question_title}*`}
+           options={questions?.[1]?.answers}
+           register={inputProps[1].register}
+           value={formData?.subjectOlympiad}
+           errors={errors.subjectOlympiad}
+           trigger={trigger}
+           name="subjectOlympiad"
 
-            <Select
-              label={`${questions?.[2]?.question_title}*`}
-              options={questions?.[2]?.answers}
-              register={inputProps[2].register}
-              value={formData?.highestOlympiad}
-            />
+         />
 
-            <Select
-              label={`${questions?.[3]?.question_title}*`}
-              options={questions?.[3]?.answers}
-              register={inputProps[3].register}
-              value={formData?.rankOlympiad}
-            />
-          </>
+         <Select
+           label={`${questions?.[2]?.question_title}*`}
+           options={questions?.[2]?.answers}
+           register={inputProps[2].register}
+           value={formData?.highestOlympiad}
+           errors={errors.highestOlympiad}
+           trigger={trigger}
+           name='highestOlympiad'
+         />
+
+         <Select
+           label={`${questions?.[3]?.question_title}*`}
+           options={questions?.[3]?.answers}
+           register={inputProps[3].register}
+           value={formData?.rankOlympiad}
+           errors={errors.rankOlympiad}
+           trigger={trigger}
+           name="rankOlympiad"
+         />
+       </>
         )}
       </div>
 
@@ -179,15 +195,18 @@ console.log(questions);
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-  <button type="submit">Saxla</button>
-      <LinkButton
-        nav={{
-          state: { stageName: nextStageName, subStageName: nextSubSlugName },
-          path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-        }}
-        label="Növbəti"
-        className="absolute right-0 -bottom-20"
-      />
+   
+   {
+          Object.keys(errors).length === 0 || formData?.wonOlympics?.answer?.includes("Xeyr")?       <LinkButton
+          onClick={()=> dispatch(addSelect(false))}
+          nav={{
+            state: { stageName: nextStageName, subStageName: nextSubSlugName },
+            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
+          }}
+          label="Növbəti"
+          className="absolute right-0 -bottom-20"
+        />:      <ButtonSave trigger={trigger} label="Növbəti" className="absolute right-0 -bottom-20" onClick={()=> dispatch(addSelect(true))}/>
+      }
     </form>
   );
 };

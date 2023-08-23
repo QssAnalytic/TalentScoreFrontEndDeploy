@@ -137,6 +137,7 @@ const GeneralQuestionsForm = ({
       />
       {
           Object.keys(errors).length === 0 ?       <LinkButton
+          onClick={()=> dispatch(addSelect(false))}
           nav={{
             state: { stageName, subStageName },
             path: { slugName, subSlugName },
