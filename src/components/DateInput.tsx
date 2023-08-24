@@ -1,4 +1,5 @@
 import calendar from '../assets/Vector (1).svg';
+import {useSelector} from 'react-redux';
 export interface IDateInputProps {
 	label?: string;
 	type?: string;
@@ -6,8 +7,25 @@ export interface IDateInputProps {
 	register?: any;
 	inputClassName?: string;
 	disabled?: boolean;
+	errors?: any;
+	trigger?: any;
 }
-const DateInput = ({label, type, placeholder, register, inputClassName, disabled}: IDateInputProps) => {
+interface RootState {
+	dataa: {
+		validationSelect: boolean;
+	};
+}
+const DateInput = ({
+	label,
+	type,
+	placeholder,
+	register,
+	inputClassName,
+	errors,
+	trigger,
+	disabled
+}: IDateInputProps) => {
+	const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
 	return (
 		<div className={`relative w-full space-y-2 ${inputClassName}`}>
 			<label className="pl-2 inline-flex">{label}</label>
@@ -17,7 +35,7 @@ const DateInput = ({label, type, placeholder, register, inputClassName, disabled
 					placeholder={placeholder}
 					{...register}
 					autoComplete="off"
-					className="&quot;w-full"
+					className={`&quot;w-full ${errors && selectValid ? 'border-red-300 border-2' : ''}`}
 					disabled={disabled}
 				/>
 				<img src={calendar} alt="calendar" className="absolute top-2 right-4" />

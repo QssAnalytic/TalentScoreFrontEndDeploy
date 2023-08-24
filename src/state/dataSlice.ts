@@ -10,6 +10,8 @@ import { createSlice, isAction, PayloadAction } from '@reduxjs/toolkit';
     popUp:boolean,
     removeFunc:boolean,
     validationSelect:boolean
+    acceptOption:string
+    errorsLength:number
    
   }
   
@@ -20,7 +22,9 @@ import { createSlice, isAction, PayloadAction } from '@reduxjs/toolkit';
     elave:false,
     validationSelect:false,
     popUp:false,
-    removeFunc:false
+    removeFunc:false,
+    acceptOption:'',
+    errorsLength:0
   };
   const dataSlice = createSlice({
     name: 'dataa',
@@ -49,9 +53,15 @@ import { createSlice, isAction, PayloadAction } from '@reduxjs/toolkit';
         },
         addSelect:(state,action) =>{
           state.validationSelect =action.payload 
+        },
+        addOption:(state,action)=>{
+          state.acceptOption = action.payload
+        },
+        addErrorsLength:(state,action)=>{
+          state.errorsLength = action.payload
         }
 
 }});
   
-  export const {addData ,addTehsil,addTehsilPage,addElave,changeTehsilPage,addPop,addRemove,addSelect} = dataSlice.actions;
+  export const {addData ,addTehsil,addTehsilPage,addElave,changeTehsilPage,addPop,addRemove,addSelect,addOption,addErrorsLength} = dataSlice.actions;
   export default dataSlice.reducer;

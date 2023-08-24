@@ -12,8 +12,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import ExperienceAdd, { AddExpFormValues } from './ExperienceAdd';
 import { useSelector } from 'react-redux';
 import { addPop, addRemove, addSelect } from 'state/dataSlice';
+import ButtonSave from 'components/ButtonSave';
 const schema = yup.object({
-    experiences: yup.array().required()
+    experiences: yup.array().min(1).required()
 })
 export type JobExperienceValues = yup.InferType<typeof schema>;
 
@@ -24,6 +25,8 @@ export interface JobExperienceListItemProps {
 interface RootState {
 	dataa: {
 		removeFunc: boolean;
+        acceptOption:string;
+        errorsLength:number
 	};
 }
 const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
@@ -34,6 +37,8 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
         setDisplayRadio(false)
     }
     const remove = useSelector((state: RootState) => state.dataa.removeFunc);
+    const accept = useSelector((state: RootState) => state.dataa.acceptOption);
+    const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
     const [idd,setId] = useState(0)
     const [isAdding, setIsAdding] = useState(true);
     const [isEditing, setIsEditing] = useState<{
@@ -64,6 +69,8 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
     const handleRemove = (expIndex: number) => {
         dispatch(addPop(true))
 		setId(expIndex)
+        dispatch(addSelect(false))
+        
 
     };
  
@@ -124,7 +131,8 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
     const questions = questionsData?.[0]?.questions;
     
     const dispatch = useAppDispatch();
-
+    
+    
     const { formData } =
         (useAppSelector((state) => state.stageForm)?.find(
             ({ name }) => name === subStageSlug
@@ -139,10 +147,11 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
             dispatch(addRemove(false))
         }
 
+    const [displayRadio, setDisplayRadio] = useState(true);
+
     useEffect(() => {
         const subscription = watch((value) => {
             trigger()
-            console.log(value);
             dispatch(
                 updateStageForm({
                     name: subStageSlug,
@@ -151,18 +160,30 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
             );
         });
 
-        reset(formData);
+        reset(formData)
 
         return () => subscription.unsubscribe();
     }, [subStageSlug, watch]);
-    const [displayRadio, setDisplayRadio] = useState(true);
 
+    useEffect(()=>{
+        if(formData?.experiences?.length!==0 && formData?.experiences?.length!==undefined){
+            setDisplayRadio(false)
+        }
+        else{
+            setDisplayRadio(true)
+        }
+    
+    },[formData?.experiences?.length])
+    
+    console.log(displayRadio);
+    
+    
     return (
-        <form className="mt-5 flex-col flex gap-5" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-5 flex-col flex gap-5 " onSubmit={handleSubmit(onSubmit)}>
             {isAdding ?
-                (<ExperienceAdd data={questions} addExp={handleAdd} closeHandle={closeHandle} displayRadio={displayRadio} setDisplayRadio={setDisplayRadio} isAdding={isAdding} setIsAdding={setIsAdding} />) :
+                (<ExperienceAdd experiences={formData?.experiences} data={questions} addExp={handleAdd} closeHandle={closeHandle} displayRadio={displayRadio} setDisplayRadio={setDisplayRadio} isAdding={isAdding} setIsAdding={setIsAdding} />) :
                 isEditing?.edit ?
-                    (<ExperienceAdd data={questions} addExp={handleAdd} editExp={editExp} closeHandle={closeHandle} editData={isEditing?.data} setIsEditing={setIsEditing} displayRadio={displayRadio} />) :
+                    (<ExperienceAdd experiences={formData?.experiences} data={questions} addExp={handleAdd} editExp={editExp} closeHandle={closeHandle} editData={isEditing?.data} setIsEditing={setIsEditing} displayRadio={displayRadio} />) :
                     (
                         <>
                             <ul className='mt-8'>
@@ -191,10 +212,10 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
                                     </li>
                                 ))}
                             </ul>
-                            <button className='add py-2 px-4 w-72 h-12 m-auto rounded-2xl flex justify-evenly items-center mt-5' onClick={() => setIsAdding(true)}>Yeni iş yeri əlavə et +</button>
+                            <button className='add py-2 px-4 w-72 h-12 m-auto rounded-2xl flex justify-evenly items-center mt-5' onClick={() => {setIsAdding(true), dispatch(addSelect(false))}}>Yeni iş yeri əlavə et +</button>
                         </>
                     )}
-            <button type='submit' onClick={()=> dispatch(addSelect(true))}>Saxla</button>
+            
             <LinkButton
                 nav={{
                     state: { stageName: prevStageName, subStageName: prevSubStageName },
@@ -204,14 +225,17 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
                 label="Geri"
                 className="absolute left-0 -bottom-20"
             />
-            <LinkButton
-                nav={{
-                    state: { stageName: nextStageName, subStageName: nextSubStageName },
-                    path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-                }}
-                label="Növbəti"
-                className="absolute right-0 -bottom-20"
-            />
+     {
+          (errLength ===0) || accept==="Xeyr" ?       <LinkButton
+          onClick={()=> dispatch(addSelect(false))}
+          nav={{
+            state: { stageName: nextStageName, subStageName: nextSubSlugName },
+            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
+          }}
+          label="Növbəti"
+          className="absolute right-0 -bottom-20"
+        />:      <ButtonSave trigger={trigger} label="Növbəti" className="absolute right-0 -bottom-20" onClick={()=> dispatch(addSelect(true))}/>
+      }
 
         </form>
 
