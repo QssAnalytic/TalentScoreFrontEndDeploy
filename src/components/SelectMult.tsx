@@ -2,7 +2,7 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 import { IAnswer } from "../types";
 import { Listbox } from "@headlessui/react";
 import { Icon } from "@iconify/react";
-
+import { useSelector } from "react-redux";
 interface ISelectMult {
   placeholder: string;
   label?: string;
@@ -10,30 +10,42 @@ interface ISelectMult {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register?: any;
   value?: string[];
+  errors?: any
+  trigger?: any
 }
-
+interface RootState {
+  dataa: {
+    validationSelect: boolean;
+  };
+}
 const SelectMult = ({
   label,
   options,
   register,
   value,
   placeholder,
+  errors,
+  trigger
 }: ISelectMult) => {
   const [selected, setSelected] = useState(value);
-
+  const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
   useEffect(() => {
     setSelected(value);
   }, [value]);
-
+  const handleErrors = async () => {
+    trigger()
+  }
   return (
     <Listbox
       multiple
       as="div"
       placeholder={"Rus Dili"}
+      onBlur={handleErrors}
       value={selected}
       className="flex flex-col gap-2"
       onChange={(value) => {
         setSelected(value);
+        handleErrors()
         register.onChange({
           target: {
             name: register.name,
@@ -47,7 +59,7 @@ const SelectMult = ({
         <Listbox.Button as={Fragment}>
           {({ value, open }) => (
             <Listbox.Label
-              className={`relative w-full text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${
+              className={`relative w-full border-2 transition duration-200 ${(errors && selectValid) ? "border-red-300 border-2" : ''} text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${
                 open && "  text-qss-secondary border border-qss-base-200"
               }`}
             >

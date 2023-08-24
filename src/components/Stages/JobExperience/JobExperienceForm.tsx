@@ -11,7 +11,7 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import ExperienceAdd, { AddExpFormValues } from './ExperienceAdd';
 import { useSelector } from 'react-redux';
-import { addPop, addRemove } from 'state/dataSlice';
+import { addPop, addRemove, addSelect } from 'state/dataSlice';
 const schema = yup.object({
     experiences: yup.array().required()
 })
@@ -79,7 +79,7 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
 
 
 
-    const {  handleSubmit, reset, watch, setValue,register } = useForm<JobExperienceValues>(
+    const {  handleSubmit, reset, watch, setValue,register,formState:{errors},trigger } = useForm<JobExperienceValues>(
         {
             resolver: yupResolver(schema),
             defaultValues: {
@@ -141,6 +141,7 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
 
     useEffect(() => {
         const subscription = watch((value) => {
+            trigger()
             console.log(value);
             dispatch(
                 updateStageForm({
@@ -193,7 +194,7 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
                             <button className='add py-2 px-4 w-72 h-12 m-auto rounded-2xl flex justify-evenly items-center mt-5' onClick={() => setIsAdding(true)}>Yeni iş yeri əlavə et +</button>
                         </>
                     )}
-
+            <button type='submit' onClick={()=> dispatch(addSelect(true))}>Saxla</button>
             <LinkButton
                 nav={{
                     state: { stageName: prevStageName, subStageName: prevSubStageName },

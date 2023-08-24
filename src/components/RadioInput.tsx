@@ -21,6 +21,8 @@ const Radio = ({ options, label, register, value,errors,trigger }: IRadioProps) 
   const handleErrors = async () => {
     trigger()
   }
+  console.log(selectValid);
+  
   return (
     <RadioGroup
     className="w-full"

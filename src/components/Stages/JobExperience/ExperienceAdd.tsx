@@ -7,6 +7,7 @@ import Radio from "../../../components/RadioInput";
 import TextInput from "../../../components/TextInput";
 import { Icon } from '@iconify/react';
 import DateInput from "../../DateInput";
+import { useEffect } from "react";
 type ExperienceAdd = {
   data: IQuestionQuestion[] | undefined;
   addExp: any;
@@ -22,7 +23,7 @@ type ExperienceAdd = {
 
 const schema = yup.object({
   id: yup.string(),
-  haveExperience: yup.object({answer:yup.string().required(),weight:yup.string().required()}).required(),
+  haveExperience: yup.object({answer:yup.string().required(),weight:yup.string().optional().nullable()}).required(),
   company: yup.string().required(),
   profession: yup.string().required(),
   workingActivityForm: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
@@ -51,7 +52,9 @@ const ExperienceAdd = ({
     handleSubmit,
     watch,
     formState: { errors },
+    trigger
   } = useForm<AddExpFormValues>({
+    resolver:yupResolver<AddExpFormValues>(schema),
     defaultValues: editData,
   });
 
@@ -62,6 +65,11 @@ const ExperienceAdd = ({
   const handleClick = () => {
     editExp ? editExp(watch()) : addExp(watch());
   };
+  useEffect(()=>{
+    trigger()
+  },[watch])
+
+  
   const inputProps = [
     { register: { ...register("haveExperience") } },
     { register: { ...register("company") } },
@@ -72,7 +80,7 @@ const ExperienceAdd = ({
     { register: { ...register("endDate") } },
     { register: { ...register("currentWorking") } },
   ];
-  console.log(data);
+  console.log(errors);
   
   return (
     <div className="relative flex flex-col gap-2" onSubmit={onSubmit}>
@@ -85,6 +93,8 @@ const ExperienceAdd = ({
                 options={data?.[0]?.answers}
                 value={watch("haveExperience")}
                 register={inputProps[0].register}
+                errors={errors.haveExperience}
+                trigger={trigger}
               />
             
           </div>
