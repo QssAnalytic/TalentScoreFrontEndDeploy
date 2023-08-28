@@ -7,27 +7,36 @@ interface IRadioProps {
   label?: string;
   register: any;
   value: ISelectedValue;
-  errors?:any,
-  trigger?:any
+  errors?: any;
+  trigger?: any;
 }
 interface RootState {
   dataa: {
     validationSelect: boolean;
   };
 }
-const Radio = ({ options, label, register, value,errors,trigger }: IRadioProps) => {
+const Radio = ({
+  options,
+  label,
+  register,
+  value,
+  errors,
+  trigger,
+}: IRadioProps) => {
   const [selected, setSelected] = useState(options?.[0]);
-  const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
+  const selectValid = useSelector(
+    (state: RootState) => state.dataa.validationSelect
+  );
   const handleErrors = async () => {
-    trigger()
-  }
+    trigger();
+  };
   return (
     <RadioGroup
-    className="w-full"
+      className="w-full"
       value={selected}
       onBlur={handleErrors}
       onChange={(value) => {
-        handleErrors()
+        handleErrors();
         setSelected(value);
         register.onChange({
           target: {
@@ -43,7 +52,9 @@ const Radio = ({ options, label, register, value,errors,trigger }: IRadioProps) 
           <RadioGroup.Option
             key={id}
             value={{ answer: answer_title, weight: answer_weight }}
-            className={`bg-qss-input py-2 cursor-pointe flex-wrap border-2 transition duration-200  w-full text-sm max-w-[142px] ${(errors && selectValid) ? "border-red-300 border-2" : ''}  px-4 gap-1 justify-center items-center flex rounded-full`}
+            className={`bg-qss-input py-2 cursor-pointe flex-wrap border-2 transition duration-200  w-full text-sm max-w-[142px] ${
+              errors && selectValid ? "border-red-300 border-2" : ""
+            }  px-4 gap-1 justify-center items-center flex rounded-full`}
           >
             <span
               className={`whitespace-nowrap relative flex flex-1 justify-center ${

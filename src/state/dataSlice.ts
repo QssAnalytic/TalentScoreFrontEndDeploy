@@ -26,6 +26,7 @@ import { createSlice, isAction, PayloadAction } from '@reduxjs/toolkit';
     acceptOption:'',
     errorsLength:0
   };
+  
   const dataSlice = createSlice({
     name: 'dataa',
     initialState,

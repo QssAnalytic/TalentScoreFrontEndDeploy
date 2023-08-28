@@ -21,15 +21,15 @@ const Stage = () => {
   const { stageName } = (useLocation().state as {
     stageName: string;
   }) || { subStageName: "", stageName: "" };
+
   const { subStageSlug, stageSlug } = useParams();
   const [progress, setProgress] = useState(0);
 
   const stageIndex = useMemo(
     () => data?.findIndex(({ stage_name }) => stageName === stage_name),
-    [data, stageName,progress]
+    [data, stageName, progress]
   );
-    
-    
+
   const subStageIndex = useMemo(
     () =>
       data?.[stageIndex || 0]?.stage_children?.findIndex(
@@ -60,65 +60,84 @@ const Stage = () => {
       case "umumi-suallar":
         return (
           <GeneralQuestionsForm
-            
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
       case "orta-texniki-ve-ali-tehsil-suallari":
         return (
           <EducationQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
 
       case "olimpiada-suallari":
         return (
           <OlympiadQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
 
       case "dil-bilikleri-substage":
         return (
           <LanguangeQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
       case "xususi-bacariqlar-substage":
         return (
           <SpecialSkillsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
       case "xususi-bacariqlar-sertifikat-substage":
         return (
           <SpecialSkillsCertifcateQuestionsForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
       case "idman-substage":
         return (
           <SportForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
       case "idman-substage2":
         return (
           <SportForm2
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
       case "is-tecrubesi-substage":
         return (
           <JobExperienceForm
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
       case "proqram-bilikleri-substage":
         return (
           <ProgramSkills
             stageIndex={stageIndex}
-            subStageSlug={subStageSlug || ""} num={0}          />
+            subStageSlug={subStageSlug || ""}
+            num={0}
+          />
         );
     }
   };
@@ -131,7 +150,9 @@ const Stage = () => {
 
   if (isLoading)
     return (
-      <div className="absolute  top-[150%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader size={90} color="#038477" /></div>
+      <div className="absolute  top-[150%] left-[50%] -translate-y-1/2 -translate-x-1/2">
+        <ClockLoader size={90} color="#038477" />
+      </div>
     );
   if (error || stageName === "")
     return <div className="flex items-center w-full justify-center">Error</div>;
@@ -154,7 +175,11 @@ const Stage = () => {
                 : subStageName}
             </span>
           </h1>
-          <ProgressBar progress={progress} subStageIndex={subStageIndex} stageIndex={stageIndex}/>
+          <ProgressBar
+            progress={progress}
+            subStageIndex={subStageIndex}
+            stageIndex={stageIndex}
+          />
 
           {getSubStageForm()}
         </div>

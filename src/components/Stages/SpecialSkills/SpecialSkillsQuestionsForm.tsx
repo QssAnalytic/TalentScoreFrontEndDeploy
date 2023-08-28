@@ -11,27 +11,32 @@ import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
 import SelectMult from "components/SelectMult";
 import { XCircleIcon } from "@heroicons/react/24/outline";
-import ClockLoader from 'react-spinners/ClockLoader'
+import ClockLoader from "react-spinners/ClockLoader";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup   from 'yup'
+import * as yup from "yup";
 import ButtonSave from "components/ButtonSave";
 import { addSelect } from "state/dataSlice";
 export type SpecialSkillsFormValues = {
-  haveSpecialSkills: { answer: string, weight: string };
+  haveSpecialSkills: { answer: string; weight: string };
   specialSkills: string[];
   levelSkill: string;
   certSkill: "";
-  ameturs: [],
-  professionals: []
+  ameturs: [];
+  professionals: [];
 };
 const schema = yup.object().shape({
-  haveSpecialSkills: yup.object({answer:yup.string().required(),weight:yup.string().optional().nullable()}).required(),
-      specialSkills: yup.array().when("haveSpecialSkills",{
-        is:(haveSpecialSkills:any)=> haveSpecialSkills.answer !=="Yoxdur",
-        then:()=>yup.array().min(1).required()
-      }),
-      levelSkill: yup.string(),
-      certSkill: yup.string(),
+  haveSpecialSkills: yup
+    .object({
+      answer: yup.string().required(),
+      weight: yup.string().optional().nullable(),
+    })
+    .required(),
+  specialSkills: yup.array().when("haveSpecialSkills", {
+    is: (haveSpecialSkills: any) => haveSpecialSkills.answer !== "Yoxdur",
+    then: () => yup.array().min(1).required(),
+  }),
+  levelSkill: yup.string(),
+  certSkill: yup.string(),
 });
 const SpecialSkillsForm = ({
   stageIndex,
@@ -73,27 +78,30 @@ const SpecialSkillsForm = ({
 
   const dispatch = useAppDispatch();
 
-
-
-  const { register, handleSubmit, watch, reset, setValue,formState:{errors},trigger } = useForm<
-    SpecialSkillsFormValues | any
-  >({
-    resolver:yupResolver(schema),
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    formState: { errors },
+    trigger,
+  } = useForm<SpecialSkillsFormValues | any>({
+    resolver: yupResolver(schema),
     defaultValues: {
-      haveSpecialSkills: { answer: "", weight: '' },
+      haveSpecialSkills: { answer: "", weight: "" },
       specialSkills: [],
       levelSkill: "",
       certSkill: "",
     },
   });
 
-
   const onSubmit: SubmitHandler<SpecialSkillsFormValues> = (data) =>
     console.log(data);
 
   useEffect(() => {
     const subscription = watch((value) => {
-      trigger()
+      trigger();
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -115,23 +123,31 @@ const SpecialSkillsForm = ({
         Musiqi: undefined,
         Rəsm: undefined,
         Rəqs: undefined,
-        Yazıçılıq: undefined
-      })
+        Yazıçılıq: undefined,
+      });
     }
-  }, [formData?.haveSpecialSkills?.answer])
+  }, [formData?.haveSpecialSkills?.answer]);
   useEffect(() => {
     if (formData?.specialSkills?.length === 1) {
-      setValue("haveSpecialSkills",{answer:"Var", weight:null})
-    }else if(formData?.specialSkills?.length === 0 && formData.haveSpecialSkills.answer==="Var"){
-      setValue("haveSpecialSkills",{answer:"", weight:null})
+      setValue("haveSpecialSkills", { answer: "Var", weight: null });
+    } else if (
+      formData?.specialSkills?.length === 0 &&
+      formData.haveSpecialSkills.answer === "Var"
+    ) {
+      setValue("haveSpecialSkills", { answer: "", weight: null });
     }
+  }, [formData?.specialSkills?.length]);
 
-  }, [formData?.specialSkills?.length])
-
-  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
+  if (isLoading)
+    return (
+      <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2">
+        <ClockLoader color="#038477" />
+      </div>
+    );
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
+  console.log("questions", questions);
   console.log(formData);
 
   const inputProps = [
@@ -141,8 +157,7 @@ const SpecialSkillsForm = ({
     { register: register("certSkill") },
   ];
   console.log(errors);
-  
-  
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -177,62 +192,56 @@ const SpecialSkillsForm = ({
         <>
           {formData?.specialSkills?.length > 0 ? (
             <div className="space-y-2 animate-fade-in">
-              <label className="pl-2">
-                {questions?.[2]?.question_title}*
-              </label>
+              <label className="pl-2">{questions?.[2]?.question_title}*</label>
 
               <div className="flex gap-5 flex-col">
                 {formData?.specialSkills?.map((item, idx) => {
-                
-                  
-                  return(
+                  return (
                     <div
-                    key={idx}
-                    className="flex justify-between animate-fade-in w-full gap-4"
-                  >
-                    <div className="py-2 px-2 gap-1 rounded-full whitespace-nowrap bg-qss-input flex justify-center items-center w-64">
-                      <span className="w-3/4 flex justify-center">
-                        {item}
-                      </span>
-                      <XCircleIcon
-                        onClick={() => {
-                          setValue(
-                            "specialSkills",
-                            formData?.specialSkills?.filter(
-                              (specialSkill) => specialSkill !== item
-                            )
-                          )
-                          setValue(
-                            `${item}`, undefined
-                          )
-                          console.log(item);
-
-                        }
-                        }
-                        className="w-5 h-5 text-red-400 cursor-pointer"
-                      />
+                      key={idx}
+                      className="flex justify-between animate-fade-in w-full gap-4"
+                    >
+                      <div className="py-2 px-2 gap-1 rounded-full whitespace-nowrap bg-qss-input flex justify-center items-center w-64">
+                        <span className="w-3/4 flex justify-center">
+                          {item}
+                        </span>
+                        <XCircleIcon
+                          onClick={() => {
+                            setValue(
+                              "specialSkills",
+                              formData?.specialSkills?.filter(
+                                (specialSkill) => specialSkill !== item
+                              )
+                            );
+                            setValue(`${item}`, undefined);
+                            console.log(item);
+                          }}
+                          className="w-5 h-5 text-red-400 cursor-pointer"
+                        />
+                      </div>
+                      <div className="flex  w-full justify-between">
+                        <Radio
+                          options={questions?.[2]?.answers}
+                          value={watch(item)}
+                          register={register(item)}
+                          errors={errors?.item}
+                          trigger={trigger}
+                        />
+                      </div>
                     </div>
-                    <div className="flex  w-full justify-between">
-
-                      <Radio
-                        options={questions?.[2]?.answers}
-                        value={watch(item)}
-                        register={register(item)}
-                        errors={errors?.item}
-                        trigger={trigger}
-                      />
-
-                    </div>
-                  </div>
-                  )
+                  );
                 })}
               </div>
             </div>
           ) : null}
         </>
       </div>
-      <ButtonSave trigger={trigger} label="Növbəti" onClick={()=> dispatch(addSelect(true))}/>
-      
+      <ButtonSave
+        trigger={trigger}
+        label="Növbəti"
+        onClick={() => dispatch(addSelect(true))}
+      />
+
       <LinkButton
         nav={{
           state: { stageName: prevStageName, subStageName: prevSubStageName },
