@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { IAnswer, ISelectedValue } from "../types";
 import { Listbox } from "@headlessui/react";
 import { Icon } from "@iconify/react";
+import { useSelector } from "react-redux";
 interface ISelect {
   label?: string;
   options?: IAnswer[];
@@ -10,7 +11,13 @@ interface ISelect {
   value?: ISelectedValue;
   disabled?: boolean;
   defaultValue?: string;
+  errors:any
   onChange?: any;
+}
+interface RootState {
+	dataa: {
+		validationSelect: boolean;
+	};
 }
 const SelectSearch = ({
   label,
@@ -18,12 +25,13 @@ const SelectSearch = ({
   register,
   value,
   defaultValue  ,
+  errors,
   disabled = false,
   onChange,
 }: ISelect) => {
   const [selected, setSelected] = useState(value);
   const [ q, setQ ] = useState('');
-  const [a,setA] = useState(false)
+  const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
   let datas = Object.values(options!);
 	function search(params:Array<object>) {
 		let copy = params.filter(
@@ -69,7 +77,7 @@ const SelectSearch = ({
         <Listbox.Button as={Fragment}>
           {({ value, open }) => (
             <Listbox.Label
-              className={`relative w-full text-left flex items-center border  bg-qss-input py-2 px-4 rounded-full outline-none ${
+              className={`relative w-full text-left flex ${errors && selectValid ? 'border-red-300 border-2' : ''} items-center border  bg-qss-input py-2 px-4 rounded-full outline-none ${
                 open && "text-qss-secondary border border-qss-base-200"
               } ${value?.answer ? "text-qss-secondary" : "text-qss-base-300"} `}
             >

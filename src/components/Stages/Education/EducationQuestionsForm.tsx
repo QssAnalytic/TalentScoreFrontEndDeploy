@@ -21,6 +21,7 @@ import * as yup from "yup";
 import EducationAdd from "./components/EducationAdd";
 import { AddEduFormValues } from "./components/FormEducations";
 import Educations from "./components/Educations";
+import { addSelect } from "state/dataSlice";
 
 
 const schema = yup.object({
@@ -93,11 +94,10 @@ const EducationQuestionsForm = ({
 
 
   const questions = questionsData?.[0]?.questions;
-  console.log(questions);
   
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
+      console.log('salam');
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -135,7 +135,7 @@ const EducationQuestionsForm = ({
     // setIsAdding(false);
   }
 
-console.log(page);
+console.log(formData);
 
   
   return (
@@ -149,7 +149,7 @@ console.log(page);
         }
         
       </div>
-
+      <button type="submit" onClick={()=> dispatch(addSelect(true))}>Saxla</button>
       <LinkButton
         nav={{
           state: { stageName, subStageName },

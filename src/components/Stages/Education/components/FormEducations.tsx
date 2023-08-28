@@ -69,13 +69,18 @@ const schema = yup
   .object({
     id: yup.number().required(),
     tehsil:yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
-    country: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
+    country: yup.object({ answer: yup.string().required(), weight: yup.string().optional().nullable() }).required(),
     university: yup.string().required(),
-    specialty: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
-    date: yup.object({ start: yup.string().required(), end: yup.string().required() }).required(),
+    specialty: yup.object({ answer: yup.string().required(), weight: yup.string().optional().nullable() }).required(),
+    currentWorking:yup.boolean(),
+    date: yup.object({ start: yup.string().required(), end: yup.string().when('currentWorking', {
+    is: (currentWorking: boolean) => currentWorking,
+    then: () => yup.string().optional(),
+    otherwise: () => yup.string().required()
+  })}).required(),
     criterian: yup.object({
       answer: yup.string().required(),
-      weight:yup.string().required()
+      weight:yup.string().optional().nullable()
     }).required(),
     local: yup.object({
       examName: yup.string().required(),
@@ -89,7 +94,7 @@ const schema = yup
       maxScore: yup.string().optional(),}).optional(),
   ielts:yup.string().optional(),
   toefl:yup.string().optional(),
-  currentWorking:yup.boolean().optional(),
+
     application: yup.array().optional()
   })
   .required();
@@ -108,8 +113,10 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
     watch,
     setValue,
     reset,
+    trigger,
     formState: { errors },
   } = useForm<AddEduFormValues>({
+    resolver:yupResolver<AddEduFormValues>(schema),
     defaultValues:{
       id:0,
       tehsil:{answer:"", weight:""},
@@ -188,7 +195,6 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
 
     setCount(count+1)
   },[count])
-  console.log(questions);
   
   const handleClick=()=>{
     if (tehsil!==name) {
@@ -202,14 +208,18 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
     }
 
   }
-
-  console.log(watch());
+  useEffect(()=>{
+    trigger()
+  },[watch("university"),watch("date.start"),watch("date.end"),watch("currentWorking"),watch("country"),watch("specialty"),watch("criterian")
+])
+  console.log(errors);
+  
   const handleEndDate = ()=>{
       setEnd(!end)
       setValue("date.end","Hazırda çalışıram")
   }
   return (
-    <div className="h-[460px] overflow-y-scroll">
+    <div className="h-[460px] overflow-y-scroll" onSubmit={onSubmit}>
       {
         elave ===true && formData?.education.length!==0?<Select register={register("tehsil")} label={`${formData.education.length + 1}-ci Təhsilinizi qeyd edin`} options={[
           {
@@ -244,6 +254,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         <SelectSearch
         defaultValue="Ölkə"
         label=""
+        errors={errors.country}
           options={questions?.[0]?.answers}
           value={watch("country")}
           register={register("country")}
@@ -255,12 +266,15 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
           placeholder="ADNSU"
           value={watch().university}
           register={register("university")}
+          errors={errors.university}
+          
         />
       </div>
       <div className="mb-5">
       <SelectSearch
         label={questions?.[2]?.question_title}
         defaultValue="İnformasiya Texnologiyaları"
+        errors={errors.specialty}
           options={questions?.[2]?.answers}
           value={watch("specialty")}
           register={register("specialty")}
@@ -273,10 +287,12 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         <DateInput
         label={tehsil==="Peşə təhsili"?"Kollecə qəbul olma tarixi ":"Universitetə  qəbul olma tarixi"}
         type="date"
+        errors={errors.date?.start}
         register={register("date.start")}/>
         <DateInput
         label={tehsil==="Peşə təhsili"?"Kolleci bitirmə tarixi ":"Universiteti  bitirmə tarixi"}
         type="date"
+        errors={errors.date?.end}
         register={register("date.end")}
         disabled={end===true?true:false}
         />
@@ -292,7 +308,7 @@ const FormEducations = ({questions,formData,handleAddEdu,name}:EducationAdd) => 
         <label className="mt-5">{questions?.[4]?.question_title}</label>
         <div className="flex items-center justify-between mt-3 mb-3">
             
-                    <Radio value={watch().criterian}  options={questions?.[4]?.answers}  register={register("criterian")}/>
+                    <Radio value={watch().criterian}  options={questions?.[4]?.answers} errors={errors.criterian} trigger={trigger}  register={register("criterian")}/>
 
             
         </div>

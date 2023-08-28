@@ -132,7 +132,6 @@ const SpecialSkillsForm = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
-  console.log(formData);
 
   const inputProps = [
     { register: register("haveSpecialSkills") },
@@ -205,7 +204,7 @@ const SpecialSkillsForm = ({
                           setValue(
                             `${item}`, undefined
                           )
-                          console.log(item);
+                       
 
                         }
                         }
@@ -218,7 +217,7 @@ const SpecialSkillsForm = ({
                         options={questions?.[2]?.answers}
                         value={watch(item)}
                         register={register(item)}
-                        errors={errors?.item}
+                        errors={errors.item}
                         trigger={trigger}
                       />
 

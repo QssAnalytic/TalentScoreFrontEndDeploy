@@ -67,7 +67,6 @@ const SpecialSkillsCertifcateQuestionsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -96,7 +95,6 @@ const SpecialSkillsCertifcateQuestionsForm = ({
     })
   }
   DisplayMap()
-  console.log(formData);
   
   return (
     <form
