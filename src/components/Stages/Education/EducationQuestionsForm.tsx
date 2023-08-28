@@ -22,16 +22,18 @@ import EducationAdd from "./components/EducationAdd";
 import { AddEduFormValues } from "./components/FormEducations";
 import Educations from "./components/Educations";
 import { addSelect } from "state/dataSlice";
+import ButtonSave from "components/ButtonSave";
 
 
 const schema = yup.object({
-  education: yup.array().required(),
+  education: yup.array().min(1).required(),
 
 });
 interface RootState {
   dataa: {
-    currentPage:1,
-    tehsil:string,
+    currentPage: 1,
+    tehsil: string,
+    errorsLength: number
   };
 }
 export type EducationQuestionsFormValues = yup.InferType<typeof schema>;
@@ -44,12 +46,14 @@ const EducationQuestionsForm = ({
 
 
   const nav = useNavigate();
-  const page= useSelector((state: RootState) => state.dataa.currentPage);
-  const tehsil= useSelector((state: RootState) => state.dataa.tehsil);
-  
+  const page = useSelector((state: RootState) => state.dataa.currentPage);
+  const tehsil = useSelector((state: RootState) => state.dataa.tehsil);
+  const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
+
+
   const { state } = useLocation();
   console.log(tehsil);
-  
+
   const {
     slug: slugName,
     stage_name: stageName,
@@ -78,12 +82,12 @@ const EducationQuestionsForm = ({
     error: questionsError,
     isLoading,
   } = useGetQuestionsQuery(subStageSlug);
-  
-  const { register, handleSubmit, watch, reset,setValue } =
+
+  const { register, formState: { errors }, handleSubmit, watch, reset, setValue, trigger } =
     useForm<EducationQuestionsFormValues>({
-      resolver: yupResolver(schema),
+      resolver: yupResolver<EducationQuestionsFormValues>(schema),
       defaultValues: {
-        education:[]
+        education: []
       },
     });
 
@@ -94,7 +98,7 @@ const EducationQuestionsForm = ({
 
 
   const questions = questionsData?.[0]?.questions;
-  
+
   useEffect(() => {
     const subscription = watch((value) => {
       console.log('salam');
@@ -109,14 +113,14 @@ const EducationQuestionsForm = ({
       ) {
         state.subStageName === "Olimpiada sualları"
           ? nav(`/stages/${slugName}/${prevSubSlugName}`, {
-              state: { subStageName: prevSubStageName, stageName: stageName },
-            })
+            state: { subStageName: prevSubStageName, stageName: stageName },
+          })
           : nav(`/stages/${slugName}/${subSlugName}`, {
-              state: { subStageName: subStageName, stageName: stageName },
-            });
+            state: { subStageName: subStageName, stageName: stageName },
+          });
       }
     });
-    
+
 
     reset(formData);
 
@@ -129,15 +133,14 @@ const EducationQuestionsForm = ({
   if (questionsError) return <div>Error</div>;
 
 
-  const handleAddEdu = (eduData:AddEduFormValues) => {
+  const handleAddEdu = (eduData: AddEduFormValues) => {
     const data = formData?.education;
     setValue("education", [...data, eduData]);
     // setIsAdding(false);
   }
+  console.log(errors);
 
-console.log(formData);
 
-  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -145,11 +148,10 @@ console.log(formData);
     >
       <div className="space-y-7">
         {
-          page===1?<EducationAdd handleAddEdu={handleAddEdu} questions={questions} formData={formData}/>:<Educations formData={formData} setValue={setValue}/>
+          page === 1 ? <EducationAdd handleAddEdu={handleAddEdu} questions={questions} formData={formData} /> : <Educations formData={formData} setValue={setValue} />
         }
-        
+
       </div>
-      <button type="submit" onClick={()=> dispatch(addSelect(true))}>Saxla</button>
       <LinkButton
         nav={{
           state: { stageName, subStageName },
@@ -157,18 +159,24 @@ console.log(formData);
         }}
         type="outline"
         label="Geri"
-        disabled={formData?.education?.length!==0 || page!==1?true:false}
+        disabled={formData?.education?.length !== 0 || page !== 1 ? true : false}
         className="absolute left-0 -bottom-20"
       />
 
-      <LinkButton
-        nav={{
-          state: { stageName, subStageName },
-          path: { slugName, subSlugName },
-        }}
-        label="Növbəti"
-        className="absolute right-0 -bottom-20"
-      />
+      {
+        errLength === 0 ?
+          <LinkButton
+            onClick={() => dispatch(addSelect(false))}
+            nav={{
+              state: { stageName, subStageName },
+              path: { slugName, subSlugName },
+            }}
+            label="Növbəti"
+            className="absolute right-0 -bottom-20"
+          /> :
+          <ButtonSave trigger={trigger} label="Növbəti" className="absolute right-0 -bottom-20" onClick={() => dispatch(addSelect(true))} />
+      }
+
     </form>
   );
 };
