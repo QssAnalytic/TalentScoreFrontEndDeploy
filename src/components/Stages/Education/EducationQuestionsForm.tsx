@@ -49,8 +49,6 @@ const EducationQuestionsForm = ({
   const page = useSelector((state: RootState) => state.dataa.currentPage);
   const tehsil = useSelector((state: RootState) => state.dataa.tehsil);
   const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
-
-
   const { state } = useLocation();
   console.log(tehsil);
 

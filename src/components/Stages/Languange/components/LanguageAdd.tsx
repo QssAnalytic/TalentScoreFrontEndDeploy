@@ -8,6 +8,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { IQuestionQuestion } from "../../../../types";
 import TextInput from "../../../TextInput";
 import { Icon } from "@iconify/react";
+import { addErrorsLength, addSelect } from "state/dataSlice";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
 
 type LanguageAdd = {
   data: IQuestionQuestion[] | undefined;
@@ -30,34 +33,79 @@ const schema = yup
     language: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
+        weight: yup.string().optional().nullable(),
       })
       .required(),
-    langCert: yup
-      .object({
+
+    langCert: yup.object({
+      answer: yup.string().required(),
+      weight: yup.string().optional().nullable(),
+    }).when('language', {
+      is: (language: any) => language.answer !== "Ingilis dili",
+      then: () => yup.object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
-      })
-      .required(),
-    engLangCert: yup
-      .object({
+        weight: yup.string().optional().nullable(),
+      }).required(),
+      otherwise: () => yup.object({
+        answer: yup.string().optional(),
+        weight: yup.string().optional().nullable(),
+      }).optional()
+    }),
+
+    engLangCert: yup.object({
+      answer: yup.string().required(),
+      weight: yup.string().optional().nullable(),
+    }).when('language', {
+      is: (language: any) => language.answer === "Ingilis dili",
+      then: () => yup.object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
-      })
-      .required(),
-    langCertName: yup.string().required(),
-    langCertResult: yup.string().required(),
+        weight: yup.string().optional().nullable(),
+      }).required(),
+      otherwise: () => yup.object({
+        answer: yup.string().optional(),
+        weight: yup.string().optional().nullable(),
+      }).optional()
+    }),
+
+    langCertName: yup.string().when((['langCert', 'engLangCert']), {
+      is: (langCert: any, engLangCert: any) => (langCert?.answer === "Bəli" || engLangCert?.answer === "Öz sertifikatın"),
+      then: () => yup.string().required()
+    }),
+
+    langCertResult: yup.string().when((['langCert', 'engLangCert']), {
+      is: (langCert: any, engLangCert: any) => (langCert?.answer === "Bəli" || engLangCert?.answer === "Öz sertifikatın"),
+      then: () => yup.string().required()
+    }),
+
     engCertResult: yup.object({
       answer: yup.string().required(),
-      weight: yup.string().required(),
-    })
-      .required(),
-    langLevel: yup
-      .object({
+      weight: yup.string().optional().nullable(),
+    }).when((['language', 'engLangCert']), {
+      is: (language: any, engLangCert: any) => language?.answer === "Ingilis dili" && (engLangCert?.answer === "İELTS" || engLangCert?.answer === "TOEFL"),
+      then: () => yup.object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
-      })
-      .required(),
+        weight: yup.string().optional().nullable(),
+      }).required(),
+      otherwise: () => yup.object({
+        answer: yup.string().optional(),
+        weight: yup.string().optional().nullable(),
+      }).optional()
+    }),
+
+    langLevel: yup.object({
+      answer: yup.string().required(),
+      weight: yup.string().optional().nullable(),
+    }).when(['engLangCert', 'language'], {
+      is: (engLangCert: any, language: any) => (language?.answer === "Ingilis dili" && (engLangCert.answer === "Yoxdur" || engLangCert.answer === 'Öz sertifikatın')) || language.answer !== "Ingilis dili",
+      then: () => yup.object({
+        answer: yup.string().required(),
+        weight: yup.string().optional().nullable(),
+      }).required(),
+      otherwise: () => yup.object({
+        answer: yup.string().optional(),
+        weight: yup.string().optional().nullable(),
+      }).optional()
+    }),
   })
   .required();
 
@@ -82,10 +130,11 @@ const LanguageAdd = ({
     handleSubmit,
     watch,
     reset,
+    trigger,
     formState: { errors },
   } = useForm<AddLangFormValues>({
     defaultValues: editData,
-    // resolver: yupResolver(schema),
+    resolver: yupResolver<AddLangFormValues>(schema),
   });
   const inputProps = [
     { register: register("language") },
@@ -96,6 +145,8 @@ const LanguageAdd = ({
     { register: register("engCertResult") },
     { register: register("langLevel") },
   ];
+
+  const dispatch: Dispatch = useDispatch()
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
@@ -108,6 +159,12 @@ const LanguageAdd = ({
 
     editLang ? editLang(watch()) : addLang(watch());
   };
+
+  console.log(errors);
+  console.log(watch().language?.answer === "Ingilis dili" && (watch().engLangCert?.answer === "İELTS" || watch().engLangCert?.answer === "TOEFL"));
+  // console.log(watch().engLangCert?.answer === "TOEFL");
+
+  // console.log(watch());
 
   const handleLangLevel = (
     engCertResult: string | undefined,
@@ -142,9 +199,19 @@ const LanguageAdd = ({
     }
     return watch('langLevel');
   };
+  dispatch(addErrorsLength(Object.keys(errors).length))
+
+  useEffect(() => {
+    dispatch(addErrorsLength(Object.keys(errors).length))
+    trigger()
+  }, [watch('language'), watch('langCert'), watch('langCertName'), watch('langCertResult'), watch('langLevel')
+    , watch("engCertResult"), watch("engLangCert")
+  ])
+
   useEffect(() => {
     if (formData?.haveLanguageSkills?.answer === "Yoxdur") {
       reset()
+      dispatch(addSelect(false))
     }
   }, [formData?.haveLanguageSkills?.answer])
 
@@ -152,10 +219,12 @@ const LanguageAdd = ({
     if (watch().language !== undefined && editData === undefined) {
       parentReset({
         ...formData,
-        haveLanguageSkills: { answer: '', weight: '' }
+        haveLanguageSkills: { answer: 'Var', weight: '' }
       })
     }
   }, [watch("language")])
+
+
 
   useEffect(() => {
     if (!editData) {
@@ -203,6 +272,7 @@ const LanguageAdd = ({
           options={data?.[1]?.answers}
           register={inputProps[0].register}
           value={watch()?.language}
+          errors={errors.language}
         />
         {watch()?.language?.answer && (
           <div className="absolute">
@@ -218,6 +288,7 @@ const LanguageAdd = ({
                     <Radio
                       options={data?.[3]?.answers}
                       value={watch("langCert")}
+                      errors={errors.langCert}
                       register={inputProps[1].register}
                     />
                   </div>
@@ -229,10 +300,12 @@ const LanguageAdd = ({
                       <TextInput
                         inputClassName="w-3/5"
                         register={inputProps[3].register}
+                        errors={errors.langCertName}
                       />
                       <TextInput
                         inputClassName="w-2/5"
                         register={inputProps[4].register}
+                        errors={errors.langCertResult}
                       />
                     </div>
                   </div>
@@ -240,7 +313,7 @@ const LanguageAdd = ({
                 <div className="space-y-2 w">
                   <label className="pl-2">
                     {watch()?.language?.answer?.replace(/\s+dili$/, "")}{" "}
-                    {data?.[4]?.question_title}*
+                    {data?.[2]?.question_title}*
                   </label>
 
                   <div className="flex gap-5 flex-wrap">
@@ -248,6 +321,9 @@ const LanguageAdd = ({
                       options={data?.[2]?.answers}
                       value={watch("langLevel")}
                       register={inputProps[6].register}
+                      errors={errors.langLevel}
+
+
                     />
 
                   </div>
@@ -264,7 +340,7 @@ const LanguageAdd = ({
                       options={data?.[5]?.answers}
                       value={watch("engLangCert")}
                       register={inputProps[2].register}
-
+                      errors={errors.engLangCert}
                     />
                   </div>
                 </div>
@@ -276,6 +352,7 @@ const LanguageAdd = ({
                         options={data?.[6]?.answers}
                         register={inputProps[5].register}
                         value={watch('engCertResult')}
+                        errors={errors.engCertResult}
                       />
                     </>
                   )}
@@ -285,6 +362,7 @@ const LanguageAdd = ({
                       options={data?.[7]?.answers}
                       register={inputProps[5].register}
                       value={watch('engCertResult')}
+                      errors={errors.engCertResult}
                     />
                   )}
                   {watch("engLangCert")?.answer === "Öz sertifikatın" && (
@@ -297,10 +375,13 @@ const LanguageAdd = ({
                           <TextInput
                             inputClassName="w-3/5"
                             register={inputProps[3].register}
+                            errors={errors.langCertName}
                           />
                           <TextInput
                             inputClassName="w-2/5"
                             register={inputProps[4].register}
+                            errors={errors.langCertResult}
+
                           />
                         </div>
                       </div>
@@ -316,6 +397,7 @@ const LanguageAdd = ({
 
                             value={watch("langLevel")}
                             register={inputProps[6].register}
+                            errors={errors.langLevel}
 
                           />
                         </div>
@@ -337,15 +419,16 @@ const LanguageAdd = ({
                     options={data?.[2]?.answers}
                     value={watch("langLevel")}
                     register={inputProps[6].register}
+                    errors={errors.langLevel}
                   />
                 </div>
               </div>
             )}
-
             <button
               type="button"
               onClick={handleClick}
-              className=" bg-qss-input px-12 py-2.5 items-center gap-1 font-medium text-base flex mt-5 mx-auto rounded-full"
+              className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-5 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500"
+
             >
               Yadda saxla
               <Icon icon="ic:round-done" className="text-xl" />
@@ -355,6 +438,7 @@ const LanguageAdd = ({
                 className="save py-2 px-4 w-40 h-10 rounded-2xl flex justify-evenly self-center bg-qss-secondary text-white"
                 onClick={() => {
                   isAdding ? setIsAdding() : setIsEditing();
+                  dispatch(addErrorsLength(0))
                 }}
               >
                 Siyahıya bax

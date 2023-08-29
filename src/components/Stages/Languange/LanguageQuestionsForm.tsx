@@ -15,16 +15,19 @@ import { Icon } from "@iconify/react";
 import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
-import { addRemove, addPop } from "state/dataSlice";
+import { addRemove, addPop, addSelect } from "state/dataSlice";
 import ClockLoader from 'react-spinners/ClockLoader'
+import ButtonSave from "components/ButtonSave";
 interface RootState {
   dataa: {
     removeFunc: boolean;
+    errorsLength: number
   };
 }
+
 const schema = yup.object({
-  languageSkills: yup.array().required(),
-  haveLanguageSkills: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required()
+  languageSkills: yup.array().min(1).required(),
+  haveLanguageSkills: yup.object({ answer: yup.string().required(), weight: yup.string().optional().nullable() }).required()
 });
 
 export type LanguageQuestionsFormValues = yup.InferType<typeof schema>;
@@ -70,9 +73,9 @@ const LanguageQuestionsForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: LanguageQuestionsFormValues }) || {};
 
-  const { register, handleSubmit, watch, reset: ParentReset, setValue, formState: { errors } } =
+  const { register, handleSubmit, watch, reset: ParentReset, setValue, formState: { errors }, trigger } =
     useForm<LanguageQuestionsFormValues>({
-      resolver: yupResolver(schema),
+      resolver: yupResolver<LanguageQuestionsFormValues>(schema),
       defaultValues: {
         languageSkills: [],
         haveLanguageSkills: { answer: '', weight: '' }
@@ -83,7 +86,9 @@ const LanguageQuestionsForm = ({
     console.log(data);
   };
 
-  console.log(errors.haveLanguageSkills);
+  const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
+
+  console.log(errors);
 
 
   const [isAdding, setIsAdding] = useState(true);
@@ -154,6 +159,8 @@ const LanguageQuestionsForm = ({
   if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
   if (questionsError) return <div>Error</div>;
 
+  console.log(errLength);
+
 
   const questions = questionsData?.[0]?.questions;
 
@@ -184,6 +191,7 @@ const LanguageQuestionsForm = ({
                     value={watch('haveLanguageSkills')}
                     register={register('haveLanguageSkills')}
                     options={questions?.[0].answers}
+                    errors={errors.haveLanguageSkills}
                   />
                 </div>
               </div>)
@@ -207,7 +215,7 @@ const LanguageQuestionsForm = ({
             className="add py-2 px-4 w-full h-12 rounded-2xl flex justify-evenly items-center"
             type="button"
             onClick={() => {
-              setIsAdding(true), setDisplayListButton(true);
+              setIsAdding(true), setDisplayListButton(true), dispatch(addSelect(false));
             }}
           >
             {" "}
@@ -288,7 +296,6 @@ const LanguageQuestionsForm = ({
           </ul>
         </>
       )}
-
       <LinkButton
         nav={{
           state: { stageName: prevStageName, subStageName: prevSubStageName },
@@ -298,14 +305,19 @@ const LanguageQuestionsForm = ({
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-      <LinkButton
-        nav={{
-          state: { stageName: nextStageName, subStageName: nextSubStageName },
-          path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-        }}
-        label="Növbəti"
-        className="absolute right-0 -bottom-20"
-      />
+      {
+        errLength === 0 || watch('haveLanguageSkills.answer') === "Yoxdur" ?
+          <LinkButton
+            onClick={() => dispatch(addSelect(false))}
+            nav={{
+              state: { stageName: nextStageName, subStageName: nextSubStageName },
+              path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
+            }}
+            label="Növbəti"
+            className="absolute right-0 -bottom-20"
+          /> :
+          <ButtonSave trigger={trigger} label="Növbəti" className="absolute right-0 -bottom-20" onClick={() => dispatch(addSelect(true))} />
+      }
     </form>
   );
 };
