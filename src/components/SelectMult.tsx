@@ -10,8 +10,8 @@ interface ISelectMult {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register?: any;
   value?: string[];
-  errors?: any
-  trigger?: any
+  errors?: any;
+  trigger?: any;
 }
 interface RootState {
   dataa: {
@@ -25,16 +25,18 @@ const SelectMult = ({
   value,
   placeholder,
   errors,
-  trigger
+  trigger,
 }: ISelectMult) => {
   const [selected, setSelected] = useState(value);
-  const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
+  const selectValid = useSelector(
+    (state: RootState) => state.dataa.validationSelect
+  );
   useEffect(() => {
     setSelected(value);
   }, [value]);
   const handleErrors = async () => {
-    trigger()
-  }
+    trigger();
+  };
   return (
     <Listbox
       multiple
@@ -45,13 +47,13 @@ const SelectMult = ({
       className="flex flex-col gap-2"
       onChange={(value) => {
         setSelected(value);
-        handleErrors()
+        handleErrors();
         register.onChange({
           target: {
             name: register.name,
             value: value,
           },
-        })
+        });
       }}
     >
       <Listbox.Label>{label}</Listbox.Label>
@@ -59,7 +61,9 @@ const SelectMult = ({
         <Listbox.Button as={Fragment}>
           {({ value, open }) => (
             <Listbox.Label
-              className={`relative w-full border-2 transition duration-200 ${(errors && selectValid) ? "border-red-300 border-2" : ''} text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${
+              className={`relative w-full border-2 transition duration-200 ${
+                errors && selectValid ? "border-red-300 border-2" : ""
+              } text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${
                 open && "  text-qss-secondary border border-qss-base-200"
               }`}
             >
