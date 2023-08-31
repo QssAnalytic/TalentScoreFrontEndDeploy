@@ -7,6 +7,7 @@ import {store} from './state/store';
 import Landing from 'pages/Landing/Landing';
 import Login from 'pages/Auth/Login/Login';
 import Register from 'pages/Auth/Register/Register';
+import Profile from 'pages/Auth/Profile/Profile';
 import Stages from 'pages/Stages';
 import ErrorPage from 'components/ErrorPage';
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
 			{
 				path: 'register',
 				element: <Register />
+			},
+			{
+				path: 'profile',
+				element: <Profile />
 			},
 			{
 				path: 'stages/:stageSlug/:subStageSlug',

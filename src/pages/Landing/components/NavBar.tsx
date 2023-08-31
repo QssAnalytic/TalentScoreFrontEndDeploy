@@ -42,7 +42,7 @@ const NavBar = () => {
 	];
 
 	return (
-		<div className="py-8">
+		<div className="py-8  px-[220px]">
 			<div className="hidden lg:flex justify-between items-center m-auto ">
 				<div className="w-40">
 					<Link to="/">

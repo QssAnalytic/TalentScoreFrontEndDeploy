@@ -21,7 +21,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="border-t border-t-[#CEE7E4] bg-[#EAF5F3] bg-opacity-50 absolute z-10 w-full left-0 px-[220px] py-10">
+    <footer className="border-t border-t-[#CEE7E4] bg-[#EAF5F380] bg-opacity-50 absolute z-10 w-full left-0 px-[220px] py-10">
       <div className="flex items-center gap-6">
         <div>
           <div className="w-[153px]">
