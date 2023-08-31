@@ -88,6 +88,8 @@ const SpecialSkillsForm = ({
 
   const dispatch = useAppDispatch();
 
+  let skillErr: string = "";
+
   const [dynamicFields, setDynamicFields] = useState<DynamicFields>({});
 
   const addDynamicField = (fieldName: string) => {
@@ -171,6 +173,7 @@ const SpecialSkillsForm = ({
       });
     }
   }, [formData?.haveSpecialSkills?.answer]);
+
   useEffect(() => {
     if (formData?.specialSkills?.length === 1) {
       setValue("haveSpecialSkills", { answer: "Var", weight: null });
@@ -204,8 +207,6 @@ const SpecialSkillsForm = ({
     { register: register("certSkill") },
   ];
 
-  let skillErr: boolean = false;
-  console.log(errors)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -242,7 +243,6 @@ const SpecialSkillsForm = ({
           {formData?.specialSkills?.length > 0 ? (
             <div className="space-y-2 animate-fade-in">
               <label className="pl-2">{questions?.[2]?.question_title}*</label>
-              {console.log("errors", errors)}
               <div className="flex gap-5 flex-col">
                 {formData?.specialSkills?.map((item, idx) => {
                   if (errors) {
