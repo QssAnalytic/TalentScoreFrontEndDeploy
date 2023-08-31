@@ -116,6 +116,7 @@ const LanguageQuestionsForm = ({
       (_, index) => index !== idd
     );
     formData?.languageSkills.length === 1 && setIsAdding(true);
+    setValue('haveLanguageSkills', { answer: '', weight: '' })
     setValue("languageSkills", filterData);
     dispatch(addRemove(false))
   }

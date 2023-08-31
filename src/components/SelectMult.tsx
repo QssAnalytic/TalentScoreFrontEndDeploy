@@ -32,6 +32,9 @@ const SelectMult = ({
   useEffect(() => {
     setSelected(value);
   }, [value]);
+
+  console.log(value);
+
   return (
     <Listbox
       multiple

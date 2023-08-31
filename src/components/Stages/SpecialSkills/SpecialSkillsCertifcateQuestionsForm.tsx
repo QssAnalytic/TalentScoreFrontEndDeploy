@@ -59,7 +59,7 @@ const SpecialSkillsCertifcateQuestionsForm = ({
       ({ name }) => name === prevSubSlugName
     ) as { formData: any }) || {};
 
-  const { register, handleSubmit, watch, reset, setValue,formState:{errors},trigger } = useForm<any>({
+  const { register, handleSubmit, watch, reset, setValue, formState: { errors }, trigger } = useForm<any>({
     defaultValues: {},
   });
 
@@ -95,7 +95,10 @@ const SpecialSkillsCertifcateQuestionsForm = ({
     })
   }
   DisplayMap()
-  
+
+  console.log(watch());
+
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -122,7 +125,7 @@ const SpecialSkillsCertifcateQuestionsForm = ({
           </div>
         </div>
       </div>
-              
+
       <LinkButton
         nav={{
           state: { stageName: prevStageName, subStageName: prevSubStageName },
