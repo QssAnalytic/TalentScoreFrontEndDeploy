@@ -23,7 +23,7 @@ const Radio = ({ options, label, register, value, errors, trigger }: IRadioProps
     trigger()
   }
 
-  console.log(errors);
+
 
 
   return (

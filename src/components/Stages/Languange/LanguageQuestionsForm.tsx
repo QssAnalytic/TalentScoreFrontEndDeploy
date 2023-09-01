@@ -15,7 +15,7 @@ import { Icon } from "@iconify/react";
 import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
-import { addRemove, addPop, addSelect } from "state/dataSlice";
+import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
 import ClockLoader from 'react-spinners/ClockLoader'
 import ButtonSave from "components/ButtonSave";
 interface RootState {
@@ -303,6 +303,7 @@ const LanguageQuestionsForm = ({
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
         type="outline"
+        onClick={()=>dispatch(addErrorsLength(0))}
         label="Geri"
         className="absolute left-0 -bottom-20"
       />

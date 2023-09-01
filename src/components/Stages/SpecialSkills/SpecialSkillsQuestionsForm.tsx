@@ -15,7 +15,7 @@ import ClockLoader from "react-spinners/ClockLoader";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ButtonSave from "components/ButtonSave";
-import { addSelect } from "state/dataSlice";
+import { addErrorsLength, addSelect } from "state/dataSlice";
 import { DevTool } from "@hookform/devtools";
 
 export type SpecialSkillsFormValues = {
@@ -65,7 +65,14 @@ const SpecialSkillsForm = ({
     stage_name: nextStageName,
     stage_children: nextStageChildren,
   } = stagesData?.[stageIndex] || {};
-
+  
+  const {
+    slug: nextSlugNameCond,
+    stage_name: nextStageNameCond,
+    stage_children: nextStageChildrenCond,
+  } = stagesData?.[3] || {};
+  const { slug: nextSubSlugNameCond, stage_name: nextSubStageNameCond } =
+  nextStageChildrenCond?.[0] || {};
   const {
     slug: prevSlugName,
     stage_name: prevStageName,
@@ -200,8 +207,10 @@ const SpecialSkillsForm = ({
     );
   if (questionsError) return <div>Error</div>;
 
+
+  
   const questions = questionsData?.[0]?.questions;
-  console.log(formData);
+
 
   const inputProps = [
     { register: register("haveSpecialSkills") },
@@ -211,8 +220,8 @@ const SpecialSkillsForm = ({
   ];
 
   let skillErr: any = false
-
-  console.log(errors)
+ 
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -299,30 +308,50 @@ const SpecialSkillsForm = ({
           ) : null}
         </>
       </div>
-      <ButtonSave
+      {
+        watch("haveSpecialSkills.answer") === "Yoxdur"?<LinkButton
+        nav={{
+          state: {
+            stageName: nextStageNameCond,
+            subStageName: nextSubStageNameCond,
+          },
+          path: {
+            slugName: nextSlugNameCond,
+            subSlugName: nextSubSlugNameCond,
+          },
+        }}
+        label="Növbəti"
+        className="absolute right-0 -bottom-20"
+      />:
+        Object.keys(errors).length !==0?      <ButtonSave
         trigger={trigger}
+        className="absolute right-0 -bottom-20"
         label="Növbəti"
         onClick={() => dispatch(addSelect(true))}
-      />
+      />: <LinkButton
+      nav={{
+        state: { stageName: nextStageName, subStageName: nextSubStageName },
+        path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
+      }}
+      label="Növbəti"
+      className="absolute right-0 -bottom-20"
+      onClick={()=>dispatch(addSelect(false))}
+    />
+      }
+
 
       <LinkButton
         nav={{
           state: { stageName: prevStageName, subStageName: prevSubStageName },
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
+        onClick={()=>dispatch(addErrorsLength(0))}
         type="outline"
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
 
-      <LinkButton
-        nav={{
-          state: { stageName: nextStageName, subStageName: nextSubStageName },
-          path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-        }}
-        label="Növbəti"
-        className="absolute right-0 -bottom-20"
-      />
+     
     </form>
   );
 };

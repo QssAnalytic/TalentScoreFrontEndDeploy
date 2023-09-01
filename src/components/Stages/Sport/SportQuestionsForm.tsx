@@ -17,23 +17,22 @@ import ClockLoader from 'react-spinners/ClockLoader'
 import SportLevels from "./components/SportLevels";
 import { ISelectedValue } from "types";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { addErrorsLength, addSelect } from "state/dataSlice";
+import { useSelector } from "react-redux";
+import ButtonSave from "components/ButtonSave";
 
 const schema = yup
   .object({
     sport: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
+        weight: yup.string().optional().nullable(),
       })
       .required(),
-    whichSport: yup
-      .array()
-      .of(
-        yup.object().shape({
-          answer: yup.string().required(),
-        })
-      )
-      .required(),
+    whichSport: yup.array().when("sport", {
+      is: (sport: any) => sport.answer !== "Yoxdur",
+      then: () => yup.array().min(1).required(),
+    }),
     professionals: yup.array().of(
       yup.object().shape({
         name: yup.string().required(),
@@ -43,18 +42,18 @@ const schema = yup
         }).required(),
         whichScore: yup
           .object({
-            answer: yup.string().required(),
+            answer: yup.string().optional().nullable(),
             weight: yup.string().optional().nullable(),
           })
-          .required(),
+          .optional(),
         whichPlace: yup
           .object({
-            answer: yup.string().required(),
+            answer: yup.string().optional().nullable(),
             weight: yup.string().optional().nullable(),
           })
-          .required(),
+          .optional(),
       })
-    ),
+    ).optional(),
     amateurs: yup.array().of(
       yup.object().shape({
         name: yup.string().required(),
@@ -66,7 +65,11 @@ const schema = yup
     ).required(),
   })
   .required();
-
+interface RootState {
+  dataa: {
+    errorsLength: number
+  };
+}
 export type SportFormValues = yup.InferType<typeof schema>;
 
 export interface IItem {
@@ -78,7 +81,7 @@ export interface IItem {
 
 const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
   const { data: stagesData } = useGetStageQuery();
-
+  const errLengt = useSelector((state: RootState) => state.dataa.errorsLength);
   const { stage_children } = stagesData?.[stageIndex] || {};
 
   const {
@@ -118,9 +121,9 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
       ({ name }) => name === subStageSlug
     ) as { formData: SportFormValues & any }) || ({} as any);
 
-  const { register, handleSubmit, watch, reset, setValue } =
+  const { register, handleSubmit, watch, reset, setValue, trigger, formState: { errors } } =
     useForm<SportFormValues>({
-      resolver:yupResolver<SportFormValues>(schema),
+      resolver: yupResolver<SportFormValues>(schema),
       defaultValues: {
         sport: {},
         whichSport: [],
@@ -133,6 +136,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
   const onSubmit: SubmitHandler<SportFormValues> = (data) => console.log(data);
   useEffect(() => {
     const subscription = watch((value) => {
+      trigger()
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -145,6 +149,8 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
   const [count, setCount] = useState(false)
+
+  console.log(errors);
 
 
   useEffect(() => {
@@ -161,12 +167,17 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
 
   useEffect(() => {
     setCount(!count)
-    if (watch('whichSport').length !== 0) {
-
+    if (watch('whichSport')?.length !== 0) {
       reset({
         ...formData,
-        sport: {}
+        sport: { answer: "Var", weight: null }
       })
+    }
+    if (
+      watch('whichSport')?.length === 0 &&
+      watch('sport.answer') === "Var"
+    ) {
+      setValue("sport", { answer: "", weight: null });
     }
   }, [formData?.whichSport?.length])
 
@@ -196,9 +207,6 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
       }
     }
   }
-  console.log(formData);
-
-
   const questions = questionsData?.[0]?.questions;
 
   const inputProps = [
@@ -206,6 +214,8 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     { register: register("whichSport") },
   ];
 
+  console.log(errLengt);
+  console.log(errors);
 
   return (
     <form
@@ -218,17 +228,18 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
           <div className="flex items-center gap-5">
             <div className="w-[70%]">
               <SelectMult
-
                 placeholder="Idman Secimi"
                 options={questions?.[1]?.answers}
                 register={inputProps[1].register}
                 value={formData?.whichSport}
+                errors={errors.whichSport}
               />
             </div>
             <Radio
               options={questions?.[0]?.answers}
               value={formData?.sport}
               register={inputProps[0].register}
+              errors={errors.sport}
             />
           </div>
         </div>
@@ -257,34 +268,43 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
         type="outline"
+        onClick={()=>dispatch(addErrorsLength(0))}
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-      {formData?.professionals?.length === 0 ? (
-        <LinkButton
-          nav={{
-            state: {
-              stageName: nextStageNameCond,
-              subStageName: nextSubStageNameCond,
-            },
-            path: {
-              slugName: nextSlugNameCond,
-              subSlugName: nextSubSlugNameCond,
-            },
-          }}
-          label="Növbəti"
-          className="absolute right-0 -bottom-20"
-        />
-      ) : (
-        <LinkButton
-          nav={{
-            state: { stageName: nextStageName, subStageName: nextSubStageName },
-            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-          }}
-          label="Növbəti"
-          className="absolute right-0 -bottom-20"
-        />
-      )}
+      {
+        errLengt !== 0 || Object.keys(errors)?.length !== 0 ? <ButtonSave label="Növbəti"
+          className="absolute right-0 -bottom-20" onClick={() => dispatch(addSelect(true))}></ButtonSave> : formData?.professionals?.length === 0 ? (
+            <LinkButton
+              nav={{
+                state: {
+                  stageName: nextStageNameCond,
+                  subStageName: nextSubStageNameCond,
+                },
+                path: {
+                  slugName: nextSlugNameCond,
+                  subSlugName: nextSubSlugNameCond,
+                },
+              }}
+              onClick={()=>dispatch(addSelect(false))}
+              label="Növbəti"
+              className="absolute right-0 -bottom-20"
+            />
+          ) : (
+          <LinkButton
+            nav={{
+              state: { stageName: nextStageName, subStageName: nextSubStageName },
+              path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
+            }}
+            label="Növbəti"
+            onClick={()=>dispatch(addSelect(false))}
+            className="absolute right-0 -bottom-20"
+          />
+        )
+      }
+
+
+
     </form>
   );
 };

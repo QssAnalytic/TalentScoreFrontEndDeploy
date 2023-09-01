@@ -7,10 +7,9 @@ import { updateStageForm } from "state/stages/stageFormSlice";
 import { IItem, SportFormValues } from "./SportQuestionsForm";
 import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import LinkButton from "components/LinkButton";
-import { SportLevelValues } from "./components/SportLevels";
 import ProLevel, { IProItem } from "./components/ProLevel";
+import { addErrorsLength, addSelect } from "state/dataSlice";
 
 const ProLevelList = ({
   stageIndex,
@@ -51,6 +50,7 @@ const ProLevelList = ({
       ({ name }) => name === prevSubSlugName
     ) as { formData: SportFormValues & any }) || ({} as any);
 
+      
   const { register, watch, reset, handleSubmit, setValue } =
     useForm<SportFormValues>();
   const questions = questionsData?.[0]?.questions;
@@ -72,11 +72,11 @@ const ProLevelList = ({
         },
       })
     );
-    console.log("updated pros", updatedProfessionals);
+  
   };
 
-  console.log("pros onclick", SportFormData?.professionals);
-  console.log("pros", SportFormData?.professionals);
+ 
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -101,6 +101,7 @@ const ProLevelList = ({
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
         type="outline"
+        onClick={()=>dispatch(addErrorsLength(0))}
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
@@ -111,6 +112,7 @@ const ProLevelList = ({
           path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
         }}
         label="Növbəti"
+        onClick={()=>dispatch(addSelect(false))}
         className="absolute right-0 -bottom-20"
       />
     </form>

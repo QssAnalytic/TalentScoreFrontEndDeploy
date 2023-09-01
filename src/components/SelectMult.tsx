@@ -33,7 +33,6 @@ const SelectMult = ({
     setSelected(value);
   }, [value]);
 
-  console.log(value);
 
   return (
     <Listbox

@@ -21,7 +21,7 @@ import * as yup from "yup";
 import EducationAdd from "./components/EducationAdd";
 import { AddEduFormValues } from "./components/FormEducations";
 import Educations from "./components/Educations";
-import { addSelect } from "state/dataSlice";
+import { addErrorsLength, addSelect } from "state/dataSlice";
 import ButtonSave from "components/ButtonSave";
 
 
@@ -155,6 +155,7 @@ const EducationQuestionsForm = ({
           state: { stageName, subStageName },
           path: { slugName, subSlugName: prevSubSlugName },
         }}
+        onClick={()=>dispatch(addErrorsLength(0))}
         type="outline"
         label="Geri"
         disabled={formData?.education?.length !== 0 || page !== 1 ? true : false}

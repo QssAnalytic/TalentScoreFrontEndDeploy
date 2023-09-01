@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "state/hooks";
 import { updateStageForm } from "state/stages/stageFormSlice";
 import * as yup from "yup";
 import { IItem, SportFormValues } from "../SportQuestionsForm";
+import { addErrorsLength } from "state/dataSlice";
 
 export type SportLevelProps = {
   questions?: any;
@@ -23,11 +24,12 @@ const schema = yup
     level: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
+        weight: yup.string().optional().nullable(),
       })
       .required(),
   })
   .required();
+
 
 export type SportLevelValues = yup.InferType<typeof schema>;
 
@@ -44,13 +46,13 @@ const SportLevels = ({
     (useAppSelector((state) => state.stageForm)?.find(
       ({ name }) => name === subStageSlug
     ) as { formData: SportLevelValues & any }) || ({} as any);
-  const { register, handleSubmit, watch, setValue, reset } = useForm<SportLevelValues>(
+  const { register, handleSubmit, watch, setValue, reset, formState: { errors }, trigger } = useForm<SportLevelValues>(
     {
-      resolver: yupResolver(schema),
+      resolver: yupResolver<SportLevelValues>(schema),
     }
   );
 
-
+  const [errorsLength, setErrorsLenght] = useState<number[]>()
 
   const handleRemove = async (item: string) => {
     const newWhichSport = formData?.whichSport?.filter(
@@ -62,8 +64,6 @@ const SportLevels = ({
     const newAmateurs = formData?.amateurs.filter((i: IItem) => {
       return i.name !== item;
     });
-
-
 
     dispatch(
       updateStageForm({
@@ -78,10 +78,20 @@ const SportLevels = ({
     );
   };
 
+
+  const [err, setErr] = useState<number>(0)
+
   useEffect(() => {
     setValue("name", item);
     selectedLevel(watch());
-  }, [watch('level'), watch('name')])
+    trigger()
+    dispatch(addErrorsLength(formData?.whichSport?.length - formData?.professionals?.length - formData?.amateurs?.length))
+  }, [watch('level'), watch('name'), formData?.amateurs, formData?.professionals, formData?.whichSport])
+
+
+  console.log(errors);
+
+
 
 
   return (
@@ -105,8 +115,10 @@ const SportLevels = ({
           )?.level
         }
         register={register("level")}
+        errors={errors.level}
       />
     </div>
+
   );
 };
 
