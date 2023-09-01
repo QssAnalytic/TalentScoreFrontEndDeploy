@@ -13,7 +13,7 @@ import { GeneralQuestionsFormProps } from "./GeneralQuestionsForm";
 import { ISelectedValue } from "types";
 import ClockLoader from 'react-spinners/ClockLoader'
 import RadioInput from "../../RadioInput";
-import { addSelect } from "state/dataSlice";
+import { addErrorsLength, addSelect } from "state/dataSlice";
 import * as yup   from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonSave from "components/ButtonSave";
@@ -191,6 +191,7 @@ console.log(questions);
           state: { stageName, subStageName },
           path: { slugName, subSlugName: prevSubSlugName },
         }}
+        onClick={()=>dispatch(addErrorsLength(0))}
         type="outline"
         label="Geri"
         className="absolute left-0 -bottom-20"

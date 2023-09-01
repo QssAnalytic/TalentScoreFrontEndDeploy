@@ -19,27 +19,26 @@ type ExperienceAdd = {
   displayRadio: any;
   isAdding?: any;
   setIsAdding?: any;
-  experiences?:any;
+  experiences?: any;
   setDisplayRadio?: any;
   setIsEditing?: any;
 };
 
 const schema = yup.object({
   id: yup.string(),
-  haveExperience: yup.object({answer:yup.string().required(),weight:yup.string().optional().nullable()}).required(),
+  haveExperience: yup.object({ answer: yup.string().required(), weight: yup.string().optional().nullable() }).required(),
   company: yup.string().required(),
   profession: yup.string().required(),
   workingActivityForm: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
   degreeOfProfes: yup.object({ answer: yup.string().required(), weight: yup.string().required() }).required(),
   startDate: yup.string().required(),
   currentWorking: yup.boolean(),
-  endDate: yup.lazy((currrenWorking:any)=>{
-    if(currrenWorking){
-      return yup.string().optional()
-    }
-    return yup.string().required()
+  endDate: yup.string().when('currentWorking', {
+    is: (currentWorking: boolean) => currentWorking === true,
+    then: () => yup.string().optional(),
+    otherwise: () => yup.string().required()
   })
-  
+
 });
 
 export type AddExpFormValues = yup.InferType<typeof schema>;
@@ -64,7 +63,7 @@ const ExperienceAdd = ({
     formState: { errors },
     trigger
   } = useForm<AddExpFormValues>({
-    resolver:yupResolver<AddExpFormValues>(schema),
+    resolver: yupResolver<AddExpFormValues>(schema),
     defaultValues: editData,
   });
   const dispatch = useAppDispatch();
@@ -76,30 +75,28 @@ const ExperienceAdd = ({
     editExp ? editExp(watch()) : addExp(watch());
     dispatch(addSelect(true))
   };
-  dispatch(addErrorsLength(Object.keys(errors).length ))
-  useEffect(()=>{
+  dispatch(addErrorsLength(Object.keys(errors).length))
+  useEffect(() => {
     trigger()
-    dispatch(addErrorsLength(Object.keys(errors).length ))
-    
-    
-  },[watch("haveExperience"),watch("company"),watch("profession"),watch("workingActivityForm")
-  ,watch("degreeOfProfes"),watch("startDate"),watch("endDate"),watch("currentWorking")])
+    dispatch(addErrorsLength(Object.keys(errors).length))
+  }, [watch("haveExperience"), watch("company"), watch("profession"), watch("workingActivityForm")
+    , watch("degreeOfProfes"), watch("startDate"), watch("endDate"), watch("currentWorking")])
 
 
 
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(addOption(watch("haveExperience.answer")))
-  },[watch("haveExperience")])
+  }, [watch("haveExperience")])
 
-  useEffect(()=>{
-    if(displayRadio===false){
-      setValue('haveExperience.answer',"Bəli")
-    }else{
-      setValue('haveExperience.answer',"")
+  useEffect(() => {
+    if (displayRadio === false) {
+      setValue('haveExperience.answer', "Bəli")
+    } else {
+      setValue('haveExperience.answer', "")
     }
-  },[displayRadio])
-  
+  }, [displayRadio])
+
   const inputProps = [
     { register: { ...register("haveExperience") } },
     { register: { ...register("company") } },
@@ -110,30 +107,35 @@ const ExperienceAdd = ({
     { register: { ...register("endDate") } },
     { register: { ...register("currentWorking") } },
   ];
-  const handleCheck = ()=>{
-    if (watch("currentWorking")===false) {
-      setValue("endDate","currently working")
-    }else{
-      setValue("endDate","")
+  const handleCheck = () => {
+    if (watch("currentWorking") === false) {
+      setValue("endDate", "currently working")
+    } else {
+      setValue("endDate", "")
     }
   }
 
-  
+  console.log(watch());
+  console.log(errors);
+
+
+
+
   return (
     <div className="relative flex flex-col gap-2" onSubmit={onSubmit}>
       {displayRadio && (
         <div className="space-y-2">
           <label className="pl-2">{data?.[0].question_title}</label>
           <div className="flex gap-5">
-           
-              <Radio
-                options={data?.[0]?.answers}
-                value={watch("haveExperience")}
-                register={inputProps[0].register}
-                errors={errors.haveExperience}
-                trigger={trigger}
-              />
-            
+
+            <Radio
+              options={data?.[0]?.answers}
+              value={watch("haveExperience")}
+              register={inputProps[0].register}
+              errors={errors.haveExperience}
+              trigger={trigger}
+            />
+
           </div>
         </div>
       )}
@@ -145,7 +147,7 @@ const ExperienceAdd = ({
             placeholder="QSS Analytics"
             register={inputProps[1].register}
             errors={errors.company}
-           
+
           />
           <TextInput
             label="Vəzifənizi qeyd edin.*"
@@ -153,7 +155,7 @@ const ExperienceAdd = ({
             placeholder="Product Manager"
             register={inputProps[2].register}
             errors={errors.profession}
-          
+
           />
           <div className="flex gap-2.5">
             <Select
@@ -199,10 +201,10 @@ const ExperienceAdd = ({
           <button
             className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-2 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500"
             type="submit"
-            onClick={()=>{handleClick()}}
+            onClick={() => { handleClick() }}
           >
             <span> Yadda saxla </span>
-            <Icon icon="tabler:check" className="text-white" style={{fontSize:"25px"}}/>
+            <Icon icon="tabler:check" className="text-white" style={{ fontSize: "25px" }} />
           </button>
           {!displayRadio && (
             <button

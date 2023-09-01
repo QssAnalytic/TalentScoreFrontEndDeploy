@@ -11,7 +11,7 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import ExperienceAdd, { AddExpFormValues } from './ExperienceAdd';
 import { useSelector } from 'react-redux';
-import { addPop, addRemove, addSelect } from 'state/dataSlice';
+import { addErrorsLength, addPop, addRemove, addSelect } from 'state/dataSlice';
 import ButtonSave from 'components/ButtonSave';
 const schema = yup.object({
     experiences: yup.array().min(1).required()
@@ -222,6 +222,7 @@ const JobExperienceForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormPro
                     path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
                 }}
                 type="outline"
+                onClick={()=>dispatch(addErrorsLength(0))}
                 label="Geri"
                 className="absolute left-0 -bottom-20"
             />

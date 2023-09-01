@@ -71,8 +71,8 @@ const ProLevel = ({
       })
     );
   }, [watch().whichPlace, watch().whichScore]);
-  console.log(item?.whichPlace);
-  console.log(watch().whichPlace);
+console.log(watch());
+
 
   return (
     <div

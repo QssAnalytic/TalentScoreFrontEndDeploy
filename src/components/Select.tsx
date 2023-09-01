@@ -40,19 +40,20 @@ const Select = ({
   }
 
   const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
-  const handleErrors = async () => {
-    trigger(name)
-  }
-  
+  // const handleErrors = async () => {
+  //   trigger(name)
+  // }
+
+
   return (
     <Listbox
       as="div"
       placeholder={selected?.answer}
-      value={value?.answer === '' ? copy : selected}
+      value={value?.answer === '' || value === undefined ? copy : selected}
       className="flex flex-col gap-2 w-full"
-      onBlur={handleErrors}
+      // onBlur={handleErrors}
       onChange={(value) => {
-        handleErrors()
+        // handleErrors()
         setSelected(value);
         register.onChange(
           {
