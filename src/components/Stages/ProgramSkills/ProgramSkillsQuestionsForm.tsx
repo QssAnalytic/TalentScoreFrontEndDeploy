@@ -15,8 +15,7 @@ import { setShowReport } from "../../../state/report/reportSlice";
 import SelectMult from "components/SelectMult";
 import { ISelectedValue } from "types";
 import ClockLoader from "react-spinners/ClockLoader";
-import { DevTool } from "@hookform/devtools";
-import { addSelect } from "state/dataSlice";
+import { addErrorsLength, addSelect } from "state/dataSlice";
 
 export type ProgramSkillsValues =
   | {
@@ -150,7 +149,6 @@ const ProgramSkills = ({
   const {
     register,
     handleSubmit,
-    control,
     watch,
     reset,
     setValue,
@@ -168,15 +166,14 @@ const ProgramSkills = ({
   });
 
   const onSubmit: SubmitHandler<ProgramSkillsValues | any> = (data) => {
-    // console.log("submitData", data);
-    alert("Submit");
+    console.log("submitData", data);
+    dispatch(setShowReport(!showReport));
   };
 
-  // console.log("schema", dynamicSchema);
+  console.log("schema", dynamicSchema);
 
   useEffect(() => {
     const subscription = watch((value) => {
-      // console.log(value);
       trigger();
       dispatch(
         updateStageForm({
@@ -189,7 +186,7 @@ const ProgramSkills = ({
     reset(formData);
 
     return () => subscription.unsubscribe();
-  }, [subStageSlug, watch]);
+  }, [subStageSlug, watch, dynamicFieldsSelect, dynamicFieldsSelectItem]);
 
   useEffect(() => {
     if (formData?.haveProgramSkills?.answer === "Yoxdur") {
@@ -272,7 +269,6 @@ const ProgramSkills = ({
       onSubmit={handleSubmit(onSubmit)}
       className="mt-7 flex-col flex gap-5"
     >
-      <DevTool control={control} placement="top-left" />
       <div className="space-y-5">
         <div>
           <label>{`${questions?.[1]?.question_title}*`}</label>
@@ -425,6 +421,7 @@ const ProgramSkills = ({
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
         type="outline"
+        onClick={() => dispatch(addErrorsLength(0))}
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
@@ -434,7 +431,6 @@ const ProgramSkills = ({
         className={`absolute -bottom-[79px] right-0 w-[180px] flex rounded-full justify-center items-center py-3.5 gap-4 bg-qss-secondary flex-row text-white text-white"}`}
         onClick={() => {
           dispatch(addSelect(true));
-          // dispatch(setShowReport(!showReport));
         }}
       >
         {/* <LinkButton

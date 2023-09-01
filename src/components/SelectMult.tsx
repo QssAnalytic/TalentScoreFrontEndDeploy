@@ -34,21 +34,17 @@ const SelectMult = ({
   useEffect(() => {
     setSelected(value);
   }, [value]);
-  const handleErrors = async () => {
-    trigger();
-  };
 
   return (
     <Listbox
       multiple
       as="div"
       placeholder={"Rus Dili"}
-      onBlur={handleErrors}
+      // onBlur={handleErrors}
       value={selected}
       className="flex flex-col gap-2"
       onChange={(value) => {
         setSelected(value);
-        handleErrors();
         register.onChange({
           target: {
             name: register.name,
@@ -65,7 +61,7 @@ const SelectMult = ({
               className={`relative w-full border-2 transition duration-200 ${
                 errors && selectValid ? "border-red-300 border-2" : ""
               } text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${
-                open && "  text-qss-secondary border border-qss-base-200"
+                open && "text-qss-secondary border border-qss-base-200"
               }`}
             >
               <span

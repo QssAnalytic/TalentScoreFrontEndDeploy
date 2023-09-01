@@ -1,4 +1,4 @@
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 interface IInputProps {
 	label?: string;
 	type?: string;
@@ -15,7 +15,7 @@ interface RootState {
 		validationSelect: boolean;
 	};
 }
-const TextInput = ({label, type = 'text', placeholder, register, inputClassName, errors}: IInputProps) => {
+const TextInput = ({ label, type = 'text', placeholder, register, inputClassName, errors }: IInputProps) => {
 	const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
 
 	return (
@@ -27,7 +27,7 @@ const TextInput = ({label, type = 'text', placeholder, register, inputClassName,
 					placeholder={placeholder}
 					{...register}
 					autoComplete="off"
-					className={`${errors && selectValid ? 'border-red-300 border-2' : ''}`}
+					className={` border-2 transition duration-200 ${errors && selectValid ? 'border-red-300' : ''}`}
 				/>
 			</div>
 		</div>

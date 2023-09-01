@@ -1,5 +1,5 @@
 import calendar from '../assets/Vector (1).svg';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 export interface IDateInputProps {
 	label?: string;
 	type?: string;
@@ -35,7 +35,7 @@ const DateInput = ({
 					placeholder={placeholder}
 					{...register}
 					autoComplete="off"
-					className={`&quot;w-full ${errors && selectValid ? 'border-red-300 border-2' : ''}`}
+					className={`&quot;w-full  border-2 transition-all duration-200 ${errors && selectValid ? 'border-red-300' : ''}`}
 					disabled={disabled}
 				/>
 				<img src={calendar} alt="calendar" className="absolute top-2 right-4" />
