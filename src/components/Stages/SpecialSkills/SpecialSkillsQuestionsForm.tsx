@@ -16,7 +16,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ButtonSave from "components/ButtonSave";
 import { addErrorsLength, addSelect } from "state/dataSlice";
-import { DevTool } from "@hookform/devtools";
 
 export type SpecialSkillsFormValues = {
   haveSpecialSkills: { answer: string; weight: string };
@@ -135,7 +134,6 @@ const SpecialSkillsForm = ({
     handleSubmit,
     watch,
     reset,
-    control,
     setValue,
     formState: { errors },
     trigger,
@@ -219,7 +217,6 @@ const SpecialSkillsForm = ({
       onSubmit={handleSubmit(onSubmit)}
       className="mt-7 flex-col flex gap-5"
     >
-      <DevTool control={control} placement="top-left" />
       <div className="space-y-7">
         <div className="space-y-2">
           <label className="pl-2">{questions?.[1]?.question_title}*</label>
