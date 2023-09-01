@@ -28,6 +28,7 @@ const Radio = ({
   const selectValid = useSelector(
     (state: RootState) => state.dataa.validationSelect
   );
+
   const handleErrors = async () => {
     trigger();
   };

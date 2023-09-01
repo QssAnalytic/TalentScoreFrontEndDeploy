@@ -22,10 +22,9 @@ type LanguageAdd = {
   setIsAdding?: any;
   setIsEditing?: any;
   displayListButton?: any;
-  formData?: any,
-  parentReset?: any
+  formData?: any;
+  parentReset?: any;
 };
-
 
 const schema = yup
   .object({
@@ -37,75 +36,117 @@ const schema = yup
       })
       .required(),
 
-    langCert: yup.object({
-      answer: yup.string().required(),
-      weight: yup.string().optional().nullable(),
-    }).when('language', {
-      is: (language: any) => language.answer !== "Ingilis dili",
-      then: () => yup.object({
+    langCert: yup
+      .object({
         answer: yup.string().required(),
         weight: yup.string().optional().nullable(),
-      }).required(),
-      otherwise: () => yup.object({
-        answer: yup.string().optional(),
-        weight: yup.string().optional().nullable(),
-      }).optional()
-    }),
+      })
+      .when("language", {
+        is: (language: any) => language.answer !== "Ingilis dili",
+        then: () =>
+          yup
+            .object({
+              answer: yup.string().required(),
+              weight: yup.string().optional().nullable(),
+            })
+            .required(),
+        otherwise: () =>
+          yup
+            .object({
+              answer: yup.string().optional(),
+              weight: yup.string().optional().nullable(),
+            })
+            .optional(),
+      }),
 
-    engLangCert: yup.object({
-      answer: yup.string().required(),
-      weight: yup.string().optional().nullable(),
-    }).when('language', {
-      is: (language: any) => language.answer === "Ingilis dili",
-      then: () => yup.object({
+    engLangCert: yup
+      .object({
         answer: yup.string().required(),
         weight: yup.string().optional().nullable(),
-      }).required(),
-      otherwise: () => yup.object({
-        answer: yup.string().optional(),
-        weight: yup.string().optional().nullable(),
-      }).optional()
+      })
+      .when("language", {
+        is: (language: any) => language.answer === "Ingilis dili",
+        then: () =>
+          yup
+            .object({
+              answer: yup.string().required(),
+              weight: yup.string().optional().nullable(),
+            })
+            .required(),
+        otherwise: () =>
+          yup
+            .object({
+              answer: yup.string().optional(),
+              weight: yup.string().optional().nullable(),
+            })
+            .optional(),
+      }),
+
+    langCertName: yup.string().when(["langCert", "engLangCert"], {
+      is: (langCert: any, engLangCert: any) =>
+        langCert?.answer === "Bəli" ||
+        engLangCert?.answer === "Öz sertifikatın",
+      then: () => yup.string().required(),
     }),
 
-    langCertName: yup.string().when((['langCert', 'engLangCert']), {
-      is: (langCert: any, engLangCert: any) => (langCert?.answer === "Bəli" || engLangCert?.answer === "Öz sertifikatın"),
-      then: () => yup.string().required()
+    langCertResult: yup.string().when(["langCert", "engLangCert"], {
+      is: (langCert: any, engLangCert: any) =>
+        langCert?.answer === "Bəli" ||
+        engLangCert?.answer === "Öz sertifikatın",
+      then: () => yup.string().required(),
     }),
 
-    langCertResult: yup.string().when((['langCert', 'engLangCert']), {
-      is: (langCert: any, engLangCert: any) => (langCert?.answer === "Bəli" || engLangCert?.answer === "Öz sertifikatın"),
-      then: () => yup.string().required()
-    }),
-
-    engCertResult: yup.object({
-      answer: yup.string().required(),
-      weight: yup.string().optional().nullable(),
-    }).when((['language', 'engLangCert']), {
-      is: (language: any, engLangCert: any) => language?.answer === "Ingilis dili" && (engLangCert?.answer === "İELTS" || engLangCert?.answer === "TOEFL"),
-      then: () => yup.object({
+    engCertResult: yup
+      .object({
         answer: yup.string().required(),
         weight: yup.string().optional().nullable(),
-      }).required(),
-      otherwise: () => yup.object({
-        answer: yup.string().optional(),
-        weight: yup.string().optional().nullable(),
-      }).optional()
-    }),
+      })
+      .when(["language", "engLangCert"], {
+        is: (language: any, engLangCert: any) =>
+          language?.answer === "Ingilis dili" &&
+          (engLangCert?.answer === "İELTS" || engLangCert?.answer === "TOEFL"),
+        then: () =>
+          yup
+            .object({
+              answer: yup.string().required(),
+              weight: yup.string().optional().nullable(),
+            })
+            .required(),
+        otherwise: () =>
+          yup
+            .object({
+              answer: yup.string().optional(),
+              weight: yup.string().optional().nullable(),
+            })
+            .optional(),
+      }),
 
-    langLevel: yup.object({
-      answer: yup.string().required(),
-      weight: yup.string().optional().nullable(),
-    }).when(['engLangCert', 'language'], {
-      is: (engLangCert: any, language: any) => (language?.answer === "Ingilis dili" && (engLangCert.answer === "Yoxdur" || engLangCert.answer === 'Öz sertifikatın')) || language.answer !== "Ingilis dili",
-      then: () => yup.object({
+    langLevel: yup
+      .object({
         answer: yup.string().required(),
         weight: yup.string().optional().nullable(),
-      }).required(),
-      otherwise: () => yup.object({
-        answer: yup.string().optional(),
-        weight: yup.string().optional().nullable(),
-      }).optional()
-    }),
+      })
+      .when(["engLangCert", "language"], {
+        is: (engLangCert: any, language: any) =>
+          (language?.answer === "Ingilis dili" &&
+            (engLangCert.answer === "Yoxdur" ||
+              engLangCert.answer === "Öz sertifikatın")) ||
+          language.answer !== "Ingilis dili",
+        then: () =>
+          yup
+            .object({
+              answer: yup.string().required(),
+              weight: yup.string().optional().nullable(),
+            })
+            .required(),
+        otherwise: () =>
+          yup
+            .object({
+              answer: yup.string().optional(),
+              weight: yup.string().optional().nullable(),
+            })
+            .optional(),
+      }),
   })
   .required();
 
@@ -122,7 +163,7 @@ const LanguageAdd = ({
   setIsEditing,
   displayListButton,
   formData,
-  parentReset
+  parentReset,
 }: LanguageAdd) => {
   const {
     register,
@@ -146,34 +187,33 @@ const LanguageAdd = ({
     { register: register("langLevel") },
   ];
 
-  const dispatch: Dispatch = useDispatch()
+  const dispatch: Dispatch = useDispatch();
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
   });
   const handleClick = () => {
-    setValue(
-      "langLevel",
-      handleLangLevel(watch("engCertResult.answer"))
-    );
+    setValue("langLevel", handleLangLevel(watch("engCertResult.answer")));
 
     editLang ? editLang(watch()) : addLang(watch());
   };
 
   console.log(errors);
-  console.log(watch().language?.answer === "Ingilis dili" && (watch().engLangCert?.answer === "İELTS" || watch().engLangCert?.answer === "TOEFL"));
+  console.log(
+    watch().language?.answer === "Ingilis dili" &&
+      (watch().engLangCert?.answer === "İELTS" ||
+        watch().engLangCert?.answer === "TOEFL")
+  );
   // console.log(watch().engLangCert?.answer === "TOEFL");
 
   // console.log(watch());
 
-  const handleLangLevel = (
-    engCertResult: string | undefined,
-  ) => {
+  const handleLangLevel = (engCertResult: string | undefined) => {
     switch (engCertResult) {
       case "4.0":
       case "4.5-5.0":
       case "32-45":
-        setValue('langLevel', { answer: 'B1 (İlkin orta)', weight: "" })
+        setValue("langLevel", { answer: "B1 (İlkin orta)", weight: "" });
         break;
       case "5.5":
       case "6.0":
@@ -181,89 +221,112 @@ const LanguageAdd = ({
       case "46-59":
       case "60-78":
       case "70-93":
-        setValue('langLevel', { answer: 'B2 (Orta)', weight: "" })
+        setValue("langLevel", { answer: "B2 (Orta)", weight: "" });
         break;
       case "7.0-7.5":
       case "94-109":
-        setValue('langLevel', { answer: 'C1 (Üst orta)', weight: "" })
+        setValue("langLevel", { answer: "C1 (Üst orta)", weight: "" });
         break;
       case "8.0-9.0":
       case "110-120":
-        setValue('langLevel', { answer: 'C2 (İrəli)', weight: "" })
+        setValue("langLevel", { answer: "C2 (İrəli)", weight: "" });
         break;
       case "31":
-        setValue('langLevel', { answer: 'A2 (Elementar)', weight: "" })
+        setValue("langLevel", { answer: "A2 (Elementar)", weight: "" });
         break;
       default:
         break;
     }
-    return watch('langLevel');
+    return watch("langLevel");
   };
-  dispatch(addErrorsLength(Object.keys(errors).length))
+  dispatch(addErrorsLength(Object.keys(errors).length));
 
   useEffect(() => {
-    dispatch(addErrorsLength(Object.keys(errors).length))
-    trigger()
-  }, [watch('language'), watch('langCert'), watch('langCertName'), watch('langCertResult'), watch('langLevel')
-    , watch("engCertResult"), watch("engLangCert")
-  ])
+    dispatch(addErrorsLength(Object.keys(errors).length));
+    trigger();
+  }, [
+    watch("language"),
+    watch("langCert"),
+    watch("langCertName"),
+    watch("langCertResult"),
+    watch("langLevel"),
+    watch("engCertResult"),
+    watch("engLangCert"),
+  ]);
 
   useEffect(() => {
     if (formData?.haveLanguageSkills?.answer === "Yoxdur") {
-      reset()
-      dispatch(addSelect(false))
+      reset();
+      dispatch(addSelect(false));
     }
-  }, [formData?.haveLanguageSkills?.answer])
+  }, [formData?.haveLanguageSkills?.answer]);
 
   useEffect(() => {
     if (watch().language !== undefined && editData === undefined) {
       parentReset({
         ...formData,
-        haveLanguageSkills: { answer: 'Var', weight: '' }
-      })
+        haveLanguageSkills: { answer: "Var", weight: "" },
+      });
     }
-  }, [watch("language")])
-
-
+  }, [watch("language")]);
 
   useEffect(() => {
     if (!editData) {
-      setValue('engCertResult.answer', '')
+      setValue("engCertResult.answer", "");
     }
 
-    if (editData && watch('engLangCert.answer') !== editData?.engLangCert?.answer) {
-      setValue('engCertResult.answer', '')
+    if (
+      editData &&
+      watch("engLangCert.answer") !== editData?.engLangCert?.answer
+    ) {
+      setValue("engCertResult.answer", "");
     }
-  }, [watch('engLangCert.answer')])
+  }, [watch("engLangCert.answer")]);
 
   useEffect(() => {
-    if (watch('engLangCert.answer') === 'Öz sertifikatın' || watch('engLangCert.answer') === 'Yoxdur') {
-      setValue('engCertResult', { answer: '', weight: '' })
+    if (
+      watch("engLangCert.answer") === "Öz sertifikatın" ||
+      watch("engLangCert.answer") === "Yoxdur"
+    ) {
+      setValue("engCertResult", { answer: "", weight: "" });
     }
 
-    if (watch('engLangCert.answer') !== 'Öz sertifikatın' && watch('language.answer') === 'Ingilis dili') {
-      setValue('langCertName', '')
-      setValue('langCertResult', '')
+    if (
+      watch("engLangCert.answer") !== "Öz sertifikatın" &&
+      watch("language.answer") === "Ingilis dili"
+    ) {
+      setValue("langCertName", "");
+      setValue("langCertResult", "");
     }
-    if (watch('language.answer') !== 'Ingilis dili') {
-      setValue('engLangCert', { answer: '', weight: '' })
-      setValue('engCertResult', { answer: '', weight: '' })
+    if (watch("language.answer") !== "Ingilis dili") {
+      setValue("engLangCert", { answer: "", weight: "" });
+      setValue("engCertResult", { answer: "", weight: "" });
     }
-    if (watch('langCert.answer') === 'Xeyr') {
-      setValue('langCertName', '')
-      setValue('langCertResult', '')
+    if (watch("langCert.answer") === "Xeyr") {
+      setValue("langCertName", "");
+      setValue("langCertResult", "");
     }
-    if (editData?.language?.answer !== watch('language.answer') && watch('language.answer') === 'Ingilis dili') {
-      setValue('langLevel.answer', '')
-      setValue('langCert.answer', '')
+    if (
+      editData?.language?.answer !== watch("language.answer") &&
+      watch("language.answer") === "Ingilis dili"
+    ) {
+      setValue("langLevel.answer", "");
+      setValue("langCert.answer", "");
     }
 
-    if (editData?.language?.answer !== watch('language.answer') && editData?.language?.answer === "Ingilis dili" && watch('language.answer') !== 'Ingilis dili') {
-      setValue('langCertName', '')
-      setValue('langCertResult', '')
+    if (
+      editData?.language?.answer !== watch("language.answer") &&
+      editData?.language?.answer === "Ingilis dili" &&
+      watch("language.answer") !== "Ingilis dili"
+    ) {
+      setValue("langCertName", "");
+      setValue("langCertResult", "");
     }
-
-  }, [watch('language.answer'), watch('langCert.answer'), watch('engLangCert.answer')])
+  }, [
+    watch("language.answer"),
+    watch("langCert.answer"),
+    watch("engLangCert.answer"),
+  ]);
 
   return (
     <div className="w-full">
@@ -322,10 +385,7 @@ const LanguageAdd = ({
                       value={watch("langLevel")}
                       register={inputProps[6].register}
                       errors={errors.langLevel}
-
-
                     />
-
                   </div>
                 </div>
               </div>
@@ -335,7 +395,6 @@ const LanguageAdd = ({
                   <label className="pl-2">{data?.[5]?.question_title}*</label>
 
                   <div className="flex gap-5 flex-wrap">
-
                     <Radio
                       options={data?.[5]?.answers}
                       value={watch("engLangCert")}
@@ -345,13 +404,13 @@ const LanguageAdd = ({
                   </div>
                 </div>
                 <div className="space-y-2">
-                  {watch('engLangCert')?.answer === "İELTS" && (
+                  {watch("engLangCert")?.answer === "İELTS" && (
                     <>
                       <Select
                         label={data?.[6]?.question_title}
                         options={data?.[6]?.answers}
                         register={inputProps[5].register}
-                        value={watch('engCertResult')}
+                        value={watch("engCertResult")}
                         errors={errors.engCertResult}
                       />
                     </>
@@ -361,7 +420,7 @@ const LanguageAdd = ({
                       label={data?.[7]?.question_title}
                       options={data?.[7]?.answers}
                       register={inputProps[5].register}
-                      value={watch('engCertResult')}
+                      value={watch("engCertResult")}
                       errors={errors.engCertResult}
                     />
                   )}
@@ -381,7 +440,6 @@ const LanguageAdd = ({
                             inputClassName="w-2/5"
                             register={inputProps[4].register}
                             errors={errors.langCertResult}
-
                           />
                         </div>
                       </div>
@@ -394,11 +452,9 @@ const LanguageAdd = ({
                         <div className="flex gap-5 flex-wrap">
                           <Radio
                             options={data?.[2]?.answers}
-
                             value={watch("langLevel")}
                             register={inputProps[6].register}
                             errors={errors.langLevel}
-
                           />
                         </div>
                       </div>
@@ -428,7 +484,6 @@ const LanguageAdd = ({
               type="button"
               onClick={handleClick}
               className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-5 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500"
-
             >
               Yadda saxla
               <Icon icon="ic:round-done" className="text-xl" />
@@ -438,7 +493,7 @@ const LanguageAdd = ({
                 className="save py-2 px-4 w-40 h-10 rounded-2xl flex justify-evenly self-center bg-qss-secondary text-white"
                 onClick={() => {
                   isAdding ? setIsAdding() : setIsEditing();
-                  dispatch(addErrorsLength(0))
+                  dispatch(addErrorsLength(0));
                 }}
               >
                 Siyahıya bax
