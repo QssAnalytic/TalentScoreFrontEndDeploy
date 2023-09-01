@@ -47,6 +47,7 @@ const schema = yup.object().shape({
 interface DynamicFieldSelect {
   [fieldName: string]: string[];
 }
+
 interface DynamicFieldsSelectItem {
   [fieldName: string]: {
     schema: yup.ObjectSchema<any>;
@@ -67,6 +68,7 @@ const ProgramSkills = ({
     stage_name: nextStageName,
     stage_children: nextStageChildren,
   } = stagesData?.[stageIndex + 1] || {};
+
   const {
     slug: prevSlugName,
     stage_name: prevStageName,
@@ -106,6 +108,14 @@ const ProgramSkills = ({
     }));
   };
 
+  const removeDynamicFieldSelect = (fieldName: string) => {
+    setDynamicFieldsSelect((prevDynamicFields) => {
+      const updatedFields = { ...prevDynamicFields };
+      delete updatedFields[fieldName];
+      return updatedFields;
+    });
+  };
+
   const addDynamicFieldSelectItem = (fieldName: string) => {
     setDynamicFieldsSelectItem((prev) => ({
       ...prev,
@@ -119,6 +129,14 @@ const ProgramSkills = ({
           .required(`${fieldName} is required`),
       },
     }));
+  };
+
+  const removeDynamicFieldSelectItem = (fieldName: string) => {
+    setDynamicFieldsSelectItem((prevDynamicFields) => {
+      const updatedFields = { ...prevDynamicFields };
+      delete updatedFields[fieldName];
+      return updatedFields;
+    });
   };
 
   const dynamicSchema = yup.object().shape({
@@ -160,15 +178,17 @@ const ProgramSkills = ({
       haveProgramSkills: { answer: "", weight: "" },
       whichProgram: [],
       ["MS Office"]: [],
+      ["Proqramlaşdırma dilləri"]: [],
+      ["Dizayn Proqramları"]: [],
     },
   });
 
   const onSubmit: SubmitHandler<ProgramSkillsValues | any> = (data) => {
-    console.log("submitData", data);
+    // console.log("submitData", data);
     alert("Submit");
   };
 
-  console.log("schema", dynamicSchema);
+  // console.log("schema", dynamicSchema);
 
   useEffect(() => {
     const subscription = watch((value) => {
@@ -198,6 +218,7 @@ const ProgramSkills = ({
         ["Proqramlaşdırma dilləri"]: [],
         design: [],
       });
+      setDynamicFieldsSelectItem({});
     }
   }, [formData?.haveProgramSkills?.answer]);
 
@@ -210,7 +231,7 @@ const ProgramSkills = ({
     ) {
       setValue("haveProgramSkills", { answer: "", weight: null });
     }
-
+    setDynamicFieldsSelect([]);
     if (formData?.whichProgram?.length > 0) {
       formData?.whichProgram.map((item: string) => {
         addDynamicFieldSelect(item);
@@ -218,28 +239,28 @@ const ProgramSkills = ({
     }
   }, [formData?.whichProgram?.length]);
 
-  useEffect(() => {
-    if (formData?.["MS Office"]?.length > 0) {
-      formData?.["MS Office"].map((item: string) => {
+  const handleDynamicFieldsInitialization = (
+    fieldName: string,
+    formData: ProgramSkillsValues
+  ) => {
+    const fieldValue = formData?.[fieldName];
+    if (fieldValue && fieldValue.length > 0) {
+      fieldValue.forEach((item: string) => {
         addDynamicFieldSelectItem(item);
       });
     }
+  };
+
+  useEffect(() => {
+    handleDynamicFieldsInitialization("MS Office", formData);
   }, [formData?.["MS Office"]?.length]);
 
   useEffect(() => {
-    if (formData?.["Proqramlaşdırma dilləri"]?.length > 0) {
-      formData?.["Proqramlaşdırma dilləri"].map((item: string) => {
-        addDynamicFieldSelectItem(item);
-      });
-    }
+    handleDynamicFieldsInitialization("Proqramlaşdırma dilləri", formData);
   }, [formData?.["Proqramlaşdırma dilləri"]?.length]);
 
   useEffect(() => {
-    if (formData?.["Dizayn Proqramları"]?.length > 0) {
-      formData?.["Dizayn Proqramları"].map((item: string) => {
-        addDynamicFieldSelectItem(item);
-      });
-    }
+    handleDynamicFieldsInitialization("Dizayn Proqramları", formData);
   }, [formData?.["Dizayn Proqramları"]?.length]);
 
   console.log(formData);
@@ -429,7 +450,7 @@ const ProgramSkills = ({
         className={`absolute -bottom-[79px] right-0 w-[180px] flex rounded-full justify-center items-center py-3.5 gap-4 bg-qss-secondary flex-row text-white text-white"}`}
         onClick={() => {
           dispatch(addSelect(true));
-          dispatch(setShowReport(!showReport));
+          // dispatch(setShowReport(!showReport));
         }}
       >
         {/* <LinkButton
