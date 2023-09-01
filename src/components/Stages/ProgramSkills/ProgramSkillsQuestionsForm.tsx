@@ -108,14 +108,6 @@ const ProgramSkills = ({
     }));
   };
 
-  const removeDynamicFieldSelect = (fieldName: string) => {
-    setDynamicFieldsSelect((prevDynamicFields) => {
-      const updatedFields = { ...prevDynamicFields };
-      delete updatedFields[fieldName];
-      return updatedFields;
-    });
-  };
-
   const addDynamicFieldSelectItem = (fieldName: string) => {
     setDynamicFieldsSelectItem((prev) => ({
       ...prev,
@@ -129,14 +121,6 @@ const ProgramSkills = ({
           .required(`${fieldName} is required`),
       },
     }));
-  };
-
-  const removeDynamicFieldSelectItem = (fieldName: string) => {
-    setDynamicFieldsSelectItem((prevDynamicFields) => {
-      const updatedFields = { ...prevDynamicFields };
-      delete updatedFields[fieldName];
-      return updatedFields;
-    });
   };
 
   const dynamicSchema = yup.object().shape({
