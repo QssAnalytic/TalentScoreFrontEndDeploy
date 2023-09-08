@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
 import ClockLoader from "react-spinners/ClockLoader";
 import ButtonSave from "components/ButtonSave";
+
 interface RootState {
   dataa: {
     removeFunc: boolean;
@@ -50,6 +51,7 @@ const LanguageQuestionsForm = ({
     stage_name: nextStageName,
     stage_children: nextStageChildren,
   } = stagesData?.[stageIndex + 1] || {};
+
   const {
     slug: prevSlugName,
     stage_name: prevStageName,
@@ -94,9 +96,7 @@ const LanguageQuestionsForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {};
 
   const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
 
@@ -107,7 +107,7 @@ const LanguageQuestionsForm = ({
     edit: boolean;
     data?: AddLangFormValues;
   }>({ edit: false });
-  const [displayListButton, setDisplayListButton] = useState(false);
+
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [chooseLang, setChooseLang] = useState(true);
 
@@ -121,6 +121,7 @@ const LanguageQuestionsForm = ({
     dispatch(addPop(true));
     setId(landIndex);
   };
+
   if (remove === true) {
     const filterData = formData?.languageSkills?.filter(
       (_, index) => index !== idd
@@ -130,6 +131,7 @@ const LanguageQuestionsForm = ({
     setValue("languageSkills", filterData);
     dispatch(addRemove(false));
   }
+
   const handleEdit = (langIndex: number) => {
     const data = formData?.languageSkills?.[langIndex] as AddLangFormValues;
     setEditingIndex(langIndex);
@@ -137,7 +139,6 @@ const LanguageQuestionsForm = ({
   };
 
   const editLang = (editLangData: AddLangFormValues) => {
-    // eslint-disable-next-line no-unsafe-optional-chaining
     const data = formData?.languageSkills;
     const editedData = data?.map((lang: AddLangFormValues, index: number) => {
       if (index === editingIndex) {
@@ -153,7 +154,6 @@ const LanguageQuestionsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      // console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -194,7 +194,6 @@ const LanguageQuestionsForm = ({
               setChooseLang={setChooseLang}
               isAdding={isAdding}
               setIsAdding={setIsAdding}
-              displayListButton={displayListButton}
               formData={formData}
               parentReset={ParentReset}
             />
@@ -220,27 +219,25 @@ const LanguageQuestionsForm = ({
           editLang={editLang}
           setChooseLang={setChooseLang}
           setIsEditing={setIsEditing}
-          displayListButton={displayListButton}
         />
       ) : (
         <>
-          <h3 className="pl-2">Əlavə xarici dil biliklərinizi qeyd edin</h3>
-          <button
-            className="add py-2 px-4 w-full h-12 rounded-2xl flex justify-evenly items-center"
-            type="button"
-            onClick={() => {
-              setIsAdding(true),
-                setDisplayListButton(true),
-                dispatch(addSelect(false));
-            }}
-          >
-            {" "}
-            Əlavə et +{" "}
-          </button>
-          <div className="titles flex px-16 justify-start gap-16">
-            <span>Dil</span>
-            <span>Səviyyə</span>
-            <span>Sertifikat</span>
+          <div className="flex flex-col gap-3">
+            <h3 className="pl-2">Əlavə xarici dil biliklərinizi qeyd edin</h3>
+            <button
+              className="add py-2 px-4 w-full h-12 rounded-2xl flex justify-evenly items-center"
+              type="button"
+              onClick={() => {
+                setIsAdding(true), dispatch(addSelect(false));
+              }}
+            >
+              Əlavə et +
+            </button>
+            <div className="titles flex px-16 justify-start gap-16">
+              <span>Dil</span>
+              <span>Səviyyə</span>
+              <span>Sertifikat</span>
+            </div>
           </div>
           <ul>
             {formData?.languageSkills?.map(
@@ -279,7 +276,8 @@ const LanguageQuestionsForm = ({
                         </p>
                       )}
                       {(lang.langCert?.answer === "1" ||
-                        lang.engLangCert?.answer === "Sertifikat yoxdur") && (
+                        lang.engLangCert?.answer === "Yoxdur" ||
+                        lang.langCert?.answer === "Xeyr") && (
                         <span>Sertifikat yoxdur </span>
                       )}
                     </div>
