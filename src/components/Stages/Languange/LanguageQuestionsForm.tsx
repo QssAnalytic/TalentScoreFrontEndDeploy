@@ -16,18 +16,24 @@ import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
-import ClockLoader from 'react-spinners/ClockLoader'
+import ClockLoader from "react-spinners/ClockLoader";
 import ButtonSave from "components/ButtonSave";
+
 interface RootState {
   dataa: {
     removeFunc: boolean;
-    errorsLength: number
+    errorsLength: number;
   };
 }
 
 const schema = yup.object({
   languageSkills: yup.array().min(1).required(),
-  haveLanguageSkills: yup.object({ answer: yup.string().required(), weight: yup.string().optional().nullable() }).required()
+  haveLanguageSkills: yup
+    .object({
+      answer: yup.string().required(),
+      weight: yup.string().optional().nullable(),
+    })
+    .required(),
 });
 
 export type LanguageQuestionsFormValues = yup.InferType<typeof schema>;
@@ -45,6 +51,7 @@ const LanguageQuestionsForm = ({
     stage_name: nextStageName,
     stage_children: nextStageChildren,
   } = stagesData?.[stageIndex + 1] || {};
+
   const {
     slug: prevSlugName,
     stage_name: prevStageName,
@@ -65,7 +72,7 @@ const LanguageQuestionsForm = ({
     isLoading,
   } = useGetQuestionsQuery(subSlugName);
   const remove = useSelector((state: RootState) => state.dataa.removeFunc);
-  const [idd, setId] = useState(0)
+  const [idd, setId] = useState(0);
   const dispatch = useAppDispatch();
 
   const { formData } =
@@ -73,30 +80,34 @@ const LanguageQuestionsForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: LanguageQuestionsFormValues }) || {};
 
-  const { register, handleSubmit, watch, reset: ParentReset, setValue, formState: { errors }, trigger } =
-    useForm<LanguageQuestionsFormValues>({
-      resolver: yupResolver<LanguageQuestionsFormValues>(schema),
-      defaultValues: {
-        languageSkills: [],
-        haveLanguageSkills: { answer: '', weight: '' }
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset: ParentReset,
+    setValue,
+    formState: { errors },
+    trigger,
+  } = useForm<LanguageQuestionsFormValues>({
+    resolver: yupResolver<LanguageQuestionsFormValues>(schema),
+    defaultValues: {
+      languageSkills: [],
+      haveLanguageSkills: { answer: "", weight: "" },
+    },
+  });
 
-  const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {};
 
   const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
 
   console.log(errors);
-
 
   const [isAdding, setIsAdding] = useState(true);
   const [isEditing, setIsEditing] = useState<{
     edit: boolean;
     data?: AddLangFormValues;
   }>({ edit: false });
-  const [displayListButton, setDisplayListButton] = useState(false);
+
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [chooseLang, setChooseLang] = useState(true);
 
@@ -107,19 +118,20 @@ const LanguageQuestionsForm = ({
   };
 
   const handleRemove = (landIndex: number) => {
-    dispatch(addPop(true))
-    setId(landIndex)
-
+    dispatch(addPop(true));
+    setId(landIndex);
   };
+
   if (remove === true) {
     const filterData = formData?.languageSkills?.filter(
       (_, index) => index !== idd
     );
     formData?.languageSkills.length === 1 && setIsAdding(true);
-    setValue('haveLanguageSkills', { answer: '', weight: '' })
+    setValue("haveLanguageSkills", { answer: "", weight: "" });
     setValue("languageSkills", filterData);
-    dispatch(addRemove(false))
+    dispatch(addRemove(false));
   }
+
   const handleEdit = (langIndex: number) => {
     const data = formData?.languageSkills?.[langIndex] as AddLangFormValues;
     setEditingIndex(langIndex);
@@ -127,7 +139,6 @@ const LanguageQuestionsForm = ({
   };
 
   const editLang = (editLangData: AddLangFormValues) => {
-    // eslint-disable-next-line no-unsafe-optional-chaining
     const data = formData?.languageSkills;
     const editedData = data?.map((lang: AddLangFormValues, index: number) => {
       if (index === editingIndex) {
@@ -143,7 +154,6 @@ const LanguageQuestionsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      // console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -157,11 +167,15 @@ const LanguageQuestionsForm = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
-  if (isLoading) return <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"><ClockLoader color="#038477" /></div>;
+  if (isLoading)
+    return (
+      <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2">
+        <ClockLoader color="#038477" />
+      </div>
+    );
   if (questionsError) return <div>Error</div>;
 
   console.log(errLength);
-
 
   const questions = questionsData?.[0]?.questions;
 
@@ -180,23 +194,21 @@ const LanguageQuestionsForm = ({
               setChooseLang={setChooseLang}
               isAdding={isAdding}
               setIsAdding={setIsAdding}
-              displayListButton={displayListButton}
               formData={formData}
               parentReset={ParentReset}
             />
-            {
-              formData?.languageSkills?.length === 0 &&
-              (<div className="">
+            {formData?.languageSkills?.length === 0 && (
+              <div className="">
                 <div className="flex gap-5 w-48 py-2 px-4">
                   <Radio
-                    value={watch('haveLanguageSkills')}
-                    register={register('haveLanguageSkills')}
+                    value={watch("haveLanguageSkills")}
+                    register={register("haveLanguageSkills")}
                     options={questions?.[0].answers}
                     errors={errors.haveLanguageSkills}
                   />
                 </div>
-              </div>)
-            }
+              </div>
+            )}
           </div>
         </>
       ) : isEditing.edit ? (
@@ -207,25 +219,25 @@ const LanguageQuestionsForm = ({
           editLang={editLang}
           setChooseLang={setChooseLang}
           setIsEditing={setIsEditing}
-          displayListButton={displayListButton}
         />
       ) : (
         <>
-          <h3 className="pl-2">Əlavə xarici dil biliklərinizi qeyd edin</h3>
-          <button
-            className="add py-2 px-4 w-full h-12 rounded-2xl flex justify-evenly items-center"
-            type="button"
-            onClick={() => {
-              setIsAdding(true), setDisplayListButton(true), dispatch(addSelect(false));
-            }}
-          >
-            {" "}
-            Əlavə et +{" "}
-          </button>
-          <div className="titles flex px-16 justify-start gap-16">
-            <span>Dil</span>
-            <span>Səviyyə</span>
-            <span>Sertifikat</span>
+          <div className="flex flex-col gap-3">
+            <h3 className="pl-2">Əlavə xarici dil biliklərinizi qeyd edin</h3>
+            <button
+              className="add py-2 px-4 w-full h-12 rounded-2xl flex justify-evenly items-center"
+              type="button"
+              onClick={() => {
+                setIsAdding(true), dispatch(addSelect(false));
+              }}
+            >
+              Əlavə et +
+            </button>
+            <div className="titles flex px-16 justify-start gap-16">
+              <span>Dil</span>
+              <span>Səviyyə</span>
+              <span>Sertifikat</span>
+            </div>
           </div>
           <ul>
             {formData?.languageSkills?.map(
@@ -249,24 +261,23 @@ const LanguageQuestionsForm = ({
                     <div className="certificate py-2.5 px-1.5">
                       {lang.langCertName && lang.langCertResult && (
                         <>
-                          {" "}
                           <span>{lang.langCertName}</span>{" "}
                           <span> {lang.langCertResult}</span>{" "}
                         </>
                       )}
                       {lang.engLangCert?.answer === "İELTS" && (
                         <p className="w-48">
-                          {" "}
                           IELTS {lang.engCertResult?.answer}
                         </p>
                       )}
                       {lang.engLangCert?.answer === "TOEFL" && (
                         <p className="w-48">
-                          {" "}
                           TOEFL {lang.engCertResult?.answer}
                         </p>
                       )}
-                      {(lang.langCert?.answer === "1" || lang.engLangCert?.answer === "Sertifikat yoxdur") && (
+                      {(lang.langCert?.answer === "1" ||
+                        lang.engLangCert?.answer === "Yoxdur" ||
+                        lang.langCert?.answer === "Xeyr") && (
                         <span>Sertifikat yoxdur </span>
                       )}
                     </div>
@@ -284,7 +295,6 @@ const LanguageQuestionsForm = ({
                           src={removeIcon}
                           alt="remove"
                           onClick={() => {
-
                             handleRemove(index);
                           }}
                         />
@@ -303,23 +313,28 @@ const LanguageQuestionsForm = ({
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
         type="outline"
-        onClick={()=>dispatch(addErrorsLength(0))}
+        onClick={() => dispatch(addErrorsLength(0))}
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-      {
-        errLength === 0 || watch('haveLanguageSkills.answer') === "Yoxdur" ?
-          <LinkButton
-            onClick={() => dispatch(addSelect(false))}
-            nav={{
-              state: { stageName: nextStageName, subStageName: nextSubStageName },
-              path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-            }}
-            label="Növbəti"
-            className="absolute right-0 -bottom-20"
-          /> :
-          <ButtonSave trigger={trigger} label="Növbəti" className="absolute right-0 -bottom-20" onClick={() => dispatch(addSelect(true))} />
-      }
+      {errLength === 0 || watch("haveLanguageSkills.answer") === "Yoxdur" ? (
+        <LinkButton
+          onClick={() => dispatch(addSelect(false))}
+          nav={{
+            state: { stageName: nextStageName, subStageName: nextSubStageName },
+            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
+          }}
+          label="Növbəti"
+          className="absolute right-0 -bottom-20"
+        />
+      ) : (
+        <ButtonSave
+          trigger={trigger}
+          label="Növbəti"
+          className="absolute right-0 -bottom-20"
+          onClick={() => dispatch(addSelect(true))}
+        />
+      )}
     </form>
   );
 };

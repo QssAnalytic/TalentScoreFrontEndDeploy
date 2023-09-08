@@ -1,5 +1,5 @@
 import { RadioGroup } from "@headlessui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IAnswer, ISelectedValue } from "types";
 import { useSelector } from "react-redux";
 interface IRadioProps {
@@ -28,9 +28,11 @@ const Radio = ({
   const selectValid = useSelector(
     (state: RootState) => state.dataa.validationSelect
   );
+
   const handleErrors = async () => {
     trigger();
   };
+
   return (
     <RadioGroup
       className="w-full"

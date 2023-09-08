@@ -10,8 +10,8 @@ interface ISelectMult {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register?: any;
   value?: string[];
-  errors?: any
-  trigger?: any
+  errors?: any;
+  trigger?: any;
 }
 interface RootState {
   dataa: {
@@ -25,14 +25,15 @@ const SelectMult = ({
   value,
   placeholder,
   errors,
-  trigger
+  trigger,
 }: ISelectMult) => {
   const [selected, setSelected] = useState(value);
-  const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
+  const selectValid = useSelector(
+    (state: RootState) => state.dataa.validationSelect
+  );
   useEffect(() => {
     setSelected(value);
   }, [value]);
-
 
   return (
     <Listbox
@@ -49,7 +50,7 @@ const SelectMult = ({
             name: register.name,
             value: value,
           },
-        })
+        });
       }}
     >
       <Listbox.Label>{label}</Listbox.Label>
@@ -57,14 +58,18 @@ const SelectMult = ({
         <Listbox.Button as={Fragment}>
           {({ value, open }) => (
             <Listbox.Label
-              className={`relative w-full border-2 transition duration-200 ${(errors && selectValid) ? "border-red-300 border-2" : ''} text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${open && "  text-qss-secondary border border-qss-base-200"
-                }`}
+              className={`relative w-full border-2 transition duration-200  ${
+                errors && selectValid ? "border-red-300 border-2" : ""
+              } text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${
+                open && "text-qss-secondary border border-qss-base-200"
+              }`}
             >
               <span
-                className={`w-96 overflow-hidden whitespace-nowrap flex ${value.length > 0 ? "text-qss-inputText" : "text-qss-base-300"
-                  }`}
+                className={`w-96 overflow-hidden whitespace-nowrap flex ${
+                  value.length > 0 ? "text-qss-inputText" : "text-qss-base-300"
+                }`}
               >
-                {value.join(", ") || placeholder}
+                {value[value.length - 1] || placeholder}
               </span>
               <span className={`absolute right-6 ${open && "rotate-180"}`}>
                 <Icon
@@ -91,10 +96,11 @@ const SelectMult = ({
                     {answer_title}
                   </span>
                   <span
-                    className={`${selected
-                      ? "bg-qss-secondary"
-                      : "opacity-0 group-hover:opacity-100 bg-white"
-                      } w-3 h-3 inline-flex  rounded-full border border-qss-base-200`}
+                    className={`${
+                      selected
+                        ? "bg-qss-secondary"
+                        : "opacity-0 group-hover:opacity-100 bg-white"
+                    } w-3 h-3 inline-flex  rounded-full border border-qss-base-200`}
                   ></span>
                 </>
               )}

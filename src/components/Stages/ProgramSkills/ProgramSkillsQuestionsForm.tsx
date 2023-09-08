@@ -46,6 +46,7 @@ const schema = yup.object().shape({
 interface DynamicFieldSelect {
   [fieldName: string]: string[];
 }
+
 interface DynamicFieldsSelectItem {
   [fieldName: string]: {
     schema: yup.ObjectSchema<any>;
@@ -66,6 +67,7 @@ const ProgramSkills = ({
     stage_name: nextStageName,
     stage_children: nextStageChildren,
   } = stagesData?.[stageIndex + 1] || {};
+
   const {
     slug: prevSlugName,
     stage_name: prevStageName,
@@ -158,6 +160,8 @@ const ProgramSkills = ({
       haveProgramSkills: { answer: "", weight: "" },
       whichProgram: [],
       ["MS Office"]: [],
+      ["Proqramlaşdırma dilləri"]: [],
+      ["Dizayn Proqramları"]: [],
     },
   });
 
@@ -170,7 +174,6 @@ const ProgramSkills = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      // console.log(value);
       trigger();
       dispatch(
         updateStageForm({
@@ -196,6 +199,7 @@ const ProgramSkills = ({
         ["Proqramlaşdırma dilləri"]: [],
         design: [],
       });
+      setDynamicFieldsSelectItem({});
     }
   }, [formData?.haveProgramSkills?.answer]);
 
@@ -208,7 +212,7 @@ const ProgramSkills = ({
     ) {
       setValue("haveProgramSkills", { answer: "", weight: null });
     }
-
+    setDynamicFieldsSelect([]);
     if (formData?.whichProgram?.length > 0) {
       formData?.whichProgram.map((item: string) => {
         addDynamicFieldSelect(item);
@@ -216,28 +220,28 @@ const ProgramSkills = ({
     }
   }, [formData?.whichProgram?.length]);
 
-  useEffect(() => {
-    if (formData?.["MS Office"]?.length > 0) {
-      formData?.["MS Office"].map((item: string) => {
+  const handleDynamicFieldsInitialization = (
+    fieldName: string,
+    formData: ProgramSkillsValues
+  ) => {
+    const fieldValue = formData?.[fieldName];
+    if (fieldValue && fieldValue.length > 0) {
+      fieldValue.forEach((item: string) => {
         addDynamicFieldSelectItem(item);
       });
     }
+  };
+
+  useEffect(() => {
+    handleDynamicFieldsInitialization("MS Office", formData);
   }, [formData?.["MS Office"]?.length]);
 
   useEffect(() => {
-    if (formData?.["Proqramlaşdırma dilləri"]?.length > 0) {
-      formData?.["Proqramlaşdırma dilləri"].map((item: string) => {
-        addDynamicFieldSelectItem(item);
-      });
-    }
+    handleDynamicFieldsInitialization("Proqramlaşdırma dilləri", formData);
   }, [formData?.["Proqramlaşdırma dilləri"]?.length]);
 
   useEffect(() => {
-    if (formData?.["Dizayn Proqramları"]?.length > 0) {
-      formData?.["Dizayn Proqramları"].map((item: string) => {
-        addDynamicFieldSelectItem(item);
-      });
-    }
+    handleDynamicFieldsInitialization("Dizayn Proqramları", formData);
   }, [formData?.["Dizayn Proqramları"]?.length]);
 
   console.log(formData);
@@ -251,7 +255,7 @@ const ProgramSkills = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
-  // console.log(questions);
+  console.log("quest", questions);
 
   const inputProps = [
     { register: register("whichProgram") },
