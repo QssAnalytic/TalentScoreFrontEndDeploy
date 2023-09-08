@@ -75,8 +75,6 @@ const GeneralQuestionsForm = ({
     isLoading,
   } = useGetQuestionsQuery(subStageSlug);
 
-  console.log("data", questionsData);
-
   const dispatch = useAppDispatch();
 
   const { formData } =
@@ -128,6 +126,8 @@ const GeneralQuestionsForm = ({
   if (questionsError) return <div>Error</div>;
 
   const questions = questionsData?.[0]?.questions;
+
+  console.log("questions", questions);
 
   return (
     <form

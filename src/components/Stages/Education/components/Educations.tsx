@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
+
 import {
   addData,
   addElave,
@@ -17,11 +18,13 @@ interface Edu {
   formData: EducationQuestionsFormValues;
   setValue: any;
 }
+
 interface RootState {
   dataa: {
     removeFunc: boolean;
   };
 }
+
 const Educations = ({ formData, setValue }: Edu) => {
   const dispatch: Dispatch = useDispatch();
   const remove = useSelector((state: RootState) => state.dataa.removeFunc);
@@ -59,16 +62,16 @@ const Educations = ({ formData, setValue }: Edu) => {
         >
           <div className="w-36 rounded-l-full flex items-center">
             <div className="info flex gap-5 px-5 py-1 ">
-              <span>{elem.id}. </span>
+              <span>{index + 1}. </span>
               <span> {elem.university}</span>
             </div>
           </div>
-          <div className="border-r">
+          <div className="pr-3">
             <div className="level">
               <span> {elem.specialty.answer}</span>
             </div>
           </div>
-          <div className="remove cursor-pointer items-end">
+          <div className="remove cursor-pointer items-end ml-2">
             <Icon
               icon="material-symbols:cancel"
               style={{ color: "red" }}
@@ -79,6 +82,7 @@ const Educations = ({ formData, setValue }: Edu) => {
       ))}
       <div className="w-full flex items-center justify-center mt-5">
         <button
+          type="button"
           className="border p-2 rounded-full px-5 items-center bg-qss-input"
           onClick={handleClick}
         >

@@ -16,8 +16,7 @@ import {
 } from "./GeneralQuestionsForm";
 import ClockLoader from "react-spinners/ClockLoader";
 import * as yup from "yup";
-import EducationAdd from "./components/EducationAdd";
-import { AddEduFormValues } from "./components/FormEducations";
+import FormEducations, { AddEduFormValues } from "./components/FormEducations";
 import Educations from "./components/Educations";
 import { addErrorsLength, addSelect } from "state/dataSlice";
 import ButtonSave from "components/ButtonSave";
@@ -142,14 +141,18 @@ const EducationQuestionsForm = ({
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="mt-7 flex-col flex gap-5"
+      noValidate
     >
       <div className="space-y-7">
         {page === 1 ? (
-          <EducationAdd
-            handleAddEdu={handleAddEdu}
-            questions={questions}
-            formData={formData}
-          />
+          <div className="h-[460px] overflow-y-scroll">
+            <FormEducations
+              questions={questions}
+              formData={formData}
+              handleAddEdu={handleAddEdu}
+              name={tehsil}
+            />
+          </div>
         ) : (
           <Educations formData={formData} setValue={setValue} />
         )}
@@ -162,9 +165,6 @@ const EducationQuestionsForm = ({
         onClick={() => dispatch(addErrorsLength(0))}
         type="outline"
         label="Geri"
-        disabled={
-          formData?.education?.length !== 0 || page !== 1 ? true : false
-        }
         className="absolute left-0 -bottom-20"
       />
 

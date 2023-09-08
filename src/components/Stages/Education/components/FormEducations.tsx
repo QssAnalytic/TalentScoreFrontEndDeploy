@@ -66,6 +66,10 @@ interface Copy {
         score: any;
       },
       {
+        application_type: string;
+        score: any;
+      },
+      {
         other_test: any;
       }
     ];
@@ -114,8 +118,15 @@ const schema = yup
     local: yup
       .object({
         examName: yup.string().required(),
-        score: yup.string().required(),
-        maxScore: yup.string().required(),
+        score: yup
+          .number()
+          .required()
+          .min(0)
+          .test(function (value) {
+            const maxScore = this.parent.maxScore;
+            return value <= maxScore;
+          }),
+        maxScore: yup.number().required().min(0),
       })
       .when("criterian", {
         is: (criterian: any) =>
@@ -125,24 +136,31 @@ const schema = yup
           yup
             .object({
               examName: yup.string().required(),
-              score: yup.string().required(),
-              maxScore: yup.string().required(),
+              score: yup
+                .number()
+                .required()
+                .min(0)
+                .test(function (value) {
+                  const maxScore = this.parent.maxScore;
+                  return value <= maxScore;
+                }),
+              maxScore: yup.number().required().min(0),
             })
             .required(),
         otherwise: () =>
           yup
             .object({
               examName: yup.string().optional(),
-              score: yup.string().optional(),
-              maxScore: yup.string().optional(),
+              score: yup.number().optional(),
+              maxScore: yup.number().optional(),
             })
             .optional(),
       }),
     otherExam: yup
       .object({
         name: yup.string().optional(),
-        score: yup.string().optional(),
-        maxScore: yup.string().optional(),
+        score: yup.number().optional(),
+        maxScore: yup.number().optional(),
       })
       .optional(),
     application: yup.array().when("criterian", {
@@ -154,21 +172,26 @@ const schema = yup
     Att: yup.string().when("application", {
       is: (application: Array<string>) =>
         application.find((x) => x === "Attestat - GPA"),
-      then: () => yup.string().required(),
+      then: () => yup.number().min(0).required(),
     }),
     SAT: yup.string().when("application", {
       is: (application: Array<string>) => application.find((x) => x === "SAT"),
-      then: () => yup.string().required(),
+      then: () => yup.number().min(0).required(),
+    }),
+    GRE: yup.string().when("application", {
+      is: (application: Array<string>) =>
+        application.find((x) => x === "GRE/GMAT"),
+      then: () => yup.number().min(0).required(),
     }),
     ielts: yup.string().when("application", {
       is: (application: Array<string>) =>
         application.find((x) => x === "Language test (IELTS TOEFL)"),
-      then: () => yup.string().required(),
+      then: () => yup.number().min(0).required(),
     }),
     toefl: yup.string().when("application", {
       is: (application: Array<string>) =>
         application.find((x) => x === "Language test (IELTS TOEFL)"),
-      then: () => yup.string().required(),
+      then: () => yup.number().min(0).required(),
     }),
   })
   .required();
@@ -206,12 +229,8 @@ const FormEducations = ({
       specialty: { answer: "", weight: "" },
       date: { start: "", end: "" },
       criterian: { answer: "", weight: "" },
-      local: { examName: "", score: "", maxScore: "" },
-      Att: "",
-      SAT: "",
-      otherExam: { name: "", score: "", maxScore: "" },
-      ielts: "",
-      toefl: "",
+      local: {},
+      otherExam: {},
       application: [],
     },
   });
@@ -219,9 +238,8 @@ const FormEducations = ({
   const [other, setOther] = useState(false);
   const dispatch: Dispatch = useDispatch();
   const [end, setEnd] = useState(false);
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+
+  const onSubmit = handleSubmit((data) => {});
 
   const tehsil = useSelector((state: RootState) => state.dataa.tehsil);
   const elave = useSelector((state: RootState) => state.dataa.elave);
@@ -261,6 +279,10 @@ const FormEducations = ({
         {
           application_type: "SAT",
           score: watch().SAT,
+        },
+        {
+          application_type: "GRE",
+          score: watch().GRE,
         },
         {
           other_test: watch().otherExam,
@@ -319,6 +341,7 @@ const FormEducations = ({
     watch("tehsil"),
     watch("Att"),
     watch("SAT"),
+    watch("GRE"),
     watch("ielts"),
     watch("toefl"),
   ]);
@@ -332,7 +355,7 @@ const FormEducations = ({
     setEnd(!end);
   };
 
-  console.log(formData);
+  console.log("data", formData);
 
   useEffect(() => {
     if (!elave) {
@@ -345,7 +368,7 @@ const FormEducations = ({
       {elave === true && formData?.education.length !== 0 ? (
         <Select
           register={register("tehsil")}
-          label={`${formData.education.length + 1}-ci Təhsilinizi qeyd edin`}
+          label={`${formData.education.length + 1}-ci təhsilinizi qeyd edin`}
           errors={errors.tehsil}
           value={watch("tehsil")}
           options={[
@@ -383,9 +406,13 @@ const FormEducations = ({
       <div className="mb-5 mt-3">
         <label>
           <span style={{ color: "#038477" }}>
-            {elave === true ? watch("tehsil").answer : name}-
+            {elave === true
+              ? watch("tehsil").answer
+                ? watch("tehsil").answer
+                : formData.education.length + 1 + "-ci"
+              : name}
           </span>
-          {`${questions?.[0]?.question_title}`}
+          {` ${questions?.[0]?.question_title}`}
         </label>
         <SelectSearch
           defaultValue="Ölkə"
@@ -396,10 +423,15 @@ const FormEducations = ({
           register={register("country")}
         />
       </div>
+
       <div className="mb-5">
         <TextInput
           label={
-            tehsil === "Peşə təhsili"
+            elave === true
+              ? watch("tehsil").answer === "Peşə təhsili"
+                ? "Kollecin adı "
+                : questions?.[1]?.question_title
+              : tehsil === "Peşə təhsili"
               ? "Kollecin adı "
               : questions?.[1]?.question_title
           }
@@ -423,8 +455,12 @@ const FormEducations = ({
       <div className="flex  items-center gap-3 mb-3">
         <DateInput
           label={
-            tehsil === "Peşə təhsili"
-              ? "Kollecə qəbul olma tarixi "
+            elave === true
+              ? watch("tehsil").answer === "Peşə təhsili"
+                ? "Kollecə qəbul olma tarixi  "
+                : "Universitetə  qəbul olma tarixi"
+              : tehsil === "Peşə təhsili"
+              ? "Kollecə qəbul olma tarixi  "
               : "Universitetə  qəbul olma tarixi"
           }
           type="date"
@@ -433,7 +469,11 @@ const FormEducations = ({
         />
         <DateInput
           label={
-            tehsil === "Peşə təhsili"
+            elave === true
+              ? watch("tehsil").answer === "Peşə təhsili"
+                ? "Kolleci bitirmə tarixi "
+                : "Universiteti  bitirmə tarixi"
+              : tehsil === "Peşə təhsili"
               ? "Kolleci bitirmə tarixi "
               : "Universiteti  bitirmə tarixi"
           }
@@ -479,11 +519,13 @@ const FormEducations = ({
               placeholder="bal"
               register={register("local.score")}
               errors={errors?.local?.score}
+              type="number"
             />
             <TextInput
               placeholder="max bal"
               register={register("local.maxScore")}
               errors={errors?.local?.maxScore}
+              type="number"
             />
           </div>
         </div>
@@ -513,7 +555,7 @@ const FormEducations = ({
       {watch()?.criterian?.answer === "Hər ikisi" ? (
         <div>
           <label>{questions?.[5]?.question_title}</label>
-          <div className="flex gap-5">
+          <div className="flex gap-5 my-3">
             <div className="w-4/4">
               <TextInput
                 placeholder="Imtahan"
@@ -525,11 +567,13 @@ const FormEducations = ({
               placeholder="bal"
               register={register("local.score")}
               errors={errors?.local?.score}
+              type="number"
             />
             <TextInput
               placeholder="max bal"
               register={register("local.maxScore")}
               errors={errors?.local?.maxScore}
+              type="number"
             />
           </div>
           <label>{questions?.[6]?.question_title}</label>
@@ -538,7 +582,6 @@ const FormEducations = ({
               <SelectMult
                 options={questions?.[6]?.answers}
                 placeholder="Attestat - GPA"
-                label=""
                 register={register("application")}
                 errors={errors.application}
               />
@@ -578,12 +621,14 @@ const FormEducations = ({
                           placeholder="İELTS Nəticə"
                           register={register("ielts")}
                           errors={errors.ielts}
+                          type="number"
                         />
                       </div>
                       <TextInput
                         placeholder="TOEFL Nəticə"
                         register={register("toefl")}
                         errors={errors.toefl}
+                        type="number"
                       />
                     </div>
                   ) : (
@@ -595,8 +640,11 @@ const FormEducations = ({
                           ? errors.Att
                           : elem.substr(0, 3) === "SAT"
                           ? errors.SAT
+                          : elem.substr(0, 3) === "GRE"
+                          ? errors.GRE
                           : undefined
                       }
+                      type="number"
                     />
                   )}
                 </div>
@@ -628,11 +676,13 @@ const FormEducations = ({
             <TextInput
               placeholder="Balınız"
               register={register("otherExam.score")}
+              type="number"
             />
 
             <TextInput
               placeholder="Maksimal Bal"
               register={register("otherExam.maxScore")}
+              type="number"
             />
           </div>
         </div>
