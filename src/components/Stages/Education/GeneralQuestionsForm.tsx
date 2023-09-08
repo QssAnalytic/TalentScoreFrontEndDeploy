@@ -100,8 +100,7 @@ const GeneralQuestionsForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) => {};
 
   useEffect(() => {
     const subscription = watch((value) => {

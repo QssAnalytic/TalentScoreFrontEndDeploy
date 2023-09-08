@@ -6,6 +6,7 @@ interface Edu {
   formData: EducationQuestionsFormValues;
   handleAddEdu: (eduData: AddEduFormValues) => void;
 }
+
 const Bakalavr = ({ questions, formData, handleAddEdu }: Edu) => {
   return (
     <div>

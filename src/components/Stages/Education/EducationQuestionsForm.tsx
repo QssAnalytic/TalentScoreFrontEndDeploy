@@ -25,6 +25,7 @@ import ButtonSave from "components/ButtonSave";
 const schema = yup.object({
   education: yup.array().min(1).required(),
 });
+
 interface RootState {
   dataa: {
     currentPage: 1;
@@ -44,7 +45,6 @@ const EducationQuestionsForm = ({
   const nav = useNavigate();
   const page = useSelector((state: RootState) => state.dataa.currentPage);
   const tehsil = useSelector((state: RootState) => state.dataa.tehsil);
-  const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
   const { state } = useLocation();
 
   const {
@@ -90,8 +90,7 @@ const EducationQuestionsForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<EducationQuestionsFormValues> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<EducationQuestionsFormValues> = (data) => {};
 
   const questions = questionsData?.[0]?.questions;
 
@@ -127,6 +126,7 @@ const EducationQuestionsForm = ({
         <ClockLoader color="#038477" />
       </div>
     );
+
   if (questionsError) return <div>Error</div>;
 
   const handleAddEdu = (eduData: AddEduFormValues) => {
