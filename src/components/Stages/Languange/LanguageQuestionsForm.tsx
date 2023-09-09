@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import * as yup from "yup";
+import { Icon } from "@iconify/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
+import ClockLoader from "react-spinners/ClockLoader";
+
 import {
   useGetQuestionsQuery,
   useGetStageQuery,
 } from "../../../services/stage";
-import Radio from "../../RadioInput";
-import LinkButton from "../../LinkButton";
+import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
+import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
-import removeIcon from "../../../assets/Vector.svg";
-import * as yup from "yup";
-import { Icon } from "@iconify/react";
-import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector } from "react-redux";
-import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
-import ClockLoader from "react-spinners/ClockLoader";
+
+import Radio from "../../RadioInput";
+import LinkButton from "../../LinkButton";
 import ButtonSave from "components/ButtonSave";
+
+import removeIcon from "../../../assets/Vector.svg";
 
 interface RootState {
   dataa: {
@@ -99,8 +102,7 @@ const LanguageQuestionsForm = ({
   const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {};
 
   const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
-
-  console.log(errors);
+  const questions = questionsData?.[0]?.questions;
 
   const [isAdding, setIsAdding] = useState(true);
   const [isEditing, setIsEditing] = useState<{
@@ -176,8 +178,7 @@ const LanguageQuestionsForm = ({
   if (questionsError) return <div>Error</div>;
 
   console.log(errLength);
-
-  const questions = questionsData?.[0]?.questions;
+  console.log(errors);
 
   return (
     <form

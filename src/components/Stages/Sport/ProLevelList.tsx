@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react";
-import Select from "components/Select";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useGetQuestionsQuery, useGetStageQuery } from "services/stage";
 import { useAppDispatch, useAppSelector } from "state/hooks";
 import { updateStageForm } from "state/stages/stageFormSlice";
@@ -50,7 +49,6 @@ const ProLevelList = ({
       ({ name }) => name === prevSubSlugName
     ) as { formData: SportFormValues & any }) || ({} as any);
 
-      
   const { register, watch, reset, handleSubmit, setValue } =
     useForm<SportFormValues>();
   const questions = questionsData?.[0]?.questions;
@@ -72,11 +70,8 @@ const ProLevelList = ({
         },
       })
     );
-  
   };
 
- 
-  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -101,7 +96,7 @@ const ProLevelList = ({
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
         type="outline"
-        onClick={()=>dispatch(addErrorsLength(0))}
+        onClick={() => dispatch(addErrorsLength(0))}
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
@@ -112,7 +107,7 @@ const ProLevelList = ({
           path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
         }}
         label="Növbəti"
-        onClick={()=>dispatch(addSelect(false))}
+        onClick={() => dispatch(addSelect(false))}
         className="absolute right-0 -bottom-20"
       />
     </form>
