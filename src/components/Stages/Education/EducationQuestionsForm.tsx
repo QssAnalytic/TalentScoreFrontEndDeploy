@@ -109,7 +109,6 @@ const EducationQuestionsForm = ({
           : nav(`/stages/${slugName}/${subSlugName}`, {
               state: { subStageName: subStageName, stageName: stageName },
             });
-      } else {
       }
     });
 

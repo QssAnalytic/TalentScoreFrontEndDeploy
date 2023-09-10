@@ -143,14 +143,15 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
   } = useForm<SportFormValues>({
     resolver: yupResolver<SportFormValues>(schema),
     defaultValues: {
-      sport: {},
+      sport: { answer: "", weight: "" },
       whichSport: [],
       professionals: [],
       amateurs: [],
     },
   });
 
-  const onSubmit: SubmitHandler<SportFormValues> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SportFormValues> = (data) => {};
+
   useEffect(() => {
     const subscription = watch((value) => {
       trigger();
@@ -161,6 +162,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
         })
       );
     });
+
     reset(formData);
 
     return () => subscription.unsubscribe();
@@ -174,7 +176,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     setCount(!count);
     if (formData?.sport?.answer === "Yoxdur") {
       reset({
-        ...formData,
+        sport: { answer: "Yoxdur", weight: "" },
         whichSport: [],
         professionals: [],
         amateurs: [],
@@ -235,8 +237,8 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     { register: register("whichSport") },
   ];
 
-  console.log(errLengt);
-  console.log(errors);
+  console.log("length", errLengt);
+  console.log("err", errors);
 
   return (
     <form
@@ -294,6 +296,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
+
       {errLengt !== 0 || Object.keys(errors)?.length !== 0 ? (
         <ButtonSave
           label="Növbəti"

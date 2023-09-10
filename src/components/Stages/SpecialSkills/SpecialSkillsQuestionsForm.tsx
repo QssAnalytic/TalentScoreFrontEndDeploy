@@ -20,10 +20,8 @@ import { addErrorsLength, addSelect } from "state/dataSlice";
 export type SpecialSkillsFormValues = {
   haveSpecialSkills: { answer: string; weight: string };
   specialSkills: string[];
-  levelSkill: string;
-  certSkill: "";
-  ameturs: [];
-  professionals: [];
+  skills: [];
+  [key: string]: string | any;
 };
 
 const schema = yup.object().shape({
@@ -37,8 +35,23 @@ const schema = yup.object().shape({
     is: (haveSpecialSkills: any) => haveSpecialSkills.answer !== "Yoxdur",
     then: () => yup.array().min(1).required(),
   }),
-  levelSkill: yup.string(),
-  certSkill: yup.string(),
+
+  skills: yup.array().when("haveSpecialSkills", {
+    is: (haveSpecialSkills: any) => haveSpecialSkills.answer !== "Yoxdur",
+    then: () =>
+      yup
+        .array()
+        .of(
+          yup.object().shape({
+            name: yup.string().required(),
+            value: yup.object().shape({
+              answer: yup.string().required(),
+              weight: yup.string().optional().nullable(),
+            }),
+          })
+        )
+        .required(),
+  }),
 });
 
 type DynamicFields = {
@@ -54,6 +67,7 @@ const SpecialSkillsForm = ({
   const { data: stagesData } = useGetStageQuery();
 
   const { stage_children } = stagesData?.[stageIndex] || {};
+
   const { formData } =
     (useAppSelector((state) => state.stageForm)?.find(
       ({ name }) => name === subStageSlug
@@ -70,8 +84,14 @@ const SpecialSkillsForm = ({
     stage_name: nextStageNameCond,
     stage_children: nextStageChildrenCond,
   } = stagesData?.[3] || {};
+
+  console.log("nextSlugNameCond", nextSlugNameCond);
+  console.log("nextStageNameCond", nextStageNameCond);
+  console.log("nextStageChildrenCond", nextStageChildrenCond);
+
   const { slug: nextSubSlugNameCond, stage_name: nextSubStageNameCond } =
     nextStageChildrenCond?.[0] || {};
+
   const {
     slug: prevSlugName,
     stage_name: prevStageName,
@@ -94,6 +114,9 @@ const SpecialSkillsForm = ({
 
   const dispatch = useAppDispatch();
   let skillErr: any = false;
+
+  const questions = questionsData?.[0]?.questions;
+
   const [dynamicFields, setDynamicFields] = useState<DynamicFields>({});
 
   const addDynamicField = (fieldName: string) => {
@@ -142,13 +165,12 @@ const SpecialSkillsForm = ({
     defaultValues: {
       haveSpecialSkills: { answer: "", weight: "" },
       specialSkills: [],
-      levelSkill: "",
-      certSkill: "",
+      skills: [],
     },
   });
 
   const onSubmit: SubmitHandler<SpecialSkillsFormValues> = (data) => {
-    console.log("submitData", data);
+    // console.log("submitData", data);
   };
 
   useEffect(() => {
@@ -174,8 +196,7 @@ const SpecialSkillsForm = ({
       reset({
         haveSpecialSkills: { answer: "Yoxdur", weight: null },
         specialSkills: [],
-        levelSkill: "",
-        certSkill: "",
+        skills: [],
       });
     }
   }, [formData?.haveSpecialSkills?.answer]);
@@ -202,14 +223,32 @@ const SpecialSkillsForm = ({
     );
   if (questionsError) return <div>Error</div>;
 
-  const questions = questionsData?.[0]?.questions;
-
   const inputProps = [
     { register: register("haveSpecialSkills") },
     { register: register("specialSkills") },
-    { register: register("levelSkill") },
-    { register: register("certSkill") },
   ];
+
+  const fillSkills = () => {
+    if (formData?.specialSkills?.length > 0) {
+      const updatedFormData: any = { ...formData };
+      const updatedSkills = formData.specialSkills.map((item: string) => {
+        if (
+          formData[item].answer === "Peşəkar" ||
+          formData[item].answer === "Həvəskar"
+        ) {
+          delete updatedFormData[item];
+          return { name: item, value: formData[item] };
+        }
+      });
+
+      reset({
+        ...updatedFormData,
+        skills: updatedSkills,
+      });
+    }
+  };
+
+  // console.log("formdata", formData);
 
   return (
     <form
@@ -248,11 +287,7 @@ const SpecialSkillsForm = ({
               <label className="pl-2">{questions?.[2]?.question_title}*</label>
               <div className="flex gap-5 flex-col">
                 {formData?.specialSkills?.map((item, idx) => {
-                  if (errors) {
-                    skillErr = Object.keys(errors)
-                      .filter((key) => key === item)
-                      .toString();
-                  }
+                  const skillErr = errors[item] ? errors[item] : "";
 
                   return (
                     <div
@@ -273,7 +308,6 @@ const SpecialSkillsForm = ({
                             );
                             setValue(`${item}`, undefined);
                             removeDynamicField(item);
-                            console.log(item);
                           }}
                           className="w-5 h-5 text-red-400 cursor-pointer"
                         />
@@ -325,7 +359,10 @@ const SpecialSkillsForm = ({
           }}
           label="Növbəti"
           className="absolute right-0 -bottom-20"
-          onClick={() => dispatch(addSelect(false))}
+          onClick={() => {
+            fillSkills();
+            dispatch(addSelect(false));
+          }}
         />
       )}
 

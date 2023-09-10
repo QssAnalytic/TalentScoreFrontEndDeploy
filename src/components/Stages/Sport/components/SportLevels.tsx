@@ -89,13 +89,7 @@ const SportLevels = ({
     setValue("name", item);
     selectedLevel(watch());
     trigger();
-    dispatch(
-      addErrorsLength(
-        formData?.whichSport?.length -
-          formData?.professionals?.length -
-          formData?.amateurs?.length
-      )
-    );
+    dispatch(addErrorsLength(Object.keys(errors).length));
   }, [
     watch("level"),
     watch("name"),
@@ -128,6 +122,7 @@ const SportLevels = ({
         }
         register={register("level")}
         errors={errors.level}
+        trigger={trigger}
       />
     </div>
   );
