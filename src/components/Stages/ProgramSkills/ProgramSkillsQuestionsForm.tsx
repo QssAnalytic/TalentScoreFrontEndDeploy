@@ -21,12 +21,8 @@ export type ProgramSkillsValues =
   | {
       haveProgramSkills: { answer: string; weight: string };
       whichProgram: string[];
-      whichScore: string[];
-      whichLevel: { answer: number; weight: string };
-      whichLang: { id: number; answer: string };
-      ["MS Office"]: string[];
-      ["Proqramlaşdırma dilləri"]: string[];
-      ["Dizayn Proqramları"]: string[];
+      programSkills: any;
+      [key: string]: string | any;
     }
   | Partial<Record<string, ISelectedValue | any>>;
 
@@ -81,7 +77,6 @@ const ProgramSkills = ({
 
   const { slug: nextSubSlugName, stage_name: nextSubStageName } =
     nextStageChildren?.[0] || {};
-  // console.log(subSlugName);
 
   const {
     data: questionsData,
@@ -90,8 +85,7 @@ const ProgramSkills = ({
   } = useGetQuestionsQuery(subSlugName);
 
   const dispatch = useAppDispatch();
-
-  let checkError: string = "";
+  const questions = questionsData?.[0]?.questions;
 
   const [dynamicFieldsSelect, setDynamicFieldsSelect] = useState<
     DynamicFieldSelect[]
@@ -159,18 +153,14 @@ const ProgramSkills = ({
     defaultValues: {
       haveProgramSkills: { answer: "", weight: "" },
       whichProgram: [],
-      ["MS Office"]: [],
-      ["Proqramlaşdırma dilləri"]: [],
-      ["Dizayn Proqramları"]: [],
+      programSkills: [],
     },
   });
 
   const onSubmit: SubmitHandler<ProgramSkillsValues | any> = (data) => {
-    console.log("submitData", data);
     dispatch(setShowReport(!showReport));
+    fillSkills();
   };
-
-  console.log("schema", dynamicSchema);
 
   useEffect(() => {
     const subscription = watch((value) => {
@@ -193,11 +183,7 @@ const ProgramSkills = ({
       reset({
         haveProgramSkills: { answer: "Yoxdur", weight: null },
         whichProgram: [],
-        whichScore: [],
-        whichLang: { id: 0, answer: "" },
-        ["MS Office"]: [],
-        ["Proqramlaşdırma dilləri"]: [],
-        design: [],
+        programSkills: [],
       });
       setDynamicFieldsSelectItem({});
     }
@@ -220,31 +206,23 @@ const ProgramSkills = ({
     }
   }, [formData?.whichProgram?.length]);
 
-  useEffect(() => {
-    if (formData?.["MS Office"].length > 0) {
-      formData?.["MS Office"].forEach((item: string) => {
+  const validateAndAddDynamicFields = (fieldName: string) => {
+    if (formData?.[fieldName]?.length > 0) {
+      formData[fieldName].forEach((item: string) => {
         addDynamicFieldSelectItem(item);
       });
     }
-  }, [formData?.["MS Office"]?.length]);
+  };
+
+  const useEffectDependences = questions?.[1]?.answers?.map(
+    (fieldName: any) => formData?.[fieldName?.answer_title]?.length
+  );
 
   useEffect(() => {
-    if (formData?.["Proqramlaşdırma dilləri"].length > 0) {
-      formData?.["Proqramlaşdırma dilləri"].forEach((item: string) => {
-        addDynamicFieldSelectItem(item);
-      });
-    }
-  }, [formData?.["Proqramlaşdırma dilləri"]?.length]);
-
-  useEffect(() => {
-    if (formData?.["Dizayn Proqramları"].length > 0) {
-      formData?.["Dizayn Proqramları"].forEach((item: string) => {
-        addDynamicFieldSelectItem(item);
-      });
-    }
-  }, [formData?.["Dizayn Proqramları"]?.length]);
-
-  console.log(formData);
+    formData?.whichProgram.forEach((fieldName: string) => {
+      validateAndAddDynamicFields(fieldName);
+    });
+  }, useEffectDependences);
 
   if (isLoading)
     return (
@@ -254,20 +232,39 @@ const ProgramSkills = ({
     );
   if (questionsError) return <div>Error</div>;
 
-  const questions = questionsData?.[0]?.questions;
-  console.log("quest", questions);
-
   const inputProps = [
     { register: register("whichProgram") },
     { register: register("haveProgramSkills") },
   ];
 
+  const fillSkills = () => {
+    if (formData?.whichProgram?.length > 0) {
+      const updatedFormData = { ...formData };
+      const updatedSkills = formData.whichProgram
+        .filter((fieldName: string) => formData[fieldName]?.length > 0)
+        .map((fieldName: string) => {
+          const skillLevels = formData[fieldName].map((item: string) => {
+            delete updatedFormData[item];
+            return { name: item, value: formData[item] };
+          });
+          delete updatedFormData[fieldName];
+          return { whichProgram: fieldName, whichLevel: skillLevels };
+        });
+
+      reset({
+        ...updatedFormData,
+        programSkills: updatedSkills,
+      });
+    }
+  };
+
   console.log("errors", errors);
+  console.log(formData);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-7 flex-col flex gap-5"
+      className="mt-7 flex-col flex gap-5 mb-5"
     >
       <div className="space-y-5">
         <div>
@@ -295,7 +292,7 @@ const ProgramSkills = ({
           </div>
         </div>
         {formData?.whichProgram?.length > 0 ? (
-          <div className="overflow-y-auto h-96 pb-4 space-y-4">
+          <div className="overflow-y-auto h-[350px] pb-4 space-y-4 pr-5">
             {formData?.whichProgram?.includes("MS Office") && (
               <>
                 <SelectMult
@@ -309,11 +306,8 @@ const ProgramSkills = ({
                 />
                 {formData?.["MS Office"]?.length > 0 &&
                   formData?.["MS Office"]?.map((lang: any, index: any) => {
-                    if (errors) {
-                      checkError = Object.keys(errors)
-                        .filter((key) => key === lang)
-                        .toString();
-                    }
+                    const checkError = errors[lang] ? errors[lang] : "";
+
                     return (
                       <div key={index} className="space-y-2">
                         <label className="pl-2">
@@ -347,11 +341,7 @@ const ProgramSkills = ({
                 {formData?.["Proqramlaşdırma dilləri"]?.length > 0 &&
                   formData?.["Proqramlaşdırma dilləri"]?.map(
                     (lang: any, index: any) => {
-                      if (errors) {
-                        checkError = Object.keys(errors)
-                          .filter((key) => key === lang)
-                          .toString();
-                      }
+                      const checkError = errors[lang] ? errors[lang] : "";
                       return (
                         <div key={index} className="space-y-2">
                           <label className="pl-2">
@@ -386,11 +376,7 @@ const ProgramSkills = ({
                 {formData?.["Dizayn Proqramları"]?.length > 0 &&
                   formData?.["Dizayn Proqramları"]?.map(
                     (lang: any, index: any) => {
-                      if (errors) {
-                        checkError = Object.keys(errors)
-                          .filter((key) => key === lang)
-                          .toString();
-                      }
+                      const checkError = errors[lang] ? errors[lang] : "";
                       return (
                         <div key={index} className="space-y-2">
                           <label className="pl-2">
@@ -427,7 +413,7 @@ const ProgramSkills = ({
       />
 
       <button
-        type="submit"
+        type={Object.keys(errors).length > 0 ? "button" : "submit"}
         className={`absolute -bottom-[79px] right-0 w-[180px] flex rounded-full justify-center items-center py-3.5 gap-4 bg-qss-secondary flex-row text-white text-white"}`}
         onClick={() => {
           dispatch(addSelect(true));
