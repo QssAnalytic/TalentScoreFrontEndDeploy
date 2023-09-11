@@ -206,6 +206,7 @@ const ProgramSkills = ({
     }
   }, [formData?.whichProgram?.length]);
 
+
   const validateAndAddDynamicFields = (fieldName: string) => {
     if (formData?.[fieldName]?.length > 0) {
       formData[fieldName].forEach((item: string) => {
