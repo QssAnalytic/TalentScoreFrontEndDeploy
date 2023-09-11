@@ -197,7 +197,7 @@ const ProgramSkills = ({
         whichLang: { id: 0, answer: "" },
         ["MS Office"]: [],
         ["Proqramlaşdırma dilləri"]: [],
-        design: [],
+        ["Dizayn Proqramları"]: [],
       });
       setDynamicFieldsSelectItem({});
     }
@@ -221,7 +221,7 @@ const ProgramSkills = ({
   }, [formData?.whichProgram?.length]);
 
   useEffect(() => {
-    if (formData?.["MS Office"].length > 0) {
+    if (formData?.["MS Office"]?.length > 0) {
       formData?.["MS Office"].forEach((item: string) => {
         addDynamicFieldSelectItem(item);
       });
@@ -229,7 +229,7 @@ const ProgramSkills = ({
   }, [formData?.["MS Office"]?.length]);
 
   useEffect(() => {
-    if (formData?.["Proqramlaşdırma dilləri"].length > 0) {
+    if (formData?.["Proqramlaşdırma dilləri"]?.length > 0) {
       formData?.["Proqramlaşdırma dilləri"].forEach((item: string) => {
         addDynamicFieldSelectItem(item);
       });
@@ -237,7 +237,7 @@ const ProgramSkills = ({
   }, [formData?.["Proqramlaşdırma dilləri"]?.length]);
 
   useEffect(() => {
-    if (formData?.["Dizayn Proqramları"].length > 0) {
+    if (formData?.["Dizayn Proqramları"]?.length > 0) {
       formData?.["Dizayn Proqramları"].forEach((item: string) => {
         addDynamicFieldSelectItem(item);
       });
