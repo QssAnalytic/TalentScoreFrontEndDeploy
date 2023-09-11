@@ -1,4 +1,4 @@
-import Chatbot from 'components/Chatbot/Chatbot';
+import Chatbot from './components/Chatbot/Chatbot';
 import About from './components/About';
 import Footer from './components/Footer';
 import HeroSection from './components/HeroSection';
