@@ -17,10 +17,14 @@ type ExperienceAdd = {
   closeHandle: () => void;
   editData?: AddExpFormValues | undefined;
   editExp?: any;
+  displayRadio: any;
   isAdding?: any;
   setIsAdding?: any;
   experiences?: any;
+  setDisplayRadio?: any;
   setIsEditing?: any;
+  parentReset?: any;
+  formData?: any;
 };
 
 const schema = yup.object({
@@ -54,16 +58,21 @@ const ExperienceAdd = ({
   addExp,
   editData,
   editExp,
+  displayRadio,
+  setDisplayRadio,
   isAdding,
   setIsAdding,
   setIsEditing,
   experiences,
+  parentReset,
+  formData,
 }: ExperienceAdd) => {
   const {
     register,
     setValue,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
     trigger,
   } = useForm<AddExpFormValues>({
@@ -75,10 +84,6 @@ const ExperienceAdd = ({
     console.log(data);
   });
 
-  const handleClick = () => {
-    editExp ? editExp(watch()) : addExp(watch());
-    dispatch(addSelect(true));
-  };
   dispatch(addErrorsLength(Object.keys(errors).length));
   useEffect(() => {
     trigger();
@@ -103,6 +108,13 @@ const ExperienceAdd = ({
     { register: { ...register("currentWorking") } },
   ];
 
+  const handleClick = () => {
+    dispatch(addSelect(true));
+    if (Object.keys(errors).length === 0) {
+      editExp ? editExp(watch()) : addExp(watch());
+    }
+  };
+
   const handleCheck = () => {
     if (watch("currentWorking") === false) {
       setValue("endDate", "currently working");
@@ -111,9 +123,23 @@ const ExperienceAdd = ({
     }
   };
 
-  console.log(watch());
-  console.log(errors);
+  useEffect(() => {
+    if (formData?.haveJobExperience?.answer === "Yoxdur") {
+      reset();
+      dispatch(addSelect(false));
+    }
+  }, [formData?.haveJobExperience?.answer]);
 
+  useEffect(() => {
+    if (watch().company !== undefined && editData === undefined) {
+      parentReset({
+        ...formData,
+        haveJobExperience: { answer: "Bəli", weight: "" },
+      });
+    }
+  }, [watch("company")]);
+
+  console.log(errors);
   return (
     <div className="relative flex flex-col gap-2" onSubmit={onSubmit}>
       <>
@@ -174,7 +200,7 @@ const ExperienceAdd = ({
         </label>
         <button
           className="bg-qss-saveBtn px-12 py-2.5 items-center gap-1 font-medium text-white flex mt-2 mx-auto opacity-50 rounded-full hover:opacity-100 transition duration-500"
-          type="submit"
+          type="button"
           onClick={() => {
             handleClick();
           }}

@@ -20,10 +20,10 @@ import ButtonSave from "components/ButtonSave";
 import Experiences from "./Experiences";
 import Radio from "components/RadioInput";
 
-export type JobExperienceValues = {
-  haveJobExperience: { answer: string; weight: string };
-  experiences: [];
-};
+export interface JobExperienceValues {
+  haveJobExperience: { answer: string; weight: string | null };
+  experiences: AddExpFormValues[];
+}
 
 export interface JobExperienceListItemProps {
   item: AddExpFormValues[];
@@ -46,8 +46,9 @@ const schema = yup.object({
     })
     .required(),
   experiences: yup.array().when("haveJobExperience", {
-    is: (haveJobExperience: any) => haveJobExperience.answer !== "Yoxdur",
+    is: (haveJobExperience: any) => haveJobExperience.answer !== "Xeyr",
     then: () => yup.array().min(1).required(),
+    otherwise: () => yup.array().optional(),
   }),
 });
 
@@ -114,7 +115,7 @@ const JobExperienceForm = ({
   } = useForm<JobExperienceValues | any>({
     resolver: yupResolver(schema),
     defaultValues: {
-      haveJobExperience: { answer: "", weight: "" },
+      haveJobExperience: { answer: "", weight: null },
       experiences: [],
     },
   });
@@ -126,9 +127,9 @@ const JobExperienceForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: JobExperienceValues | any }) || {};
 
-  const handleAdd = (exp: any) => {
+  const handleAdd = (exp: AddExpFormValues) => {
     const data = formData?.experiences;
-    setValue("experiences", [...data, exp]);
+    setValue("experiences", [...(data || []), exp]);
     setIsAdding(false);
     setDisplayRadio(false);
   };
@@ -169,7 +170,6 @@ const JobExperienceForm = ({
       formData?.experiences &&
       formData?.experiences?.filter((_: any, index: number) => index !== idd);
     if (formData?.experiences?.length === 1) setIsAdding(true);
-    setValue("haveJobExperience", { answer: "", weight: "" });
     setValue("experiences", filterData);
     dispatch(addRemove(false));
   }
@@ -192,56 +192,84 @@ const JobExperienceForm = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
+  useEffect(() => {
+    if (formData?.experiences?.length === 1) {
+      setValue("haveJobExperience", { answer: "Bəli", weight: null });
+    } else if (
+      formData?.experiences?.length === 0 &&
+      formData.haveJobExperience.answer === "Bəli"
+    ) {
+      setValue("haveJobExperience", { answer: "", weight: null });
+    }
+
+    setDisplayRadio(
+      !formData?.experiences || formData?.experiences?.length === 0
+    );
+  }, [formData?.experiences?.length]);
+
+  useEffect(() => {
+    dispatch(addSelect(false));
+  }, [watch("haveJobExperience.answer")]);
+
+  console.log(formData);
+  console.log(errors);
+
   return (
     <form
-      className="mt-5 flex-col flex gap-5 "
+      className="mt-5 flex-col flex gap-5 max-h-[450px] overflow-y-auto pr-5 mb-5 "
       onSubmit={handleSubmit(onSubmit)}
     >
-      {isAdding ? (
-        <>
+      {(formData?.experiences?.length < 1 || !formData?.experiences) && (
+        <div className="">
+          <label className="pl-2">{questions?.[0].question_title}</label>
+          <div className="flex gap-5 py-2 px-4 w-full">
+            <Radio
+              value={formData?.haveJobExperience}
+              register={register("haveJobExperience")}
+              options={questions?.[0].answers}
+              errors={errors.haveJobExperience}
+              trigger={trigger}
+            />
+          </div>
+        </div>
+      )}
+
+      {formData?.haveJobExperience?.answer === "Bəli" ? (
+        isAdding ? (
           <ExperienceAdd
             experiences={formData?.experiences}
             data={questions}
             addExp={handleAdd}
             closeHandle={closeHandle}
+            displayRadio={displayRadio}
+            setDisplayRadio={setDisplayRadio}
             isAdding={isAdding}
             setIsAdding={setIsAdding}
-          />
-
-          {formData?.experiences?.length === 0 && (
-            <div className="">
-              <label className="pl-2">{questions?.[0].question_title}</label>
-              <div className="flex gap-5 w-48 py-2 px-4">
-                <Radio
-                  value={watch("haveJobExperience")}
-                  register={register("haveJobExperience")}
-                  options={questions?.[0].answers}
-                  errors={errors.haveJobExperience}
-                />
-              </div>
-            </div>
-          )}
-        </>
-      ) : isEditing?.edit ? (
-        <ExperienceAdd
-          experiences={formData?.experiences}
-          data={questions}
-          addExp={handleAdd}
-          editExp={editExp}
-          closeHandle={closeHandle}
-          editData={isEditing?.data}
-          setIsEditing={setIsEditing}
-        />
-      ) : (
-        <>
-          <Experiences
+            parentReset={parentReset}
             formData={formData}
-            handleEdit={handleEdit}
-            handleRemove={handleRemove}
-            setIsAdding={setIsAdding}
           />
-        </>
-      )}
+        ) : isEditing?.edit ? (
+          <ExperienceAdd
+            experiences={formData?.experiences}
+            data={questions}
+            addExp={handleAdd}
+            editExp={editExp}
+            closeHandle={closeHandle}
+            editData={isEditing?.data}
+            setIsEditing={setIsEditing}
+            displayRadio={displayRadio}
+          />
+        ) : (
+          <>
+            <Experiences
+              formData={formData}
+              handleEdit={handleEdit}
+              handleRemove={handleRemove}
+              setIsAdding={setIsAdding}
+            />
+          </>
+        )
+      ) : null}
 
       <LinkButton
         nav={{
@@ -253,10 +281,7 @@ const JobExperienceForm = ({
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-      {errLength === 0 ||
-      accept === "Xeyr" ||
-      formData?.experiences?.length > 0 ||
-      Object.keys(errors).length === 0 ? (
+      {formData?.experiences?.length > 0 || Object.keys(errors).length === 0 ? (
         <LinkButton
           onClick={() => dispatch(addSelect(false))}
           nav={{
