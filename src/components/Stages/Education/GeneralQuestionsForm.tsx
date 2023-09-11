@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ClockLoader from "react-spinners/ClockLoader";
+import * as yup from "yup";
 import {
   useGetQuestionsQuery,
   useGetStageQuery,
 } from "../../../services/stage";
-import Select from "../../Select";
-import LinkButton from "../../LinkButton";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { addSelect, addTehsil } from "state/dataSlice";
-import { useSelector } from "react-redux";
-import ClockLoader from "react-spinners/ClockLoader";
-import * as yup from "yup";
+
+import Select from "../../Select";
+import LinkButton from "../../LinkButton";
 import ButtonSave from "components/ButtonSave";
 
 const schema = yup
@@ -40,12 +40,6 @@ const schema = yup
 
 export type GeneralQuestionsFormValues = yup.InferType<typeof schema>;
 
-interface RootState {
-  dataa: {
-    tehsil: string;
-  };
-}
-
 export type GeneralQuestionsFormProps = {
   subStageSlug: string;
   stageIndex: any;
@@ -58,7 +52,6 @@ const GeneralQuestionsForm = ({
   num,
 }: GeneralQuestionsFormProps) => {
   const { data: stagesData } = useGetStageQuery();
-  const tehsil = useSelector((state: RootState) => state.dataa.tehsil);
 
   const {
     slug: slugName,
@@ -75,9 +68,8 @@ const GeneralQuestionsForm = ({
     isLoading,
   } = useGetQuestionsQuery(subStageSlug);
 
-  console.log("data", questionsData);
-
   const dispatch = useAppDispatch();
+  const questions = questionsData?.[0]?.questions;
 
   const { formData } =
     (useAppSelector((state) => state.stageForm)?.find(
@@ -100,13 +92,12 @@ const GeneralQuestionsForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) => {};
 
   useEffect(() => {
     const subscription = watch((value) => {
-      dispatch(addTehsil(value.education!.answer));
       trigger();
+      dispatch(addTehsil(value.education?.answer));
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -127,8 +118,6 @@ const GeneralQuestionsForm = ({
     );
 
   if (questionsError) return <div>Error</div>;
-
-  const questions = questionsData?.[0]?.questions;
 
   return (
     <form

@@ -220,28 +220,28 @@ const ProgramSkills = ({
     }
   }, [formData?.whichProgram?.length]);
 
-  const handleDynamicFieldsInitialization = (
-    fieldName: string,
-    formData: ProgramSkillsValues
-  ) => {
-    const fieldValue = formData?.[fieldName];
-    if (fieldValue && fieldValue.length > 0) {
-      fieldValue.forEach((item: string) => {
+  useEffect(() => {
+    if (formData?.["MS Office"].length > 0) {
+      formData?.["MS Office"].forEach((item: string) => {
         addDynamicFieldSelectItem(item);
       });
     }
-  };
-
-  useEffect(() => {
-    handleDynamicFieldsInitialization("MS Office", formData);
   }, [formData?.["MS Office"]?.length]);
 
   useEffect(() => {
-    handleDynamicFieldsInitialization("Proqramlaşdırma dilləri", formData);
+    if (formData?.["Proqramlaşdırma dilləri"].length > 0) {
+      formData?.["Proqramlaşdırma dilləri"].forEach((item: string) => {
+        addDynamicFieldSelectItem(item);
+      });
+    }
   }, [formData?.["Proqramlaşdırma dilləri"]?.length]);
 
   useEffect(() => {
-    handleDynamicFieldsInitialization("Dizayn Proqramları", formData);
+    if (formData?.["Dizayn Proqramları"].length > 0) {
+      formData?.["Dizayn Proqramları"].forEach((item: string) => {
+        addDynamicFieldSelectItem(item);
+      });
+    }
   }, [formData?.["Dizayn Proqramları"]?.length]);
 
   console.log(formData);

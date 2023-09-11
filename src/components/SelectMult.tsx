@@ -58,7 +58,7 @@ const SelectMult = ({
         <Listbox.Button as={Fragment}>
           {({ value, open }) => (
             <Listbox.Label
-              className={`relative w-full border-2 transition duration-200 ${
+              className={`relative w-full border-2 transition duration-200  ${
                 errors && selectValid ? "border-red-300 border-2" : ""
               } text-left flex items-center text-qss-inputText bg-qss-input py-2 px-4 rounded-full outline-none ${
                 open && "text-qss-secondary border border-qss-base-200"
@@ -69,7 +69,7 @@ const SelectMult = ({
                   value.length > 0 ? "text-qss-inputText" : "text-qss-base-300"
                 }`}
               >
-                {value.join(", ") || placeholder}
+                {value[value.length - 1] || placeholder}
               </span>
               <span className={`absolute right-6 ${open && "rotate-180"}`}>
                 <Icon

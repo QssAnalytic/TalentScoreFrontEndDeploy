@@ -1,11 +1,13 @@
 import { Icon } from "@iconify/react";
 import Select from "components/Select";
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "state/hooks";
 import { updateStageForm } from "state/stages/stageFormSlice";
-import { SportFormValues } from "../SportQuestionsForm";
+import { DevTool } from "@hookform/devtools";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { addErrorsLength } from "state/dataSlice";
 
 export type IProItem = {
   item?: any;
@@ -35,6 +37,7 @@ const schema = yup
   .required();
 
 export type SportLevelValues = yup.InferType<typeof schema>;
+
 const ProLevel = ({
   item,
   index,
@@ -44,19 +47,40 @@ const ProLevel = ({
   SportFormData,
 }: IProItem) => {
   const dispatch = useAppDispatch();
-  const { register, watch, setValue } = useForm<SportLevelValues>();
+
+  const {
+    register,
+    watch,
+    setValue,
+    control,
+    trigger,
+    formState: { errors },
+  } = useForm<SportLevelValues>({
+    resolver: yupResolver(schema),
+    defaultValues: {},
+  });
+
+  useEffect(() => {
+    const subscription = watch((value) => {
+      trigger();
+      dispatch(addErrorsLength(Object.keys(errors).length));
+    });
+
+    return () => subscription.unsubscribe();
+  }, [subStageSlug, watch]);
 
   const updateData = useCallback(() => {
     setValue("name", item.name);
     setValue("level", item.level);
   }, [item?.name]);
+
   useEffect(() => {
     updateData();
     const professionals = SportFormData?.professionals;
+
     const selectedIndex = professionals?.findIndex(
       (pro: SportLevelValues) => pro?.name === item?.name
     );
-    // console.log(selectedIndex);
 
     const newProfessionals = [
       ...professionals.slice(0, selectedIndex),
@@ -71,14 +95,16 @@ const ProLevel = ({
       })
     );
   }, [watch().whichPlace, watch().whichScore]);
-console.log(watch());
 
+  console.log(watch());
+  console.log("errors", errors);
 
   return (
     <div
       className=" border rounded-xl border-[#D8D8D8] p-2.5 mb-5 relative"
       key={index}
     >
+      <DevTool control={control} placement="top-left" />
       <div className="flex justify-between">
         <label>
           <span className="text-qss-secondary font-semibold">{item?.name}</span>{" "}
@@ -102,6 +128,7 @@ console.log(watch());
             value={
               item?.whichScore?.answer ? item?.whichScore : watch("whichScore")
             }
+            errors={errors?.whichScore}
           />
         </div>
         <div className="col-span-1 ">
@@ -112,6 +139,7 @@ console.log(watch());
             value={
               item?.whichPlace?.answer ? item?.whichPlace : watch("whichPlace")
             }
+            errors={errors?.whichPlace}
           />
         </div>
       </div>

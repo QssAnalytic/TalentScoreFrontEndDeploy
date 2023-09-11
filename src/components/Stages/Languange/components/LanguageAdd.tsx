@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import * as yup from "yup";
-import LinkButton from "../../../LinkButton";
 import Radio from "../../../RadioInput";
 import Select from "../../../Select";
 import { useForm } from "react-hook-form";
@@ -21,7 +20,6 @@ type LanguageAdd = {
   isAdding?: any;
   setIsAdding?: any;
   setIsEditing?: any;
-  displayListButton?: any;
   formData?: any;
   parentReset?: any;
 };
@@ -93,7 +91,7 @@ const schema = yup
       is: (langCert: any, engLangCert: any) =>
         langCert?.answer === "Bəli" ||
         engLangCert?.answer === "Öz sertifikatın",
-      then: () => yup.string().required(),
+      then: () => yup.number().min(0).required(),
     }),
 
     engCertResult: yup
@@ -161,7 +159,6 @@ const LanguageAdd = ({
   isAdding,
   setIsAdding,
   setIsEditing,
-  displayListButton,
   formData,
   parentReset,
 }: LanguageAdd) => {
@@ -177,6 +174,7 @@ const LanguageAdd = ({
     defaultValues: editData,
     resolver: yupResolver<AddLangFormValues>(schema),
   });
+
   const inputProps = [
     { register: register("language") },
     { register: register("langCert") },
@@ -189,24 +187,19 @@ const LanguageAdd = ({
 
   const dispatch: Dispatch = useDispatch();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
-  const handleClick = () => {
-    setValue("langLevel", handleLangLevel(watch("engCertResult.answer")));
+  const onSubmit = handleSubmit((data) => {});
 
-    editLang ? editLang(watch()) : addLang(watch());
+  const handleClick = () => {
+    if (Object.keys(errors).length > 0) {
+      dispatch(addSelect(true));
+    } else {
+      dispatch(addSelect(false));
+      setValue("langLevel", handleLangLevel(watch("engCertResult.answer")));
+      editLang ? editLang(watch()) : addLang(watch());
+    }
   };
 
   console.log(errors);
-  console.log(
-    watch().language?.answer === "Ingilis dili" &&
-      (watch().engLangCert?.answer === "İELTS" ||
-        watch().engLangCert?.answer === "TOEFL")
-  );
-  // console.log(watch().engLangCert?.answer === "TOEFL");
-
-  // console.log(watch());
 
   const handleLangLevel = (engCertResult: string | undefined) => {
     switch (engCertResult) {
@@ -239,6 +232,7 @@ const LanguageAdd = ({
     }
     return watch("langLevel");
   };
+
   dispatch(addErrorsLength(Object.keys(errors).length));
 
   useEffect(() => {
@@ -296,7 +290,7 @@ const LanguageAdd = ({
       watch("language.answer") === "Ingilis dili"
     ) {
       setValue("langCertName", "");
-      setValue("langCertResult", "");
+      setValue("langCertResult", undefined);
     }
     if (watch("language.answer") !== "Ingilis dili") {
       setValue("engLangCert", { answer: "", weight: "" });
@@ -304,7 +298,7 @@ const LanguageAdd = ({
     }
     if (watch("langCert.answer") === "Xeyr") {
       setValue("langCertName", "");
-      setValue("langCertResult", "");
+      setValue("langCertResult", undefined);
     }
     if (
       editData?.language?.answer !== watch("language.answer") &&
@@ -320,7 +314,7 @@ const LanguageAdd = ({
       watch("language.answer") !== "Ingilis dili"
     ) {
       setValue("langCertName", "");
-      setValue("langCertResult", "");
+      setValue("langCertResult", undefined);
     }
   }, [
     watch("language.answer"),
@@ -341,7 +335,7 @@ const LanguageAdd = ({
           <div className="absolute">
             {watch()?.language?.answer !== "Ingilis dili" ? (
               <div className="">
-                <div className="space-y-2">
+                <div className="space-y-2 mt-3">
                   <label className="pl-2">
                     {watch()?.language?.answer?.replace(/\s+dili$/, "")}{" "}
                     {data?.[3]?.question_title}*
@@ -353,13 +347,14 @@ const LanguageAdd = ({
                       value={watch("langCert")}
                       errors={errors.langCert}
                       register={inputProps[1].register}
+                      trigger={trigger}
                     />
                   </div>
                 </div>
                 {watch().langCert?.answer === "Bəli" && (
-                  <div className="space-y-2">
+                  <div className="space-y-2 my-3">
                     <label className="pl-2">{data?.[4]?.question_title}</label>
-                    <div className="certificate flex gap-3">
+                    <div className="certificate flex gap-3 pr-8">
                       <TextInput
                         inputClassName="w-3/5"
                         register={inputProps[3].register}
@@ -369,11 +364,12 @@ const LanguageAdd = ({
                         inputClassName="w-2/5"
                         register={inputProps[4].register}
                         errors={errors.langCertResult}
+                        type="number"
                       />
                     </div>
                   </div>
                 )}
-                <div className="space-y-2 w">
+                <div className="space-y-2 mt-3">
                   <label className="pl-2">
                     {watch()?.language?.answer?.replace(/\s+dili$/, "")}{" "}
                     {data?.[2]?.question_title}*
@@ -385,13 +381,14 @@ const LanguageAdd = ({
                       value={watch("langLevel")}
                       register={inputProps[6].register}
                       errors={errors.langLevel}
+                      trigger={trigger}
                     />
                   </div>
                 </div>
               </div>
             ) : (
               <>
-                <div className="space-y-2 w">
+                <div className="space-y-2 my-3">
                   <label className="pl-2">{data?.[5]?.question_title}*</label>
 
                   <div className="flex gap-5 flex-wrap">
@@ -400,6 +397,7 @@ const LanguageAdd = ({
                       value={watch("engLangCert")}
                       register={inputProps[2].register}
                       errors={errors.engLangCert}
+                      trigger={trigger}
                     />
                   </div>
                 </div>
@@ -430,7 +428,7 @@ const LanguageAdd = ({
                         <label className="pl-2">
                           {data?.[4]?.question_title}
                         </label>
-                        <div className="certificate flex gap-3">
+                        <div className="certificate flex gap-3 pr-8">
                           <TextInput
                             inputClassName="w-3/5"
                             register={inputProps[3].register}
@@ -440,6 +438,7 @@ const LanguageAdd = ({
                             inputClassName="w-2/5"
                             register={inputProps[4].register}
                             errors={errors.langCertResult}
+                            type="number"
                           />
                         </div>
                       </div>
@@ -455,6 +454,7 @@ const LanguageAdd = ({
                             value={watch("langLevel")}
                             register={inputProps[6].register}
                             errors={errors.langLevel}
+                            trigger={trigger}
                           />
                         </div>
                       </div>
@@ -476,6 +476,7 @@ const LanguageAdd = ({
                     value={watch("langLevel")}
                     register={inputProps[6].register}
                     errors={errors.langLevel}
+                    trigger={trigger}
                   />
                 </div>
               </div>
@@ -488,16 +489,18 @@ const LanguageAdd = ({
               Yadda saxla
               <Icon icon="ic:round-done" className="text-xl" />
             </button>
-            {displayListButton && (
-              <button
-                className="save py-2 px-4 w-40 h-10 rounded-2xl flex justify-evenly self-center bg-qss-secondary text-white"
-                onClick={() => {
-                  isAdding ? setIsAdding() : setIsEditing();
-                  dispatch(addErrorsLength(0));
-                }}
-              >
-                Siyahıya bax
-              </button>
+            {formData?.languageSkills.length > 0 && (
+              <div className="w-full flex items-center justify-center">
+                <button
+                  className="save py-2 px-4 w-40 h-10 opacity-70 rounded-full hover:opacity-100 transition duration-500 flex justify-evenly self-center bg-qss-secondary text-white my-5"
+                  onClick={() => {
+                    isAdding ? setIsAdding() : setIsEditing();
+                    dispatch(addErrorsLength(0));
+                  }}
+                >
+                  Siyahıya bax
+                </button>
+              </div>
             )}
           </div>
         )}

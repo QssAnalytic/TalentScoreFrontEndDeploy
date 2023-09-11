@@ -1,6 +1,4 @@
-import { Icon } from "@iconify/react";
-import Select from "components/Select";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useGetQuestionsQuery, useGetStageQuery } from "services/stage";
 import { useAppDispatch, useAppSelector } from "state/hooks";
 import { updateStageForm } from "state/stages/stageFormSlice";
@@ -10,13 +8,21 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import LinkButton from "components/LinkButton";
 import ProLevel, { IProItem } from "./components/ProLevel";
 import { addErrorsLength, addSelect } from "state/dataSlice";
+import { useSelector } from "react-redux";
+import ButtonSave from "components/ButtonSave";
+
+interface RootState {
+  dataa: {
+    errorsLength: number;
+  };
+}
 
 const ProLevelList = ({
   stageIndex,
   subStageSlug,
 }: GeneralQuestionsFormProps) => {
   const { data: stagesData } = useGetStageQuery();
-
+  const errLengt = useSelector((state: RootState) => state.dataa.errorsLength);
   const { stage_children } = stagesData?.[stageIndex] || {};
 
   const {
@@ -50,18 +56,20 @@ const ProLevelList = ({
       ({ name }) => name === prevSubSlugName
     ) as { formData: SportFormValues & any }) || ({} as any);
 
-      
   const { register, watch, reset, handleSubmit, setValue } =
     useForm<SportFormValues>();
   const questions = questionsData?.[0]?.questions;
-  const onSubmit: SubmitHandler<SportFormValues> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SportFormValues> = (data) => {};
+
   const handleRemoveItem = (item: IItem) => {
     const updatedProfessionals = SportFormData?.professionals.filter(
       (i: IItem) => i?.name !== item?.name
     );
+
     const newWhichSport = SportFormData?.whichSport?.filter(
       (el: any) => el !== item.name
     );
+
     dispatch(
       updateStageForm({
         name: prevSubSlugName as string,
@@ -72,15 +80,12 @@ const ProLevelList = ({
         },
       })
     );
-  
   };
 
- 
-  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-7 flex-col flex gap-5"
+      className="mt-7 flex-col flex gap-5 max-h-[400px] overflow-y-auto pr-5"
     >
       {SportFormData?.professionals.length !== 0 &&
         SportFormData?.professionals?.map((item: any, index: number) => (
@@ -95,26 +100,34 @@ const ProLevelList = ({
             />
           </Fragment>
         ))}
+
       <LinkButton
         nav={{
           state: { stageName: prevStageName, subStageName: prevSubStageName },
           path: { slugName: prevSlugName, subSlugName: prevSubSlugName },
         }}
         type="outline"
-        onClick={()=>dispatch(addErrorsLength(0))}
+        onClick={() => dispatch(addErrorsLength(0))}
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-
-      <LinkButton
-        nav={{
-          state: { stageName: nextStageName, subStageName: nextSubStageName },
-          path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-        }}
-        label="Növbəti"
-        onClick={()=>dispatch(addSelect(false))}
-        className="absolute right-0 -bottom-20"
-      />
+      {errLengt !== 0 ? (
+        <ButtonSave
+          label="Növbəti"
+          className="absolute right-0 -bottom-20"
+          onClick={() => dispatch(addSelect(true))}
+        />
+      ) : (
+        <LinkButton
+          nav={{
+            state: { stageName: nextStageName, subStageName: nextSubStageName },
+            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
+          }}
+          label="Növbəti"
+          onClick={() => dispatch(addSelect(false))}
+          className="absolute right-0 -bottom-20"
+        />
+      )}
     </form>
   );
 };

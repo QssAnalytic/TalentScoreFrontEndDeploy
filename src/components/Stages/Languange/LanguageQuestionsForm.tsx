@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import * as yup from "yup";
+import { Icon } from "@iconify/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
+import ClockLoader from "react-spinners/ClockLoader";
+
 import {
   useGetQuestionsQuery,
   useGetStageQuery,
 } from "../../../services/stage";
-import Radio from "../../RadioInput";
-import LinkButton from "../../LinkButton";
+import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
+import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { GeneralQuestionsFormProps } from "../Education/GeneralQuestionsForm";
-import removeIcon from "../../../assets/Vector.svg";
-import * as yup from "yup";
-import { Icon } from "@iconify/react";
-import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector } from "react-redux";
-import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
-import ClockLoader from "react-spinners/ClockLoader";
+
+import Radio from "../../RadioInput";
+import LinkButton from "../../LinkButton";
 import ButtonSave from "components/ButtonSave";
+
+import removeIcon from "../../../assets/Vector.svg";
+
 interface RootState {
   dataa: {
     removeFunc: boolean;
@@ -50,6 +54,7 @@ const LanguageQuestionsForm = ({
     stage_name: nextStageName,
     stage_children: nextStageChildren,
   } = stagesData?.[stageIndex + 1] || {};
+
   const {
     slug: prevSlugName,
     stage_name: prevStageName,
@@ -94,20 +99,17 @@ const LanguageQuestionsForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<LanguageQuestionsFormValues> = (data) => {};
 
   const errLength = useSelector((state: RootState) => state.dataa.errorsLength);
-
-  console.log(errors);
+  const questions = questionsData?.[0]?.questions;
 
   const [isAdding, setIsAdding] = useState(true);
   const [isEditing, setIsEditing] = useState<{
     edit: boolean;
     data?: AddLangFormValues;
   }>({ edit: false });
-  const [displayListButton, setDisplayListButton] = useState(false);
+
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [chooseLang, setChooseLang] = useState(true);
 
@@ -121,6 +123,7 @@ const LanguageQuestionsForm = ({
     dispatch(addPop(true));
     setId(landIndex);
   };
+
   if (remove === true) {
     const filterData = formData?.languageSkills?.filter(
       (_, index) => index !== idd
@@ -130,6 +133,7 @@ const LanguageQuestionsForm = ({
     setValue("languageSkills", filterData);
     dispatch(addRemove(false));
   }
+
   const handleEdit = (langIndex: number) => {
     const data = formData?.languageSkills?.[langIndex] as AddLangFormValues;
     setEditingIndex(langIndex);
@@ -137,7 +141,6 @@ const LanguageQuestionsForm = ({
   };
 
   const editLang = (editLangData: AddLangFormValues) => {
-    // eslint-disable-next-line no-unsafe-optional-chaining
     const data = formData?.languageSkills;
     const editedData = data?.map((lang: AddLangFormValues, index: number) => {
       if (index === editingIndex) {
@@ -153,7 +156,6 @@ const LanguageQuestionsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      // console.log(value);
       dispatch(
         updateStageForm({
           name: subStageSlug,
@@ -176,8 +178,7 @@ const LanguageQuestionsForm = ({
   if (questionsError) return <div>Error</div>;
 
   console.log(errLength);
-
-  const questions = questionsData?.[0]?.questions;
+  console.log(errors);
 
   return (
     <form
@@ -194,7 +195,6 @@ const LanguageQuestionsForm = ({
               setChooseLang={setChooseLang}
               isAdding={isAdding}
               setIsAdding={setIsAdding}
-              displayListButton={displayListButton}
               formData={formData}
               parentReset={ParentReset}
             />
@@ -220,27 +220,25 @@ const LanguageQuestionsForm = ({
           editLang={editLang}
           setChooseLang={setChooseLang}
           setIsEditing={setIsEditing}
-          displayListButton={displayListButton}
         />
       ) : (
         <>
-          <h3 className="pl-2">Əlavə xarici dil biliklərinizi qeyd edin</h3>
-          <button
-            className="add py-2 px-4 w-full h-12 rounded-2xl flex justify-evenly items-center"
-            type="button"
-            onClick={() => {
-              setIsAdding(true),
-                setDisplayListButton(true),
-                dispatch(addSelect(false));
-            }}
-          >
-            {" "}
-            Əlavə et +{" "}
-          </button>
-          <div className="titles flex px-16 justify-start gap-16">
-            <span>Dil</span>
-            <span>Səviyyə</span>
-            <span>Sertifikat</span>
+          <div className="flex flex-col gap-3">
+            <h3 className="pl-2">Əlavə xarici dil biliklərinizi qeyd edin</h3>
+            <button
+              className="add py-2 px-4 w-full h-12 rounded-2xl flex justify-evenly items-center"
+              type="button"
+              onClick={() => {
+                setIsAdding(true), dispatch(addSelect(false));
+              }}
+            >
+              Əlavə et +
+            </button>
+            <div className="titles flex px-16 justify-start gap-16">
+              <span>Dil</span>
+              <span>Səviyyə</span>
+              <span>Sertifikat</span>
+            </div>
           </div>
           <ul>
             {formData?.languageSkills?.map(
@@ -279,7 +277,8 @@ const LanguageQuestionsForm = ({
                         </p>
                       )}
                       {(lang.langCert?.answer === "1" ||
-                        lang.engLangCert?.answer === "Sertifikat yoxdur") && (
+                        lang.engLangCert?.answer === "Yoxdur" ||
+                        lang.langCert?.answer === "Xeyr") && (
                         <span>Sertifikat yoxdur </span>
                       )}
                     </div>
@@ -319,7 +318,9 @@ const LanguageQuestionsForm = ({
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-      {errLength === 0 || watch("haveLanguageSkills.answer") === "Yoxdur" ? (
+      {errLength === 0 ||
+      watch("haveLanguageSkills.answer") === "Yoxdur" ||
+      formData?.languageSkills.length > 0 ? (
         <LinkButton
           onClick={() => dispatch(addSelect(false))}
           nav={{
