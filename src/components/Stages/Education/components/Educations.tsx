@@ -1,7 +1,8 @@
-import { Icon } from "@iconify/react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 
+import { Icon } from "@iconify/react";
 import {
   addData,
   addElave,
@@ -11,8 +12,6 @@ import {
   changeTehsilPage,
 } from "state/dataSlice";
 import { EducationQuestionsFormValues } from "../EducationQuestionsForm";
-import { useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
 
 interface Edu {
   formData: EducationQuestionsFormValues;
@@ -27,8 +26,21 @@ interface RootState {
 
 const Educations = ({ formData, setValue }: Edu) => {
   const dispatch: Dispatch = useDispatch();
-  const remove = useSelector((state: RootState) => state.dataa.removeFunc);
+  const { removeFunc } = useSelector((state: RootState) => state.dataa);
   const [idd, setId] = useState(0);
+
+  const handleDelete = (id: number) => {
+    dispatch(addPop(true));
+    setId(id);
+  };
+
+  useEffect(() => {
+    if (removeFunc === true) {
+      const copy = formData?.education?.filter((_, index) => index !== idd);
+      setValue("education", copy);
+      dispatch(addRemove(false));
+    }
+  }, [removeFunc, idd, formData, setValue, dispatch]);
 
   const handleClick = () => {
     dispatch(addSelect(false));
@@ -41,45 +53,37 @@ const Educations = ({ formData, setValue }: Edu) => {
     dispatch(addData(-1));
   };
 
-  const handleDelete = (id: number) => {
-    dispatch(addPop(true));
-    setId(id);
+  const renderEducationItems = () => {
+    return formData?.education?.map((elem, index) => (
+      <div
+        className="border flex-grow rounded-full flex justify-between items-center relative pr-5 background mb-5"
+        key={index}
+      >
+        <div className="w-36 rounded-l-full flex items-center">
+          <div className="info flex gap-5 px-5 py-1 ">
+            <span>{index + 1}. </span>
+            <span> {elem.university}</span>
+          </div>
+        </div>
+        <div className="pr-3">
+          <div className="level">
+            <span> {elem.specialty?.answer}</span>
+          </div>
+        </div>
+        <div className="remove cursor-pointer items-end ml-2">
+          <Icon
+            icon="material-symbols:cancel"
+            style={{ color: "red" }}
+            onClick={() => handleDelete(index)}
+          />
+        </div>
+      </div>
+    ));
   };
-
-  if (remove === true) {
-    const copy = formData?.education?.filter((x) => x.id !== idd);
-    setValue("education", copy);
-
-    dispatch(addRemove(false));
-  }
 
   return (
     <div>
-      {formData?.education?.map((elem, index) => (
-        <div
-          className="border flex-grow rounded-full flex justify-between  items-center  relative pr-5 background mb-5"
-          key={index}
-        >
-          <div className="w-36 rounded-l-full flex items-center">
-            <div className="info flex gap-5 px-5 py-1 ">
-              <span>{index + 1}. </span>
-              <span> {elem.university}</span>
-            </div>
-          </div>
-          <div className="pr-3">
-            <div className="level">
-              <span> {elem.specialty.answer}</span>
-            </div>
-          </div>
-          <div className="remove cursor-pointer items-end ml-2">
-            <Icon
-              icon="material-symbols:cancel"
-              style={{ color: "red" }}
-              onClick={() => handleDelete(elem.id)}
-            />
-          </div>
-        </div>
-      ))}
+      {renderEducationItems()}
       <div className="w-full flex items-center justify-center mt-5">
         <button
           type="button"

@@ -14,6 +14,7 @@ import SelectMult from "components/SelectMult";
 
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
+
 import {
   addData,
   addElave,
@@ -24,6 +25,7 @@ import {
 import { EducationQuestionsFormValues } from "../EducationQuestionsForm";
 import { IQuestionQuestion } from "types";
 import SelectSearch from "components/SelectSearch";
+
 interface RootState {
   dataa: {
     tehsil: string;
@@ -32,7 +34,6 @@ interface RootState {
 }
 
 interface Copy {
-  id: number;
   country: any;
   university: string;
   specialty: any;
@@ -41,9 +42,8 @@ interface Copy {
   date: any;
   criterian: any;
   criteria: {
-    criterion_type: any;
-    lokal_test: any;
-    application: [
+    lokal_test?: any;
+    application?: [
       {
         application_type: string;
         score: any;
@@ -70,7 +70,7 @@ interface Copy {
         score: any;
       },
       {
-        other_test: any;
+        other_test?: any;
       }
     ];
   };
@@ -78,7 +78,6 @@ interface Copy {
 
 const schema = yup
   .object({
-    id: yup.number().required(),
     tehsil: yup
       .object({
         answer: yup.string().required(),
@@ -222,13 +221,12 @@ const FormEducations = ({
   } = useForm<AddEduFormValues>({
     resolver: yupResolver<AddEduFormValues>(schema),
     defaultValues: {
-      id: 0,
-      tehsil: { answer: "", weight: "" },
-      country: { answer: "", weight: "" },
+      tehsil: {},
+      country: {},
       university: "",
-      specialty: { answer: "", weight: "" },
-      date: { start: "", end: "" },
-      criterian: { answer: "", weight: "" },
+      specialty: {},
+      date: {},
+      criterian: {},
       local: {},
       otherExam: {},
       application: [],
@@ -239,7 +237,9 @@ const FormEducations = ({
   const dispatch: Dispatch = useDispatch();
   const [end, setEnd] = useState(false);
 
-  const onSubmit = handleSubmit((data) => {});
+  const onSubmit = handleSubmit((data) => {
+    console.log("dataaa", data);
+  });
 
   const tehsil = useSelector((state: RootState) => state.dataa.tehsil);
   const elave = useSelector((state: RootState) => state.dataa.elave);
@@ -247,16 +247,14 @@ const FormEducations = ({
   const [count, setCount] = useState(0);
 
   const copy: Copy = {
-    id: formData.education.length + 1,
     country: watch().country,
     university: watch().university,
     specialty: watch().specialty,
     date: watch().date,
     local: undefined,
     tehsil: watch("tehsil"),
-    criterian: undefined,
+    criterian: watch().criterian,
     criteria: {
-      criterion_type: watch().criterian,
       lokal_test: watch().local,
       application: [
         {
@@ -304,6 +302,7 @@ const FormEducations = ({
   );
 
   console.log("errors", errors);
+  console.log("formadataaa", formData);
 
   const handleClick = () => {
     if (Object.keys(errors).length > 0) {
@@ -355,8 +354,6 @@ const FormEducations = ({
     setEnd(!end);
   };
 
-  console.log("data", formData);
-
   useEffect(() => {
     if (!elave) {
       setValue("tehsil.answer", name);
@@ -406,7 +403,7 @@ const FormEducations = ({
       <div className="mb-5 mt-3">
         <label>
           <span style={{ color: "#038477" }}>
-            {elave === true
+            {elave === true && formData?.education.length !== 0
               ? watch("tehsil").answer
                 ? watch("tehsil").answer
                 : formData.education.length + 1 + "-ci"
@@ -615,7 +612,6 @@ const FormEducations = ({
                   </div>
                   {elem === "Language test (IELTS TOEFL)" ? (
                     <div>
-                      {" "}
                       <div className="mb-5">
                         <TextInput
                           placeholder="İELTS Nəticə"

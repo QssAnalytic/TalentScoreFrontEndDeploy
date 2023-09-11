@@ -30,7 +30,6 @@ const schema = yup
   })
   .required();
 
-
 export type SportLevelValues = yup.InferType<typeof schema>;
 
 const SportLevels = ({
@@ -46,13 +45,19 @@ const SportLevels = ({
     (useAppSelector((state) => state.stageForm)?.find(
       ({ name }) => name === subStageSlug
     ) as { formData: SportLevelValues & any }) || ({} as any);
-  const { register, handleSubmit, watch, setValue, reset, formState: { errors }, trigger } = useForm<SportLevelValues>(
-    {
-      resolver: yupResolver<SportLevelValues>(schema),
-    }
-  );
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+    trigger,
+  } = useForm<SportLevelValues>({
+    resolver: yupResolver<SportLevelValues>(schema),
+  });
 
-  const [errorsLength, setErrorsLenght] = useState<number[]>()
+  const [errorsLength, setErrorsLenght] = useState<number[]>();
 
   const handleRemove = async (item: string) => {
     const newWhichSport = formData?.whichSport?.filter(
@@ -78,21 +83,22 @@ const SportLevels = ({
     );
   };
 
-
-  const [err, setErr] = useState<number>(0)
+  const [err, setErr] = useState<number>(0);
 
   useEffect(() => {
     setValue("name", item);
     selectedLevel(watch());
-    trigger()
-    dispatch(addErrorsLength(formData?.whichSport?.length - formData?.professionals?.length - formData?.amateurs?.length))
-  }, [watch('level'), watch('name'), formData?.amateurs, formData?.professionals, formData?.whichSport])
-
+    trigger();
+    dispatch(addErrorsLength(Object.keys(errors).length));
+  }, [
+    watch("level"),
+    watch("name"),
+    formData?.amateurs,
+    formData?.professionals,
+    formData?.whichSport,
+  ]);
 
   console.log(errors);
-
-
-
 
   return (
     <div className="p-2.5 relative flex gap-4 " key={index}>
@@ -116,9 +122,9 @@ const SportLevels = ({
         }
         register={register("level")}
         errors={errors.level}
+        trigger={trigger}
       />
     </div>
-
   );
 };
 

@@ -4,7 +4,6 @@ import {
   useGetQuestionsQuery,
   useGetStageQuery,
 } from "../../../services/stage";
-import Radio from "../../RadioInput";
 import Select from "../../Select";
 import LinkButton from "../../LinkButton";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
@@ -90,6 +89,7 @@ const OlympiadQuestionsForm = ({
   } = useGetQuestionsQuery(subSlugName);
 
   const dispatch = useAppDispatch();
+  const questions = questionsData?.[0]?.questions;
 
   const { formData } =
     (useAppSelector((state) => state.stageForm)?.find(
@@ -133,16 +133,22 @@ const OlympiadQuestionsForm = ({
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
+  useEffect(() => {
+    if (formData?.wonOlympics?.answer === "Xeyr") {
+      reset({
+        wonOlympics: { answer: "Xeyr", weight: null },
+      });
+    }
+  }, [formData?.wonOlympics?.answer]);
+
   if (isLoading)
     return (
       <div className="absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2">
         <ClockLoader color="#038477" />
       </div>
     );
-  if (questionsError) return <div>Error</div>;
 
-  const questions = questionsData?.[0]?.questions;
-  console.log(questions);
+  if (questionsError) return <div>Error</div>;
 
   const inputProps = [
     { register: register("wonOlympics") },
@@ -151,7 +157,7 @@ const OlympiadQuestionsForm = ({
     { register: register("rankOlympiad") },
   ];
 
-  console.log(formData);
+  console.log("formdata", formData);
 
   return (
     <form

@@ -91,7 +91,7 @@ const schema = yup
       is: (langCert: any, engLangCert: any) =>
         langCert?.answer === "Bəli" ||
         engLangCert?.answer === "Öz sertifikatın",
-      then: () => yup.string().required(),
+      then: () => yup.number().min(0).required(),
     }),
 
     engCertResult: yup
@@ -174,6 +174,7 @@ const LanguageAdd = ({
     defaultValues: editData,
     resolver: yupResolver<AddLangFormValues>(schema),
   });
+
   const inputProps = [
     { register: register("language") },
     { register: register("langCert") },
@@ -289,7 +290,7 @@ const LanguageAdd = ({
       watch("language.answer") === "Ingilis dili"
     ) {
       setValue("langCertName", "");
-      setValue("langCertResult", "");
+      setValue("langCertResult", undefined);
     }
     if (watch("language.answer") !== "Ingilis dili") {
       setValue("engLangCert", { answer: "", weight: "" });
@@ -297,7 +298,7 @@ const LanguageAdd = ({
     }
     if (watch("langCert.answer") === "Xeyr") {
       setValue("langCertName", "");
-      setValue("langCertResult", "");
+      setValue("langCertResult", undefined);
     }
     if (
       editData?.language?.answer !== watch("language.answer") &&
@@ -313,7 +314,7 @@ const LanguageAdd = ({
       watch("language.answer") !== "Ingilis dili"
     ) {
       setValue("langCertName", "");
-      setValue("langCertResult", "");
+      setValue("langCertResult", undefined);
     }
   }, [
     watch("language.answer"),
@@ -363,6 +364,7 @@ const LanguageAdd = ({
                         inputClassName="w-2/5"
                         register={inputProps[4].register}
                         errors={errors.langCertResult}
+                        type="number"
                       />
                     </div>
                   </div>
@@ -436,6 +438,7 @@ const LanguageAdd = ({
                             inputClassName="w-2/5"
                             register={inputProps[4].register}
                             errors={errors.langCertResult}
+                            type="number"
                           />
                         </div>
                       </div>

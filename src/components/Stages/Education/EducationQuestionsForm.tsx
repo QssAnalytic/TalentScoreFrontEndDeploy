@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   useGetQuestionsQuery,
@@ -112,7 +112,11 @@ const EducationQuestionsForm = ({
       }
     });
 
-    reset(formData);
+    if (tehsil === "Orta təhsil") {
+      reset();
+    } else {
+      reset(formData);
+    }
 
     return () => {
       subscription.unsubscribe();
@@ -144,7 +148,7 @@ const EducationQuestionsForm = ({
       noValidate
     >
       <div className="space-y-7">
-        {page === 1 ? (
+        {page === 1 || formData?.education.length === 0 ? (
           <div className="h-[460px] overflow-y-scroll">
             <FormEducations
               questions={questions}
