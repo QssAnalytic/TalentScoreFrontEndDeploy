@@ -16,6 +16,7 @@ import SelectMult from "components/SelectMult";
 import { ISelectedValue } from "types";
 import ClockLoader from "react-spinners/ClockLoader";
 import { addErrorsLength, addSelect } from "state/dataSlice";
+import { useNavigate } from "react-router-dom";
 
 export type ProgramSkillsValues =
   | {
@@ -157,6 +158,8 @@ const ProgramSkills = ({
     },
   });
 
+  const nav = useNavigate();
+
   const onSubmit: SubmitHandler<ProgramSkillsValues | any> = (data) => {
     dispatch(setShowReport(!showReport));
     fillSkills();
@@ -206,7 +209,6 @@ const ProgramSkills = ({
     }
   }, [formData?.whichProgram?.length]);
 
-
   const validateAndAddDynamicFields = (fieldName: string) => {
     if (formData?.[fieldName]?.length > 0) {
       formData[fieldName].forEach((item: string) => {
@@ -238,10 +240,10 @@ const ProgramSkills = ({
     { register: register("haveProgramSkills") },
   ];
 
-  const fillSkills = () => {
+  const fillSkills = async () => {
     if (formData?.whichProgram?.length > 0) {
       const updatedFormData = { ...formData };
-      const updatedSkills = formData.whichProgram
+      const updatedSkills = await formData.whichProgram
         .filter((fieldName: string) => formData[fieldName]?.length > 0)
         .map((fieldName: string) => {
           const skillLevels = formData[fieldName].map((item: string) => {
@@ -256,6 +258,8 @@ const ProgramSkills = ({
         ...updatedFormData,
         programSkills: updatedSkills,
       });
+
+      nav("/");
     }
   };
 
