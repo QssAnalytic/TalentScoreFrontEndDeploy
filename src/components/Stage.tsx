@@ -65,6 +65,7 @@ const Stage = () => {
             num={0}
           />
         );
+        
       case "orta-texniki-ve-ali-tehsil-suallari":
         return (
           <EducationQuestionsForm
