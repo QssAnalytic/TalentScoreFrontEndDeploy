@@ -280,9 +280,6 @@ const SpecialSkillsForm = ({
       onSubmit={handleSubmit(onSubmit)}
       className="mt-7 flex-col flex gap-5"
     >
-      <button type="button" onClick={fillSkills}>
-        fill
-      </button>
       <div className="space-y-7">
         <div className="space-y-2">
           <label className="pl-2">{questions?.[1]?.question_title}*</label>
