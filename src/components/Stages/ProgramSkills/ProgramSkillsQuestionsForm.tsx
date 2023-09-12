@@ -116,6 +116,22 @@ const ProgramSkills = ({
     }));
   };
 
+  const removeDynamicFieldSelect = (fieldName: any) => {
+    setDynamicFieldsSelect((prevDynamicFields) => {
+      const updatedFields = { ...prevDynamicFields };
+      delete updatedFields[fieldName];
+      return updatedFields;
+    });
+  };
+
+  const removeDynamicFieldSelectItem = (fieldName: string) => {
+    setDynamicFieldsSelectItem((prevDynamicFields) => {
+      const updatedFields = { ...prevDynamicFields };
+      delete updatedFields[fieldName];
+      return updatedFields;
+    });
+  };
+
   const dynamicSchema = yup.object().shape({
     ...schema.fields,
     ...Object.fromEntries(
@@ -206,7 +222,6 @@ const ProgramSkills = ({
     }
   }, [formData?.whichProgram?.length]);
 
-
   const validateAndAddDynamicFields = (fieldName: string) => {
     if (formData?.[fieldName]?.length > 0) {
       formData[fieldName].forEach((item: string) => {
@@ -246,11 +261,15 @@ const ProgramSkills = ({
         .map((fieldName: string) => {
           const skillLevels = formData[fieldName].map((item: string) => {
             delete updatedFormData[item];
+            removeDynamicFieldSelectItem(item);
             return { name: item, value: formData[item] };
           });
           delete updatedFormData[fieldName];
+          removeDynamicFieldSelect(fieldName);
           return { whichProgram: fieldName, whichLevel: skillLevels };
         });
+
+      dispatch(addSelect(false));
 
       reset({
         ...updatedFormData,
