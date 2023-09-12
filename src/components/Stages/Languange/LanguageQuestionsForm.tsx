@@ -318,8 +318,7 @@ const LanguageQuestionsForm = ({
         label="Geri"
         className="absolute left-0 -bottom-20"
       />
-      {errLength === 0 ||
-      watch("haveLanguageSkills.answer") === "Yoxdur" ||
+      {watch("haveLanguageSkills.answer") === "Yoxdur" ||
       formData?.languageSkills.length > 0 ? (
         <LinkButton
           onClick={() => dispatch(addSelect(false))}
