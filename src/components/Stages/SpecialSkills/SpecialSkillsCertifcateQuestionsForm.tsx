@@ -20,8 +20,6 @@ import ButtonSave from "components/ButtonSave";
 
 import { ISelectedValue } from "types";
 
-import { DevTool } from "@hookform/devtools";
-
 const schema = yup.object({});
 
 type DynamicFields = {
@@ -105,11 +103,12 @@ const SpecialSkillsCertifcateQuestionsForm = ({
     ),
   });
 
+  console.log(questions);
+
   const {
     register,
     handleSubmit,
     watch,
-    control,
     reset,
     formState: { errors },
     trigger,
@@ -130,7 +129,7 @@ const SpecialSkillsCertifcateQuestionsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
-      prevFormData?.skills?.map(async (skill: SkillProps) => {
+      prevFormData?.skills?.map((skill: SkillProps) => {
         if (skill?.value?.answer === "Peşəkar") {
           addDynamicField(skill?.name);
           trigger();
@@ -158,8 +157,8 @@ const SpecialSkillsCertifcateQuestionsForm = ({
     );
   if (questionsError) return <div>Error</div>;
 
-  const filterProfessionalSkills = () => {
-    prevFormData?.skills?.filter(async (skill: SkillProps) => {
+  const filterProfessionalSkills = async () => {
+    await prevFormData?.skills?.filter((skill: SkillProps) => {
       if (skill?.value?.answer === "Peşəkar") {
         professionalSkills.push(skill);
       }
@@ -190,7 +189,6 @@ const SpecialSkillsCertifcateQuestionsForm = ({
       onSubmit={handleSubmit(onSubmit)}
       className="mt-7 flex-col flex gap-5"
     >
-      <DevTool control={control} placement="top-left" />
       <div className="space-y-7">
         <div className="space-y-2">
           <div className="flex flex-col gap-5">
