@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ButtonSave from "components/ButtonSave";
 import { addErrorsLength, addSelect } from "state/dataSlice";
+import { useNavigate } from "react-router-dom";
 
 export type SpecialSkillsFormValues = {
   haveSpecialSkills: { answer: string; weight: string };
@@ -85,12 +86,10 @@ const SpecialSkillsForm = ({
     stage_children: nextStageChildrenCond,
   } = stagesData?.[3] || {};
 
-  console.log("nextSlugNameCond", nextSlugNameCond);
-  console.log("nextStageNameCond", nextStageNameCond);
-  console.log("nextStageChildrenCond", nextStageChildrenCond);
-
   const { slug: nextSubSlugNameCond, stage_name: nextSubStageNameCond } =
     nextStageChildrenCond?.[0] || {};
+
+  console.log(nextSubSlugNameCond, nextSubStageNameCond);
 
   const {
     slug: prevSlugName,
@@ -113,7 +112,7 @@ const SpecialSkillsForm = ({
   } = useGetQuestionsQuery(subSlugName);
 
   const dispatch = useAppDispatch();
-  let skillErr: any = false;
+  const nav = useNavigate();
 
   const questions = questionsData?.[0]?.questions;
 
@@ -169,8 +168,23 @@ const SpecialSkillsForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<SpecialSkillsFormValues> = (data) => {
-    // console.log("submitData", data);
+  const onSubmit: SubmitHandler<SpecialSkillsFormValues> = async () => {
+    const data = await fillSkills();
+    dispatch(addSelect(false));
+
+    const isProExist = data?.some((i: any) => "Peşəkar" === i?.value?.answer);
+
+    const nextSlug = isProExist ? nextSlugName : nextSlugNameCond;
+    const nextSubSlug = isProExist ? nextSubSlugName : nextSubSlugNameCond;
+    const nextStage = isProExist ? nextStageName : nextStageNameCond;
+    const nextSubStage = isProExist ? nextSubStageName : nextSubStageNameCond;
+
+    nav(`/stages/${nextSlug}/${nextSubSlug}`, {
+      state: {
+        subStageName: nextSubStage,
+        stageName: nextStage,
+      },
+    });
   };
 
   useEffect(() => {
@@ -193,6 +207,15 @@ const SpecialSkillsForm = ({
 
   useEffect(() => {
     if (formData?.haveSpecialSkills?.answer === "Yoxdur") {
+      dispatch(
+        updateStageForm({
+          name: nextSubSlugName ? nextSubSlugName : "",
+          formData: {
+            certificates: [],
+          },
+        })
+      );
+
       reset({
         haveSpecialSkills: { answer: "Yoxdur", weight: null },
         specialSkills: [],
@@ -233,8 +256,8 @@ const SpecialSkillsForm = ({
       const updatedFormData: any = { ...formData };
       const updatedSkills = formData.specialSkills.map((item: string) => {
         if (
-          formData[item].answer === "Peşəkar" ||
-          formData[item].answer === "Həvəskar"
+          formData[item]?.answer === "Peşəkar" ||
+          formData[item]?.answer === "Həvəskar"
         ) {
           delete updatedFormData[item];
           return { name: item, value: formData[item] };
@@ -245,16 +268,21 @@ const SpecialSkillsForm = ({
         ...updatedFormData,
         skills: updatedSkills,
       });
+
+      return updatedSkills;
     }
   };
 
-  // console.log("formdata", formData);
+  console.log("formdata", formData);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="mt-7 flex-col flex gap-5"
     >
+      <button type="button" onClick={fillSkills}>
+        fill
+      </button>
       <div className="space-y-7">
         <div className="space-y-2">
           <label className="pl-2">{questions?.[1]?.question_title}*</label>
@@ -352,18 +380,7 @@ const SpecialSkillsForm = ({
           onClick={() => dispatch(addSelect(true))}
         />
       ) : (
-        <LinkButton
-          nav={{
-            state: { stageName: nextStageName, subStageName: nextSubStageName },
-            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-          }}
-          label="Növbəti"
-          className="absolute right-0 -bottom-20"
-          onClick={() => {
-            fillSkills();
-            dispatch(addSelect(false));
-          }}
-        />
+        <ButtonSave label="Növbəti" className="absolute right-0 -bottom-20" />
       )}
 
       <LinkButton
