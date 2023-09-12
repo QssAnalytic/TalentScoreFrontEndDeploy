@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
   useGetQuestionsQuery,
@@ -13,80 +13,45 @@ import { Icon } from "@iconify/react";
 import SelectMult from "../../SelectMult";
 import * as yup from "yup";
 import ClockLoader from "react-spinners/ClockLoader";
-import SportLevels from "./components/SportLevels";
 import { ISelectedValue } from "types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addErrorsLength, addSelect } from "state/dataSlice";
 import { useSelector } from "react-redux";
 import ButtonSave from "components/ButtonSave";
+import { useNavigate } from "react-router-dom";
+
+export type SportFormValues = {
+  haveSport: { answer: string; weight: string };
+  whichSport: string[];
+  sports: [];
+  [key: string]: string | any;
+};
 
 const schema = yup
   .object({
-    sport: yup
+    haveSport: yup
       .object({
         answer: yup.string().required(),
         weight: yup.string().optional().nullable(),
       })
       .required(),
-    whichSport: yup.array().when("sport", {
+    whichSport: yup.array().when("haveSport", {
       is: (sport: any) => sport.answer !== "Yoxdur",
       then: () => yup.array().min(1).required(),
     }),
-    professionals: yup
-      .array()
-      .of(
-        yup.object().shape({
-          name: yup.string().required(),
-          level: yup
-            .object()
-            .shape({
-              answer: yup.string().required(),
-              weight: yup.string().optional().nullable(),
-            })
-            .required(),
-          whichScore: yup
-            .object({
-              answer: yup.string().optional().nullable(),
-              weight: yup.string().optional().nullable(),
-            })
-            .optional(),
-          whichPlace: yup
-            .object({
-              answer: yup.string().optional().nullable(),
-              weight: yup.string().optional().nullable(),
-            })
-            .optional(),
-        })
-      )
-      .optional(),
-    amateurs: yup
-      .array()
-      .of(
-        yup.object().shape({
-          name: yup.string().required(),
-          level: yup.object().shape({
-            answer: yup.string().required(),
-            weight: yup.string().optional().nullable(),
-          }),
-        })
-      )
-      .required(),
   })
   .required();
+
+type DynamicFields = {
+  [fieldName: string]: {
+    schema: yup.ObjectSchema<any>;
+  };
+};
 
 interface RootState {
   dataa: {
     errorsLength: number;
   };
-}
-
-export type SportFormValues = yup.InferType<typeof schema>;
-
-export interface IItem {
-  name: string;
-  level: ISelectedValue;
-  whichScore: ISelectedValue;
-  whichPlace: ISelectedValue;
 }
 
 const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
@@ -126,6 +91,41 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     isLoading,
   } = useGetQuestionsQuery(subSlugName);
   const dispatch = useAppDispatch();
+  const nav = useNavigate();
+
+  const [dynamicFields, setDynamicFields] = useState<DynamicFields>({});
+  const addDynamicField = (fieldName: string) => {
+    setDynamicFields((prevDynamicFields) => ({
+      ...prevDynamicFields,
+      [fieldName]: {
+        schema: yup
+          .object()
+          .shape({
+            answer: yup.string().required(),
+            weight: yup.string().optional().nullable(),
+          })
+          .required(`${fieldName} is required`),
+      },
+    }));
+  };
+
+  const removeDynamicField = (fieldName: string) => {
+    setDynamicFields((prevDynamicFields) => {
+      const updatedFields = { ...prevDynamicFields };
+      delete updatedFields[fieldName];
+      return updatedFields;
+    });
+  };
+
+  const dynamicSchema = yup.object().shape({
+    ...schema.fields,
+    ...Object.fromEntries(
+      Object.entries(dynamicFields).map(([fieldName, field]) => [
+        fieldName,
+        field.schema,
+      ])
+    ),
+  });
 
   const { formData } =
     (useAppSelector((state) => state.stageForm)?.find(
@@ -140,17 +140,30 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     setValue,
     trigger,
     formState: { errors },
-  } = useForm<SportFormValues>({
-    resolver: yupResolver<SportFormValues>(schema),
+  } = useForm<SportFormValues | any>({
+    resolver: yupResolver(dynamicSchema),
     defaultValues: {
-      sport: { answer: "", weight: "" },
+      haveSport: { answer: "", weight: "" },
       whichSport: [],
-      professionals: [],
-      amateurs: [],
+      sports: [],
     },
   });
 
-  const onSubmit: SubmitHandler<SportFormValues> = (data) => {};
+  const onSubmit: SubmitHandler<SportFormValues> = async () => {
+    const data = await fillSports();
+    dispatch(addSelect(false));
+    const isProExist = data?.some((i: any) => "Peşəkar" === i?.value?.answer);
+    const nextSlug = isProExist ? nextSlugName : nextSlugNameCond;
+    const nextSubSlug = isProExist ? nextSubSlugName : nextSubSlugNameCond;
+    const nextStage = isProExist ? nextStageName : nextStageNameCond;
+    const nextSubStage = isProExist ? nextSubStageName : nextSubStageNameCond;
+    nav(`/stages/${nextSlug}/${nextSubSlug}`, {
+      state: {
+        subStageName: nextSubStage,
+        stageName: nextStage,
+      },
+    });
+  };
 
   useEffect(() => {
     const subscription = watch((value) => {
@@ -168,32 +181,42 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     return () => subscription.unsubscribe();
   }, [subStageSlug, watch]);
 
-  const [count, setCount] = useState(false);
-
-  console.log(errors);
+  useEffect(() => {
+    trigger();
+  }, [watch("whichSport"), dynamicFields]);
 
   useEffect(() => {
-    setCount(!count);
-    if (formData?.sport?.answer === "Yoxdur") {
+    if (formData?.haveSport?.answer === "Yoxdur") {
+      dispatch(
+        updateStageForm({
+          name: nextSubSlugName ? nextSubSlugName : "",
+          formData: {
+            professionalSports: [],
+          },
+        })
+      );
+
       reset({
-        sport: { answer: "Yoxdur", weight: "" },
+        haveSport: { answer: "Yoxdur", weight: "" },
         whichSport: [],
-        professionals: [],
-        amateurs: [],
+        sports: [],
       });
     }
-  }, [formData?.sport?.answer]);
+  }, [formData?.haveSport?.answer]);
 
   useEffect(() => {
-    setCount(!count);
     if (watch("whichSport")?.length !== 0) {
-      reset({
-        ...formData,
-        sport: { answer: "Var", weight: null },
-      });
+      setValue("haveSport", { answer: "Var", weight: null });
     }
-    if (watch("whichSport")?.length === 0 && watch("sport.answer") === "Var") {
-      setValue("sport", { answer: "", weight: null });
+    if (
+      watch("whichSport")?.length === 0 &&
+      watch("haveSport.answer") === "Var"
+    ) {
+      setValue("haveSport", { answer: "", weight: null });
+    }
+
+    if (formData?.whichSport?.length > 0) {
+      formData?.whichSport.map((item: string) => addDynamicField(item));
     }
   }, [formData?.whichSport?.length]);
 
@@ -205,40 +228,49 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     );
   if (questionsError) return <div>Error</div>;
 
-  const selectedLevel = (item: IItem) => {
-    const amateurs = watch().amateurs || [];
-    const professionals = watch().professionals || [];
-    const isAmatExist = amateurs.some((i) => item.name === i.name);
-    const isProExist = professionals.some((i) => item.name === i.name);
-
-    if (item.level?.answer === "Həvəskar" && !isAmatExist) {
-      setValue("amateurs", [...amateurs, item]);
-      if (isProExist) {
-        setValue(
-          "professionals",
-          professionals.filter((i) => item.name !== i.name)
-        );
-      }
-    } else if (item.level?.answer === "Peşəkar" && !isProExist) {
-      setValue("professionals", [...professionals, item]);
-      if (isAmatExist) {
-        setValue(
-          "amateurs",
-          amateurs.filter((i) => item.name !== i.name)
-        );
-      }
-    }
-  };
-
   const questions = questionsData?.[0]?.questions;
 
   const inputProps = [
-    { register: register("sport") },
+    { register: register("haveSport") },
     { register: register("whichSport") },
   ];
 
-  console.log("length", errLengt);
   console.log("err", errors);
+
+  const handleRemove = async (item: string) => {
+    setValue(
+      "whichSport",
+      formData?.whichSport?.filter((el: string) => el !== item)
+    );
+
+    setValue(`${item}`, undefined);
+    removeDynamicField(item);
+  };
+
+  const fillSports = () => {
+    if (formData?.whichSport?.length > 0) {
+      const updatedFormData: any = { ...formData };
+      const updatedSports = formData.whichSport.map((item: string) => {
+        if (
+          formData[item]?.answer === "Peşəkar" ||
+          formData[item]?.answer === "Həvəskar"
+        ) {
+          delete updatedFormData[item];
+          return { name: item, value: formData[item] };
+        }
+      });
+
+      reset({
+        ...updatedFormData,
+        whichSport: [],
+        sports: updatedSports,
+      });
+
+      return updatedSports;
+    }
+  };
+
+  console.log("formdata", formData);
 
   return (
     <form
@@ -260,29 +292,41 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
             </div>
             <Radio
               options={questions?.[0]?.answers}
-              value={formData?.sport}
+              value={formData?.haveSport}
               register={inputProps[0].register}
-              errors={errors.sport}
+              errors={errors.haveSport}
               trigger={trigger}
             />
           </div>
         </div>
-        <div className="pr-2 max-h-[230px] overflow-y-auto">
+        <div className="pr-2 max-h-[330px] overflow-y-auto">
           {formData?.whichSport?.length !== 0 && (
             <label>{questions?.[2]?.question_title}</label>
           )}
 
-          {formData?.whichSport?.map((item: string, index: number) => (
-            <Fragment key={index}>
-              <SportLevels
-                item={item}
-                selectedLevel={selectedLevel}
-                questions={questions}
-                subStageSlug={subStageSlug}
-                index={index}
-              />
-            </Fragment>
-          ))}
+          {formData?.whichSport?.map((item: string, index: number) => {
+            const SportErr = errors[item] ? errors[item] : "";
+
+            return (
+              <div className="p-2.5 relative flex gap-4 " key={index}>
+                <span className="bg-qss-input cursor-pointer relative py-2 max-w-[142px] w-full justify-center items-center flex rounded-full px-4 gap-2">
+                  <span>{item}</span>
+                  <Icon
+                    icon="typcn:delete-outline"
+                    className="cursor-pointer text-2xl text-[#EE4A4A]/75 hover:text-[#EE4A4A]"
+                    onClick={() => handleRemove(item)}
+                  />
+                </span>
+                <Radio
+                  options={questions?.[2]?.answers}
+                  value={watch(item)}
+                  register={register(item)}
+                  errors={SportErr}
+                  trigger={trigger}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -303,32 +347,8 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
           className="absolute right-0 -bottom-20"
           onClick={() => dispatch(addSelect(true))}
         />
-      ) : formData?.professionals?.length === 0 ? (
-        <LinkButton
-          nav={{
-            state: {
-              stageName: nextStageNameCond,
-              subStageName: nextSubStageNameCond,
-            },
-            path: {
-              slugName: nextSlugNameCond,
-              subSlugName: nextSubSlugNameCond,
-            },
-          }}
-          onClick={() => dispatch(addSelect(false))}
-          label="Növbəti"
-          className="absolute right-0 -bottom-20"
-        />
       ) : (
-        <LinkButton
-          nav={{
-            state: { stageName: nextStageName, subStageName: nextSubStageName },
-            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
-          }}
-          label="Növbəti"
-          onClick={() => dispatch(addSelect(false))}
-          className="absolute right-0 -bottom-20"
-        />
+        <ButtonSave label="Növbəti" className="absolute right-0 -bottom-20" />
       )}
     </form>
   );
