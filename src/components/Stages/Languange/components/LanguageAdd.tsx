@@ -26,7 +26,6 @@ type LanguageAdd = {
 
 const schema = yup
   .object({
-    id: yup.string(),
     language: yup
       .object({
         answer: yup.string().required(),
