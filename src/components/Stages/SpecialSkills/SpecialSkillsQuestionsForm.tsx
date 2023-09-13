@@ -233,6 +233,8 @@ const SpecialSkillsForm = ({
     ) {
       setValue("haveSpecialSkills", { answer: "", weight: null });
     }
+
+    setDynamicFields({});
     if (formData?.specialSkills?.length > 0) {
       formData?.specialSkills.map((item) => addDynamicField(item));
     }
@@ -265,7 +267,8 @@ const SpecialSkillsForm = ({
       });
 
       reset({
-        ...updatedFormData,
+        haveSpecialSkills: { answer: "Var", weight: null },
+        specialSkills: formData?.specialSkills || [],
         skills: updatedSkills,
       });
 
@@ -274,6 +277,7 @@ const SpecialSkillsForm = ({
   };
 
   console.log("formdata", formData);
+  console.log("er", errors);
 
   return (
     <form

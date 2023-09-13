@@ -68,7 +68,6 @@ const SpecialSkillsCertifcateQuestionsForm = ({
   } = useGetQuestionsQuery(subSlugName);
 
   const questions = questionsData?.[0]?.questions;
-  const professionalSkills: any = [];
 
   const dispatch = useAppDispatch();
 
@@ -129,6 +128,7 @@ const SpecialSkillsCertifcateQuestionsForm = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
+      setDynamicFields({});
       prevFormData?.skills?.map((skill: SkillProps) => {
         if (skill?.value?.answer === "Peşəkar") {
           addDynamicField(skill?.name);
@@ -157,15 +157,9 @@ const SpecialSkillsCertifcateQuestionsForm = ({
     );
   if (questionsError) return <div>Error</div>;
 
-  const filterProfessionalSkills = async () => {
-    await prevFormData?.skills?.filter((skill: SkillProps) => {
-      if (skill?.value?.answer === "Peşəkar") {
-        professionalSkills.push(skill);
-      }
-    });
-  };
-
-  filterProfessionalSkills();
+  const professionalSkills = (prevFormData?.skills || []).filter(
+    (skill: SkillProps) => skill?.value?.answer === "Peşəkar"
+  );
 
   const fillSkills = () => {
     if (professionalSkills.length > 0) {
@@ -176,7 +170,6 @@ const SpecialSkillsCertifcateQuestionsForm = ({
       });
 
       reset({
-        ...updatedFormData,
         certificates: updatedSkills,
       });
     }
