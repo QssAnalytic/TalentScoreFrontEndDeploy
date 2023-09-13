@@ -114,47 +114,37 @@ const schema = yup
         weight: yup.string().optional().nullable(),
       })
       .required(),
-    local: yup
-      .object({
-        examName: yup.string().required(),
-        score: yup
-          .number()
-          .required()
-          .min(0)
-          .test(function (value) {
-            const maxScore = this.parent.maxScore;
-            return value <= maxScore;
-          }),
-        maxScore: yup.number().required().min(0),
-      })
-      .when("criterian", {
-        is: (criterian: any) =>
-          criterian.answer === "Lokal imtahan" ||
-          criterian.answer === "Hər ikisi",
+    local: yup.object({
+      examName: yup.string().when("criterian", {
+        is: (criterian: { answer: string; weight: string }) =>
+          criterian?.answer === "Lokal imtahan" ||
+          criterian?.answer === "Hər ikisi",
+        then: () => yup.string().required(),
+        otherwise: () => yup.string().optional(),
+      }),
+      score: yup.number().when("criterian", {
+        is: (criterian: { answer: string; weight: string }) =>
+          criterian?.answer === "Lokal imtahan" ||
+          criterian?.answer === "Hər ikisi",
         then: () =>
           yup
-            .object({
-              examName: yup.string().required(),
-              score: yup
-                .number()
-                .required()
-                .min(0)
-                .test(function (value) {
-                  const maxScore = this.parent.maxScore;
-                  return value <= maxScore;
-                }),
-              maxScore: yup.number().required().min(0),
-            })
-            .required(),
-        otherwise: () =>
-          yup
-            .object({
-              examName: yup.string().optional(),
-              score: yup.number().optional(),
-              maxScore: yup.number().optional(),
-            })
-            .optional(),
+            .number()
+            .required()
+            .min(0)
+            .test(function (value) {
+              const maxScore = this.parent.maxScore;
+              return value <= maxScore;
+            }),
+        otherwise: () => yup.string().optional(),
       }),
+      maxScore: yup.number().when("criterian", {
+        is: (criterian: { answer: string; weight: string }) =>
+          criterian?.answer === "Lokal imtahan" ||
+          criterian?.answer === "Hər ikisi",
+        then: () => yup.number().required().min(0),
+        otherwise: () => yup.string().optional(),
+      }),
+    }),
     otherExam: yup
       .object({
         name: yup.string().optional(),
@@ -163,33 +153,59 @@ const schema = yup
       })
       .optional(),
     application: yup.array().when("criterian", {
-      is: (criterian: any) =>
-        criterian.answer === "Müraciyyət" || criterian.answer === "Hər ikisi",
+      is: (criterian: { answer: string; weight: string }) =>
+        criterian?.answer === "Müraciyyət" || criterian?.answer === "Hər ikisi",
       then: () => yup.array().min(1),
       otherwise: () => yup.array(),
     }),
-    Att: yup.string().when("application", {
-      is: (application: Array<string>) =>
-        application.find((x) => x === "Attestat - GPA"),
+    Att: yup.string().when(["application", "criterian"], {
+      is: (
+        application: Array<string>,
+        criterian: { answer: string; weight: string }
+      ) =>
+        (application.find((x) => x === "Attestat - GPA") &&
+          criterian?.answer === "Müraciyyət") ||
+        criterian?.answer === "Hər ikisi",
       then: () => yup.number().min(0).required(),
     }),
-    SAT: yup.string().when("application", {
-      is: (application: Array<string>) => application.find((x) => x === "SAT"),
+    SAT: yup.string().when(["application", "criterian"], {
+      is: (
+        application: Array<string>,
+        criterian: { answer: string; weight: string }
+      ) =>
+        application.find((x) => x === "SAT") &&
+        (criterian?.answer === "Müraciyyət" ||
+          criterian?.answer === "Hər ikisi"),
       then: () => yup.number().min(0).required(),
     }),
-    GRE: yup.string().when("application", {
-      is: (application: Array<string>) =>
-        application.find((x) => x === "GRE/GMAT"),
+    GRE: yup.string().when(["application", "criterian"], {
+      is: (
+        application: Array<string>,
+        criterian: { answer: string; weight: string }
+      ) =>
+        application.find((x) => x === "GRE/GMAT") &&
+        (criterian?.answer === "Müraciyyət" ||
+          criterian?.answer === "Hər ikisi"),
       then: () => yup.number().min(0).required(),
     }),
-    ielts: yup.string().when("application", {
-      is: (application: Array<string>) =>
-        application.find((x) => x === "Language test (IELTS TOEFL)"),
+    ielts: yup.string().when(["application", "criterian"], {
+      is: (
+        application: Array<string>,
+        criterian: { answer: string; weight: string }
+      ) =>
+        application.find((x) => x === "Language test (IELTS TOEFL)") &&
+        (criterian?.answer === "Müraciyyət" ||
+          criterian?.answer === "Hər ikisi"),
       then: () => yup.number().min(0).required(),
     }),
-    toefl: yup.string().when("application", {
-      is: (application: Array<string>) =>
-        application.find((x) => x === "Language test (IELTS TOEFL)"),
+    toefl: yup.string().when(["application", "criterian"], {
+      is: (
+        application: Array<string>,
+        criterian: { answer: string; weight: string }
+      ) =>
+        application.find((x) => x === "Language test (IELTS TOEFL)") &&
+        (criterian?.answer === "Müraciyyət" ||
+          criterian?.answer === "Hər ikisi"),
       then: () => yup.number().min(0).required(),
     }),
   })
@@ -246,49 +262,6 @@ const FormEducations = ({
 
   const [count, setCount] = useState(0);
 
-  const copy: Copy = {
-    country: watch().country,
-    university: watch().university,
-    specialty: watch().specialty,
-    date: watch().date,
-    local: undefined,
-    tehsil: watch("tehsil"),
-    criterian: watch().criterian,
-    criteria: {
-      lokal_test: watch().local,
-      application: [
-        {
-          application_type: "Atestat",
-          score: watch().Att,
-        },
-        {
-          application_type: "language",
-          language_type: [
-            {
-              language_name: "IELTS",
-              language_score: watch().ielts,
-            },
-            {
-              language_name: "TOFEL",
-              language_score: watch().toefl,
-            },
-          ],
-        },
-        {
-          application_type: "SAT",
-          score: watch().SAT,
-        },
-        {
-          application_type: "GRE",
-          score: watch().GRE,
-        },
-        {
-          other_test: watch().otherExam,
-        },
-      ],
-    },
-  };
-
   const handleDelete = useCallback(
     (elem: any) => {
       const copyy = watch("application")?.indexOf(elem);
@@ -302,7 +275,6 @@ const FormEducations = ({
   );
 
   console.log("errors", errors);
-  console.log("formadataaa", formData);
 
   const handleClick = () => {
     if (Object.keys(errors).length > 0) {
@@ -310,10 +282,10 @@ const FormEducations = ({
     } else {
       dispatch(addSelect(false));
       if (tehsil !== name) {
-        handleAddEdu(copy);
+        handleAddEdu(watch());
         dispatch(addTehsilPage(1));
       } else {
-        handleAddEdu(copy);
+        handleAddEdu(watch());
         dispatch(addElave(true));
         dispatch(addData(1));
       }
@@ -359,6 +331,16 @@ const FormEducations = ({
       setValue("tehsil.answer", name);
     }
   }, [watch("tehsil.answer")]);
+
+  useEffect(() => {
+    if (watch("criterian").answer === "Lokal imtahan") {
+      setValue("application", []);
+    } else if (watch("criterian").answer === "Müraciyyət") {
+      setValue("local", {});
+    }
+  }, [watch("criterian")]);
+
+  console.log("form", formData);
 
   return (
     <div className="pe-5" onSubmit={onSubmit}>
