@@ -15,7 +15,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ISelectedValue } from "types";
 import { ClockLoader } from "react-spinners";
 import Select from "components/Select";
-import { DevTool } from "@hookform/devtools";
 
 interface RootState {
   dataa: {
@@ -108,9 +107,7 @@ const ProLevelList = ({
     formState: { errors },
     watch,
     reset,
-    control,
     handleSubmit,
-    setValue,
   } = useForm<SportFormValues | any>({
     resolver: yupResolver(dynamicSchema),
     defaultValues: {
@@ -128,6 +125,7 @@ const ProLevelList = ({
 
   useEffect(() => {
     const subscription = watch((value) => {
+      setDynamicFields({});
       SportFormData?.sports?.map((sport: SportProps) => {
         if (sport?.value?.answer === "Peşəkar") {
           addDynamicField(sport?.name + "score");
@@ -178,7 +176,6 @@ const ProLevelList = ({
       });
 
       reset({
-        ...updatedFormData,
         professionalSports: updatedSports,
       });
       return updatedSports;
@@ -191,7 +188,6 @@ const ProLevelList = ({
       onSubmit={handleSubmit(onSubmit)}
       className="mt-7 flex-col flex gap-5 h-[400px] overflow-y-auto pr-5"
     >
-      <DevTool control={control} placement="top-left" />
       {proSports?.length !== 0 &&
         proSports.map((item: any, index: number) => {
           return (

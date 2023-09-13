@@ -207,8 +207,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
   useEffect(() => {
     if (watch("whichSport")?.length !== 0) {
       setValue("haveSport", { answer: "Var", weight: null });
-    }
-    if (
+    } else if (
       watch("whichSport")?.length === 0 &&
       watch("haveSport.answer") === "Var"
     ) {
@@ -216,6 +215,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     }
 
     if (formData?.whichSport?.length > 0) {
+      setDynamicFields({});
       formData?.whichSport.map((item: string) => addDynamicField(item));
     }
   }, [formData?.whichSport?.length]);
@@ -261,8 +261,8 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
       });
 
       reset({
-        ...updatedFormData,
-        whichSport: [],
+        haveSport: { answer: "Var", weight: "" },
+        whichSport: formData?.whichSport || [],
         sports: updatedSports,
       });
 
