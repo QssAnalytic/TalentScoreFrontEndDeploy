@@ -28,7 +28,7 @@ const schema = yup.object().shape({
     .object()
     .shape({
       answer: yup.string().required("This field is required"),
-      weight: yup.string().optional().nullable(),
+      answer_weight: yup.string().optional().nullable(),
     })
     .required(),
 
@@ -36,7 +36,7 @@ const schema = yup.object().shape({
     .object()
     .shape({
       answer: yup.string().required("This field is required"),
-      weight: yup.string().optional().nullable(),
+      answer_weight: yup.string().optional().nullable(),
     })
     .required(),
 
@@ -44,7 +44,7 @@ const schema = yup.object().shape({
     .object()
     .shape({
       answer: yup.string().required("This field is required"),
-      weight: yup.string().required(),
+      answer_weight: yup.string().required(),
     })
     .required(),
 
@@ -52,7 +52,7 @@ const schema = yup.object().shape({
     .object()
     .shape({
       answer: yup.string().required("This field is required"),
-      weight: yup.string().required(),
+      answer_weight: yup.string().required(),
     })
     .required(),
 });
@@ -106,19 +106,19 @@ const OlympiadQuestionsForm = ({
   } = useForm<OlympiadQuestionsFormValues>({
     resolver: yupResolver<OlympiadQuestionsFormValues>(schema),
     defaultValues: {
-      wonOlympics: { answer: "", weight: "" },
-      subjectOlympiad: { answer: "", weight: "" },
-      highestOlympiad: { answer: "", weight: "" },
-      rankOlympiad: { answer: "", weight: "" },
+      wonOlympics: { answer: "", answer_weight: "" },
+      subjectOlympiad: { answer: "", answer_weight: "" },
+      highestOlympiad: { answer: "", answer_weight: "" },
+      rankOlympiad: { answer: "", answer_weight: "" },
     },
   });
 
-  const onSubmit: SubmitHandler<OlympiadQuestionsFormValues> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<OlympiadQuestionsFormValues> = (data) => {}
+    // console.log(data);
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
+      // console.log(value);
       trigger();
       dispatch(
         updateStageForm({
@@ -136,7 +136,7 @@ const OlympiadQuestionsForm = ({
   useEffect(() => {
     if (formData?.wonOlympics?.answer === "Xeyr") {
       reset({
-        wonOlympics: { answer: "Xeyr", weight: null },
+        wonOlympics: { answer: "Xeyr", answer_weight: null },
       });
     }
   }, [formData?.wonOlympics?.answer]);
@@ -157,7 +157,7 @@ const OlympiadQuestionsForm = ({
     { register: register("rankOlympiad") },
   ];
 
-  console.log("formdata", formData);
+  // console.log("formdata", formData);
 
   return (
     <form

@@ -21,7 +21,7 @@ import ButtonSave from "components/ButtonSave";
 import { useNavigate } from "react-router-dom";
 
 export type SportFormValues = {
-  haveSport: { answer: string; weight: string };
+  haveSport: { answer: string; answer_weight: string };
   whichSport: string[];
   sports: [];
   [key: string]: string | any;
@@ -32,7 +32,7 @@ const schema = yup
     haveSport: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().optional().nullable(),
+        answer_weight: yup.string().optional().nullable(),
       })
       .required(),
     whichSport: yup.array().when("haveSport", {
@@ -102,7 +102,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
           .object()
           .shape({
             answer: yup.string().required(),
-            weight: yup.string().optional().nullable(),
+            answer_weight: yup.string().optional().nullable(),
           })
           .required(`${fieldName} is required`),
       },
@@ -143,7 +143,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
   } = useForm<SportFormValues | any>({
     resolver: yupResolver(dynamicSchema),
     defaultValues: {
-      haveSport: { answer: "", weight: "" },
+      haveSport: { answer: "", answer_weight: "" },
       whichSport: [],
       sports: [],
     },
@@ -197,7 +197,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
       );
 
       reset({
-        haveSport: { answer: "Yoxdur", weight: "" },
+        haveSport: { answer: "Yoxdur", answer_weight: "" },
         whichSport: [],
         sports: [],
       });
@@ -206,12 +206,12 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
 
   useEffect(() => {
     if (watch("whichSport")?.length !== 0) {
-      setValue("haveSport", { answer: "Var", weight: null });
+      setValue("haveSport", { answer: "Var", answer_weight: null });
     } else if (
       watch("whichSport")?.length === 0 &&
       watch("haveSport.answer") === "Var"
     ) {
-      setValue("haveSport", { answer: "", weight: null });
+      setValue("haveSport", { answer: "", answer_weight: null });
     }
 
     if (formData?.whichSport?.length > 0) {
@@ -235,7 +235,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     { register: register("whichSport") },
   ];
 
-  console.log("err", errors);
+  // console.log("err", errors);
 
   const handleRemove = async (item: string) => {
     setValue(
@@ -261,7 +261,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
       });
 
       reset({
-        haveSport: { answer: "Var", weight: "" },
+        haveSport: { answer: "Var", answer_weight: "" },
         whichSport: formData?.whichSport || [],
         sports: updatedSports,
       });
@@ -270,7 +270,7 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
     }
   };
 
-  console.log("formdata", formData);
+  // console.log("formdata", formData);
 
   return (
     <form
