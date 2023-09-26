@@ -60,6 +60,6 @@ export interface ISelectedValue {
 }
 
 export interface SelectedValue {
-  answer? : string[] | string;
+  answer? : any[] | string;
   answer_weight? : string | null | undefined;
 }
