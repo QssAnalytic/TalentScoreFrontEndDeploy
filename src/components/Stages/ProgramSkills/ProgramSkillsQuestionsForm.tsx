@@ -184,6 +184,7 @@ const ProgramSkills = ({
   const onSubmit: SubmitHandler<ProgramSkillsValues | any> = (data) => {
     dispatch(setShowReport(!showReport));
     fillSkills();
+    reset(formData);
   };
 
   useEffect(() => {
@@ -299,7 +300,7 @@ const ProgramSkills = ({
         programSkills: updatedSkills,
       });
 
-      // nav("/"); // after submitting form that will forward user to home page
+      nav("/"); // after submitting form that will forward user to home page
     }
   };
   // console.log("errors", errors);

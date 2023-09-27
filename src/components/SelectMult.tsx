@@ -36,7 +36,7 @@ const SelectMult = ({
   // const [selected, setSelected] = useState(value);
   // const [selected, setSelected] = useState(value?.[0]);
   // const [selected, setSelected] = useState<SelectedValue[]>(value || []);
-  const [selected, setSelected] = useState<SelectedValue[]>(value || []); // Updated version
+  const [selected, setSelected] = useState<SelectedValue[]>([]); // Updated version
 
   const selectValid = useSelector(
     (state: RootState) => state.dataa.validationSelect
@@ -44,7 +44,7 @@ const SelectMult = ({
 
   useEffect(() => {
     setSelected(value || []);
-  }, [value]);
+  }, []);
 
   return (
     <Listbox

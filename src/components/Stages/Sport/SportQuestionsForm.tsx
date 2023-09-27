@@ -250,13 +250,13 @@ const SportForm = ({ stageIndex, subStageSlug }: GeneralQuestionsFormProps) => {
   const fillSports = () => {
     if (formData?.whichSport?.length > 0) {
       const updatedFormData: any = { ...formData };
-      const updatedSports = formData.whichSport.map((item: string) => {
+      const updatedSports = formData.whichSport.map((item: IAnswer) => {
         if (
-          formData[item]?.answer === "Peşəkar" ||
-          formData[item]?.answer === "Həvəskar"
+          formData[item.answer_title]?.answer === "Peşəkar" ||
+          formData[item.answer_title]?.answer === "Həvəskar"
         ) {
-          delete updatedFormData[item];
-          return { name: item, value: formData[item] };
+          delete updatedFormData[item.answer_title];
+          return { name: item.answer_title, value: formData[item.answer_title] };
         }
       });
 
