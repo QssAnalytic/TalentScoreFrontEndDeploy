@@ -177,8 +177,8 @@ const LanguageQuestionsForm = ({
     );
   if (questionsError) return <div>Error</div>;
 
-  console.log(errLength);
-  console.log(errors);
+  // console.log(errLength);
+  // console.log(errors);
 
   return (
     <form

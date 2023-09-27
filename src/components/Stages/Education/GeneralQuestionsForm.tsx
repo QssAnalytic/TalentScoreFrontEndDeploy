@@ -20,19 +20,19 @@ const schema = yup
     curOccupation: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
+        answer_weight: yup.string().required(),
       })
       .required(),
     education: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
+        answer_weight: yup.string().required(),
       })
       .required(),
     educationGrant: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().required(),
+        answer_weight: yup.string().required(),
       })
       .required(),
   })
@@ -86,9 +86,9 @@ const GeneralQuestionsForm = ({
   } = useForm<GeneralQuestionsFormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
-      curOccupation: { answer: "", weight: "" },
-      education: { answer: "", weight: "" },
-      educationGrant: { answer: "", weight: "" },
+      curOccupation: { answer: "", answer_weight: "" },
+      education: { answer: "", answer_weight: "" },
+      educationGrant: { answer: "", answer_weight: "" },
     },
   });
 

@@ -17,10 +17,11 @@ import * as yup from "yup";
 import ButtonSave from "components/ButtonSave";
 import { addErrorsLength, addSelect } from "state/dataSlice";
 import { useNavigate } from "react-router-dom";
+import { IAnswer } from "types";
 
 export type SpecialSkillsFormValues = {
   haveSpecialSkills: { answer: string; weight: string };
-  specialSkills: string[];
+  specialSkills: any[];
   skills: [];
   [key: string]: string | any;
 };
@@ -118,10 +119,10 @@ const SpecialSkillsForm = ({
 
   const [dynamicFields, setDynamicFields] = useState<DynamicFields>({});
 
-  const addDynamicField = (fieldName: string) => {
+  const addDynamicField = (fieldName: IAnswer) => {
     setDynamicFields((prevDynamicFields) => ({
       ...prevDynamicFields,
-      [fieldName]: {
+      [fieldName.answer_title]: {
         schema: yup
           .object()
           .shape({
@@ -133,10 +134,10 @@ const SpecialSkillsForm = ({
     }));
   };
 
-  const removeDynamicField = (fieldName: string) => {
+  const removeDynamicField = (fieldName: IAnswer) => {
     setDynamicFields((prevDynamicFields) => {
       const updatedFields = { ...prevDynamicFields };
-      delete updatedFields[fieldName];
+      delete updatedFields[fieldName.answer_title];
       return updatedFields;
     });
   };
@@ -256,13 +257,13 @@ const SpecialSkillsForm = ({
   const fillSkills = () => {
     if (formData?.specialSkills?.length > 0) {
       const updatedFormData: any = { ...formData };
-      const updatedSkills = formData.specialSkills.map((item: string) => {
+      const updatedSkills = formData.specialSkills.map((item: IAnswer) => {
         if (
-          formData[item]?.answer === "Peşəkar" ||
-          formData[item]?.answer === "Həvəskar"
+          formData[item.answer_title]?.answer === "Peşəkar" ||
+          formData[item.answer_title]?.answer === "Həvəskar"
         ) {
-          delete updatedFormData[item];
-          return { name: item, value: formData[item] };
+          delete updatedFormData[item.answer_title];
+          return { name: item.answer_title, value: formData[item.answer_title] };
         }
       });
 
@@ -315,8 +316,8 @@ const SpecialSkillsForm = ({
             <div className="space-y-2 animate-fade-in">
               <label className="pl-2">{questions?.[2]?.question_title}*</label>
               <div className="flex gap-5 flex-col">
-                {formData?.specialSkills?.map((item, idx) => {
-                  const skillErr = errors[item] ? errors[item] : "";
+                {formData?.specialSkills?.map((item : IAnswer, idx) => {
+                  const skillErr = errors[item.answer_title] ? errors[item.answer_title] : "";
 
                   return (
                     <div
@@ -325,17 +326,17 @@ const SpecialSkillsForm = ({
                     >
                       <div className="py-2 px-2 gap-1 rounded-full whitespace-nowrap bg-qss-input flex justify-center items-center w-64">
                         <span className="w-3/4 flex justify-center">
-                          {item}
+                          {item.answer_title}
                         </span>
                         <XCircleIcon
                           onClick={() => {
                             setValue(
                               "specialSkills",
                               formData?.specialSkills?.filter(
-                                (specialSkill) => specialSkill !== item
+                                (specialSkill) => specialSkill !== item.answer_title
                               )
                             );
-                            setValue(`${item}`, undefined);
+                            setValue(`${item.answer_title}`, undefined);
                             removeDynamicField(item);
                           }}
                           className="w-5 h-5 text-red-400 cursor-pointer"
@@ -344,8 +345,8 @@ const SpecialSkillsForm = ({
                       <div className="flex  w-full justify-between">
                         <Radio
                           options={questions?.[2]?.answers}
-                          value={watch(item)}
-                          register={register(item)}
+                          value={watch(item.answer_title)}
+                          register={register(item.answer_title)}
                           errors={skillErr}
                           trigger={trigger}
                         />
