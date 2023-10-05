@@ -6,10 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 import ClockLoader from "react-spinners/ClockLoader";
 
-import {
-  useGetQuestionsQuery,
-  useGetStageQuery,
-} from "../../../services/stage";
+import GetStage from "../../../services/GetStage";
 import LanguageAdd, { AddLangFormValues } from "./components/LanguageAdd";
 import { addRemove, addPop, addSelect, addErrorsLength } from "state/dataSlice";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
@@ -28,7 +25,6 @@ interface RootState {
     errorsLength: number;
   };
 }
-
 const schema = yup.object({
   languageSkills: yup.array().min(1).required(),
   haveLanguageSkills: yup
@@ -38,13 +34,14 @@ const schema = yup.object({
     })
     .required(),
 });
-
 export type LanguageQuestionsFormValues = yup.InferType<typeof schema>;
 
 const LanguageQuestionsForm = ({
   stageIndex,
   subStageSlug,
 }: GeneralQuestionsFormProps) => {
+  
+  const { useGetStageQuery, useGetQuestionsQuery } = GetStage()
   const { data: stagesData } = useGetStageQuery();
 
   const { stage_children } = stagesData?.[stageIndex] || {};
@@ -177,8 +174,8 @@ const LanguageQuestionsForm = ({
     );
   if (questionsError) return <div>Error</div>;
 
-  console.log(errLength);
-  console.log(errors);
+  // console.log(errLength);
+  // console.log(errors);
 
   return (
     <form

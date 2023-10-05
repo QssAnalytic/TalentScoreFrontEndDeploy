@@ -198,7 +198,7 @@ const LanguageAdd = ({
     }
   };
 
-  console.log(errors);
+  // console.log(errors);
 
   const handleLangLevel = (engCertResult: string | undefined) => {
     switch (engCertResult) {

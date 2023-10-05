@@ -9,9 +9,10 @@ import { ReactComponent as StageSkills } from "../assets/skills.svg";
 import { ReactComponent as StageSport } from "../assets/sport.svg";
 import { ReactComponent as StageProg } from "../assets/programmer.svg";
 import { ReactComponent as StageExperience } from "../assets/programmerBoy.svg";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";  
 import Stage from "components/Stage";
 import PopUp from "components/PopUp";
+import NavBar from "./Landing/components/NavBar";
 
 interface RootState {
   dataa: {
@@ -58,29 +59,36 @@ const Stages = () => {
     }
   };
   return (
-    <div className={`relative ${popUp && "overflow-hidden"}`}>
-      <PopUp display={popUp === true ? "block" : "hidden"} />
-      <Pattern className="absolute left-0 top-0" />
-      <div className="w-[3px] h-[314px] bg-white absolute left-4" />
-      <div className="w-[2px] h-[407px] bg-white absolute left-[25.5px]" />
-      <div className="flex justify-between relative pl-10 pt-10">
-        <div className="space-y-8 text-white">
-          <div className="space-y-2">
-            <Link to="/">
-              <Logo className="w-52 h-7" />
-            </Link>
-            <p>Süni intelekt sistemi</p>
-          </div>
-
-          <p className="max-w-[234px]">
-            Bu formu doldurduqdan sonra öz yaşıdlarınız arasında ən yaxşı hansı
-            faizlikdə olduğunuzu müəyyən edə biləcəksiniz.
-          </p>
-        </div>
-        <Stage />
+    <>
+      <div className="w-full z-10 relative px-[220px]">
+        <NavBar />
       </div>
-      <div>{getFrame()}</div>
-    </div>
+
+      <div className={`relative ${popUp && "overflow-hidden"}`}>
+
+        <PopUp display={popUp === true ? "block" : "hidden"} />
+        <Pattern className="absolute left-0 top-0" />
+        <div className="w-[3px] h-[314px] bg-white absolute left-4" />
+        <div className="w-[2px] h-[407px] bg-white absolute left-[25.5px]" />
+        <div className="flex justify-between relative pl-10 pt-10">
+          <div className="space-y-8 text-white">
+            <div className="space-y-2">
+              <Link to="/">
+                <Logo className="w-52 h-7" />
+              </Link>
+              <p>Süni intelekt sistemi</p>
+            </div>
+
+            <p className="max-w-[234px]">
+              Bu formu doldurduqdan sonra öz yaşıdlarınız arasında ən yaxşı hansı
+              faizlikdə olduğunuzu müəyyən edə biləcəksiniz.
+            </p>
+          </div>
+          <Stage />
+        </div>
+        <div>{getFrame()}</div>
+      </div>
+    </>
   );
 };
 

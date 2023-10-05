@@ -27,19 +27,20 @@ type ExperienceAdd = {
   formData?: any;
 };
 
+
 const schema = yup.object({
   company: yup.string().required(),
   profession: yup.string().required(),
   workingActivityForm: yup
     .object({
       answer: yup.string().required(),
-      weight: yup.string().required(),
+      answer_weight: yup.string().required(),
     })
     .required(),
   degreeOfProfes: yup
     .object({
       answer: yup.string().required(),
-      weight: yup.string().required(),
+      answer_weight: yup.string().required(),
     })
     .required(),
   startDate: yup.string().required(),
@@ -81,7 +82,7 @@ const ExperienceAdd = ({
   });
   const dispatch = useAppDispatch();
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    // console.log('Experience' + data);
   });
 
   dispatch(addErrorsLength(Object.keys(errors).length));
@@ -134,12 +135,12 @@ const ExperienceAdd = ({
     if (watch().company !== undefined && editData === undefined) {
       parentReset({
         ...formData,
-        haveJobExperience: { answer: "Bəli", weight: "" },
+        haveJobExperience: { answer: "Bəli", answer_weight: "" },
       });
     }
   }, [watch("company")]);
 
-  console.log(errors);
+  // console.log(errors);
   return (
     <div className="relative flex flex-col gap-2" onSubmit={onSubmit}>
       <>

@@ -81,20 +81,20 @@ const schema = yup
     tehsil: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().optional().nullable(),
+        answer_weight: yup.string().optional().nullable(),
       })
       .required(),
     country: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().optional().nullable(),
+        answer_weight: yup.string().optional().nullable(),
       })
       .required(),
     university: yup.string().required(),
     specialty: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().optional().nullable(),
+        answer_weight: yup.string().optional().nullable(),
       })
       .required(),
     currentWorking: yup.boolean(),
@@ -111,19 +111,19 @@ const schema = yup
     criterian: yup
       .object({
         answer: yup.string().required(),
-        weight: yup.string().optional().nullable(),
+        answer_weight: yup.string().optional().nullable(),
       })
       .required(),
     local: yup.object({
       examName: yup.string().when("criterian", {
-        is: (criterian: { answer: string; weight: string }) =>
+        is: (criterian: { answer: string; answer_weight: string }) =>
           criterian?.answer === "Lokal imtahan" ||
           criterian?.answer === "Hər ikisi",
         then: () => yup.string().required(),
         otherwise: () => yup.string().optional(),
       }),
       score: yup.number().when("criterian", {
-        is: (criterian: { answer: string; weight: string }) =>
+        is: (criterian: { answer: string; answer_weight: string }) =>
           criterian?.answer === "Lokal imtahan" ||
           criterian?.answer === "Hər ikisi",
         then: () =>
@@ -138,7 +138,7 @@ const schema = yup
         otherwise: () => yup.string().optional(),
       }),
       maxScore: yup.number().when("criterian", {
-        is: (criterian: { answer: string; weight: string }) =>
+        is: (criterian: { answer: string; answer_weight: string }) =>
           criterian?.answer === "Lokal imtahan" ||
           criterian?.answer === "Hər ikisi",
         then: () => yup.number().required().min(0),
@@ -153,7 +153,7 @@ const schema = yup
       })
       .optional(),
     application: yup.array().when("criterian", {
-      is: (criterian: { answer: string; weight: string }) =>
+      is: (criterian: { answer: string; answer_weight: string }) =>
         criterian?.answer === "Müraciyyət" || criterian?.answer === "Hər ikisi",
       then: () => yup.array().min(1),
       otherwise: () => yup.array(),
@@ -161,7 +161,7 @@ const schema = yup
     Att: yup.string().when(["application", "criterian"], {
       is: (
         application: Array<string>,
-        criterian: { answer: string; weight: string }
+        criterian: { answer: string; answer_weight: string }
       ) =>
         (application.find((x) => x === "Attestat - GPA") &&
           criterian?.answer === "Müraciyyət") ||
@@ -171,7 +171,7 @@ const schema = yup
     SAT: yup.string().when(["application", "criterian"], {
       is: (
         application: Array<string>,
-        criterian: { answer: string; weight: string }
+        criterian: { answer: string; answer_weight: string }
       ) =>
         application.find((x) => x === "SAT") &&
         (criterian?.answer === "Müraciyyət" ||
@@ -181,7 +181,7 @@ const schema = yup
     GRE: yup.string().when(["application", "criterian"], {
       is: (
         application: Array<string>,
-        criterian: { answer: string; weight: string }
+        criterian: { answer: string; answer_weight: string }
       ) =>
         application.find((x) => x === "GRE/GMAT") &&
         (criterian?.answer === "Müraciyyət" ||
@@ -191,7 +191,7 @@ const schema = yup
     ielts: yup.string().when(["application", "criterian"], {
       is: (
         application: Array<string>,
-        criterian: { answer: string; weight: string }
+        criterian: { answer: string; answer_weight: string }
       ) =>
         application.find((x) => x === "Language test (IELTS TOEFL)") &&
         (criterian?.answer === "Müraciyyət" ||
@@ -201,7 +201,7 @@ const schema = yup
     toefl: yup.string().when(["application", "criterian"], {
       is: (
         application: Array<string>,
-        criterian: { answer: string; weight: string }
+        criterian: { answer: string; answer_weight: string }
       ) =>
         application.find((x) => x === "Language test (IELTS TOEFL)") &&
         (criterian?.answer === "Müraciyyət" ||
@@ -355,28 +355,28 @@ const FormEducations = ({
               id: 10,
               answer_title: "Peşə təhsili",
               stage_fit: "",
-              answer_weight: null,
+              answer_weight: '',
               answer_dependens_on: null,
             },
             {
               id: 11,
               answer_title: "Bakalavr",
               stage_fit: "",
-              answer_weight: null,
+              answer_weight: '',
               answer_dependens_on: null,
             },
             {
               id: 12,
               answer_title: "Magistratura",
               stage_fit: "",
-              answer_weight: null,
+              answer_weight: '',
               answer_dependens_on: null,
             },
             {
               id: 13,
               answer_title: "PhD",
               stage_fit: "",
-              answer_weight: null,
+              answer_weight: '',
               answer_dependens_on: null,
             },
           ]}

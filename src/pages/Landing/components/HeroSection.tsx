@@ -1,17 +1,32 @@
 import { Link } from "react-router-dom";
 import HeroImg from "assets/hero-image.webp";
-import { useGetStageQuery } from "services/stage";
+import useAuth from "hooks/useAuth";
+import { useEffect, useState } from "react";
+// import {  useGetStageQuery } from "services/stage";
+
 
 const HeroSection = () => {
-  const { data } = useGetStageQuery();
-  const {
-    slug: slugName,
-    stage_name: stageName,
-    stage_children,
-  } = data?.[0] || {};
-  const { slug: subSlugName, stage_name: subStageName } =
-    stage_children?.[0] || {};
+  const { user } = useAuth()
+	const [isLogin, setIsLogin] = useState(false);
 
+
+	useEffect(()=>{
+		if(user.first_name){
+		setIsLogin(true)
+		return
+	}
+	},[user])
+
+  // const { data } = useGetStageQuery();
+  // const {
+  //   slug: slugName,
+  //   stage_name: stageName,
+  //   stage_children,
+  // } = data?.[0] || {};
+  // const { slug: subSlugName, stage_name: subStageName } =
+  //   stage_children?.[0] || {};
+
+    
   return (
     <div
       className="flex flex-col lg:flex-row object-cover  text-qss-primary"
@@ -44,13 +59,14 @@ const HeroSection = () => {
             <p className="font-semibold text-sm max-w-[352px] text-justify">
               You can get score easy now
             </p>
-            <Link
+            {/* <Link
               to={`/stages/${slugName}/${subSlugName}`}
               state={{
                 subStageName: subStageName,
                 stageName: stageName,
               }}
-            >
+            > */}
+            <Link to={`/${isLogin?'profile':'login'}`}>
               <button className="flex justify-center items-center py-3 px-8 text-white rounded-full bg-qss-primary">
                 Get started
               </button>

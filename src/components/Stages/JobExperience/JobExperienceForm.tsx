@@ -4,10 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 
-import {
-  useGetQuestionsQuery,
-  useGetStageQuery,
-} from "../../../services/stage";
+import GetStage from "../../../services/GetStage";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { addErrorsLength, addPop, addRemove, addSelect } from "state/dataSlice";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
@@ -21,7 +18,7 @@ import Experiences from "./Experiences";
 import Radio from "components/RadioInput";
 
 export interface JobExperienceValues {
-  haveJobExperience: { answer: string; weight: string | null };
+  haveJobExperience: { answer: string; answer_weight: string | null };
   experiences: AddExpFormValues[];
 }
 
@@ -42,7 +39,7 @@ const schema = yup.object({
   haveJobExperience: yup
     .object({
       answer: yup.string().required(),
-      weight: yup.string().optional().nullable(),
+      answer_weight: yup.string().optional().nullable(),
     })
     .required(),
   experiences: yup.array().when("haveJobExperience", {
@@ -56,8 +53,11 @@ const JobExperienceForm = ({
   stageIndex,
   subStageSlug,
 }: GeneralQuestionsFormProps) => {
+  
+  const { useGetStageQuery, useGetQuestionsQuery } = GetStage()
   const { data: stagesData } = useGetStageQuery();
 
+ 
   const { stage_children } = stagesData?.[stageIndex] || {};
 
   const {
@@ -115,12 +115,14 @@ const JobExperienceForm = ({
   } = useForm<JobExperienceValues | any>({
     resolver: yupResolver(schema),
     defaultValues: {
-      haveJobExperience: { answer: "", weight: null },
+      haveJobExperience: { answer: "", answer_weight: null },
       experiences: [],
     },
   });
 
-  const onSubmit: SubmitHandler<JobExperienceValues> = (data) => {};
+  const onSubmit: SubmitHandler<JobExperienceValues> = (data) => {
+    // console.log(data);
+  };
 
   const { formData } =
     (useAppSelector((state) => state.stageForm)?.find(
@@ -165,6 +167,7 @@ const JobExperienceForm = ({
     setIsEditing({ edit: true, data });
   };
 
+
   if (remove === true) {
     const filterData =
       formData?.experiences &&
@@ -194,12 +197,12 @@ const JobExperienceForm = ({
 
   useEffect(() => {
     if (formData?.experiences?.length === 1) {
-      setValue("haveJobExperience", { answer: "Bəli", weight: null });
+      setValue("haveJobExperience", { answer: "Bəli", answer_weight: null });
     } else if (
       formData?.experiences?.length === 0 &&
       formData.haveJobExperience.answer === "Bəli"
     ) {
-      setValue("haveJobExperience", { answer: "", weight: null });
+      setValue("haveJobExperience", { answer: "", answer_weight: null });
     }
 
     setDisplayRadio(
@@ -211,8 +214,8 @@ const JobExperienceForm = ({
     dispatch(addSelect(false));
   }, [watch("haveJobExperience.answer")]);
 
-  console.log(formData);
-  console.log(errors);
+  // console.log(formData);
+  // console.log(errors);
 
   return (
     <form

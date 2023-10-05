@@ -36,7 +36,7 @@ const Select = ({
   const [selected, setSelected] = useState(value);
   const copy = {
     answer: '',
-    weight: ''
+    answer_weight: ''
   }
 
   const selectValid = useSelector((state: RootState) => state.dataa.validationSelect);
@@ -91,7 +91,7 @@ const Select = ({
             <Listbox.Option
               key={id}
               className="px-4 py-2.5 flex items-center justify-between group hover:bg-qss-base-400 cursor-pointer hover:text-qss-secondary hover:font-medium"
-              value={{ answer: answer_title, weight: answer_weight }}
+              value={{ answer: answer_title, answer_weight: answer_weight }}
             >
               <>
                 <span

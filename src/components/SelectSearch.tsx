@@ -106,7 +106,7 @@ const SelectSearch = ({
             <Listbox.Option
               key={index}
               className=" px-4 py-2.5 flex items-center justify-between group hover:bg-qss-base-400 cursor-pointer hover:text-qss-secondary hover:font-medium"
-              value={{ answer: item.answer_title, weight: item.answer_weight }}
+              value={{ answer: item.answer_title, answer_weight: item.answer_weight }}
               onClick={handleClick}>
               <>
                 <span
