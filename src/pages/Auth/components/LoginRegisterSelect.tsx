@@ -51,7 +51,7 @@ const LoginRegisterSelect = ({ options, label, register, defaultvalue, errors }:
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Listbox.Options className="absolute top-20 left-0 border bg-white border-gray-300 max-h-60 w-full overflow-auto rounded-md  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            <Listbox.Options className="absolute z-30 top-20 left-0 border bg-white border-gray-300 max-h-60 w-full overflow-auto rounded-md  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                 {options.map((option, idx) => (
                                     <Listbox.Option
                                         key={idx}

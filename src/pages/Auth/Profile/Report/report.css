@@ -648,14 +648,16 @@ body.active-modal {
     .report-body {
         padding: 37.9px 42.5px 0 42.5px;
     }
+    .cv{
+        
+        width: 626.3px;
+        height: 841px;
+        background-color: #fff;
+    }
 }
-
 
 .input-container{
     display: flex;
-    width: 70%;
-    margin: 0 auto;
-    align-items: center;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;

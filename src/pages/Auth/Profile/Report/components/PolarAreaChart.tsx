@@ -33,16 +33,16 @@ const PolarAreaChart = ({ data }: { data: ChartData }) => {
                 // This method used for display the value of each stage with its value, text and colored circle 
                 dataArray.map((elem, i) => (
                     <div key={i} className={`chart-2-info chart-2-info-${i + 1} ${(i === 4 || i === 5) ? 'chart2-info-reverse' : ''}`}>
-                        <p className='chart-2-percent'>{elem.score}%</p>
+                        <p className='chart-2-percent'>{+elem?.score}%</p>
                         <div className='chart2-field'>
                             <div style={{
                                 width: '6px',
                                 height: '6px',
-                                backgroundColor: `${elem.education_color}`,
+                                backgroundColor: `${elem?.education_color}`,
                                 borderRadius: '50%'
                             }}
                             ></div>
-                            <p className='chart-2-text'>{elem.text}</p>
+                            <p className='chart-2-text'>{elem?.text}</p>
                         </div>
                     </div>
                 ))

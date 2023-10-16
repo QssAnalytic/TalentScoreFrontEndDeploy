@@ -7,6 +7,7 @@ export  interface AuthContextType {
             last_name:string,
             report_test:boolean,
             email:string,
+            profile_photo:string    
             
         }; // Adjust this according to your actual context structure
         setUser: (user:any) => void;

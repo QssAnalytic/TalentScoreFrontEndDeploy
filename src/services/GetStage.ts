@@ -2,11 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IQuestion, IStage } from "../types";
 import getToken from "helper/getToken";
 import useAuth from "hooks/useAuth";
+import { useEffect, useState } from "react";
 
 
 
 function GetStage() {
   const accessToken = getToken()
+  
+  // const accessToken = localStorage.getItem('access_token') || ''
   const stageApi = createApi(
     {
       reducerPath: "stageApi",
@@ -51,6 +54,7 @@ function GetStage() {
             }
           }),
         }),
+
       }),
     }
   );

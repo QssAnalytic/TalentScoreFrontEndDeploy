@@ -12,13 +12,17 @@ import axios from "axios";
 import axiosInstance from "axioss";
 import { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
+import SelectSearch from "components/SelectSearch";
 
 export type IRegisterFormValues = Yup.InferType<typeof RegisterSchema>;
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().min(3, "Name must be minimum 3 characters").required("Please enter the fullname"),
     surname: Yup.string().min(5, "Surname must be minimum 3 characters").required("Please enter the surname"),
-    country: Yup.string().min(5).required("Please enter the country"),
+    country: Yup.object().shape({
+        answer:Yup.string().required("Please enter the country"),
+        answer_weight:Yup.string()
+    }),
     nativelanguage: Yup.string().min(5).required("Please enter the language"),
     gender: Yup.string().required("Please enter the gender"),
     email: Yup.string().required("Email is required").matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter the valid email"),
@@ -35,7 +39,10 @@ const RegisterSection = () => {
             name: "",
             surname: "",
             gender: "",
-            country: "",
+            country: {
+                answer:'',
+                answer_weight:''
+            },
             nativelanguage: "",
             email: "",
             password: "",
@@ -46,19 +53,39 @@ const RegisterSection = () => {
         }
     });
 
-    
 
+
+    const [countryList, setCountryList] = useState({})
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const { user } = useAuth()
 
 
-	useEffect(()=>{
-		if(user.first_name){
-        navigate('/')
-	}
-	},[user])
+    useEffect(() => {
+        if (user.first_name) {
+            navigate('/')
+        }
+    }, [user])
+
+    useEffect(() => {
+        async function getCountries() {
+            const { data } = await axiosInstance('user/get-countries')
+            setCountryList((last) => {
+                return data.map((elem: any, index: number) => {
+                    return {
+                        id: index,
+                        answer_title: elem.name,
+                        stage_fit: "",
+                        answer_weight: '',
+                        answer_dependens_on: null,
+
+                    }
+                })
+            })
+        }
+        getCountries()
+    }, [])
 
     const onSubmit: SubmitHandler<IRegisterFormValues> = data => {
         const sendedData = {
@@ -67,21 +94,23 @@ const RegisterSection = () => {
             birth_date: Number(data.year) + "-" + Number(data.month) + "-" + Number(data.day),
             gender: data.gender,
             native_language: data.nativelanguage,
-            country: data.country,
+            country: data.country.answer,
             email: data.email,
             password: data.password,
             password2: data.confirmpassword
         }
 
+        console.log(sendedData);
+
 
         const signUp = async () => {
-            
+
             try {
                 const response = await axiosInstance.post('user/register/', JSON.stringify(sendedData))
 
                 setLoading(false)
                 console.log('success');
-                
+
                 navigate('/login')
             } catch (error) {
                 setLoading(false)
@@ -90,6 +119,7 @@ const RegisterSection = () => {
         signUp()
 
     };
+
 
     return (
         <div className="px-20 py-16 bg-white w-6/12 flex flex-col gap-14 ">
@@ -117,17 +147,21 @@ const RegisterSection = () => {
                             <p className="text-red-500  leading-4">{(errors.day || errors.month || errors.year) ? "Please enter the birth date" : ""}</p>
 
                         </div>
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-1 ">
                             <LoginRegisterSelect errors={errors.gender} label="Gender" options={["Male", "Female"]} register={register('gender')} defaultvalue="Gender..." value={watch('gender')} />
                             <p className="text-red-500  leading-4">{errors.gender ? errors.gender.message : ""}</p>
                         </div>
                         <div className="flex flex-col gap-1">
-                            <LoginRegisterTextInput errors={errors.country} label="Country" type="" icon="" register={register("country")} value={watch('country')} trigger={trigger} name="country" />
+                            <LoginRegisterTextInput errors={errors.country} label="Country" type="select" icon="" register={register("country")} value={watch('country')} options={countryList} trigger={trigger} name="country" />
+
+                        
                             <p className="text-red-500  leading-4">{errors.country ? errors.country.message : ""}</p>
                         </div>
 
                         <div className="flex flex-col gap-1">
                             <LoginRegisterTextInput errors={errors.nativelanguage} label="Native Language" type="" icon="pajamas:earth" register={register("nativelanguage")} value={watch("nativelanguage")} trigger={trigger} name="nativelanguage" />
+
+
                             <p className="text-red-500  leading-4">{errors.nativelanguage ? errors.nativelanguage.message : ""}</p>
                         </div>
 
@@ -146,7 +180,7 @@ const RegisterSection = () => {
                             <p className="text-red-500  leading-4">{errors.confirmpassword ? errors.confirmpassword.message : ""}</p>
                         </div>
                     </div>
-                    <LoginRegisterButton type="submit" text={`${loading?'Loading...':'Sign up'}`}  buttonClassName={`${loading?'disabled':''}w-full bg-qss-primary rounded-3xl  p-3 text-center text-white mt-3 `} />
+                    <LoginRegisterButton type="submit" text={`${loading ? 'Loading...' : 'Sign up'}`} buttonClassName={`${loading ? 'disabled' : ''}w-full bg-qss-primary rounded-3xl  p-3 text-center text-white mt-3 `} />
                     <p className="w-full text-end text-qss-primary font-normal cursor-pointer my-3">Forgot Password?</p>
                     <p className="text-center w-[405px]"> Already have an account? <Link to={'/login'} className='text-qss-primary'>Log in</Link></p>
                 </form>

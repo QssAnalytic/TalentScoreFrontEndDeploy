@@ -19,6 +19,7 @@ interface PersonalInfo {
   age: number
   testDate: string
   testId: string
+  profile_photo: string
 }
 interface Data {
   sport: DataItem
@@ -46,50 +47,10 @@ interface ReportProps {
 const Report = forwardRef<HTMLDivElement, ReportProps>((props, ref) => {
   const data = props?.mydata?.data
 
-console.log(props);
-const { user } = useAuth()
-
-  // const data = {
-  //   sport: {
-  //     text: 'Sport skills',
-  //     education_color: '#09959A',
-  //     score: 10,
-  //     result:'limited'
-  //   },
-  //   education: {
-  //     text: 'Education',
-  //     education_color: '#00E5BC',
-  //     score: 85,
-  //     result:'limited'
-  //   },
-  //   program: {
-  //     text: 'Program skills',
-  //     education_color: '#8800E0',
-  //     score: 15,
-  //     result:'decent'
-  //   },
-  //   work: {
-  //     text: 'Work experience',
-  //     education_color: '#FFCB05',
-  //     score: 70,
-  //     result:'decent'
-  //   },
-  //   special: {
-  //     text: 'Special talent',
-  //     education_color: '#00A8E1',
-  //     score: 41,
-  //     result:'moderate'
-  //   },
-  //   language: {
-  //     text: 'Language skills',
-  //     education_color: '#FF0038',
-  //     score: 86,
-  //     result:'extensive'
-  //   },
-  // }
+  const { user } = useAuth()
 
 
-  function formatDate(date:Date) {
+  function formatDate(date: Date) {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Note: January is 0!
     const year = date.getFullYear();
@@ -102,6 +63,7 @@ const { user } = useAuth()
   const personalInfo: PersonalInfo = {
     name: user?.first_name,
     surname: user?.last_name,
+    profile_photo: user?.profile_photo,
     age: 23,
     testDate: formattedDate,
     testId: props.mydata?.report_key,
@@ -116,7 +78,7 @@ const { user } = useAuth()
   ]
 
   const { sport, education, program, work, special, language } = data
-  const { name, surname, age, testDate, testId } = personalInfo
+  const { name, surname, age, testDate, testId, profile_photo } = personalInfo
 
   const fullName = `${name} ${surname}`
   const peerVal = 81
@@ -125,11 +87,11 @@ const { user } = useAuth()
   //   return number.toFixed(2)
   // }
   Object.values(data).forEach((item) => {
-    overallVal += item.score;
+    overallVal += +item?.score;
   });
 
   // overallVal = roundToTenDecimalPlaces(+overallVal) / (Object.keys(data)).length
-  overallVal = Number((overallVal/ (Object.keys(data)).length).toFixed(2))
+  overallVal = Number((overallVal / (Object.keys(data)).length).toFixed(2))
   // This function used for the create suffix for the number
   const addOrdinalSuffix = (number: number) => {
     const lastDigit = number % 10
@@ -186,8 +148,8 @@ const { user } = useAuth()
             <p className='test-info'>Test ID: {testId}</p>
           </div>
         </div>
-        <img src={Human} alt='Report Human' className='report-photo' />
-      </div>
+        {profile_photo && <img src={profile_photo} alt='Report Human' className='report-photo' />
+        }      </div>
       <div className='horizontal-line'></div>
       <div className='report-body'>
         <div className='report-part-1'>

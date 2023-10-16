@@ -5,6 +5,8 @@ import useRefreshToken from 'hooks/useRefreshToken'
 import Home from 'pages/Home'
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import Spinner from './Spinner'
+
 
 
 export default function PersistLogin() {
@@ -30,14 +32,16 @@ export default function PersistLogin() {
             }
         }
 
+        
         !accessToken ? verifyUser() : setLoading(false)
 
         return () => {
             isMounted = false
         }
-    }, [])
+    }, [accessToken])
 
     return (
-        loading ? "Loading" : <Outlet />
+        // loading ? "Loading" : <Outlet />
+        loading ? <Spinner/> : <Outlet />
     )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Footer from './../../Landing/components/Footer'
 import NavBar from './../../Landing/components/NavBar'
 import Document from './components/Document'
@@ -16,17 +16,25 @@ import axiosInstance, { axiosPrivateInstance } from 'axioss'
 import useAuth from 'hooks/useAuth'
 import useAxiosPrivate from 'hooks/useAxiosPrivate'
 import useLogout from 'hooks/useLogout'
-import getToken from 'helper/getToken'
+import getToken from 'helper/getToken';
+import { MdModeEditOutline } from 'react-icons/md';
+import { DotLoader, MoonLoader, RingLoader } from 'react-spinners'
+
+import { useAppSelector } from 'state/hooks'
+
+
 
 
 interface DataItem {
     type: string
+    id?: number
     url: string
     path: string
     state?: any
 }
 interface Files {
     report: string,
+    reportId?: number,
     cv1: string,
     cv2: string,
     career: string,
@@ -36,12 +44,18 @@ interface Files {
 
 const Profile: React.FC = () => {
 
+    // const myData = useAppSelector(state=>state)
+    // console.log(myData);
+
     const { useGetStageQuery } = GetStage()
     const { data: stagesData } = useGetStageQuery();
     const axiosPrivateInstance = useAxiosPrivate()
     const navigate = useNavigate()
     const logout = useLogout()
     const [loading, setLoading] = useState(false)
+    const [profilePhotoLoading, setProfilePhotoLoading] = useState(false)
+    const [profilePhoto, setProfilePhoto] = useState(profilPhoto)
+    const [showActions, setShowActions] = useState(false)
     const { user, setUser } = useAuth()
     const [files, setFiles] = useState<Files>({
         report: report,
@@ -49,33 +63,99 @@ const Profile: React.FC = () => {
         cv2: cv2,
         career: career,
         certificate: certificate
-
     })
 
+    const modalRef = useRef<HTMLDivElement>(null);
+
+
+    //Profile photo uploader
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+
+        setProfilePhotoLoading(true)
+        const formData = new FormData();
+        setShowActions(false)
+        if (file) {
+            formData.append('profile_photo', file); 
+
+            try {
+                const response = await axiosPrivateInstance.post('user/upload-profile-photo/', formData, {
+
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                setProfilePhoto(response.data?.profile_photo || profilPhoto);
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+            finally {
+                setProfilePhotoLoading(false)
+            }
+
+        }
+    };
 
 
 
+    //remove profile photo
+    const removeProfilePhoto = async () => {
 
+        try {
+
+            const resp = await axiosPrivateInstance.delete('user/upload-profile-photo/');
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+        finally {
+            setProfilePhoto(profilPhoto)
+            setShowActions(false)
+        }
+    }
+
+    //setting user
     useEffect(() => {
         async function getUser() {
             const { data } = await axiosPrivateInstance.get('user/user/')
-
+            data.profile_photo && setProfilePhoto(data.profile_photo)
             setUser(data)
-            // if (!data?.first_name) {
-            //     navigate('/login')
-            // }
         }
 
         getUser()
 
     }, [])
+
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+                setShowActions(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+
+    console.log(user);
+
     useEffect(() => {
         async function getFiles() {
             const resp = await axiosPrivateInstance.get('user/user-accounts-files/')
 
+            console.log(resp);
+
 
             resp?.data && await setFiles({
                 report: resp.data.find((file: any) => (file.file_category == 'REPORT'))?.file || report,
+                reportId: resp.data.find((file: any) => (file.file_category == 'REPORT'))?.id,
                 cv1: resp.data.find((file: any) => (file.file_category == 'CV'))?.file || cv1,
                 cv2: resp.data.find((file: any) => (file.file_category == 'CV'))?.file || cv2,
                 career: resp.data.find((file: any) => (file.file_category == 'CAREER'))?.file || career,
@@ -87,6 +167,7 @@ const Profile: React.FC = () => {
 
         getFiles()
     }, [files.report, files.career, files.certificate])
+
     const { data } = useGetStageQuery();
 
     const {
@@ -101,9 +182,10 @@ const Profile: React.FC = () => {
     // const [isLogin, setIsLogin] = useState(false);
     const profileData: DataItem[] = [
         {
-            type: 'Report', url: files.report, path: user?.report_test ? '/report' : `/stages/${slugName}/${subSlugName}`, state: {
+
+            id: files.reportId, type: 'Report', url: files.report, path: user?.report_test ? '/report' : `/stages/${slugName}/${subSlugName}`, state: {
                 subStageName: subStageName,
-                stageName: stageName,
+                stageName: stageName
             }
         },
         { type: 'CV', url: files.cv1, path: '/cv' },
@@ -113,12 +195,6 @@ const Profile: React.FC = () => {
         // { type: 'Certificate', url: certificate, path: '/certificate' },
     ]
 
-    // useEffect(()=>{
-    // 	if(user.first_name){    
-    // 	setIsLogin(true)
-
-    // }
-    // },[user])
 
 
 
@@ -131,13 +207,6 @@ const Profile: React.FC = () => {
         await logout()
         navigate('/')
     }
-
-    // (async () => {
-    //     const { data } = await axiosPrivateInstance.post("user/refresh-token/");
-    //     console.log(data);
-    //     return data;
-    // })()
-
 
 
 
@@ -152,8 +221,30 @@ const Profile: React.FC = () => {
                 <div className='bg-qss-transbg h-[224px] flex justify-center'>
                     <div className='w-[1090px] flex items-center'>
                         <div className='flex justify-center items-center w-[32%]'>
-                            <div className='w-[145px] h-[145px] p-[10px] rounded-full overflow-hidden flex justify-center bg-gradient-to-t from-qss-gradientBottom to-qss-gradientTop'>
-                                <img src={profilPhoto} alt='Profile Photo' className='w-full object-cover rounded-full' />
+
+                            <div className='w-[145px] h-[145px] p-[10px] rounded-full  flex justify-center bg-gradient-to-t from-qss-gradientBottom to-qss-gradientTop relative'>
+
+                                {
+                                    profilePhotoLoading ? <div className='w-full h-full flex justify-center items-center'><RingLoader /></div> : <>
+                                        <img src={profilePhoto} alt='Profile Photo' className='w-full object-cover rounded-full' />
+                                        <span className='absolute right-2 bottom-2 rounded-full bg-white p-1'>
+
+                                            <MdModeEditOutline className='cursor-pointer' onClick={() => { setShowActions((curr) => !curr) }} />
+
+
+                                        </span>
+                                    </>
+                                }
+
+
+                                {showActions && <div
+                                    ref={modalRef} className='absolute bg-white top-[90%] left-[90%] rounded-md p-1'>
+                                    <label className='whitespace-nowrap text-[.8rem] cursor-pointer select-none mb-1'>
+                                        Upload photo
+                                        <input type='file' style={{ display: 'none' }} accept='image/*' onChange={handleFileChange} />
+                                    </label>
+                                    <p onClick={removeProfilePhoto} className='whitespace-nowrap text-[.8rem] cursor-pointer select-none'>Remove photo</p>
+                                </div>}
                             </div>
                         </div>
                         <div className='w-[67%]'>
@@ -165,7 +256,7 @@ const Profile: React.FC = () => {
                             <button className='p-4' type='button' onClick={onLogout}>Logout</button>
 
                             {!user.report_test && <Link
-                                to={`/profile/stages/${slugName}/${subSlugName}`}
+                                to={{ pathname: `/profile/stages/${slugName}/${subSlugName}` }}
                                 state={{
                                     subStageName: subStageName,
                                     stageName: stageName,
