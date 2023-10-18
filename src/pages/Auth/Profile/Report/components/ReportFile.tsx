@@ -4,6 +4,7 @@ import PolarAreaChart from './PolarAreaChart'
 import Rate from './Rate'
 import Human from './../../../../../assets/human.png'
 import useAuth from 'hooks/useAuth'
+import { getAge } from 'helper/date'
 
 interface Range {
   min: number
@@ -20,6 +21,7 @@ interface PersonalInfo {
   testDate: string
   testId: string
   profile_photo: string
+  birth_date?:Date
 }
 interface Data {
   sport: DataItem
@@ -58,13 +60,14 @@ const Report = forwardRef<HTMLDivElement, ReportProps>((props, ref) => {
   }
 
   const today = new Date();
+  const userAge =  getAge(new Date(user?.birth_date))
   const formattedDate = formatDate(today);
 
   const personalInfo: PersonalInfo = {
     name: user?.first_name,
     surname: user?.last_name,
     profile_photo: user?.profile_photo,
-    age: 23,
+    age: userAge || 0,
     testDate: formattedDate,
     testId: props.mydata?.report_key,
   }

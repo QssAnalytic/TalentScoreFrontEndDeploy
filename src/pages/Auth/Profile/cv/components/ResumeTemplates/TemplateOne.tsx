@@ -14,30 +14,30 @@ const TemplateOne = () => {
   const [data, setData] = useState<any>();
 
   const componentRef = useRef<HTMLDivElement>(null)
-  
+
 
   // const { user } = useAuth()
   // console.log(user);
-  const [user,setUser] = useState({
+  const [user, setUser] = useState({
     first_name: '',
     last_name: '',
     email: '',
-    profile_photo:''
+    profile_photo: ''
   })
-  
+
   const [img, setImg] = useState('')
   const [summaryLoading, setSummaryLoading] = useState(true);
-  
-  useEffect(()=>{
-    async function getUser(){
+
+  useEffect(() => {
+    async function getUser() {
       const resp = await axiosPrivateInstance('user/user/')
       console.log(resp);
-      resp.status===200 && setUser(resp.data)
+      resp.status === 200 && setUser(resp.data)
     }
     getUser()
-  },[user])
+  }, [])
   useEffect(() => {
-    
+
     async function getCvData() {
       const response = await axiosPrivateInstance.get('user/get-summry-prompt/')
       const response2 = await axiosPrivateInstance.get('user/get-cv-content-prompt/')
@@ -64,14 +64,17 @@ const TemplateOne = () => {
 
     async function componentToImg() {
       if (componentRef.current) {
-        await domtoimage.toJpeg(componentRef.current, { quality: 0.98 }).then(function (dataUrl: string) {
+        await domtoimage.toJpeg(componentRef.current, {
+          quality: 0.98,
+          cacheBust: true
+        }).then(function (dataUrl: string) {
           setImg(dataUrl)
           setData({ ...data, report_file: dataUrl })
         })
       }
     }
     componentToImg()
-  },[])
+  }, [])
 
 
   const postData = async () => {
@@ -245,7 +248,7 @@ const TemplateOne = () => {
       <button onClick={generatePDF} className='flex'>
         <p className='download-text'>FREE DOWNLOAD</p>
         <img src={download} alt='Report Download Icon' />
-        
+
       </button>
     </div>
   );

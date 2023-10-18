@@ -32,7 +32,7 @@ const Radio = ({
   );
 
   const handleErrors = async () => {
-    trigger();
+    return trigger;
   };
 
   console.log(register.name,value)

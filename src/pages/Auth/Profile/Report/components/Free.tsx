@@ -12,18 +12,19 @@ interface Data {
   report_file: string
 }
 
-const Free = ({ mdata, userName }: any) => {
+const Free = ({ mdata, userName, setErrorText, setStatus,status }: any) => {
+
 
   // This variable used for posting to backend
-  const [data, setData] = useState<Data>({
-    report_file: ''
-  })
+  const [data, setData] = useState<Data>({ report_file: '' })
 
   const [modal, setModal] = useState(false)
   const [img, setImg] = useState('')
 
   // This variable used for the sharing process 
   const [imgUrl, setImgUrl] = useState('')
+
+
 
   // This variable used for the disable share button until getting response
   const [disable, setDisable] = useState(true)
@@ -32,17 +33,19 @@ const Free = ({ mdata, userName }: any) => {
   const componentRef = useRef<HTMLDivElement>(null)
 
 
+
   useEffect(() => {
+
     // This function used for convert component to the image
     const fetchData = async () => {
 
       try {
         if (componentRef.current) {
-          console.log('sfs');
-          
-          const dataUrl = await domtoimage.toJpeg(componentRef.current, { quality: 0.98 });
-          setImg(dataUrl);  
-          console.log(dataUrl);
+          const dataUrl = await domtoimage.toJpeg(componentRef.current, {
+            quality: 0.98,
+            cacheBust: true
+          });
+          setImg(dataUrl);
           setData({ ...data, report_file: dataUrl });
         }
       } catch (error) {
@@ -57,24 +60,39 @@ const Free = ({ mdata, userName }: any) => {
 
   // This function used for posting data to the backend 
   const postData = async () => {
+
     try {
 
       const response = await axiosPrivateInstance.post('user/upload-report/', {
         report_file: img
       })
       setDisable(true)
-
-
       console.log(response);
 
 
+      if (response.status === 201) {
+        setStatus('')
+
+        setErrorText('')
+      }
+      else {
+        throw new Error("Your file couldn't be created")
+      }
+
+
       // console.log(data);
-    } catch (error) { }
+    } catch (error) {
+      setStatus('')
+      setErrorText('Fail!')
+    }
   }
+
 
   // This useEffect used for checking data and running posData function
   useEffect(() => {
     if (img !== null && img !== undefined && img !== '' && !user.report_test) {
+      setStatus('Your file is being created...')
+      setErrorText('')
       postData()
     }
   }, [img])
@@ -97,7 +115,8 @@ const Free = ({ mdata, userName }: any) => {
 
   return (
     <>
-      <div className='free'>
+
+      <div className={`free`}>
         <h2 className='free-header'>Get a free report</h2>
         <h2 className='free-header'>with overall and sector-specific percentiles</h2>
         <div className='free-report'>
