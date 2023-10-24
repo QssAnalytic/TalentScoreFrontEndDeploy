@@ -226,6 +226,9 @@ const FormEducations = ({
   handleAddEdu,
   name,
 }: EducationAdd) => {
+
+  console.log(formData);
+  
   const {
     register,
     handleSubmit,
@@ -291,6 +294,9 @@ const FormEducations = ({
       }
     }
   };
+  
+  // console.log(questions?.[0]?.answers);
+  
 
   dispatch(addErrorsLength(Object.keys(errors).length));
 
@@ -325,6 +331,7 @@ const FormEducations = ({
     }
     setEnd(!end);
   };
+  
 
   useEffect(() => {
     if (!elave) {
@@ -342,6 +349,9 @@ const FormEducations = ({
 
   console.log("form", formData);
 
+  console.log(watch("application"));
+  console.log(register("country"));
+  
   return (
     <div className="pe-5" onSubmit={onSubmit}>
       {elave === true && formData?.education.length !== 0 ? (
@@ -578,12 +588,15 @@ const FormEducations = ({
       watch()?.criterian?.answer === "Müraciyyət" ? (
         <div>
           {watch("application")?.map((elem, index) => {
+            console.log(elem);
+            
+            
             return (
               <div key={index} className={`${elem}`}>
                 <div className={` border rounded-xl p-5 mt-5 `}>
                   <div className="flex justify-between  mb-3">
                     <label>
-                      <span style={{ color: "#038477" }}>{elem}</span> üzrə,
+                      <span style={{ color: "#038477" }}>{elem?.answer_title}</span> üzrə,
                       nəticəni qeyd edin
                     </label>
                     <Icon
@@ -592,7 +605,7 @@ const FormEducations = ({
                       onClick={() => handleDelete(elem)}
                     />
                   </div>
-                  {elem === "Language test (IELTS TOEFL)" ? (
+                  {elem?.answer_title === "Language test (IELTS TOEFL)" ? (
                     <div>
                       <div className="mb-5">
                         <TextInput
@@ -612,13 +625,13 @@ const FormEducations = ({
                   ) : (
                     <TextInput
                       placeholder="Nəticə"
-                      register={register(elem.substr(0, 3))}
+                      register={register(elem?.answer_title.substr(0, 3))}
                       errors={
-                        elem.substr(0, 3) === "Att"
+                        elem?.answer_title.substr(0, 3) === "Att"
                           ? errors.Att
-                          : elem.substr(0, 3) === "SAT"
+                          : elem?.answer_title.substr(0, 3) === "SAT"
                           ? errors.SAT
-                          : elem.substr(0, 3) === "GRE"
+                          : elem?.answer_title.substr(0, 3) === "GRE"
                           ? errors.GRE
                           : undefined
                       }

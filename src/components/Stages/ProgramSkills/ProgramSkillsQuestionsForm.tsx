@@ -268,7 +268,7 @@ const ProgramSkills = ({
   console.log("which", formData?.whichProgram);
 
   const fillSkills = async () => {
-    if (formData?.whichProgram?.length > 0) {
+    if (formData?.whichProgram?.length >= 0) {
       const updatedFormData = { ...formData };
       const updatedSkills = await formData.whichProgram
         .filter((field: IAnswer) => formData[field.answer_title]?.length > 0)
@@ -349,7 +349,7 @@ const ProgramSkills = ({
                     <>
                       <SelectMult
                         label={`${questions?.[2]?.question_title}*`}
-                        options={questions?.[2]?.answers.slice(0, 3)}
+                        options={questions?.[2]?.answers.slice(0, -1)}
                         placeholder="Select Programs"
                         register={register("MS Office")}
                         value={formData?.["MS Office"]}
@@ -391,7 +391,7 @@ const ProgramSkills = ({
                     <>
                       <SelectMult
                         label={`${questions?.[4]?.question_title}*`}
-                        options={questions?.[4]?.answers.slice(0, 3)}
+                        options={questions?.[4]?.answers.slice(0, -1)}
                         register={register("Proqramlaşdırma dilləri")}
                         value={formData?.["Proqramlaşdırma dilləri"]}
                         trigger={trigger}
@@ -432,7 +432,7 @@ const ProgramSkills = ({
                     <>
                       <SelectMult
                         label={`${questions?.[6]?.question_title}*`}
-                        options={questions?.[6]?.answers.slice(0, 3)}
+                        options={questions?.[6]?.answers.slice(0, -1)}
                         register={register("Dizayn Proqramları")}
                         value={formData?.["Dizayn Proqramları"]}
                         trigger={trigger}
@@ -497,7 +497,7 @@ const ProgramSkills = ({
         {/* <LinkButton
           nav={{
             state: { stageName: nextStageName, subStageName: nextSubStageName },
-            path: { slugName: slug, subSlugName: nextSubSlugName },
+            path: { slugName: nextSlugName, subSlugName: nextSubSlugName },
           }}
           haveIcon={false}
           label="Yekunlaşdır"

@@ -39,6 +39,8 @@ const EducationQuestionsForm = ({
   const { useGetStageQuery, useGetQuestionsQuery } = GetStage()
   const { data: stagesData } = useGetStageQuery();
 
+  console.log();
+  
   const nav = useNavigate();
   const page = useSelector((state: RootState) => state.dataa.currentPage);
   const tehsil = useSelector((state: RootState) => state.dataa.tehsil);
@@ -67,12 +69,14 @@ const EducationQuestionsForm = ({
       ({ name }) => name === subStageSlug
     ) as { formData: EducationQuestionsFormValues }) || {};
 
+    
   const {
     data: questionsData,
     error: questionsError,
     isLoading,
   } = useGetQuestionsQuery(subStageSlug);
 
+  
   const {
     formState: { errors },
     handleSubmit,

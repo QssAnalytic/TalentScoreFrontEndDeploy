@@ -20,7 +20,7 @@ const CV = () => {
         <NavBar />
 
       </div>
-      <div className="grid grid-cols-2 p-10 h-[100%]">
+      <div className=" p-10 h-[100%]">
         <TemplateOne />
       </div>
     </div>

@@ -6,19 +6,17 @@ import Report from './ReportFile'
 import Modal from './Modal'
 import download from './../../../../../assets/downloadicon.svg'
 import { axiosPrivateInstance } from 'axioss'
+import useAuth from 'hooks/useAuth'
 
 interface Data {
-  email: string
   report_file: string
 }
 
-const Free = ({ mdata, userName }: any) => {
+const Free = ({ mdata, userName, setErrorText, setStatus,status }: any) => {
+
 
   // This variable used for posting to backend
-  const [data, setData] = useState<Data>({
-    email: 'tami@mail.ru',
-    report_file: ''
-  })
+  const [data, setData] = useState<Data>({ report_file: '' })
 
   const [modal, setModal] = useState(false)
   const [img, setImg] = useState('')
@@ -26,53 +24,75 @@ const Free = ({ mdata, userName }: any) => {
   // This variable used for the sharing process 
   const [imgUrl, setImgUrl] = useState('')
 
+
+
   // This variable used for the disable share button until getting response
   const [disable, setDisable] = useState(true)
+  const { user } = useAuth()
 
   const componentRef = useRef<HTMLDivElement>(null)
 
+
+
   useEffect(() => {
+
     // This function used for convert component to the image
     const fetchData = async () => {
-      if (componentRef.current) {
-        await domtoimage.toJpeg(componentRef.current, { quality: 0.98 }).then(function (dataUrl: string) {
-          setImg(dataUrl)
-          setData({ ...data, report_file: dataUrl })
-        })
+
+      try {
+        if (componentRef.current) {
+          const dataUrl = await domtoimage.toJpeg(componentRef.current, {
+            quality: 0.98,
+            cacheBust: true
+          });
+          setImg(dataUrl);
+          setData({ ...data, report_file: dataUrl });
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
 
     fetchData()
   }, [])
 
+
+
   // This function used for posting data to the backend 
   const postData = async () => {
-    try {
-      // await axios.post('https://nazimbudaqli.pythonanywhere.com/user/upload-report/', {
-      //   email: 'tami@mail.ru', 
-      //   report_file: img
-      // }).then(res=>{
-      //   setImgUrl(res.data.report_file)
-      //   setDisable(true)        
-      // })
 
+    try {
 
       const response = await axiosPrivateInstance.post('user/upload-report/', {
         report_file: img
       })
       setDisable(true)
-
-
       console.log(response);
 
 
+      if (response.status === 201) {
+        setStatus('')
+
+        setErrorText('')
+      }
+      else {
+        throw new Error("Your file couldn't be created")
+      }
+
+
       // console.log(data);
-    } catch (error) { }
+    } catch (error) {
+      setStatus('')
+      setErrorText('Fail!')
+    }
   }
+
 
   // This useEffect used for checking data and running posData function
   useEffect(() => {
-    if (img !== null && img !== undefined && img !== '') {
+    if (img !== null && img !== undefined && img !== '' && !user.report_test) {
+      setStatus('Your file is being created...')
+      setErrorText('')
       postData()
     }
   }, [img])
@@ -92,9 +112,11 @@ const Free = ({ mdata, userName }: any) => {
     documentTitle: 'TalentScoreReport',
   })
 
+
   return (
     <>
-      <div className='free'>
+
+      <div className={`free`}>
         <h2 className='free-header'>Get a free report</h2>
         <h2 className='free-header'>with overall and sector-specific percentiles</h2>
         <div className='free-report'>

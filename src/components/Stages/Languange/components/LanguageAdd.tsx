@@ -232,7 +232,7 @@ const LanguageAdd = ({
     return watch("langLevel");
   };
 
-  dispatch(addErrorsLength(Object.keys(errors).length));
+  dispatch(addErrorsLength(Object.keys(errors).length));  
 
   useEffect(() => {
     dispatch(addErrorsLength(Object.keys(errors).length));

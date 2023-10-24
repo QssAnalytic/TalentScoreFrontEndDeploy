@@ -11,8 +11,9 @@ interface ISelect {
   value?: ISelectedValue;
   disabled?: boolean;
   defaultValue?: string;
-  errors: any
+  errors: any;
   onChange?: any;
+  className?: string;
 }
 interface RootState {
   dataa: {
@@ -28,6 +29,7 @@ const SelectSearch = ({
   errors,
   disabled = false,
   onChange,
+  className
 }: ISelect) => {
   const [selected, setSelected] = useState(value);
   const [q, setQ] = useState('');
@@ -35,7 +37,7 @@ const SelectSearch = ({
   let datas = Object.values(options!);
   function search(params: Array<object>) {
     let copy = params.filter(
-      (item: any) => (item.answer_title).toLowerCase().indexOf(q.toLocaleLowerCase()) > -1
+      (item: any) => (item.answer_title)?.toLowerCase().indexOf(q.toLocaleLowerCase()) > -1
     );
     return copy
     // if (a) {
@@ -57,7 +59,7 @@ const SelectSearch = ({
       as="div"
       placeholder={selected?.answer}
       value={selected}
-      className="flex flex-col gap-2 w-full"
+      className={`flex flex-col gap-2 w-full `}
       onChange={(value) => {
         setSelected(value);
         register.onChange(
@@ -77,7 +79,7 @@ const SelectSearch = ({
         <Listbox.Button as={Fragment}>
           {({ value, open }) => (
             <Listbox.Label
-              className={`relative w-full text-left flex transition duration-200 border-2 ${errors && selectValid ? 'border-red-300 ' : ''} items-center border  bg-qss-input py-2 px-4 rounded-full outline-none ${open && "text-qss-secondary border border-qss-base-200"
+              className={`relative w-full text-left flex transition duration-200 border-2 ${className} ${errors && selectValid ? 'border-red-300 ' : ''} items-center border  bg-qss-input py-2 px-4 rounded-full outline-none ${open && "text-qss-secondary border border-qss-base-200"
                 } ${value?.answer ? "text-qss-secondary" : "text-qss-base-300"} `}
             >
               {value?.answer || defaultValue}

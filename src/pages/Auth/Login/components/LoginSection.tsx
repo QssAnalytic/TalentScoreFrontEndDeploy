@@ -31,13 +31,14 @@ const LoginSection = () => {
 
     const usenavigate = useNavigate();
     const location = useLocation()
-    
+
     const fromLocation = location?.state?.from?.pathname || '/profile'
     const [loading, setLoading] = useState(false)
-    
-    
+    const [isValid, setIsValid] = useState(true)
+
+
     const axiosPrivateInstance = useAxiosPrivate()
-    
+
     const { register, handleSubmit, watch, trigger, formState: { errors } } = useForm<IloginFormValues>({
         resolver: yupResolver(LoginSchema),
         defaultValues: {
@@ -48,11 +49,11 @@ const LoginSection = () => {
     const { user } = useAuth()
 
 
-	useEffect(()=>{
-		if(user.first_name){
-        usenavigate('/')
-	}
-	},[user])
+    useEffect(() => {
+        if (user.first_name) {
+            usenavigate('/')
+        }
+    }, [user])
 
     const handleLogin = async (userData: object) => {
 
@@ -61,22 +62,23 @@ const LoginSection = () => {
 
 
         try {
-            const response = await axiosInstance.post('user/login/',JSON.stringify(userData))
-            
+            const response = await axiosInstance.post('user/login/', JSON.stringify(userData))
+
             console.log(response);
-            
-            localStorage.setItem('access_token',response?.data?.access_token)
+
+            localStorage.setItem('access_token', response?.data?.access_token)
             setAccessToken(response?.data?.access_token)
 
             setCSRFToken(response.headers["x-csrftoken"])
             setLoading(false)
 
             usenavigate(fromLocation, { replace: true })
-           
+            setIsValid(true)
 
 
         } catch (error) {
             setLoading(false)
+            setIsValid(false)
             console.log(error);
         }
     }
@@ -109,11 +111,16 @@ const LoginSection = () => {
                         <p className="text-red-500 leading-4">{errors.password ? errors.password.message : ""}</p>
                     </div>
 
-                    <LoginRegisterButton type="submit" buttonClassName={`${loading?'disabled':''} w-full bg-qss-primary rounded-3xl p-3 text-center text-white `} text={`${loading?'Loading...':'Daxil ol'}`}  />
+                    <LoginRegisterButton type="submit" buttonClassName={`${loading ? 'disabled' : ''} w-full bg-qss-primary rounded-3xl p-3 text-center text-white `} text={`${loading ? 'Loading...' : 'Daxil ol'}`} />
                 </form>
-
+                {
+                    !isValid &&
+                    <p className="text-red-500 text-center text-lg">
+                        Email or password is incorrect
+                    </p>
+                }
                 <p className="w-full text-end text-qss-primary font-normal cursor-pointer">Şifrənizi unutmusunuz?</p>
-                <p className="text-center w-[405px]"> Hesabınız yoxdur? <Link to={'/register'} className='text-qss-primary'>Create an account</Link></p>
+                <p className="text-center w-[405px]"> Hesabınız yoxdur? <Link to={{pathname:'/register'}} className='text-qss-primary'>Create an account</Link></p>
             </div>
         </div>
     );
