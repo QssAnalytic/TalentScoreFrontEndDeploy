@@ -40,15 +40,49 @@ const TemplateOne = () => {
 
     async function getCvData() {
       const response = await axiosPrivateInstance.get('user/get-summry-prompt/')
-      const response2 = await axiosPrivateInstance.get('user/get-cv-content-prompt/')
+      // const response2 = await axiosPrivateInstance.get('user/get-cv-content-prompt/')
       const response3 = await axiosPrivateInstance.get('user/get-job-title-prompt/')
-      const response4 = await axiosPrivateInstance.get('user/get-experiance-prompt/')
+      // const response4 = await axiosPrivateInstance.get('user/get-experiance-prompt/')
+      const response2 = await axiosPrivateInstance.get('user/get-cv-info/')
+
+      let cvInfoData = {
+        programSkills: await response2.data.program_questions.formData.programSkills.flatMap((skill: any) => {
+          return skill.whichLevel.map((item: any) => {
+            return {
+              name: item.name,
+              value: item.value.value
+            }
+          })
+        }),
+        secondary_education: await response2.data.secondary_education_questions.formData.education.map((education: any) => {
+          return {
+            country: education.country.answer,
+            currentWorking: education.currentWorking,
+            date: education.date,
+            specialty: education.specialty.answer,
+            tehsil: education.tehsil.answer,
+            university: education.university
+          }
+
+        }),
+        work_experience:await response2.data.work_experience_questions.formData.experiences.map((experience:any)=>{
+          return {
+            company:experience.company,
+            profession:experience.profession,
+            startDate:experience.startDate,
+            endDate:experience.endDate,
+            currentWorking:experience.currentWorking,
+            workingActivityForm:experience.workingActivityForm.answer,
+            degreeOfProfes:experience.degreeOfProfes.answer
+
+          }
+        })
+      }
 
       setData({
         ...response.data,
-        ...response2.data,
-        ...response3.data,
-        ...response4.data
+        ...cvInfoData,
+        ...response3.data
       })
       // summary = response.data?.
       response.status === 200 && setSummaryLoading(false)
@@ -96,7 +130,6 @@ const TemplateOne = () => {
   }, [img])
 
 
-  console.log(data);
   const generatePDF = useReactToPrint({
     content: () => componentRef.current as HTMLElement,
     documentTitle: 'TalentScoreCV',
@@ -243,7 +276,7 @@ const TemplateOne = () => {
     <div className="flex gap-10">
       <div className="w-[40rem] min-w-[40rem] min-h-[55rem]">
 
-        <TemplateOneFile user={user} ref={componentRef} data={data} summaryLoading={summaryLoading} />
+        <TemplateOneFile myUser={user} ref={componentRef} cvData={data} summaryLoading={summaryLoading} />
       </div>
       <button onClick={generatePDF} className='flex'>
         <p className='download-text'>FREE DOWNLOAD</p>
@@ -257,3 +290,46 @@ const TemplateOne = () => {
 
 
 export default TemplateOne;
+
+
+// {
+//   "name": "orta-texniki-ve-ali-tehsil-suallari",
+//   "formData": {
+//       "education": [
+//           {
+//               "tehsil": {
+//                   "answer": "Bakalavr"
+//               },
+//               "country": {
+//                   "answer": "Azərbaycan"
+//               },
+//               "university": "bmu",
+//               "specialty": {
+//                   "answer": "Aerokosmik informasiya sistemləri"
+//               },
+//               "date": {
+//                   "start": "2023-10-03",
+//                   "end": "2023-11-08"
+//               },
+//               "criterian": {
+//                   "answer": "Müraciyyət"
+//               },
+//               "local": {},
+//               "otherExam": {},
+//               "application": [
+//                   {
+//                       "id": 21,
+//                       "subanswers": [],
+//                       "answer_title": "Language test (IELTS TOEFL)",
+//                       "sub_answer_question": null,
+//                       "answer_weight_store": null,
+//                       "answer_dependens_on": null
+//                   }
+//               ],
+//               "currentWorking": false,
+//               "ielts": "55",
+//               "toefl": "555"
+//           }
+//       ]
+//   }
+// }

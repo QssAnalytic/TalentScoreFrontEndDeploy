@@ -209,8 +209,10 @@ body.active-modal {
 }
 
 .report-photo {
-    width: 100.6px;
+    width: 115.6px;
     border-radius: 50%;
+    object-fit: cover;
+
 }
 
 .horizontal-line {
@@ -632,6 +634,7 @@ body.active-modal {
 }
 
 @media print {
+  
     .report {
         width: 626.3px;
         height: 841.9px;
