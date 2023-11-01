@@ -8,7 +8,7 @@ interface ILoginRegisterTextInput {
     icon: string,
     register?: any
     errors?: any,
-    value?:any,
+    value?: any,
     trigger?: any,
     name?: string,
     options?: any

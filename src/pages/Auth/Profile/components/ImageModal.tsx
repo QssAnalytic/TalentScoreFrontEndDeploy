@@ -3,17 +3,20 @@ import { Backdrop, Box, Modal, Fade } from '@mui/material'
 
 interface ImageModalProps {
     image: DataElem  | null
+
     open: boolean
     setOpen: (open: boolean) => void
 }
 
 interface DataElem  {
     type?: string
-    url: string
+    url?: string
+    file:string
+    file_category:string
 }
 
 const ImageModal: React.FC<ImageModalProps> = ({ image, open, setOpen }) => {
-    const width = ( image?.type === 'Certificate' ) ? '60%' : '32%'
+    const width = ( image?.file_category === 'CERTIFICATE' ) ? '60%' : '32%'
 
     const style = {
         position: 'absolute',
@@ -41,7 +44,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ image, open, setOpen }) => {
             >
                 <Fade in={open}>
                     <Box sx={style} className='outline-none relative'>
-                        <img src={image?.url} alt={image?.type} />
+                        <img src={image?.file} alt={image?.file_category} />
                         <svg
                             xmlns='http://www.w3.org/2000/svg' 
                             width='40' 

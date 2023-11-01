@@ -57,13 +57,12 @@ const Profile: React.FC = () => {
     const [profilePhoto, setProfilePhoto] = useState(profilPhoto)
     const [showActions, setShowActions] = useState(false)
     const { user, setUser } = useAuth()
-    const [files, setFiles] = useState<Files>({
-        report: report,
-        cv1: cv1,
-        cv2: cv2,
-        career: career,
-        certificate: certificate
-    })
+    const [files, setFiles] = useState<any>([
+        {file:report,file_category:'REPORT'},
+        {file:cv1,file_category:'CV'},
+        {file:career,file_category:'CAREER'},
+        {file:certificate,file_category:'CERTIFICATE'},
+    ])
 
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +75,7 @@ const Profile: React.FC = () => {
         const formData = new FormData();
         setShowActions(false)
         if (file) {
-            formData.append('profile_photo', file); 
+            formData.append('profile_photo', file);
 
             try {
                 const response = await axiosPrivateInstance.post('user/upload-profile-photo/', formData, {
@@ -153,21 +152,26 @@ const Profile: React.FC = () => {
             console.log(resp);
 
 
-            resp?.data && await setFiles({
-                report: resp.data.find((file: any) => (file.file_category == 'REPORT'))?.file || report,
-                reportId: resp.data.find((file: any) => (file.file_category == 'REPORT'))?.id,
-                cv1: resp.data.find((file: any) => (file.file_category == 'CV'))?.file || cv1,
-                cv2: resp.data.find((file: any) => (file.file_category == 'CV'))?.file || cv2,
-                career: resp.data.find((file: any) => (file.file_category == 'CAREER'))?.file || career,
-                certificate: resp.data.find((file: any) => (file.file_category == 'CERTIFICATE'))?.file || certificate,
-            })
+            // resp?.data && await setFiles({
+            //     report: resp.data.find((file: any) => (file.file_category == 'REPORT'))?.file || report,
+            //     reportId: resp.data.find((file: any) => (file.file_category == 'REPORT'))?.id,
+            //     cv1: resp.data.find((file: any) => (file.file_category == 'CV'))?.file || cv1,
+            //     cv2: resp.data.find((file: any) => (file.file_category == 'CV'))?.file || cv2,
+            //     career: resp.data.find((file: any) => (file.file_category == 'CAREER'))?.file || career,
+            //     certificate: resp.data.find((file: any) => (file.file_category == 'CERTIFICATE'))?.file || certificate,
+            // })
 
+            resp.status === 200 && setFiles([
+                ...resp?.data,
+                ...files,
+            ])
 
         }
 
         getFiles()
-    }, [files.report, files.career, files.certificate])
+    }, [])
 
+    
     const { data } = useGetStageQuery();
 
     const {
@@ -180,20 +184,20 @@ const Profile: React.FC = () => {
         stage_children?.[0] || {};
     // const { user } = useAuth()
     // const [isLogin, setIsLogin] = useState(false);
-    const profileData: DataItem[] = [
-        {
+    // const profileData: DataItem[] = [
+    //     {
 
-            id: files.reportId, type: 'Report', url: files.report, path: user?.report_test ? '/report' : `/stages/${slugName}/${subSlugName}`, state: {
-                subStageName: subStageName,
-                stageName: stageName
-            }
-        },
-        { type: 'CV', url: files.cv1, path: '/cv' },
-        { type: 'Career planning', url: files.career, path: '/report' },
-        { type: 'CV', url: files.cv2, path: '/report' },
-        { type: 'Certificate', url: files.certificate, path: '/certificate' },
-        // { type: 'Certificate', url: certificate, path: '/certificate' },
-    ]
+    //         id: files.reportId, type: 'Report', url: files.report, path: user?.report_test ? '/report' : `/stages/${slugName}/${subSlugName}`, state: {
+    //             subStageName: subStageName,
+    //             stageName: stageName
+    //         }
+    //     },
+    //     { type: 'CV', url: files.cv1, path: '/cv' },
+    //     { type: 'Career planning', url: files.career, path: '/report' },
+    //     { type: 'CV', url: files.cv2, path: '/report' },
+    //     { type: 'Certificate', url: files.certificate, path: '/certificate' },
+    //     // { type: 'Certificate', url: certificate, path: '/certificate' },
+    // ]
 
 
 
@@ -293,7 +297,7 @@ const Profile: React.FC = () => {
                     </svg>
                     <div className='w-[1090px] m-auto flex flex-col z-50 relative'>
                         <p className='text-center text-qss-secondary mt-11 mb-8'>Explore sample reports below!</p>
-                        <Document data={profileData} />
+                        <Document data={files} />
                         <button className='flex justify-between items-center w-[250px] m-auto border-[1px] border-qss-secondary bg-qss-secondary rounded-[25px] text-white text-[14px] py-3 px-4 mb-8 mt-12'>Go to premium subscription
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
