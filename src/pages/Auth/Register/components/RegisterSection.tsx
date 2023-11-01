@@ -182,7 +182,7 @@ const RegisterSection = () => {
                     </div>
                     <LoginRegisterButton type="submit" text={`${loading ? 'Loading...' : 'Sign up'}`} buttonClassName={`${loading ? 'disabled' : ''}w-full bg-qss-primary rounded-3xl  p-3 text-center text-white mt-3 `} />
                     <p className="w-full text-end text-qss-primary font-normal cursor-pointer my-3">Forgot Password?</p>
-                    <p className="text-center w-[405px]"> Already have an account? <Link to={'/login'} className='text-qss-primary'>Log in</Link></p>
+                    <p className="text-center w-[405px]"> Already have an account? <Link to={{pathname:'/login'}} className='text-qss-primary'>Log in</Link></p>
                 </form>
             </div>
         </div>

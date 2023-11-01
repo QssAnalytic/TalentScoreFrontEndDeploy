@@ -1,6 +1,6 @@
 
 import { forwardRef, useEffect, useState } from 'react'
-import { FaLinkedin, FaFacebook, FaInstagram, FaGithub } from "react-icons/fa6";
+import { FaLinkedin, FaFacebook, FaInstagram, FaGithub,FaLink } from "react-icons/fa6";
 import TextSkeleton from "../Skeleton/TextSkeleton";
 import EditText from './components/EditText';
 
@@ -15,64 +15,44 @@ interface CvProps {
         work_experience: any
         links: any
         phone: any
-
-    }
-    myUser: {
         first_name: string
         last_name: string
         email: string
         profile_photo?: string
+
     }
     summaryLoading: boolean
 }
 
 const getIcon = (iconKey: string) =>
 ({
-    in: <FaLinkedin className="text-xs inline" />,
-    fb: <FaFacebook className="text-xs inline" />,
-    insta: <FaInstagram className="text-xs inline" />,
-    github: <FaGithub className="text-xs inline" />,
+    Linkedin: <FaLinkedin className="text-xs inline" />,
+    Facebook: <FaFacebook className="text-xs inline" />,
+    Instagram: <FaInstagram className="text-xs inline" />,
+    Github: <FaGithub className="text-xs inline" />,
+    Portfolio: <FaLink className="text-xs inline" />,
 }[iconKey]);
 
-const DefaultContacts = {
-    phone: "+994 51 123 45 67",
-    links: [
-        { name: "in", link: "linkedin.com/in/JavidM" },
-        { name: "fb", link: "facebook.com/JavidM" },
-        { name: "github", link: "github.com/JavidM" },
-    ]
-}
 
-const TemplateOneFile = forwardRef<HTMLDivElement, CvProps>(({ cvData, myUser, summaryLoading }, ref) => {
+
+const TemplateOneFile = forwardRef<HTMLDivElement, CvProps>(({ cvData, summaryLoading }, ref) => {
 
 
     const [data, setData] = useState({
-        ...cvData,
-        ...DefaultContacts,
-        first_name: myUser.first_name,
-        email: myUser.email,
-        last_name: myUser.last_name,
-        profile_photo: myUser.profile_photo
+        ...cvData
     })
 
     useEffect(() => {
         setData({
-            ...cvData,
-            ...DefaultContacts,
-            first_name: myUser.first_name,
-            email: myUser.email,
-            last_name: myUser.last_name,
-            profile_photo: myUser.profile_photo
+            ...cvData
         })
 
-    }, [cvData, myUser])
-
-    console.log(data);
+    }, [cvData])
 
 
 
     return (
-        <div className="relative overflow-hidden border rounded shadow w-[100%] p-3 font-montserrat cv min-h-[55rem]" ref={ref}>
+        <div className="relative overflow-hidden border rounded shadow w-[100%] p-3 font-montserrat cv min-h-[55rem] bg-white" ref={ref}>
             <Rectangle className="fill-[#FFCC06] absolute top-0 right-0" />
 
             <div className="relative space-y-8">

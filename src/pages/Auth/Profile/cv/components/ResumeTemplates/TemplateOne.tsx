@@ -6,44 +6,71 @@ import TemplateOneFile from "./TemplateOneFile";
 import download from './../../../../../../assets/downloadicon.svg'
 import domtoimage from 'dom-to-image'
 import { useReactToPrint } from "react-to-print";
+import { store } from 'state/store'
+import { BiErrorCircle } from 'react-icons/bi';
+import { PiEye } from 'react-icons/pi';
+import { FiUpload } from 'react-icons/fi';
+import { FaArrowRightLong } from 'react-icons/fa6';
 
+import { useLocation } from 'react-router-dom';
 
+interface WorkExperienceProps {
+
+  company: string;
+  startDate: string;
+  endDate: string;
+  profession: string,
+  currentWorking: boolean
+
+}
+
+const DefaultContacts = {
+  phone: "+994 51 123 45 67",
+  links: [
+    { name: "Linkedin", link: "linkedin.com" },
+    // { name: "Facebook", link: "facebook.com" },
+    { name: "Github", link: "github.com" },
+    { name: "Portfolio", link: "mywebsite.com" },
+  ]
+}
 const TemplateOne = () => {
 
+  const location = useLocation();
 
-  const [data, setData] = useState<any>();
-
-  const componentRef = useRef<HTMLDivElement>(null)
+  const stateValue = location.state;
 
 
-  // const { user } = useAuth()
-  // console.log(user);
-  const [user, setUser] = useState({
+  const [data, setData] = useState<any>({
+
+    ...DefaultContacts,
     first_name: '',
     last_name: '',
     email: '',
     profile_photo: ''
-  })
+  });
+
+  const componentRef = useRef<HTMLDivElement>(null)
+
+
 
   const [img, setImg] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
   const [summaryLoading, setSummaryLoading] = useState(true);
 
   useEffect(() => {
-    async function getUser() {
-      const resp = await axiosPrivateInstance('user/user/')
-      console.log(resp);
-      resp.status === 200 && setUser(resp.data)
-    }
-    getUser()
-  }, [])
-  useEffect(() => {
 
-    async function getCvData() {
+    async function getUser() {
+      console.log('first');
+
+      const resp = await axiosPrivateInstance('user/user/')
+
       const response = await axiosPrivateInstance.get('user/get-summry-prompt/')
       // const response2 = await axiosPrivateInstance.get('user/get-cv-content-prompt/')
       const response3 = await axiosPrivateInstance.get('user/get-job-title-prompt/')
       // const response4 = await axiosPrivateInstance.get('user/get-experiance-prompt/')
+
       const response2 = await axiosPrivateInstance.get('user/get-cv-info/')
+
 
       let cvInfoData = {
         programSkills: await response2.data.program_questions.formData.programSkills.flatMap((skill: any) => {
@@ -65,63 +92,80 @@ const TemplateOne = () => {
           }
 
         }),
-        work_experience:await response2.data.work_experience_questions.formData.experiences.map((experience:any)=>{
+        work_experience: await response2.data.work_experience_questions.formData.experiences.map((experience: any) => {
           return {
-            company:experience.company,
-            profession:experience.profession,
-            startDate:experience.startDate,
-            endDate:experience.endDate,
-            currentWorking:experience.currentWorking,
-            workingActivityForm:experience.workingActivityForm.answer,
-            degreeOfProfes:experience.degreeOfProfes.answer
+            company: experience.company,
+            profession: experience.profession,
+            startDate: experience.startDate,
+            endDate: experience.endDate,
+            currentWorking: experience.currentWorking,
+            workingActivityForm: experience.workingActivityForm.answer,
+            degreeOfProfes: experience.degreeOfProfes.answer
 
           }
         })
       }
 
       setData({
+        ...data,
         ...response.data,
         ...cvInfoData,
-        ...response3.data
+        ...response3.data,
+        first_name: resp?.data.first_name,
+        email: resp?.data?.email,
+        last_name: resp?.data?.last_name,
+        profile_photo: resp?.data?.profile_photo
       })
       // summary = response.data?.
       response.status === 200 && setSummaryLoading(false)
 
     }
-    getCvData()
+
+    async function getCvData() {
+      const resp = await axiosPrivateInstance.get(`user/get-resume/${stateValue.id}`)
+      console.log('second', resp);
+
+      resp.status === 201 && setData(resp.data)
+
+    }
+    !stateValue.id && getUser()
+    stateValue.id && getCvData()
   }, [])
 
 
+  console.log(data);
 
 
-  useEffect(() => {
+
+  const postData = () => {
 
     async function componentToImg() {
-      if (componentRef.current) {
-        await domtoimage.toJpeg(componentRef.current, {
-          quality: 0.98,
-          cacheBust: true
-        }).then(function (dataUrl: string) {
-          setImg(dataUrl)
-          setData({ ...data, report_file: dataUrl })
-        })
+      try {
+        if (componentRef.current) {
+          await domtoimage.toJpeg(componentRef.current, {
+            quality: 0.98,
+            cacheBust: true
+          }).then(function (dataUrl: string) {
+            setImg(dataUrl)
+            setData({ ...data, resume_file: dataUrl })
+          })
+        }
+
+        const response = await axiosPrivateInstance.post('user/resume-upload/', data)
+
+
+        // console.log(img);
+
+        console.log(response);
+
+      } catch (error) {
+        console.log(error);
+
       }
+
+
     }
     componentToImg()
-  }, [])
-
-
-  const postData = async () => {
-    try {
-
-      const response = await axiosPrivateInstance.post('user/upload-cv/', {
-        report_file: img
-      })
-
-
-      console.log(response);
-
-    } catch (error) { }
   }
   useEffect(() => {
     if (img !== null && img !== undefined && img !== '') {
@@ -137,153 +181,145 @@ const TemplateOne = () => {
 
 
   return (
-    // <div className="relative overflow-hidden border rounded shadow w-[100%] p-3 font-montserrat">
-    //   <Rectangle className="fill-[#FFCC06] absolute top-0 right-0" />
 
-    //   <div className="relative space-y-8">
-    //     <div className="px-8">
-    //       <div className="flex items-center justify-between mt-10 -tracking-[0.2px]">
-    //         <div className="space-y-10">
-    //           <div className="text-[11px]">
-    //             <h1 className="font-semibold">{user.first_name + ' ' + user.last_name}</h1>
 
-    //             <p className="text-qss-base-500">{data?.sample_job_title}</p>
-    //           </div>
+    <>
+      <div className="flex gap-10">
+        <div className="w-[40rem] min-w-[45rem] min-h-[55rem] bg-white flex-1">
 
-    //           <div className="text-[8px]">
-    //             <p>{user?.email}</p>
+          <TemplateOneFile ref={componentRef} cvData={data} summaryLoading={summaryLoading} />
+        </div>
 
-    //             <p className="font-semibold ">{contacts.phone}</p>
-    //           </div>
-    //         </div>
+        <div className="bg-white flex-1 rounded-[.43rem] border border-[#eee] p-8  font-inter">
 
-    //         <img
-    //           src="https://scontent.fgyd8-1.fna.fbcdn.net/v/t39.30808-6/346986411_906370997125512_3222888757866143043_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=lFLXvjcrFwMAX-n72TR&_nc_ht=scontent.fgyd8-1.fna&oh=00_AfCBRuHLIGm_8gypZsPi21mMIdgT8qruY7ebfUreserJqA&oe=64BCFEF3"
-    //           className=" object-cover w-[121px] h-[121px] rounded-full outline outline-4 outline-qss-base-500 outline-offset-[10px] bg-slate-400"
-    //         ></img>
+          {/* heading */}
+          <div className="text-[1.125rem]">
+            <h4>Cv-niz  <span className="text-qss-secondary"> 94 % </span> hazırdır!</h4>
+            <div className="my-2 flex gap-4 items-center">
+              <div className="bg-[#F2F6F6] rounded-lg h-4 flex-1 ">
+                <div className="bg bg-qss-secondary rounded-lg h-full w-[94%]">
 
-    //         <ul className="space-y-1 text-[5px] tracking-normal">
-    //           {contacts.links.map((contact) => (
-    //             <li
-    //               key={contact.name}
-    //               className="flex items-center justify-start gap-1 text-white"
-    //             >
-    //               {getIcon(contact.name)}
-    //               <span>{contact.link}</span>
-    //             </li>
-    //           ))}
-    //         </ul>
-    //       </div>
+                </div>
+              </div>
+              <span className="text-qss-secondary font-semibold">
+                94%
+              </span>
+            </div>
 
-    //       <p className="mt-10 text-[8px] max-w-sm -tracking-[0.2px]">
-    //         {summaryLoading ? (
-    //           <TextSkeleton />
-    //         ) : (
-    //           data?.["sample_summary"]
-    //         )}
-    //       </p>
-    //     </div>
 
-    //     <div className="grid grid-cols-2 gap-6 px-3">
-    //       <div className="flex gap-1.5">
-    //         <h2 className=" [writing-mode:vertical-lr]  uppercase tracking-[0.7px] text-[7px] text-end rotate-180">
-    //           WORK EXPERIENCE
-    //         </h2>
-    //         <div className="border-l border-dotted border-qss-alternative min-h-72" />
+          </div>
+          <div className="font-inter  text-[.975rem] my-4">
 
-    //         <div className="pl-2 space-y-4">
-    //           {/* {workExperience.map(({ header, desc }, index) => (
-    //             <div key={index} className="text-[8px]">
-    //               <h2 className="font-bold">{header.jobTitle}</h2>
-    //               <p className="text-qss-base-500">{header.workPlace}</p>
-    //               <p>
-    //                 {header.date.startDate} - {header.date.endDate}
-    //               </p>
+            {
+              currentPage === 0 && <>
+                <div className="flex items-center gap-4 text-[#848383]">
+                  <span>
+                    <BiErrorCircle className="text-[1.5rem]" />
+                  </span><p>
+                    Cv-nizi tamamlamaq üçün, zəhmət olmasa qeyd olunan xanaların dəqiqliyini yoxlayın və iş təcrübənizi ətraflı şəkildə qeyd edin.
+                  </p>
+                </div>
 
-    //               <ul className="text-[6px] list-inside list-disc pt-1"> */}
-    //           {data?.["job_experience"]?.map(
-    //             (d: string, index: number) => (
-    //               <li key={index}>{d}</li>
-    //             )
-    //           )}
-    //           {/* {desc.map((d, index) => (
-    //                   <li key={index}>{d}</li>
-    //                 ))} */}
-    //           {/* </ul>
-    //             </div>
-    //           ))} */}
-    //         </div>
-    //       </div>
+                <div className="my-10">
+                  <label htmlFor="position">
+                    Position
+                  </label>
+                  <input type="text" name="" id="position" className="bg-white rounded-lg" />
+                </div>
+                {
+                  data?.work_experience?.map((exp: WorkExperienceProps, index: number) => {
+                    const { company, startDate, endDate, currentWorking, profession } = exp;
+                    return (
+                      <div className="my-10 text-[#505050]  text-[.9rem]" key={index}>
+                        <p>
+                          <span className="font-semibold">
+                            {index + 1}.
+                            {' ' + (startDate).split('-')[0] + '-' + (!currentWorking ? ((startDate).split('-')[0]) : endDate)}
+                            {" " + "-" + " "}
+                            {company}
+                          </span>
+                          ,
+                          {profession}:
+                        </p>
+                        <textarea placeholder="Write about your activites or tasks here" name="" className="my-2 border rounded-lg w-full h-[5rem] p-2"></textarea>
+                      </div>
+                    )
+                  })
+                }
+                <div className="flex items-center justify-between">
+                  <button className="border border-qss-secondary text-qss-secondary rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
+                    Review
+                    <PiEye className="text-[1.4em]" />
+                  </button>
+                  <button onClick={() => setCurrentPage((curr) => curr + 1)} className="border bg-qss-secondary text-white rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
+                    Next
+                    <FaArrowRightLong className="text-[1.4em]" />
+                  </button>
+                </div>
+              </>
 
-    //       <div className="space-y-10">
-    //         <div className="flex gap-1.5">
-    //           <h2 className=" [writing-mode:vertical-lr]  uppercase tracking-[0.7px] text-[7px] text-end rotate-180">
-    //             EDUCATION
-    //           </h2>
-    //           <div className="border-l border-dotted border-qss-alternative min-h-28" />
+            }
+            {
+              currentPage === 1 &&
+              <>
+                <div className="flex items-center gap-4 text-[#848383]">
+                  <span>
+                    <BiErrorCircle className="text-[1.5rem]" />
+                  </span><p>
+                    Sonuncu toxunuşlar, zəhmət olmasa Telefon nomrenizi, Linkedin, Github, Portfolio linkini yerləşdirərdiz.
 
-    //           <div className="pl-2 space-y-2 text-[8px]">
-    //             {educationAndCertifcates?.master?.map(
-    //               ({ specialty, university, desc }, index) => (
-    //                 <div key={index} className="text-[8px]">
-    //                   <h2 className="font-bold">{specialty}</h2>
-    //                   <p className="text-qss-base-500">{university}</p>
-    //                   <p>{desc}</p>
-    //                 </div>
-    //               )
-    //             )}
-    //             {educationAndCertifcates?.bachelor?.map(
-    //               ({ specialty, university, desc }, index) => (
-    //                 <div key={index} className="text-[8px]">
-    //                   <h2 className="font-bold">{specialty}</h2>
-    //                   <p className="text-qss-base-500">{university}</p>
-    //                   <p>{desc}</p>
-    //                 </div>
-    //               )
-    //             )}
-    //             <div>
-    //               {educationAndCertifcates?.certifacetes?.map((cert, index) => (
-    //                 <p key={index}>{cert}</p>
-    //               ))}
-    //             </div>
-    //           </div>
-    //         </div>
+                  </p>
+                </div>
+                <div className="my-10 ">
+                  <label htmlFor="phone">
+                    Phone number: 
+                  </label>
+                  
+                  <input type="tel" name="" id="phone" className="bg-white rounded-md w-full p-1 mt-2 block " />
+                </div>
+                {
+                  DefaultContacts.links.map(({name,link},index:number)=>{
+                    return(
+                      <div className="my-10" key={index}>
+                      <label htmlFor={name}>
+                        {name} link: 
+                      </label>
+                      
+                      <input type="url" name="" id={name} className="bg-white rounded-md w-full p-1 mt-2 block " />
+                    </div>
+                    )
+                  })                  
+                } <div className="flex items-center justify-between">
+                <button className="border border-qss-secondary text-qss-secondary rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
+                  Review
+                  <PiEye className="text-[1.4em]" />
+                </button>
+                <button onClick={() => setCurrentPage((curr) => curr - 1)} className="border bg-qss-secondary text-white rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
+                  Save
+                  <FiUpload className="text-[1.4em]" />
+                </button>
+              </div>
 
-    //         <div className="flex gap-1.5">
-    //           <h2 className=" [writing-mode:vertical-lr]  uppercase tracking-[0.7px] text-[7px] text-end rotate-180">
-    //             Skills
-    //           </h2>
-    //           <div className="border-l border-dotted border-qss-alternative min-h-28" />
 
-    //           <div className="pl-2 space-y-2 text-[8px] w-full">
-    //             {Object.entries(skills).map(([key, value]) => (
-    //               <div className="gap-2 capitalize flexCenter">
-    //                 {key}
-    //                 <div className="h-0.5 w-full relative rounded bg-gray-300">
-    //                   <div
-    //                     className="absolute h-full bg-gray-500 rounded"
-    //                     style={{ width: `${getPerc(value)}%` }}
-    //                   ></div>
-    //                 </div>
-    //               </div>
-    //             ))}
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-    <div className="flex gap-10">
-      <div className="w-[40rem] min-w-[40rem] min-h-[55rem]">
+              </>
+            }
+          </div>
 
-        <TemplateOneFile myUser={user} ref={componentRef} cvData={data} summaryLoading={summaryLoading} />
+
+        </div>
       </div>
-      <button onClick={generatePDF} className='flex'>
-        <p className='download-text'>FREE DOWNLOAD</p>
-        <img src={download} alt='Report Download Icon' />
+      <div className="flex gap-4 ">
+        <button onClick={generatePDF} className='flex w-44 px-6 py-3 bg-blue-200 rounded-md mt-4'>
+          DOWNLOAD
+          {/* <img src={download} alt='Report Download Icon' /> */}
 
-      </button>
-    </div>
+        </button>
+        {!stateValue.id && <button type="button" className="px-6 w-44 py-3 bg-blue-200 rounded-md mt-4" onClick={postData}>
+          Save
+        </button>}
+      </div>
+    </>
+
   );
 };
 
@@ -292,44 +328,3 @@ const TemplateOne = () => {
 export default TemplateOne;
 
 
-// {
-//   "name": "orta-texniki-ve-ali-tehsil-suallari",
-//   "formData": {
-//       "education": [
-//           {
-//               "tehsil": {
-//                   "answer": "Bakalavr"
-//               },
-//               "country": {
-//                   "answer": "Azərbaycan"
-//               },
-//               "university": "bmu",
-//               "specialty": {
-//                   "answer": "Aerokosmik informasiya sistemləri"
-//               },
-//               "date": {
-//                   "start": "2023-10-03",
-//                   "end": "2023-11-08"
-//               },
-//               "criterian": {
-//                   "answer": "Müraciyyət"
-//               },
-//               "local": {},
-//               "otherExam": {},
-//               "application": [
-//                   {
-//                       "id": 21,
-//                       "subanswers": [],
-//                       "answer_title": "Language test (IELTS TOEFL)",
-//                       "sub_answer_question": null,
-//                       "answer_weight_store": null,
-//                       "answer_dependens_on": null
-//                   }
-//               ],
-//               "currentWorking": false,
-//               "ielts": "55",
-//               "toefl": "555"
-//           }
-//       ]
-//   }
-// }

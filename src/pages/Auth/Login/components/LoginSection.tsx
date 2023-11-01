@@ -120,7 +120,7 @@ const LoginSection = () => {
                     </p>
                 }
                 <p className="w-full text-end text-qss-primary font-normal cursor-pointer">Şifrənizi unutmusunuz?</p>
-                <p className="text-center w-[405px]"> Hesabınız yoxdur? <Link to={'/register'} className='text-qss-primary'>Create an account</Link></p>
+                <p className="text-center w-[405px]"> Hesabınız yoxdur? <Link to={{pathname:'/register'}} className='text-qss-primary'>Create an account</Link></p>
             </div>
         </div>
     );
