@@ -5,7 +5,7 @@ import getToken from "helper/getToken";
 import { useEffect, useState } from "react";
 
 
-function GetStage(accessToken:string) {
+function GetStage(accessToken?:string) {
    accessToken = accessToken || getToken()
 
   // const accessToken = localStorage.getItem('access_token') || ''
