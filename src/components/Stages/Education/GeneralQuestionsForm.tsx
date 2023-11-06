@@ -7,11 +7,11 @@ import GetStage from "../../../services/GetStage";
 import { updateStageForm } from "../../../state/stages/stageFormSlice";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { addSelect, addTehsil } from "state/dataSlice";
+import useAuth from "hooks/useAuth";
 
 import Select from "../../Select";
 import LinkButton from "../../LinkButton";
 import ButtonSave from "components/ButtonSave";
-const { useGetStageQuery, useGetQuestionsQuery } = GetStage()
 const schema = yup
   .object({
     curOccupation: yup
@@ -48,6 +48,10 @@ const GeneralQuestionsForm = ({
   subStageSlug,
   num,
 }: GeneralQuestionsFormProps) => {
+
+  const { accessToken } = useAuth()
+  const { useGetStageQuery, useGetQuestionsQuery } = GetStage(accessToken || '')
+
   const { data: stagesData } = useGetStageQuery();
 
   const {
@@ -89,7 +93,7 @@ const GeneralQuestionsForm = ({
     },
   });
 
-  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) => {};
+  const onSubmit: SubmitHandler<GeneralQuestionsFormValues> = (data) => { };
 
   useEffect(() => {
     const subscription = watch((value) => {

@@ -14,10 +14,12 @@ import ProgramSkills from "./Stages/ProgramSkills/ProgramSkillsQuestionsForm";
 import JobExperienceForm from "./Stages/JobExperience/JobExperienceForm";
 import SpecialSkillsCertifcateQuestionsForm from "./Stages/SpecialSkills/SpecialSkillsCertifcateQuestionsForm";
 import ClockLoader from "react-spinners/ClockLoader";
+import useAuth from "hooks/useAuth";
 
 const Stage = () => {
   
-  const { useGetStageQuery, useGetQuestionsQuery } = GetStage()
+  const {accessToken} = useAuth()
+  const { useGetStageQuery, useGetQuestionsQuery } = GetStage(accessToken || '')
   const { data, error, isLoading } = useGetStageQuery();
 
   const { stageName } = (useLocation().state as {
