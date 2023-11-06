@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://qssanalyticstalentscore.pythonanywhere.com/"
+const API_URL = "https://web-production-5301.up.railway.app/"
 
 export const axiosInstance = axios.create({
   baseURL: API_URL,
