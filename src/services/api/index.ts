@@ -11,7 +11,7 @@ const API_URL = "https://web-production-5301.up.railway.app/"
 //   baseURL: API_URL,
 //   withCredentials: true,
 //   headers: {
-//     "Content-Type": "application/json",
+//     "Content-Type": "applicati on/json",
 //   },
 // });
 

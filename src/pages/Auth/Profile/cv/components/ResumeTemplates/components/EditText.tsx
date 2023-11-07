@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 
 function EditText({ className, text, children, url }: any) {
 
+
+
     const [editing, setEditing] = useState(false)
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -26,6 +28,10 @@ function EditText({ className, text, children, url }: any) {
         adjustTextareaHeight();
     }, [value]);
 
+    
+    useEffect(()=>{
+        setValue(text)
+    },[text])
 
     const handleChange = (e: any) => {
         setValue(e.target.value)

@@ -37,15 +37,13 @@ const getIcon = (iconKey: string) =>
 
 const TemplateOneFile = forwardRef<HTMLDivElement, CvProps>(({ cvData, summaryLoading }, ref) => {
 
+    console.log(cvData);
+    
 
-    const [data, setData] = useState({
-        ...cvData
-    })
+    const [data, setData] = useState(cvData)
 
     useEffect(() => {
-        setData({
-            ...cvData
-        })
+        setData(cvData)
 
     }, [cvData])
 
@@ -80,7 +78,7 @@ const TemplateOneFile = forwardRef<HTMLDivElement, CvProps>(({ cvData, summaryLo
                         ></img>}
 
                         <ul className="relative z-10 -top-10 -right-5 w-[10rem] flex flex-col text-[8px] tracking-normal">
-                            {data.links.map((contact: any) => (
+                            {data?.links?.map((contact: any) => (
 
                                 <EditText key={contact.name} text={contact.link} url={true} className="text-[.7rem]  items-center justify-start gap-1 text-white">
                                     <span className='mr-1'>

@@ -9,7 +9,7 @@ import { useReactToPrint } from "react-to-print";
 import { store } from 'state/store'
 import { BiErrorCircle } from 'react-icons/bi';
 import { PiEye } from 'react-icons/pi';
-import { FiUpload } from 'react-icons/fi';
+import { FiUpload, FiSend } from 'react-icons/fi';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
 import { useLocation } from 'react-router-dom';
@@ -54,6 +54,7 @@ const TemplateOne = () => {
 
 
   const [img, setImg] = useState('')
+  const [positionValue, setPositionValue] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
   const [summaryLoading, setSummaryLoading] = useState(true);
 
@@ -111,6 +112,7 @@ const TemplateOne = () => {
         ...response.data,
         ...cvInfoData,
         ...response3.data,
+
         first_name: resp?.data.first_name,
         email: resp?.data?.email,
         last_name: resp?.data?.last_name,
@@ -133,7 +135,6 @@ const TemplateOne = () => {
   }, [])
 
 
-  console.log(data);
 
 
 
@@ -148,15 +149,15 @@ const TemplateOne = () => {
           }).then(function (dataUrl: string) {
             setImg(dataUrl)
             setData({ ...data, resume_file: dataUrl })
+
+
+          }).then(() => {
+            postImg()
           })
         }
 
-        const response = await axiosPrivateInstance.post('user/resume-upload/', data)
 
 
-        // console.log(img);
-
-        console.log(response);
 
       } catch (error) {
         console.log(error);
@@ -166,12 +167,16 @@ const TemplateOne = () => {
 
     }
     componentToImg()
-  }
-  useEffect(() => {
-    if (img !== null && img !== undefined && img !== '') {
-      // postData()
+
+    async function postImg() {
+      console.log(data);
+
+      const response = await axiosPrivateInstance.post('user/resume-upload/', data)
+      console.log(response);
+
+
     }
-  }, [img])
+  }
 
 
   const generatePDF = useReactToPrint({
@@ -179,6 +184,18 @@ const TemplateOne = () => {
     documentTitle: 'TalentScoreCV',
   })
 
+
+  async function positionClickHandler() {
+    if (true) {
+      const resp = await axiosPrivateInstance.put('user/change-position/', { position: positionValue })
+      setData({ ...data, sample_job_title: resp.data.position[0] })
+      console.log(resp.data.position[0]);
+
+      console.log(data);
+    }
+
+
+  }
 
   return (
 
@@ -224,7 +241,13 @@ const TemplateOne = () => {
                   <label htmlFor="position">
                     Position
                   </label>
-                  <input type="text" name="" id="position" className="bg-white rounded-lg" />
+                  <div className="flex">
+
+                    <input type="text" name="position" value={positionValue} onChange={e => setPositionValue(e.target.value)} id="position" className="bg-white p-2 flex-1 outline-none rounded-none" />
+                    <button className="p-2" type="submit" onClick={positionClickHandler}>
+                      <FiSend />
+                    </button>
+                  </div>
                 </div>
                 {
                   data?.work_experience?.map((exp: WorkExperienceProps, index: number) => {
@@ -272,33 +295,33 @@ const TemplateOne = () => {
                 </div>
                 <div className="my-10 ">
                   <label htmlFor="phone">
-                    Phone number: 
+                    Phone number:
                   </label>
-                  
+
                   <input type="tel" name="" id="phone" className="bg-white rounded-md w-full p-1 mt-2 block " />
                 </div>
                 {
-                  DefaultContacts.links.map(({name,link},index:number)=>{
-                    return(
+                  DefaultContacts.links.map(({ name, link }, index: number) => {
+                    return (
                       <div className="my-10" key={index}>
-                      <label htmlFor={name}>
-                        {name} link: 
-                      </label>
-                      
-                      <input type="url" name="" id={name} className="bg-white rounded-md w-full p-1 mt-2 block " />
-                    </div>
+                        <label htmlFor={name}>
+                          {name} link:
+                        </label>
+
+                        <input type="url" name="" id={name} className="bg-white rounded-md w-full p-1 mt-2 block " />
+                      </div>
                     )
-                  })                  
+                  })
                 } <div className="flex items-center justify-between">
-                <button className="border border-qss-secondary text-qss-secondary rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
-                  Review
-                  <PiEye className="text-[1.4em]" />
-                </button>
-                <button onClick={() => setCurrentPage((curr) => curr - 1)} className="border bg-qss-secondary text-white rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
-                  Save
-                  <FiUpload className="text-[1.4em]" />
-                </button>
-              </div>
+                  <button className="border border-qss-secondary text-qss-secondary rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
+                    Review
+                    <PiEye className="text-[1.4em]" />
+                  </button>
+                  <button onClick={() => setCurrentPage((curr) => curr - 1)} className="border bg-qss-secondary text-white rounded-3xl px-[1.8rem] py-[.75rem] flex items-center gap-3">
+                    Save
+                    <FiUpload className="text-[1.4em]" />
+                  </button>
+                </div>
 
 
               </>
