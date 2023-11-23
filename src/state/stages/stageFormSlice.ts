@@ -14,6 +14,7 @@ export interface IInitialState<T> {
   formData: T;
 }
 
+
 type FormDataTypes =
   | GeneralQuestionsFormValues
   | EducationQuestionsFormValues
