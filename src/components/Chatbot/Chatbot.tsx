@@ -4,6 +4,7 @@ import ChatAvatar from "./components/ChatAvatar";
 import ChatHeader from "./components/ChatHeader";
 import ChatContent from "./components/ChatContent";
 import { Icon } from "@iconify/react";
+import { talentBotReply } from "./talentBotReply";
 
 interface IMessages {
   id: number;
@@ -44,8 +45,13 @@ const Chatbot = () => {
       message: text,
       user: true,
     };
+    if (!text.trim()) return;
     setMessages((prev) => [...prev, message]);
+    const reply = talentBotReply(text, messages.filter((m) => m.user).length);
     setText("");
+    setTimeout(() => {
+      setMessages((prev) => [...prev, { id: prev.length, message: reply }]);
+    }, 500);
   };
 
   return (
@@ -76,6 +82,7 @@ const Chatbot = () => {
               placeholder="Yaz..."
               value={text}
               onChange={handleUserInput}
+              onKeyDown={(e) => e.key === "Enter" && sendText()}
             />
 
             <Icon

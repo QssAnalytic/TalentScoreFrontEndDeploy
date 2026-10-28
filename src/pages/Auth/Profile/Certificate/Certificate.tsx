@@ -1,3 +1,4 @@
+import { API_URL } from 'config'
 import './certificate.css'
 import numbers from './assets/img/numbers.png'
 import logo from './assets/img/logo.png'
@@ -21,20 +22,25 @@ const Certificate = () => {
     introContent: { 'certificate-intro-content': '' }
   })
 
-  const apiUrl = 'https://nazimbudaqli.pythonanywhere.com/user/'
+  const apiUrl = API_URL + 'user/'
   const idEndpoint = 'get-unique-cert-id/'
   const desContentEndpoint = 'get-certificate-designation-content/'
   const introContentEndpoint = 'get-certificate-intro/'
   const userNameEndpoint = 'user/'
 
+  const getJson = (url: string, fallback: any) =>
+    fetch(url, { headers: { Authorization: `Bearer ${localStorage.getItem('access_token') || ''}` }, credentials: 'include' })
+      .then(r => (r.ok ? r.json() : fallback))
+      .catch(() => fallback)
+
   useEffect(() => {
     const fetchEndpoints = async () => {
       try {
         const responses = await Promise.all([
-          fetch(apiUrl + idEndpoint).then(response => response.json()),
-          fetch(apiUrl + userNameEndpoint).then(response => response.json()),
-          fetch(apiUrl + desContentEndpoint).then(response => response.json()),
-          fetch(apiUrl + introContentEndpoint).then(response => response.json())
+          getJson(apiUrl + idEndpoint, { code: '—' }),
+          getJson(apiUrl + userNameEndpoint, { first_name: '', last_name: '' }),
+          getJson(apiUrl + desContentEndpoint, { certificate_designation_content: '' }),
+          getJson(apiUrl + introContentEndpoint, { 'certificate-intro-content': '' })
         ])
 
         const [uniqueId, userName, desContent, introContent] = responses

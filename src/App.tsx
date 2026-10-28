@@ -14,7 +14,20 @@ import Home from 'pages/Home';
 import Report from 'pages/Auth/Profile/Report/Report';
 import CV from 'pages/Auth/Profile/cv/pages/Resume/CV';
 import Certificate from 'pages/Auth/Profile/Certificate/Certificate';
+import Plans from 'pages/Next/Plans';
+import Verification from 'pages/Next/Verification';
+import CareerReport from 'pages/Next/CareerReport';
+import VerifyCertificate from 'pages/Next/VerifyCertificate';
+import DemoBanner from 'pages/Next/DemoBanner';
+import Chatbot from 'components/Chatbot/Chatbot';
+import { useLocation } from 'react-router-dom';
 
+
+// Talent bot on the signed-in pages (the landing page already renders it).
+const ProfileChatbot = () => {
+	const { pathname } = useLocation();
+	return pathname.startsWith('/profile') && !pathname.includes('/stages/') ? <Chatbot /> : null;
+};
 
 const App = () => {
 	const { showReport } = useAppSelector(state => state.reportState);
@@ -24,6 +37,8 @@ const App = () => {
 	return (
 
 		<>
+			<DemoBanner />
+			<ProfileChatbot />
 			<Routes>
 
 
@@ -32,11 +47,15 @@ const App = () => {
 
 					<Route path='login' element={<Login />}></Route>
 					<Route path='register' element={<Register />}></Route>
+					<Route path='verify' element={<VerifyCertificate />}></Route>
 					<Route path='profile' element={<AuthMiddleware />}>
 						<Route index element={<Profile />}></Route>
 						<Route path='report' element={<Report />}></Route>
 						<Route path='cv' element={<CV />}></Route>
 						<Route path='certificate' element={<Certificate />}></Route>
+						<Route path='plans' element={<Plans />}></Route>
+						<Route path='verification' element={<Verification />}></Route>
+						<Route path='career' element={<CareerReport />}></Route>
 						<Route path='stages/:stageSlug/:subStageSlug' element={<Stages />}></Route>
 					</Route>
 				</Route>

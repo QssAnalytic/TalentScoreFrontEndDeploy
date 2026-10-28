@@ -298,7 +298,7 @@ const Profile: React.FC = () => {
                     <div className='w-[1090px] m-auto flex flex-col z-50 relative'>
                         <p className='text-center text-qss-secondary mt-11 mb-8'>Explore sample reports below!</p>
                         <Document fileData={files} />
-                        <button className='flex justify-between items-center w-[250px] m-auto border-[1px] border-qss-secondary bg-qss-secondary rounded-[25px] text-white text-[14px] py-3 px-4 mb-8 mt-12'>Go to premium subscription
+                        <button onClick={() => navigate('/profile/plans')} className='flex justify-between items-center w-[250px] m-auto border-[1px] border-qss-secondary bg-qss-secondary rounded-[25px] text-white text-[14px] py-3 px-4 mb-8 mt-12'>Go to premium subscription
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 width='24'

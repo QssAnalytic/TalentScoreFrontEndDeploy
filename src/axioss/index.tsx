@@ -1,7 +1,8 @@
 import axios from "axios"
+import { API_URL } from "config"
 
 // const API_URL = "https://talentscore.pythonanywhere.com/"
-const API_URL = "https://web-production-5301.up.railway.app/"
+
 // const API_URL = "http://146.190.122.252/"
 
 const axiosInstance = axios.create({

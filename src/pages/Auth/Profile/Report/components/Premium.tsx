@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom'
 const Free = () => {
+  const navigate = useNavigate()
   return (
     <div className='premium'>
       <h2 className='premium-header'>Upgrade</h2>
@@ -37,7 +39,7 @@ const Free = () => {
             ...          
           </p>
         </div>
-        <button className='offer-button'>See the Premium report features and prices</button>
+        <button className='offer-button' onClick={() => navigate('/profile/plans')}>See the Premium report features and prices</button>
       </div>
     </div>
   )

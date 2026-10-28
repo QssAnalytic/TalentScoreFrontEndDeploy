@@ -1,7 +1,9 @@
+import './mock/mockApi';
+import './mock/offlineIcons';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
-import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { HashRouter as BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
 import Landing from 'pages/Landing/Landing';

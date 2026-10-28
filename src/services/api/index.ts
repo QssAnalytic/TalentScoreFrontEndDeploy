@@ -4,7 +4,7 @@ import useAxiosPrivate from "hooks/useAxiosPrivate";
 
 
 // const API_URL = "https://talentscore.pythonanywhere.com/"
-const API_URL = "https://web-production-5301.up.railway.app/"
+
 // const API_URL = "http://146.190.122.252/"
 
 // export const axiosInstance = axios.create({

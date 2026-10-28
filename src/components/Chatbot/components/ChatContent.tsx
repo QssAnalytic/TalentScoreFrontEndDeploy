@@ -12,7 +12,7 @@ const ChatContent = ({ name }: IChatContent) => (
     <ChatBotLogo className="w-20 h-20" />
     <h3 className="font-medium">{name}</h3>
     <p className="text-xs break-words text-gray-400">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Nəticələrin və karyeran haqqında sual ver
     </p>
     <span className="text-xs font-medium text-gray-400">{time}</span>
   </div>
