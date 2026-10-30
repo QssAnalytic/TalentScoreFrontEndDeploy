@@ -19,6 +19,7 @@ import Verification from 'pages/Next/Verification';
 import CareerReport from 'pages/Next/CareerReport';
 import VerifyCertificate from 'pages/Next/VerifyCertificate';
 import DemoBanner from 'pages/Next/DemoBanner';
+import DemoLogin from 'pages/Next/DemoLogin';
 import Chatbot from 'components/Chatbot/Chatbot';
 import { useLocation } from 'react-router-dom';
 
@@ -48,6 +49,7 @@ const App = () => {
 					<Route path='login' element={<Login />}></Route>
 					<Route path='register' element={<Register />}></Route>
 					<Route path='verify' element={<VerifyCertificate />}></Route>
+					<Route path='demo' element={<DemoLogin />}></Route>
 					<Route path='profile' element={<AuthMiddleware />}>
 						<Route index element={<Profile />}></Route>
 						<Route path='report' element={<Report />}></Route>

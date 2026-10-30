@@ -121,6 +121,7 @@ const LoginSection = () => {
                 }
                 <p className="w-full text-end text-qss-primary font-normal cursor-pointer">Şifrənizi unutmusunuz?</p>
                 <p className="text-center w-[405px]"> Hesabınız yoxdur? <Link to={{pathname:'/register'}} className='text-qss-primary'>Create an account</Link></p>
+                <Link to="/demo" className="w-full rounded-3xl p-3 text-center border border-qss-secondary text-qss-secondary hover:bg-qss-secondary hover:text-white transition duration-300">Şifrəsiz daxil ol — demo hesab</Link>
             </div>
         </div>
     );
