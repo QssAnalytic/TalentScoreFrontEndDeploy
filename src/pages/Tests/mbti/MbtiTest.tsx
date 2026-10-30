@@ -65,7 +65,7 @@ const MbtiTest = () => {
 			<div className={`${running ? 'max-w-[860px]' : 'max-w-[1120px]'} mx-auto flex flex-col gap-8`}>
 				<TestHeader
 					number={3}
-					title="MBTI şəxsiyyət tipi testi"
+					title="16 tip şəxsiyyət testi"
 					compact={running}
 					subtitle={running ? undefined : '16 şəxsiyyət tipi modelinə əsaslanır. Enerjinizi haradan aldığınızı, məlumatı necə qəbul etdiyinizi, qərarları necə verdiyinizi və həyatınızı necə təşkil etdiyinizi göstərir.'}
 					actions={

@@ -6,6 +6,8 @@ import { ENNEA_TYPES } from 'tests/enneagram/data'
 import { DOMAIN_LABEL } from 'tests/iq/scoring'
 import { talentLabel } from 'tests/registry'
 import { IqDomain } from 'tests/types'
+import { BIG5_DOMAINS, BIG5_ORDER } from 'tests/big5/data'
+import { RIASEC_ORDER, RIASEC_TYPES } from 'tests/riasec/data'
 
 // 1200×630 cards (the Open Graph size) rendered to PNG for sharing.
 // Inline styles only, so html2canvas reproduces them exactly.
@@ -172,6 +174,53 @@ export const EnneaShareCard = () => {
 			{top.map(([t, s]) => (
 				<Bar key={t} label={`${t}. ${ENNEA_TYPES[Number(t)]?.name || ''}`} value={s} display={`${s}%`} />
 			))}
+		</CardFrame>
+	)
+}
+
+export const Big5ShareCard = () => {
+	const { r } = usePerson()
+	const b = r.big5
+	if (!b) return null
+	const top = [...BIG5_ORDER].filter(d => d !== 'N').sort((x, y) => b.domains[y] - b.domains[x])[0]
+	return (
+		<CardFrame
+			eyebrow="Big Five şəxsiyyət profili"
+			headline={<span style={{ fontSize: 64, fontWeight: 800 }}>{BIG5_DOMAINS[top].highLabel}</span>}
+			sub={`Ən güclü ölçü: ${BIG5_DOMAINS[top].name} (${b.domains[top]}/100)`}
+			footer={formatDate(b.date)}
+		>
+			{BIG5_ORDER.map(d => (
+				<Bar key={d} label={BIG5_DOMAINS[d].name} value={b.domains[d]} />
+			))}
+		</CardFrame>
+	)
+}
+
+export const RiasecShareCard = () => {
+	const { r } = usePerson()
+	const x = r.riasec
+	if (!x) return null
+	return (
+		<CardFrame
+			eyebrow="Karyera maraqları kodu"
+			headline={
+				<span style={{ display: 'flex', alignItems: 'baseline', gap: 22 }}>
+					<span style={{ fontSize: 124, fontWeight: 800, letterSpacing: 8 }}>{x.code}</span>
+				</span>
+			}
+			sub={x.code
+				.split('')
+				.map(t => RIASEC_TYPES[t as keyof typeof RIASEC_TYPES].name)
+				.join(' · ')}
+			footer={formatDate(x.date)}
+		>
+			{[...RIASEC_ORDER]
+				.sort((a, b) => x.scores[b] - x.scores[a])
+				.slice(0, 4)
+				.map(t => (
+					<Bar key={t} label={RIASEC_TYPES[t].name} value={x.scores[t]} />
+				))}
 		</CardFrame>
 	)
 }

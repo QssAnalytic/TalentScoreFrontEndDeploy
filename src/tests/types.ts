@@ -99,3 +99,49 @@ export interface EnneaCenter {
 	types: EnneaType[]
 	description: string
 }
+
+// ---------- Big Five (IPIP-based) ----------
+export type Big5Domain = 'O' | 'C' | 'E' | 'A' | 'N'
+
+export interface Big5Question {
+	id: string // 'b01'…
+	domain: Big5Domain
+	keyed: '+' | '-' // '-' = reverse scored
+	text: string // Azerbaijani first-person statement, 5-point agree scale
+}
+
+export interface Big5LevelText {
+	summary: string // 2–3 sentences for this level
+	work: string // 2 sentences: at work / study
+	relationships: string // 1–2 sentences
+	tips: string[] // 3 concrete tips
+}
+
+export interface Big5DomainProfile {
+	id: Big5Domain
+	name: string // Azerbaijani name, e.g. 'Açıqlıq'
+	short: string // one line: what the trait is
+	highLabel: string // e.g. 'Maraqlı, yaradıcı'
+	lowLabel: string // e.g. 'Praktik, ənənəvi'
+	levels: { low: Big5LevelText; mid: Big5LevelText; high: Big5LevelText }
+}
+
+// ---------- RIASEC career interests ----------
+export type RiasecType = 'R' | 'I' | 'A' | 'S' | 'E' | 'C'
+
+export interface RiasecQuestion {
+	id: string // 'r01'…
+	type: RiasecType
+	text: string // an activity, e.g. 'Elektrik cihazlarını təmir etmək' — answered "how much would you like doing this"
+}
+
+export interface RiasecTypeProfile {
+	id: RiasecType
+	name: string // e.g. 'Realist'
+	short: string // one line
+	description: string // 3–4 sentences
+	workEnvironment: string // 2 sentences
+	strengths: string[] // 4–5
+	careers: string[] // 8–10 professions
+	majors: string[] // 5–6 university majors (Azerbaijan naming)
+}

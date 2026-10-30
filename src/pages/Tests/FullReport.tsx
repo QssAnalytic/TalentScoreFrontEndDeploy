@@ -19,12 +19,17 @@ import { EnneaDiagram } from './enneagram/EnneaTest'
 import { Bullets, Chips, Section } from './mbti/MbtiTest'
 import ShareButton from 'share/ShareButton'
 import { FullShareCard } from 'share/cards'
+import { BIG5_DOMAINS, BIG5_ORDER } from 'tests/big5/data'
+import { big5Level } from 'tests/big5/scoring'
+import { RIASEC_TYPES } from 'tests/riasec/data'
+import { RiasecType } from 'tests/types'
+import { RiasecHexagon } from './riasec/RiasecTest'
 
 const genderAz = (g?: string) => (g === 'Male' ? 'Kişi' : g === 'Female' ? 'Qadın' : '')
 
 const FullReport = () => {
 	const { user } = useAuth()
-	const { done, results: r, count } = useTestStatus()
+	const { done, results: r, count, total } = useTestStatus()
 	const ref = useRef<HTMLDivElement>(null)
 	const { print } = useExport(ref, 'Talent-Score-tam-hesabat')
 	const name = `${user?.first_name || ''} ${user?.last_name || ''}`.trim()
@@ -34,7 +39,7 @@ const FullReport = () => {
 	const careers = rankCombined(r, 8)
 
 	const chain = (
-		<ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+		<ol className="grid sm:grid-cols-3 lg:grid-cols-6 gap-3">
 			{TESTS.map(t => (
 				<li key={t.id}>
 					<Link to={t.path} className={`flex items-center gap-3 rounded-xl border px-4 py-3 h-full ${done[t.id] ? 'border-qss-base-400 bg-qss-transbg' : 'border-qss-border bg-white hover:border-qss-secondary'}`}>
@@ -54,7 +59,7 @@ const FullReport = () => {
 					{chain}
 					<div className="rounded-2xl bg-white border border-qss-border p-8 max-w-2xl">
 						<p className="font-semibold text-qss-primary">Tam hesabat üçün ən azı 2 test tamamlayın.</p>
-						<p className="text-sm text-qss-inputText mt-2">Hazırda tamamlanıb: {count} / 4. Nə qədər çox test keçsəniz, tövsiyələr bir o qədər dəqiq olur.</p>
+						<p className="text-sm text-qss-inputText mt-2">Hazırda tamamlanıb: {count} / {total}. Nə qədər çox test keçsəniz, tövsiyələr bir o qədər dəqiq olur.</p>
 					</div>
 				</div>
 			</div>
@@ -67,7 +72,8 @@ const FullReport = () => {
 					.map(d => `${DOMAIN_LABEL[d]} təfəkkür (indeks ${r.iq!.domains[d].index})`)
 			: []),
 		...(mbti?.strengths.slice(0, 3) || []),
-		...(ennea?.strengths.slice(0, 3) || [])
+		...(ennea?.strengths.slice(0, 3) || []),
+		...(r.riasec ? RIASEC_TYPES[r.riasec.code[0] as RiasecType].strengths.slice(0, 2) : [])
 	]
 	const growth = [
 		...(r.iq
@@ -77,7 +83,13 @@ const FullReport = () => {
 			  })()
 			: []),
 		...(mbti?.growth.slice(0, 2) || []),
-		...(ennea?.growthTips.slice(0, 2) || [])
+		...(ennea?.growthTips.slice(0, 2) || []),
+		...(r.big5
+			? (() => {
+					const d = (['C', 'E', 'A', 'O'] as const).reduce((a, b) => (r.big5!.domains[b] < r.big5!.domains[a] ? b : a))
+					return BIG5_DOMAINS[d].levels[big5Level(r.big5.domains[d])].tips.slice(0, 1)
+			  })()
+			: [])
 	]
 
 	return (
@@ -86,7 +98,7 @@ const FullReport = () => {
 				<TestHeader
 					eyebrow="Nəticələr"
 					title="Tam hesabat"
-					subtitle={`${count} testin nəticəsi birləşdirilib.${count < 4 ? ' Qalan testləri keçsəniz hesabat avtomatik yenilənəcək.' : ''}`}
+					subtitle={`${count} testin nəticəsi birləşdirilib.${count < total ? ' Qalan testləri keçsəniz hesabat avtomatik yenilənəcək.' : ''}`}
 					actions={<ShareButton title="Tam profilim" text="Talent Score tam profil hesabatım" card={<FullShareCard />} />}
 				/>
 				{chain}
@@ -186,7 +198,7 @@ const FullReport = () => {
 											</p>
 											<p className="text-qss-inputText leading-relaxed">{mbti.summary}</p>
 											<Link to="/profile/tests/mbti" className="text-sm font-semibold text-qss-secondary">
-												MBTI hesabatı →
+												16 tip hesabatı →
 											</Link>
 										</div>
 									)}
@@ -201,6 +213,32 @@ const FullReport = () => {
 											<p className="text-qss-inputText leading-relaxed">{ennea.summary}</p>
 											<Link to="/profile/tests/enneagram" className="text-sm font-semibold text-qss-secondary">
 												Enneaqram hesabatı →
+											</Link>
+										</div>
+									)}
+								</div>
+							</Section>
+						)}
+
+						{(r.big5 || r.riasec) && (
+							<Section title="Big Five və karyera maraqları">
+								<div className="grid md:grid-cols-2 gap-10 items-start">
+									{r.big5 && (
+										<div className="flex flex-col gap-3">
+											{BIG5_ORDER.map(d => (
+												<ScoreBar key={d} label={BIG5_DOMAINS[d].name} value={r.big5!.domains[d]} display={String(r.big5!.domains[d])} />
+											))}
+											<Link to="/profile/tests/big5" className="text-sm font-semibold text-qss-secondary">
+												Big Five hesabatı →
+											</Link>
+										</div>
+									)}
+									{r.riasec && (
+										<div className="flex flex-col items-center gap-2">
+											<RiasecHexagon scores={r.riasec.scores} size={260} />
+											<p className="text-sm text-qss-inputText text-center">{RIASEC_TYPES[r.riasec.code[0] as RiasecType].description.split('.')[0]}.</p>
+											<Link to="/profile/tests/riasec" className="text-sm font-semibold text-qss-secondary">
+												Karyera maraqları hesabatı →
 											</Link>
 										</div>
 									)}

@@ -25,9 +25,11 @@ interface Props {
 	perPage?: number
 	onFinish: (answers: Record<string, number>) => void
 	onCancel?: () => void
+	scale?: { value: number; label: string }[]
+	ends?: [string, string]
 }
 
-const LikertRunner = ({ testKey, questions, perPage = 8, onFinish, onCancel }: Props) => {
+const LikertRunner = ({ testKey, questions, perPage = 8, onFinish, onCancel, scale = SCALE, ends = ['Razı deyiləm', 'Razıyam'] }: Props) => {
 	const { user } = useAuth()
 	const saved = useMemo(() => loadResults(user?.email).progress?.[testKey], [])
 	const [answers, setAnswers] = useState<Record<string, number>>(saved?.answers || {})
@@ -78,8 +80,8 @@ const LikertRunner = ({ testKey, questions, perPage = 8, onFinish, onCancel }: P
 			</div>
 
 			<div className="hidden md:flex justify-between text-xs font-semibold px-6">
-				<span className="text-[#C2410C]">Razı deyiləm</span>
-				<span className="text-qss-secondary">Razıyam</span>
+				<span className="text-[#C2410C]">{ends[0]}</span>
+				<span className="text-qss-secondary">{ends[1]}</span>
 			</div>
 
 			<ol className="flex flex-col gap-4" start={page * perPage + 1}>
@@ -98,7 +100,7 @@ const LikertRunner = ({ testKey, questions, perPage = 8, onFinish, onCancel }: P
 							</p>
 							<fieldset className="flex items-center justify-center gap-3 sm:gap-6">
 								<legend className="sr-only">{q.text}</legend>
-								{SCALE.map((s, k) => (
+								{scale.map((s, k) => (
 									<label key={s.value} className="cursor-pointer grid place-items-center" title={s.label}>
 										<input
 											type="radio"

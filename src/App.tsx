@@ -27,6 +27,13 @@ import EnneaTest from 'pages/Tests/enneagram/EnneaTest';
 import FullReport from 'pages/Tests/FullReport';
 import Certificates from 'pages/Tests/Certificates';
 import CvBuilder from 'pages/Tests/cv/CvBuilder';
+import Big5Test from 'pages/Tests/big5/Big5Test';
+import RiasecTest from 'pages/Tests/riasec/RiasecTest';
+import Vacancies from 'pages/Jobs/Vacancies';
+import Applications from 'pages/Jobs/Applications';
+import AutoApply from 'pages/Jobs/AutoApply';
+import JobProfile from 'pages/Jobs/JobProfile';
+import { CoachHome, CoachReport } from 'pages/Jobs/Coach';
 
 
 // Talent bot on the signed-in pages (the landing page already renders it).
@@ -63,6 +70,14 @@ const App = () => {
 							<Route path='tests/iq' element={<IqTest />}></Route>
 							<Route path='tests/mbti' element={<MbtiTest />}></Route>
 							<Route path='tests/enneagram' element={<EnneaTest />}></Route>
+							<Route path='tests/big5' element={<Big5Test />}></Route>
+							<Route path='tests/riasec' element={<RiasecTest />}></Route>
+							<Route path='jobs' element={<Vacancies />}></Route>
+							<Route path='jobs/applications' element={<Applications />}></Route>
+							<Route path='jobs/auto' element={<AutoApply />}></Route>
+							<Route path='jobs/profile' element={<JobProfile />}></Route>
+							<Route path='jobs/coach' element={<CoachHome />}></Route>
+							<Route path='jobs/coach/:appId' element={<CoachReport />}></Route>
 							<Route path='full-report' element={<FullReport />}></Route>
 							<Route path='certificates' element={<Certificates />}></Route>
 							<Route path='cv' element={<CvBuilder />}></Route>

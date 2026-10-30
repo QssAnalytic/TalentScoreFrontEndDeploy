@@ -4,10 +4,20 @@ import useAuth from 'hooks/useAuth'
 import useLogout from 'hooks/useLogout'
 import { useResults } from 'tests/store'
 import { TESTS, TestId } from 'tests/registry'
+import { useCareer } from 'jobs/store'
+import { currentStatus, isInvitation } from 'jobs/status'
+import { useAutoApply } from 'jobs/useAutoApply'
 import { ReactComponent as LogoWhite } from 'assets/logo.svg'
 import {
 	IconAward,
+	IconBig5,
+	IconBolt,
 	IconBrain,
+	IconBriefcase,
+	IconCoach,
+	IconHex,
+	IconSend,
+	IconUser,
 	IconCheck,
 	IconCompass,
 	IconCv,
@@ -30,7 +40,9 @@ const testIcon: Record<TestId, () => JSX.Element> = {
 	talent: IconTalent,
 	iq: IconBrain,
 	mbti: IconCompass,
-	ennea: IconEnnea
+	ennea: IconEnnea,
+	big5: IconBig5,
+	riasec: IconHex
 }
 
 export function useTestStatus() {
@@ -40,10 +52,12 @@ export function useTestStatus() {
 		talent: !!user?.report_test || !!results.talent,
 		iq: !!results.iq,
 		mbti: !!results.mbti,
-		ennea: !!results.ennea
+		ennea: !!results.ennea,
+		big5: !!results.big5,
+		riasec: !!results.riasec
 	}
 	const started: Record<string, boolean> = Object.fromEntries(Object.keys(results.progress || {}).map(k => [k, true]))
-	return { done, started, results, count: Object.values(done).filter(Boolean).length }
+	return { done, started, results, count: Object.values(done).filter(Boolean).length, total: TESTS.length }
 }
 
 const linkBase = 'flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] leading-snug transition-colors duration-200'
@@ -56,7 +70,10 @@ const SectionLabel = ({ children }: { children: string }) => (
 
 const AppShell = () => {
 	const { user } = useAuth()
-	const { done, count, results } = useTestStatus()
+	const { done, count, total, results } = useTestStatus()
+	const career = useCareer(user?.email)
+	const invites = career.applications.filter(a => isInvitation(currentStatus(a)) && !a.replySent).length
+	useAutoApply()
 	const [open, setOpen] = useState(false)
 	const logout = useLogout()
 	const navigate = useNavigate()
@@ -116,12 +133,40 @@ const AppShell = () => {
 					})}
 				</div>
 
+				<SectionLabel>Karyera</SectionLabel>
+				<div className="flex flex-col gap-1">
+					<NavLink to="/profile/jobs" end className={linkClass} onClick={() => setOpen(false)}>
+						<IconBriefcase />
+						<span className="flex-1">Vakansiyalar</span>
+						<span className="text-[10px] rounded-full bg-qss-gradientBottom/20 text-qss-gradientBottom px-2 py-0.5">hər gün</span>
+					</NavLink>
+					<NavLink to="/profile/jobs/applications" className={linkClass} onClick={() => setOpen(false)}>
+						<IconSend />
+						<span className="flex-1">Müraciətlərim</span>
+						{invites > 0 && <span className="text-[11px] rounded-full bg-[#F59E0B] text-white px-2 py-0.5 tabular-nums">{invites}</span>}
+						{!invites && career.applications.length > 0 && <span className="text-[11px] rounded-full bg-white/10 px-2 py-0.5 tabular-nums">{career.applications.length}</span>}
+					</NavLink>
+					<NavLink to="/profile/jobs/auto" className={linkClass} onClick={() => setOpen(false)}>
+						<IconBolt />
+						<span className="flex-1">Avto-müraciət</span>
+						{career.subscription?.active && <span className="w-2 h-2 rounded-full bg-qss-gradientBottom" aria-label="Aktiv" />}
+					</NavLink>
+					<NavLink to="/profile/jobs/coach" className={linkClass} onClick={() => setOpen(false)}>
+						<IconCoach />
+						Karyera koçu
+					</NavLink>
+					<NavLink to="/profile/jobs/profile" className={linkClass} onClick={() => setOpen(false)}>
+						<IconUser />
+						Karyera profili
+					</NavLink>
+				</div>
+
 				<SectionLabel>Nəticələr</SectionLabel>
 				<div className="flex flex-col gap-1">
 					<NavLink to="/profile/full-report" className={linkClass} onClick={() => setOpen(false)}>
 						<IconReport />
 						<span className="flex-1">Tam hesabat</span>
-						<span className="text-[11px] rounded-full bg-white/10 px-2 py-0.5 tabular-nums">{count}/4</span>
+						<span className="text-[11px] rounded-full bg-white/10 px-2 py-0.5 tabular-nums">{count}/{total}</span>
 					</NavLink>
 					<NavLink to="/profile/certificates" className={linkClass} onClick={() => setOpen(false)}>
 						<IconAward />
@@ -142,7 +187,7 @@ const AppShell = () => {
 				<div className="flex flex-col gap-1">
 					<NavLink to="/profile/plans" className={linkClass} onClick={() => setOpen(false)}>
 						<IconPlan />
-						Planım
+						Planlar və ödənişlər
 					</NavLink>
 					<NavLink to="/profile/verification" className={linkClass} onClick={() => setOpen(false)}>
 						<IconShield />

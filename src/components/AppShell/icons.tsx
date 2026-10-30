@@ -115,3 +115,42 @@ export const IconArrow = () => (
 		<path d="M5 12h14M13 6l6 6-6 6" />
 	</svg>
 )
+export const IconBig5 = () => (
+	<svg {...base}>
+		<path d="M4 20V10M9 20V4M14 20v-7M19 20V8" />
+	</svg>
+)
+export const IconHex = () => (
+	<svg {...base}>
+		<path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z" />
+		<path d="M12 8l3.5 2v4L12 16l-3.5-2v-4z" />
+	</svg>
+)
+export const IconBriefcase = () => (
+	<svg {...base}>
+		<rect x="3" y="7" width="18" height="13" rx="2" />
+		<path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18" />
+	</svg>
+)
+export const IconSend = () => (
+	<svg {...base}>
+		<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z" />
+	</svg>
+)
+export const IconBolt = () => (
+	<svg {...base}>
+		<path d="M13 2L4 14h7l-1 8 9-12h-7z" />
+	</svg>
+)
+export const IconUser = () => (
+	<svg {...base}>
+		<circle cx="12" cy="8" r="4" />
+		<path d="M4 21a8 8 0 0116 0" />
+	</svg>
+)
+export const IconCoach = () => (
+	<svg {...base}>
+		<path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.4A8 8 0 1121 12z" />
+		<path d="M8.5 11h7M8.5 14.5h4" />
+	</svg>
+)

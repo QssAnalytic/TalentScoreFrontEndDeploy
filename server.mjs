@@ -7,6 +7,7 @@ import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import { randomBytes } from 'node:crypto'
 import { extname, join, normalize } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createJobFeed } from './jobs/feed.mjs'
 
 const PORT = Number(process.env.PORT || 3000)
 const BACKEND_URL = (process.env.BACKEND_URL || 'https://talentscorebackend-production.up.railway.app').replace(/\/+$/, '')
@@ -42,6 +43,7 @@ async function readBody(req) {
 }
 
 async function proxy(req, res) {
+	// /api/* drops the prefix; /media/* (uploaded photos and reports) passes through unchanged.
 	const target = BACKEND_URL + req.url.replace(/^\/api/, '')
 	const headers = {}
 	for (const [k, v] of Object.entries(req.headers)) if (!HOP.has(k)) headers[k] = v
@@ -169,6 +171,31 @@ async function lookupCert(res, id) {
 	}
 }
 
+// ---------- daily vacancy feed ----------
+const jobFeed = createJobFeed(process.env.DATA_DIR || join(ROOT, 'data'))
+jobFeed.start().catch(e => console.error('jobs feed start failed', e?.message))
+
+function sendJson(res, status, body, cache = 'no-cache') {
+	res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': cache })
+	res.end(JSON.stringify(body))
+}
+
+async function serveJobs(req, res) {
+	try {
+		const f = await jobFeed.feed()
+		const id = /^\/jobs\/item\/([A-Za-z0-9_-]+)$/.exec(req.url.split('?')[0])
+		if (id) {
+			const job = f.jobs.find(j => j.id === id[1])
+			return job ? sendJson(res, 200, job) : sendJson(res, 404, { detail: 'Not found' })
+		}
+		// The list leaves out long descriptions; the detail call returns them.
+		return sendJson(res, 200, { ...f, jobs: f.jobs.map(({ description, ...j }) => j) }, 'public, max-age=300')
+	} catch (err) {
+		console.error('jobs feed error', err?.message)
+		return sendJson(res, 500, { detail: 'Vacancy feed unavailable.' })
+	}
+}
+
 function notFound(res) {
 	res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' })
 	res.end('Not found')
@@ -203,6 +230,8 @@ async function serveStatic(req, res) {
 http
 	.createServer((req, res) => {
 		if (req.url === '/api' || req.url.startsWith('/api/')) return proxy(req, res)
+		if (req.url.startsWith('/media/') && req.method === 'GET') return proxy(req, res)
+		if (req.url.startsWith('/jobs/') && req.method === 'GET') return serveJobs(req, res)
 		if (req.url === '/share' && req.method === 'POST') return createShare(req, res)
 		if (req.url === '/cert' && req.method === 'POST') return registerCert(req, res)
 		const cert = /^\/cert\/([A-Za-z0-9-]+)$/.exec(req.url)

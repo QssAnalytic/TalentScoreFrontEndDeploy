@@ -1,0 +1,3698 @@
+[
+	{
+		"id": "s001",
+		"title": "Frontend proqramçı (React)",
+		"company": "Xəzər Rəqəmsal Həllər",
+		"sector": "İT və proqramlaşdırma",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"JavaScript",
+			"TypeScript",
+			"React",
+			"HTML/CSS",
+			"REST API",
+			"Git",
+			"Responsiv dizayn"
+		],
+		"traits": [
+			"analytical",
+			"creative",
+			"detail"
+		],
+		"riasec": "IA",
+		"minIq": 105,
+		"salaryMin": 1800,
+		"salaryMax": 3000,
+		"employment": "Tam ştat",
+		"summary": "Yerli bank və pərakəndə müştəriləri üçün veb tətbiqlərin istifadəçi interfeysini hazırlayacaqsınız. Dizaynerlər və backend komandası ilə sıx əməkdaşlıq edərək sürətli və əlçatan interfeyslər quracaqsınız.",
+		"responsibilities": [
+			"Figma maketlərini React komponentlərinə çevirmək",
+			"REST API-lərlə inteqrasiya və məlumatların vizuallaşdırılması",
+			"Səhifələrin yüklənmə sürətini optimallaşdırmaq",
+			"Kod baxışlarında (code review) iştirak etmək",
+			"Komponent kitabxanasını genişləndirmək və sənədləşdirmək"
+		],
+		"requirements": [
+			"React ilə ən azı 2 il kommersiya təcrübəsi",
+			"TypeScript və müasir JavaScript (ES6+) biliyi",
+			"Git ilə komanda daxilində işləmə vərdişi",
+			"Responsiv və əlçatan (a11y) interfeys prinsiplərini bilmək",
+			"İngilis dilində texniki sənədləri oxuya bilmək"
+		],
+		"process": [
+			"CV seçimi",
+			"Texniki tapşırıq",
+			"Texniki müsahibə",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Bakıda yerləşən, 80 nəfərlik komandası ilə yerli bizneslər üçün veb və mobil məhsullar hazırlayan proqram təminatı şirkəti. Şəffaflığa, kod keyfiyyətinə və davamlı öyrənməyə önəm verir."
+	},
+	{
+		"id": "s002",
+		"title": "Backend proqramçı (Node.js)",
+		"company": "Lumenkod Studiya",
+		"sector": "İT və proqramlaşdırma",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Node.js",
+			"TypeScript",
+			"PostgreSQL",
+			"REST və GraphQL",
+			"Docker",
+			"Redis",
+			"Unit testlər"
+		],
+		"traits": [
+			"analytical",
+			"detail",
+			"calm"
+		],
+		"riasec": "IC",
+		"minIq": 110,
+		"salaryMin": 3200,
+		"salaryMax": 5000,
+		"employment": "Tam ştat",
+		"summary": "Beynəlxalq müştərilər üçün yüksək yüklənməyə davamlı SaaS platformasının server hissəsini inkişaf etdirəcəksiniz. Arxitektura qərarlarında iştirak edəcək və kiçik mütəxəssislərə mentorluq edəcəksiniz.",
+		"responsibilities": [
+			"Mikroservis arxitekturasında yeni API-lər hazırlamaq",
+			"Verilənlər bazası sxemlərini layihələndirmək və sorğuları optimallaşdırmaq",
+			"Avtomatlaşdırılmış testlər yazmaq və keyfiyyətə nəzarət etmək",
+			"Kiçik proqramçıların kodunu yoxlamaq və onlara mentorluq etmək",
+			"Prod mühitində yaranan problemləri araşdırıb həll etmək"
+		],
+		"requirements": [
+			"Node.js ilə ən azı 4 il təcrübə",
+			"Relyasion verilənlər bazaları üzrə dərin bilik",
+			"Docker və CI/CD prosesləri ilə iş təcrübəsi",
+			"Təmiz kod və dizayn şablonları (design patterns) biliyi",
+			"İngilis dilində sərbəst yazılı ünsiyyət"
+		],
+		"process": [
+			"CV seçimi",
+			"Texniki tapşırıq",
+			"Texniki müsahibə",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Avropa və Körfəz ölkələrindəki müştərilər üçün SaaS platformaları quran 40 nəfərlik məhsul studiyası. Kiçik, müstəqil komandalar və çevik iş qrafiki ilə işləyir."
+	},
+	{
+		"id": "s003",
+		"title": "Proqramlaşdırma üzrə təcrübəçi",
+		"company": "Səmərə Soft MMC",
+		"sector": "İT və proqramlaşdırma",
+		"city": "Bakı",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Python və ya JavaScript əsasları",
+			"HTML/CSS",
+			"SQL əsasları",
+			"Git",
+			"Alqoritmik düşüncə"
+		],
+		"traits": [
+			"analytical",
+			"organized"
+		],
+		"riasec": "IR",
+		"minIq": 100,
+		"salaryMin": 500,
+		"salaryMax": 700,
+		"employment": "Təcrübə proqramı",
+		"summary": "Üç aylıq ödənişli təcrübə proqramında real məhsul komandasının tərkibində kiçik tapşırıqlar yerinə yetirəcəksiniz. Proqram uğurla bitdikdə kiçik mütəxəssis vəzifəsinə keçid imkanı var.",
+		"responsibilities": [
+			"Mentorun rəhbərliyi ilə kiçik funksiyalar hazırlamaq",
+			"Mövcud koddakı xətaları tapmaq və düzəltmək",
+			"Daxili təlimlərdə və komanda görüşlərində iştirak etmək",
+			"Gördüyü işləri qısa hesabatlarla sənədləşdirmək"
+		],
+		"requirements": [
+			"İT ixtisası üzrə tələbə və ya təzə məzun olmaq",
+			"Ən azı bir proqramlaşdırma dilində əsas biliklər",
+			"Öyrənməyə həvəs və suallar verməkdən çəkinməmək",
+			"Həftədə ən azı 30 saat vaxt ayıra bilmək"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Qısa test",
+			"Qrup müsahibəsi"
+		],
+		"companyAbout": "Kiçik və orta bizneslər üçün anbar və satış uçotu proqramı hazırlayan yerli şirkət. 2000-dən çox müştəriyə xidmət göstərir və gəncləri öyrədərək böyütməyi sevir."
+	},
+	{
+		"id": "s004",
+		"title": "DevOps mühəndisi",
+		"company": "Kəhrəba Texnologiyaları",
+		"sector": "İT və proqramlaşdırma",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 5,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Linux",
+			"Docker",
+			"Kubernetes",
+			"CI/CD",
+			"Terraform",
+			"Bash",
+			"Prometheus və Grafana"
+		],
+		"traits": [
+			"analytical",
+			"calm",
+			"organized"
+		],
+		"riasec": "RC",
+		"minIq": 110,
+		"salaryMin": 3500,
+		"salaryMax": 5500,
+		"employment": "Tam ştat",
+		"summary": "Müştərilərin bulud infrastrukturunu avtomatlaşdıracaq, etibarlılığını və təhlükəsizliyini təmin edəcəksiniz. Növbətçilik sistemində iştirak edərək kritik insidentlərə cavab verəcəksiniz.",
+		"responsibilities": [
+			"Kubernetes klasterlərini qurmaq və idarə etmək",
+			"CI/CD pipeline-larını layihələndirmək və təkmilləşdirmək",
+			"İnfrastrukturu kod kimi (IaC) idarə etmək",
+			"Monitorinq və xəbərdarlıq sistemlərini qurmaq",
+			"İnsidentlərdən sonra kök səbəb təhlili aparmaq"
+		],
+		"requirements": [
+			"DevOps və ya sistem administrasiyası üzrə 5 ildən çox təcrübə",
+			"Linux sistemlərini dərindən bilmək",
+			"Terraform və ya Ansible ilə praktik iş təcrübəsi",
+			"Şəbəkə və təhlükəsizlik əsaslarını bilmək",
+			"Stresli vəziyyətlərdə soyuqqanlı qərar verə bilmək"
+		],
+		"process": [
+			"CV seçimi",
+			"Texniki tapşırıq",
+			"Texniki müsahibə",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Bulud infrastrukturu və kibertəhlükəsizlik xidmətləri göstərən 150 nəfərlik texnologiya şirkəti. Mühəndislik mədəniyyəti, sənədləşmə və komanda işi əsas dəyərləridir."
+	},
+	{
+		"id": "s005",
+		"title": "QA test mühəndisi",
+		"company": "Xəzər Rəqəmsal Həllər",
+		"sector": "İT və proqramlaşdırma",
+		"city": "Uzaqdan",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Manual testləmə",
+			"Test ssenariləri",
+			"Postman",
+			"Jira",
+			"SQL əsasları",
+			"Selenium əsasları"
+		],
+		"traits": [
+			"detail",
+			"organized",
+			"analytical"
+		],
+		"riasec": "CI",
+		"salaryMin": 1000,
+		"salaryMax": 1500,
+		"employment": "Tam ştat",
+		"summary": "Veb və mobil tətbiqlərin buraxılışdan əvvəl keyfiyyətini yoxlayacaq və xətaları sistemli şəkildə qeydə alacaqsınız. Uzaqdan iş formatında paylanmış komanda ilə gündəlik əlaqədə olacaqsınız.",
+		"responsibilities": [
+			"Tələblər əsasında test ssenariləri hazırlamaq",
+			"Funksional və reqressiya testlərini aparmaq",
+			"Tapılan xətaları Jira-da ətraflı təsvir etmək",
+			"API-ləri Postman ilə yoxlamaq",
+			"Avtomatlaşdırılmış testlərin yazılmasında iştirak etmək"
+		],
+		"requirements": [
+			"Testləmə üzrə ən azı 1 il təcrübə və ya güclü təcrübə proqramı",
+			"Proqram təminatının həyat dövrünü (SDLC) bilmək",
+			"Diqqətli və dəqiq olmaq",
+			"Evdən sabit internetlə işləmək imkanı"
+		],
+		"process": [
+			"CV seçimi",
+			"Test tapşırığı",
+			"Onlayn müsahibə"
+		],
+		"companyAbout": "Bakıda yerləşən, 80 nəfərlik komandası ilə yerli bizneslər üçün veb və mobil məhsullar hazırlayan proqram təminatı şirkəti. Şəffaflığa, kod keyfiyyətinə və davamlı öyrənməyə önəm verir."
+	},
+	{
+		"id": "s006",
+		"title": "İT dəstək mütəxəssisi",
+		"company": "Yarpaq Plast MMC",
+		"sector": "İT və proqramlaşdırma",
+		"city": "Sumqayıt",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Peşə",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Windows administrasiyası",
+			"Şəbəkə əsasları",
+			"Active Directory",
+			"Avadanlıq quraşdırılması",
+			"Helpdesk sistemi",
+			"Office 365"
+		],
+		"traits": [
+			"practical",
+			"calm",
+			"social"
+		],
+		"riasec": "RC",
+		"salaryMin": 800,
+		"salaryMax": 1100,
+		"employment": "Tam ştat",
+		"summary": "Zavodun 180 əməkdaşına gündəlik İT dəstəyi göstərəcək, kompüter və şəbəkə avadanlıqlarının fasiləsiz işini təmin edəcəksiniz. Kiçik İT şöbəsində geniş praktik təcrübə qazanmaq imkanı var.",
+		"responsibilities": [
+			"İstifadəçi müraciətlərini qəbul edib həll etmək",
+			"Kompüter, printer və şəbəkə avadanlıqlarını quraşdırmaq",
+			"İstifadəçi hesablarını və giriş hüquqlarını idarə etmək",
+			"Avadanlıqların inventar uçotunu aparmaq",
+			"Ehtiyat nüsxələmə proseslərinə nəzarət etmək"
+		],
+		"requirements": [
+			"İT üzrə peşə və ya ali təhsil",
+			"Windows və ofis proqramları üzrə praktik bilik",
+			"Şəbəkə əsaslarını (IP, DNS, Wi-Fi) bilmək",
+			"İstifadəçilərlə səbirli və nəzakətli ünsiyyət"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Qida qablaşdırması üçün plastik və bioparçalanan məmulatlar istehsal edən Sumqayıt zavodu. 180 əməkdaşı var və istehsalı ekoloji standartlara uyğunlaşdırmağa çalışır."
+	},
+	{
+		"id": "s007",
+		"title": "Texniki rəhbər (Tech Lead)",
+		"company": "Lumenkod Studiya",
+		"sector": "İT və proqramlaşdırma",
+		"city": "Bakı",
+		"level": "Rəhbər",
+		"minYears": 7,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Sistem arxitekturası",
+			"Komanda idarəetməsi",
+			"Node.js / Python",
+			"Bulud xidmətləri",
+			"Kod keyfiyyəti standartları",
+			"Agile/Scrum",
+			"Texniki planlaşdırma"
+		],
+		"traits": [
+			"leader",
+			"analytical",
+			"calm"
+		],
+		"riasec": "IE",
+		"minIq": 112,
+		"salaryMin": 5000,
+		"salaryMax": 7000,
+		"employment": "Tam ştat",
+		"summary": "8 nəfərlik məhsul komandasına texniki rəhbərlik edəcək və arxitektura qərarlarına cavabdeh olacaqsınız. Biznes tərəfi ilə texniki komanda arasında körpü rolunu oynayacaqsınız.",
+		"responsibilities": [
+			"Məhsulun texniki arxitekturasını müəyyən etmək",
+			"Komanda üzvlərinin inkişafını planlaşdırmaq və rəy vermək",
+			"Sprint planlamasında texniki qiymətləndirmə aparmaq",
+			"Kod keyfiyyəti və təhlükəsizlik standartlarını tətbiq etmək",
+			"Müştərilərlə texniki görüşlərdə iştirak etmək"
+		],
+		"requirements": [
+			"Proqram təminatı sahəsində ən azı 7 il təcrübə",
+			"Komanda rəhbərliyi üzrə ən azı 2 il təcrübə",
+			"Paylanmış sistemlər və bulud arxitekturasını bilmək",
+			"Güclü ünsiyyət və qərarvermə bacarığı",
+			"İngilis dilində sərbəst danışıq"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Sistem dizaynı müsahibəsi",
+			"Təsisçilərlə görüş"
+		],
+		"companyAbout": "Avropa və Körfəz ölkələrindəki müştərilər üçün SaaS platformaları quran 40 nəfərlik məhsul studiyası. Kiçik, müstəqil komandalar və çevik iş qrafiki ilə işləyir."
+	},
+	{
+		"id": "s008",
+		"title": "Data analitik",
+		"company": "Rəqəm Laboratoriyası",
+		"sector": "Data və analitika",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"SQL",
+			"Python (pandas)",
+			"Power BI",
+			"Excel",
+			"Statistika",
+			"Data vizuallaşdırma"
+		],
+		"traits": [
+			"analytical",
+			"detail",
+			"organized"
+		],
+		"riasec": "IC",
+		"minIq": 108,
+		"salaryMin": 1800,
+		"salaryMax": 2800,
+		"employment": "Tam ştat",
+		"summary": "Pərakəndə müştərilərin satış və müştəri məlumatlarını təhlil edərək biznes qərarları üçün tövsiyələr hazırlayacaqsınız. Nəticələri rəhbərliyə aydın və vizual şəkildə təqdim edəcəksiniz.",
+		"responsibilities": [
+			"Müxtəlif mənbələrdən məlumatları toplamaq və təmizləmək",
+			"SQL sorğuları ilə hesabatlar hazırlamaq",
+			"İnteraktiv dashboard-lar qurmaq",
+			"A/B testlərin nəticələrini təhlil etmək",
+			"Tapıntıları qısa təqdimatlarla izah etmək"
+		],
+		"requirements": [
+			"Data analitikası üzrə ən azı 2 il təcrübə",
+			"SQL-də güclü bilik",
+			"Python və ya R ilə məlumat emalı",
+			"Statistikanın əsas anlayışlarını bilmək",
+			"Mürəkkəb nəticələri sadə dillə izah edə bilmək"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Keys tapşırığı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Pərakəndə və xidmət sektorları üçün analitika və süni intellekt həlləri hazırlayan 30 nəfərlik data şirkəti. Qərarların məlumata əsaslanmasını əsas missiyası sayır."
+	},
+	{
+		"id": "s009",
+		"title": "Data analitikası üzrə təcrübəçi",
+		"company": "Statis Analitika MMC",
+		"sector": "Data və analitika",
+		"city": "Bakı",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Excel",
+			"SQL əsasları",
+			"Python əsasları",
+			"Google Sheets",
+			"Hesabat hazırlanması"
+		],
+		"traits": [
+			"analytical",
+			"detail"
+		],
+		"riasec": "IC",
+		"minIq": 100,
+		"salaryMin": 500,
+		"salaryMax": 700,
+		"employment": "Təcrübə proqramı",
+		"summary": "Sorğu və bazar araşdırması layihələrində məlumatların emalı və ilkin təhlilində iştirak edəcəksiniz. Təcrübəli analitiklərdən praktik metodları öyrənmək üçün yaxşı başlanğıcdır.",
+		"responsibilities": [
+			"Sorğu nəticələrini cədvəllərdə sistemləşdirmək",
+			"Sadə təsviri statistika hesablamaq",
+			"Qrafik və cədvəllər hazırlamaq",
+			"Məlumatların keyfiyyətini yoxlamaq"
+		],
+		"requirements": [
+			"İqtisadiyyat, riyaziyyat və ya statistika üzrə tələbə olmaq",
+			"Excel-də formullar və pivot cədvəllərlə işləmək",
+			"Rəqəmlərə maraq və diqqətlilik",
+			"İngilis dilində mətnləri anlaya bilmək"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Qısa test",
+			"Qrup müsahibəsi"
+		],
+		"companyAbout": "Bazar araşdırmaları və sorğu analitikası üzrə ixtisaslaşmış konsaltinq şirkəti. 25 nəfərlik komandası dövlət və özəl sektor müştəriləri ilə işləyir."
+	},
+	{
+		"id": "s010",
+		"title": "Data mühəndisi",
+		"company": "Rəqəm Laboratoriyası",
+		"sector": "Data və analitika",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Python",
+			"SQL",
+			"Apache Airflow",
+			"ETL",
+			"Apache Spark",
+			"PostgreSQL",
+			"Docker"
+		],
+		"traits": [
+			"analytical",
+			"organized",
+			"detail"
+		],
+		"riasec": "IR",
+		"minIq": 112,
+		"salaryMin": 3500,
+		"salaryMax": 5500,
+		"employment": "Tam ştat",
+		"summary": "Şirkətin analitika platforması üçün etibarlı və miqyaslana bilən məlumat axınları quracaqsınız. Data analitikləri və ML komandası üçün keyfiyyətli məlumat bazası yaradacaqsınız.",
+		"responsibilities": [
+			"ETL/ELT proseslərini layihələndirmək və qurmaq",
+			"Airflow ilə iş axınlarını avtomatlaşdırmaq",
+			"Məlumat anbarının (DWH) strukturunu inkişaf etdirmək",
+			"Məlumat keyfiyyəti yoxlamalarını tətbiq etmək",
+			"Böyük həcmli məlumatların emalını optimallaşdırmaq"
+		],
+		"requirements": [
+			"Data mühəndisliyi üzrə ən azı 4 il təcrübə",
+			"Python və SQL-də qabaqcıl bilik",
+			"Paylanmış emal sistemləri ilə iş təcrübəsi",
+			"Bulud platformalarından birini bilmək üstünlükdür",
+			"Komandada sənədləşməyə məsuliyyətli yanaşma"
+		],
+		"process": [
+			"CV seçimi",
+			"Texniki tapşırıq",
+			"Texniki müsahibə",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Pərakəndə və xidmət sektorları üçün analitika və süni intellekt həlləri hazırlayan 30 nəfərlik data şirkəti. Qərarların məlumata əsaslanmasını əsas missiyası sayır."
+	},
+	{
+		"id": "s011",
+		"title": "BI mütəxəssisi",
+		"company": "Dördyol Maliyyə Xidmətləri",
+		"sector": "Data və analitika",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Power BI",
+			"DAX",
+			"SQL",
+			"Data modelləşdirmə",
+			"Excel",
+			"KPI hesabatları"
+		],
+		"traits": [
+			"analytical",
+			"organized",
+			"detail"
+		],
+		"riasec": "CI",
+		"minIq": 105,
+		"salaryMin": 2200,
+		"salaryMax": 3200,
+		"employment": "Tam ştat",
+		"summary": "Maliyyə və əməliyyat göstəriciləri üzrə avtomatlaşdırılmış hesabat sistemini quracaq və inkişaf etdirəcəksiniz. Şöbə rəhbərlərinin məlumat ehtiyaclarını öyrənib onları dashboard-lara çevirəcəksiniz.",
+		"responsibilities": [
+			"Power BI hesabatlarını hazırlamaq və dəstəkləmək",
+			"Məlumat modellərini və DAX ölçülərini qurmaq",
+			"Şöbələrlə görüşərək hesabat tələblərini toplamaq",
+			"Əl ilə hazırlanan hesabatları avtomatlaşdırmaq",
+			"İstifadəçilər üçün qısa təlimlər keçirmək"
+		],
+		"requirements": [
+			"BI alətləri ilə ən azı 3 il təcrübə",
+			"SQL və data modelləşdirmə biliyi",
+			"Maliyyə göstəricilərini anlamaq üstünlükdür",
+			"Detallara diqqət və strukturlu düşüncə"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Keys tapşırığı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Korporativ müştərilərə maliyyə planlaşdırması, autsorsinq mühasibatlıq və investisiya məsləhəti göstərən orta ölçülü şirkət. Dəqiqlik və müştəri məxfiliyi onun əsas prinsipləridir."
+	},
+	{
+		"id": "s012",
+		"title": "Maşın öyrənməsi mühəndisi",
+		"company": "Rəqəm Laboratoriyası",
+		"sector": "Data və analitika",
+		"city": "Uzaqdan",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Python",
+			"scikit-learn",
+			"PyTorch",
+			"NLP",
+			"MLOps",
+			"SQL",
+			"Statistika"
+		],
+		"traits": [
+			"analytical",
+			"creative",
+			"detail"
+		],
+		"riasec": "IR",
+		"minIq": 118,
+		"salaryMin": 4000,
+		"salaryMax": 6000,
+		"employment": "Tam ştat",
+		"summary": "Azərbaycan dilində mətnlərin təsnifatı və tələb proqnozu modelləri üzərində işləyəcəksiniz. Modelləri prototipdən prod mühitinə qədər aparacaqsınız.",
+		"responsibilities": [
+			"Biznes problemlərini ML tapşırıqlarına çevirmək",
+			"Modelləri öyrətmək, qiymətləndirmək və təkmilləşdirmək",
+			"Modelləri API kimi prod mühitinə çıxarmaq",
+			"Model performansını monitorinq etmək",
+			"Elmi məqalələri izləyib yeni yanaşmaları sınamaq"
+		],
+		"requirements": [
+			"ML sahəsində ən azı 4 il praktik təcrübə",
+			"Riyaziyyat, statistika və ya kompüter elmləri üzrə magistr dərəcəsi",
+			"PyTorch və ya TensorFlow ilə iş təcrübəsi",
+			"NLP layihələrində təcrübə üstünlükdür",
+			"Uzaqdan müstəqil işləmə bacarığı"
+		],
+		"process": [
+			"CV seçimi",
+			"Texniki müsahibə",
+			"ML keys tapşırığı",
+			"Komanda ilə görüş"
+		],
+		"companyAbout": "Pərakəndə və xidmət sektorları üçün analitika və süni intellekt həlləri hazırlayan 30 nəfərlik data şirkəti. Qərarların məlumata əsaslanmasını əsas missiyası sayır."
+	},
+	{
+		"id": "s013",
+		"title": "Mühasib",
+		"company": "Mərmər Kredit BOKT",
+		"sector": "Maliyyə və bank",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"1C mühasibat",
+			"Vergi uçotu",
+			"Excel",
+			"Vergi bəyannamələri",
+			"Əməkhaqqı hesablanması",
+			"Bank əməliyyatları"
+		],
+		"traits": [
+			"organized",
+			"detail",
+			"calm"
+		],
+		"riasec": "CI",
+		"salaryMin": 1300,
+		"salaryMax": 1900,
+		"employment": "Tam ştat",
+		"summary": "Təşkilatın gündəlik mühasibat uçotunu aparacaq və vergi hesabatlarının vaxtında təqdim olunmasını təmin edəcəksiniz. Baş mühasibə tabe olaraq 5 nəfərlik maliyyə şöbəsində çalışacaqsınız.",
+		"responsibilities": [
+			"İlkin sənədləri yoxlamaq və 1C-də əks etdirmək",
+			"Aylıq və rüblük vergi bəyannamələrini hazırlamaq",
+			"Əməkhaqqı və sosial ayırmaları hesablamaq",
+			"Bank çıxarışlarını üzləşdirmək",
+			"Daxili audit üçün sənədləri hazırlamaq"
+		],
+		"requirements": [
+			"Mühasibatlıq üzrə ən azı 3 il təcrübə",
+			"1C proqramında sərbəst işləmək",
+			"Vergi Məcəlləsini yaxşı bilmək",
+			"Dəqiqlik və məsuliyyət hissi",
+			"Maliyyə və ya iqtisadiyyat üzrə ali təhsil"
+		],
+		"process": [
+			"CV seçimi",
+			"Peşəkar test",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Regionlarda kiçik sahibkarlara mikrokreditlər təqdim edən bank olmayan kredit təşkilatı. Bakı, Gəncə və Şəkidə filialları var."
+	},
+	{
+		"id": "s014",
+		"title": "Kiçik auditor",
+		"company": "Nizam Audit Partnyorları",
+		"sector": "Maliyyə və bank",
+		"city": "Bakı",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Excel",
+			"MHBS əsasları",
+			"Audit prosedurları",
+			"Maliyyə hesabatları",
+			"Sənədləşmə",
+			"İşgüzar yazışma"
+		],
+		"traits": [
+			"detail",
+			"analytical",
+			"organized"
+		],
+		"riasec": "CI",
+		"minIq": 102,
+		"salaryMin": 1000,
+		"salaryMax": 1400,
+		"employment": "Tam ştat",
+		"summary": "Müxtəlif sahələrdən olan şirkətlərin illik maliyyə hesabatlarının auditində komandanın üzvü kimi iştirak edəcəksiniz. Şirkət peşəkar sertifikat imtahanları üçün təhsil xərclərini qarşılayır.",
+		"responsibilities": [
+			"Audit proqramına uyğun yoxlama prosedurlarını icra etmək",
+			"Müştəridən sənəd və izahatlar toplamaq",
+			"İş sənədlərini (working papers) hazırlamaq",
+			"Hesabatlardakı uyğunsuzluqları qeyd edib menecerə bildirmək"
+		],
+		"requirements": [
+			"Maliyyə, mühasibat və ya iqtisadiyyat üzrə bakalavr",
+			"Audit və ya mühasibatlıqda ən azı 1 il təcrübə",
+			"Excel-də güclü bilik",
+			"Regionlara qısa ezamiyyətlərə hazır olmaq",
+			"İngilis dilində orta səviyyədən yuxarı bilik"
+		],
+		"process": [
+			"CV seçimi",
+			"Yazılı test",
+			"Menecerlə müsahibə",
+			"Partnyorla görüş"
+		],
+		"companyAbout": "Müstəqil audit və vergi məsləhəti göstərən 60 nəfərlik firma. Gənc mütəxəssislərə beynəlxalq peşəkar sertifikatlar almaq üçün maliyyə dəstəyi verir."
+	},
+	{
+		"id": "s015",
+		"title": "Kredit mütəxəssisi",
+		"company": "Mərmər Kredit BOKT",
+		"sector": "Maliyyə və bank",
+		"city": "Gəncə",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Kredit təhlili",
+			"Müştəri ilə ünsiyyət",
+			"Excel",
+			"Risk qiymətləndirməsi",
+			"Sənəd yoxlanışı",
+			"Satış"
+		],
+		"traits": [
+			"social",
+			"analytical",
+			"practical"
+		],
+		"riasec": "CE",
+		"salaryMin": 900,
+		"salaryMax": 1300,
+		"employment": "Tam ştat",
+		"summary": "Gəncə filialında kiçik sahibkarların kredit müraciətlərini qəbul edəcək və onların ödəmə qabiliyyətini qiymətləndirəcəksiniz. Sabit maaşla yanaşı portfelin keyfiyyətinə görə aylıq bonus ödənilir.",
+		"responsibilities": [
+			"Kredit müraciətlərini qəbul etmək və sənədləri yoxlamaq",
+			"Müştərinin biznesinə yerində baxış keçirmək",
+			"Kredit təhlili hazırlayıb komitəyə təqdim etmək",
+			"Ödənişləri izləmək və gecikmələrlə işləmək",
+			"Yeni müştərilər cəlb etmək"
+		],
+		"requirements": [
+			"Maliyyə və ya iqtisadiyyat üzrə ali təhsil",
+			"Kredit və ya satış sahəsində ən azı 1 il təcrübə",
+			"Rayonlara səfər etməyə hazır olmaq",
+			"Ünsiyyətcil və inandırıcı olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Regionlarda kiçik sahibkarlara mikrokreditlər təqdim edən bank olmayan kredit təşkilatı. Bakı, Gəncə və Şəkidə filialları var."
+	},
+	{
+		"id": "s016",
+		"title": "Maliyyə analitiki",
+		"company": "Dördyol Maliyyə Xidmətləri",
+		"sector": "Maliyyə və bank",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Maliyyə modelləşdirmə",
+			"Excel (qabaqcıl)",
+			"Büdcələmə",
+			"MHBS",
+			"Power BI",
+			"Pul axını təhlili"
+		],
+		"traits": [
+			"analytical",
+			"detail",
+			"calm"
+		],
+		"riasec": "IC",
+		"minIq": 110,
+		"salaryMin": 2800,
+		"salaryMax": 4000,
+		"employment": "Tam ştat",
+		"summary": "Korporativ müştərilər üçün maliyyə modelləri, büdcə proqnozları və investisiya təhlilləri hazırlayacaqsınız. Nəticələri müştəri rəhbərliyinə təqdim edərək strateji qərarlara təsir edəcəksiniz.",
+		"responsibilities": [
+			"Üç hesabatlı maliyyə modelləri qurmaq",
+			"İllik büdcə və rüblük proqnozları hazırlamaq",
+			"Faktiki nəticələri planla müqayisə edib kənarlaşmaları izah etmək",
+			"İnvestisiya layihələrinin səmərəliliyini qiymətləndirmək",
+			"Kiçik analitiklərin işini yoxlamaq"
+		],
+		"requirements": [
+			"Maliyyə təhlili üzrə ən azı 4 il təcrübə",
+			"Excel-də qabaqcıl modelləşdirmə bacarığı",
+			"MHBS üzrə bilik",
+			"Peşəkar maliyyə sertifikatı üstünlükdür",
+			"Təqdimat bacarığı"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Keys tapşırığı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Korporativ müştərilərə maliyyə planlaşdırması, autsorsinq mühasibatlıq və investisiya məsləhəti göstərən orta ölçülü şirkət. Dəqiqlik və müştəri məxfiliyi onun əsas prinsipləridir."
+	},
+	{
+		"id": "s017",
+		"title": "Maliyyə direktoru",
+		"company": "Qalxan Sığorta MMC",
+		"sector": "Maliyyə və bank",
+		"city": "Bakı",
+		"level": "Rəhbər",
+		"minYears": 8,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Strateji maliyyə planlaşdırması",
+			"MHBS",
+			"Sığorta ehtiyatları",
+			"Vergi planlaşdırması",
+			"Komanda idarəetməsi",
+			"Risk idarəetməsi",
+			"Tənzimləyici hesabatlar"
+		],
+		"traits": [
+			"leader",
+			"analytical",
+			"organized"
+		],
+		"riasec": "EC",
+		"minIq": 112,
+		"salaryMin": 5500,
+		"salaryMax": 8000,
+		"employment": "Tam ştat",
+		"summary": "Şirkətin bütün maliyyə funksiyasına rəhbərlik edəcək və İdarə Heyətinə maliyyə strategiyası üzrə tövsiyələr verəcəksiniz. 12 nəfərlik maliyyə və mühasibat komandasını idarə edəcəksiniz.",
+		"responsibilities": [
+			"Maliyyə strategiyasını hazırlamaq və icrasına nəzarət etmək",
+			"İllik büdcə prosesinə rəhbərlik etmək",
+			"Tənzimləyici orqanlara hesabatların düzgünlüyünü təmin etmək",
+			"Xarici auditorlarla əməkdaşlığı idarə etmək",
+			"Maliyyə komandasının inkişafını planlaşdırmaq"
+		],
+		"requirements": [
+			"Maliyyə sahəsində ən azı 8 il, rəhbər vəzifədə 3 il təcrübə",
+			"Sığorta və ya maliyyə sektorunda iş təcrübəsi",
+			"MHBS üzrə dərin bilik",
+			"Beynəlxalq peşəkar sertifikat arzuolunandır",
+			"Güclü liderlik və danışıqlar bacarığı"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Peşəkar müsahibə",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Əmlak, tibbi və nəqliyyat sığortası üzrə xidmət göstərən 200 nəfərlik sığorta şirkəti. Rəqəmsal məhsullara və müştəri məmnuniyyətinə fokuslanır."
+	},
+	{
+		"id": "s018",
+		"title": "Satış təmsilçisi",
+		"company": "Ətirgül Kosmetika Paylama",
+		"sector": "Satış və marketinq",
+		"city": "Gəncə",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Satış danışıqları",
+			"Müştəri ilə ünsiyyət",
+			"Sifariş qəbulu",
+			"Mal təqdimatı",
+			"Planşetdə CRM",
+			"Sürücülük vəsiqəsi (B)"
+		],
+		"traits": [
+			"social",
+			"practical",
+			"organized"
+		],
+		"riasec": "ES",
+		"salaryMin": 700,
+		"salaryMax": 1100,
+		"employment": "Tam ştat",
+		"summary": "Gəncə və ətraf rayonlarda mağaza və apteklərlə işləyərək şirkət məhsullarının satışını artıracaqsınız. Maaşa əlavə olaraq satış planının icrasına görə bonus və yanacaq kompensasiyası verilir.",
+		"responsibilities": [
+			"Marşrut üzrə satış nöqtələrinə gündəlik baxış",
+			"Sifarişləri qəbul edib sistemə daxil etmək",
+			"Rəflərdə məhsulun düzülüşünə nəzarət etmək",
+			"Debitor borcların vaxtında yığılmasını izləmək",
+			"Yeni satış nöqtələri cəlb etmək"
+		],
+		"requirements": [
+			"Satış təcrübəsi üstünlükdür, təcrübəsiz namizədlərə təlim verilir",
+			"B kateqoriyalı sürücülük vəsiqəsi",
+			"Ünsiyyətcil və məqsədyönlü olmaq",
+			"Rus dilində danışıq səviyyəsində bilik"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Kosmetika və şəxsi qulluq məhsullarını mağaza və apteklərə paylayan distribyutor şirkət. Bakı, Gəncə və Sumqayıtda satış komandaları fəaliyyət göstərir."
+	},
+	{
+		"id": "s019",
+		"title": "Rəqəmsal marketinq mütəxəssisi",
+		"company": "Ritm Kommunikasiya Agentliyi",
+		"sector": "Satış və marketinq",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Meta Ads",
+			"Google Ads",
+			"SEO",
+			"Google Analytics 4",
+			"Kontent planı",
+			"A/B test",
+			"Excel"
+		],
+		"traits": [
+			"creative",
+			"analytical",
+			"organized"
+		],
+		"riasec": "EA",
+		"salaryMin": 1500,
+		"salaryMax": 2300,
+		"employment": "Tam ştat",
+		"summary": "Agentliyin müştəriləri üçün ödənişli reklam kampaniyalarını planlaşdıracaq, idarə edəcək və nəticələrini ölçəcəksiniz. Kreativ komanda ilə birlikdə reklam materiallarının effektivliyini artıracaqsınız.",
+		"responsibilities": [
+			"Reklam kampaniyalarını qurmaq və büdcəni idarə etmək",
+			"Hədəf auditoriyaları seçmək və test etmək",
+			"Həftəlik performans hesabatları hazırlamaq",
+			"Saytlar üçün SEO tövsiyələri vermək",
+			"Müştərilərlə nəticələri müzakirə etmək"
+		],
+		"requirements": [
+			"Rəqəmsal marketinqdə ən azı 2 il təcrübə",
+			"Meta və Google reklam kabinetlərində sərbəst işləmək",
+			"Analitik alətlərlə iş təcrübəsi",
+			"Rəqəmlərə əsaslanan qərar vermək bacarığı"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Keys tapşırığı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "İnteqrasiya olunmuş marketinq və PR xidmətləri göstərən 45 nəfərlik agentlik. Data əsaslı yaradıcılıq və şəffaf hesabatlılıq onun iş üslubudur."
+	},
+	{
+		"id": "s020",
+		"title": "Marketinq üzrə təcrübəçi",
+		"company": "Parlaq İdeya Agentliyi",
+		"sector": "Satış və marketinq",
+		"city": "Bakı",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"SMM",
+			"Canva",
+			"Kontent yazımı",
+			"Instagram və TikTok",
+			"Bazar araşdırması"
+		],
+		"traits": [
+			"creative",
+			"social"
+		],
+		"riasec": "AE",
+		"salaryMin": 400,
+		"salaryMax": 600,
+		"employment": "Təcrübə proqramı",
+		"summary": "Sosial media kampaniyalarının hazırlanmasında və müştərilər üçün kontent ideyalarının yaradılmasında komandaya kömək edəcəksiniz. Çevik iş saatları sayəsində təhsillə paralel davam etdirmək mümkündür.",
+		"responsibilities": [
+			"Sosial media postları üçün mətnlər yazmaq",
+			"Canva-da sadə vizuallar hazırlamaq",
+			"Rəqib brendlərin fəaliyyətini izləmək",
+			"Kampaniya nəticələrini cədvəllərdə qeyd etmək"
+		],
+		"requirements": [
+			"Marketinq, jurnalistika və ya oxşar ixtisas üzrə tələbə",
+			"Sosial media trendlərinə maraq",
+			"Azərbaycan dilində səliqəli yazı bacarığı",
+			"Həftədə 20-25 saat vaxt"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Kreativ tapşırıq",
+			"Müsahibə"
+		],
+		"companyAbout": "Yerli brendlər üçün sosial media, dizayn və kampaniya xidmətləri göstərən 20 nəfərlik kreativ agentlik. Cəsarətli ideyalara və gənc istedadlara açıqdır."
+	},
+	{
+		"id": "s021",
+		"title": "B2B satış meneceri",
+		"company": "Səmərə Soft MMC",
+		"sector": "Satış və marketinq",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"B2B satış",
+			"CRM (Bitrix24)",
+			"Satış danışıqları",
+			"Kommersiya təklifi",
+			"Müştəri bazasının idarəsi",
+			"Təqdimat bacarığı"
+		],
+		"traits": [
+			"social",
+			"leader",
+			"organized"
+		],
+		"riasec": "ES",
+		"salaryMin": 2200,
+		"salaryMax": 3500,
+		"employment": "Tam ştat",
+		"summary": "Biznes müştərilərə uçot proqramının satışını həyata keçirəcək və böyük korporativ müştərilərlə uzunmüddətli münasibətlər quracaqsınız. Gəlirin əhəmiyyətli hissəsi satış nəticələrinə bağlı bonuslardan ibarətdir.",
+		"responsibilities": [
+			"Potensial korporativ müştəriləri müəyyən etmək və əlaqə qurmaq",
+			"Məhsul təqdimatları və demo görüşləri keçirmək",
+			"Kommersiya təklifləri hazırlamaq və danışıqlar aparmaq",
+			"Satış hunisini CRM-də idarə etmək",
+			"Aylıq satış planını icra etmək"
+		],
+		"requirements": [
+			"B2B satışda ən azı 4 il təcrübə",
+			"Proqram təminatı və ya xidmət satışı təcrübəsi üstünlükdür",
+			"Güclü danışıqlar bacarığı",
+			"Azərbaycan, rus və ingilis dillərində ünsiyyət"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Satış rol oyunu",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Kiçik və orta bizneslər üçün anbar və satış uçotu proqramı hazırlayan yerli şirkət. 2000-dən çox müştəriyə xidmət göstərir və gəncləri öyrədərək böyütməyi sevir."
+	},
+	{
+		"id": "s022",
+		"title": "Marketinq rəhbəri",
+		"company": "Kəlağayı Market Şəbəkəsi",
+		"sector": "Satış və marketinq",
+		"city": "Bakı",
+		"level": "Rəhbər",
+		"minYears": 7,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Marketinq strategiyası",
+			"Brend idarəetməsi",
+			"Büdcə planlaşdırması",
+			"Loyallıq proqramları",
+			"Komanda idarəetməsi",
+			"Bazar araşdırması",
+			"Media planlaşdırma"
+		],
+		"traits": [
+			"leader",
+			"creative",
+			"analytical"
+		],
+		"riasec": "EA",
+		"minIq": 105,
+		"salaryMin": 4000,
+		"salaryMax": 6000,
+		"employment": "Tam ştat",
+		"summary": "Pərakəndə şəbəkənin brend strategiyasına və bütün marketinq fəaliyyətinə rəhbərlik edəcəksiniz. 7 nəfərlik komanda ilə satışların artırılması və müştəri loyallığının gücləndirilməsi əsas hədəflərinizdir.",
+		"responsibilities": [
+			"İllik marketinq strategiyası və büdcəsini hazırlamaq",
+			"Loyallıq proqramını inkişaf etdirmək",
+			"Kampaniyaların səmərəliliyini ölçmək",
+			"Agentliklər və tərəfdaşlarla işi idarə etmək",
+			"Komanda üzvlərinin inkişafına dəstək olmaq"
+		],
+		"requirements": [
+			"Marketinqdə ən azı 7 il, rəhbər vəzifədə 3 il təcrübə",
+			"Pərakəndə və ya FMCG sahəsində təcrübə",
+			"Rəqəmsal və ənənəvi media biliyi",
+			"Strateji düşüncə və liderlik bacarığı"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Peşəkar müsahibə",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Bakı və Sumqayıtda 35 filialı olan ərzaq pərakəndə şəbəkəsi. Yerli istehsalçıları dəstəkləməyi və əlçatan qiymətləri prioritet sayır."
+	},
+	{
+		"id": "s023",
+		"title": "Çağrı mərkəzi operatoru",
+		"company": "Səsli Xidmət Kontakt Mərkəzi",
+		"sector": "Müştəri xidmətləri",
+		"city": "Bakı",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Telefonla ünsiyyət",
+			"Şikayətlərin idarə edilməsi",
+			"CRM sistemi",
+			"Sürətli yazı",
+			"Stressə davamlılıq"
+		],
+		"traits": [
+			"social",
+			"calm"
+		],
+		"riasec": "SC",
+		"salaryMin": 600,
+		"salaryMax": 800,
+		"employment": "Tam ştat",
+		"summary": "Tərəfdaş şirkətlərin müştərilərindən daxil olan zəngləri qəbul edəcək, suallarını cavablandıracaq və problemlərini həll edəcəksiniz. İşə başlamazdan əvvəl iki həftəlik ödənişli təlim keçirilir.",
+		"responsibilities": [
+			"Daxil olan zəngləri qəbul etmək və məlumat vermək",
+			"Müraciətləri CRM sistemində qeydə almaq",
+			"Şikayətləri müvafiq şöbəyə yönləndirmək",
+			"Xidmət keyfiyyəti standartlarına əməl etmək"
+		],
+		"requirements": [
+			"Orta təhsil, təcrübə tələb olunmur",
+			"Səlis nitq və nəzakətli ünsiyyət",
+			"Azərbaycan və rus dillərini bilmək",
+			"Növbəli qrafikdə işləməyə hazır olmaq"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Telefon müsahibəsi",
+			"Təlim proqramı"
+		],
+		"companyAbout": "Maliyyə, sığorta və e-ticarət şirkətləri üçün autsorsinq çağrı mərkəzi xidmətləri göstərən 300 nəfərlik şirkət. Növbəli iş qrafiki və daxili təlim akademiyası var."
+	},
+	{
+		"id": "s024",
+		"title": "Müştəri xidmətləri üzrə təcrübəçi",
+		"company": "Kəlağayı Market Şəbəkəsi",
+		"sector": "Müştəri xidmətləri",
+		"city": "Sumqayıt",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Müştəri ilə ünsiyyət",
+			"Kassa əməliyyatları",
+			"Problem həlli",
+			"Komanda işi",
+			"Kompüter savadı"
+		],
+		"traits": [
+			"social",
+			"practical"
+		],
+		"riasec": "SC",
+		"salaryMin": 400,
+		"salaryMax": 550,
+		"employment": "Təcrübə proqramı",
+		"summary": "Sumqayıt filiallarında müştəri məmnuniyyəti masasında çalışaraq alıcıların müraciətlərinə cavab verəcəksiniz. İki aylıq proqramı bitirən təcrübəçilər üçün daimi iş yerləri nəzərdə tutulub.",
+		"responsibilities": [
+			"Müştərilərin sual və şikayətlərini qəbul etmək",
+			"Məhsulların qaytarılması proseslərinə kömək etmək",
+			"Loyallıq kartları üzrə məlumat vermək",
+			"Müraciətləri jurnalda qeyd etmək"
+		],
+		"requirements": [
+			"18 yaşdan yuxarı tələbə və ya məzun",
+			"Mehriban və səbirli olmaq",
+			"Növbəli iş qrafikinə uyğunlaşa bilmək",
+			"Əsas kompüter bilikləri"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Müsahibə"
+		],
+		"companyAbout": "Bakı və Sumqayıtda 35 filialı olan ərzaq pərakəndə şəbəkəsi. Yerli istehsalçıları dəstəkləməyi və əlçatan qiymətləri prioritet sayır."
+	},
+	{
+		"id": "s025",
+		"title": "Müştəri təcrübəsi (CX) mütəxəssisi",
+		"company": "Dəvəquşu Ekspress",
+		"sector": "Müştəri xidmətləri",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Müştəri səyahəti xəritəsi",
+			"NPS təhlili",
+			"Excel",
+			"Şikayətlərin kök səbəb təhlili",
+			"Proses təkmilləşdirmə",
+			"Hesabat hazırlanması"
+		],
+		"traits": [
+			"social",
+			"analytical",
+			"organized"
+		],
+		"riasec": "SE",
+		"salaryMin": 1200,
+		"salaryMax": 1700,
+		"employment": "Tam ştat",
+		"summary": "Çatdırılma xidmətində müştəri təcrübəsini ölçəcək və şikayətlərin azaldılması üçün proses dəyişiklikləri təklif edəcəksiniz. Əməliyyat, IT və dəstək komandaları arasında əlaqələndirici rol oynayacaqsınız.",
+		"responsibilities": [
+			"NPS və məmnuniyyət sorğularını təşkil etmək",
+			"Şikayətləri kateqoriyalara ayırıb təhlil etmək",
+			"Problemli prosesləri müəyyən edib həll yolları təklif etmək",
+			"Dəstək operatorları üçün skriptləri yeniləmək",
+			"Aylıq CX hesabatı hazırlamaq"
+		],
+		"requirements": [
+			"Müştəri xidmətləri sahəsində ən azı 2 il təcrübə",
+			"Excel-də məlumat təhlili bacarığı",
+			"Empatiya və həlledici yanaşma",
+			"Üç dildə ünsiyyət bacarığı"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Keys tapşırığı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Bakı daxilində və regionlara bağlama çatdırılması həyata keçirən kuryer şirkəti. Sürət, dəqiqlik və müştəriyə səmimi münasibət onun əsas dəyərləridir."
+	},
+	{
+		"id": "s026",
+		"title": "Onlayn çat dəstək operatoru",
+		"company": "Səmərə Soft MMC",
+		"sector": "Müştəri xidmətləri",
+		"city": "Uzaqdan",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Yazılı ünsiyyət",
+			"Çat platformaları",
+			"Məhsul biliyi",
+			"Bilet sistemi",
+			"Multitasking"
+		],
+		"traits": [
+			"social",
+			"calm",
+			"detail"
+		],
+		"riasec": "SC",
+		"salaryMin": 650,
+		"salaryMax": 900,
+		"employment": "Yarım ştat",
+		"summary": "Uçot proqramının istifadəçilərinə çat və e-poçt vasitəsilə texniki və məlumat dəstəyi göstərəcəksiniz. Yarım ştat qrafik tələbələr üçün uyğundur.",
+		"responsibilities": [
+			"Çat müraciətlərinə 2 dəqiqə ərzində cavab vermək",
+			"İstifadəçilərə proqramın funksiyalarını izah etmək",
+			"Texniki problemləri bilet sistemində qeyd edib ötürmək",
+			"Tez-tez verilən suallar bazasını yeniləmək"
+		],
+		"requirements": [
+			"Səliqəli və qrammatik cəhətdən düzgün yazı",
+			"Kompüter və onlayn alətlərdən sərbəst istifadə",
+			"Evdə sakit iş yeri və sabit internet",
+			"Gündə 4 saat növbəli qrafikdə işləmək imkanı"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Yazılı test",
+			"Onlayn müsahibə"
+		],
+		"companyAbout": "Kiçik və orta bizneslər üçün anbar və satış uçotu proqramı hazırlayan yerli şirkət. 2000-dən çox müştəriyə xidmət göstərir və gəncləri öyrədərək böyütməyi sevir."
+	},
+	{
+		"id": "s027",
+		"title": "Müştəri xidmətləri rəhbəri",
+		"company": "Səsli Xidmət Kontakt Mərkəzi",
+		"sector": "Müştəri xidmətləri",
+		"city": "Bakı",
+		"level": "Rəhbər",
+		"minYears": 5,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Komanda idarəetməsi",
+			"KPI idarəetməsi",
+			"Növbə planlaşdırması",
+			"Keyfiyyət monitorinqi",
+			"Təlim keçmə",
+			"Excel"
+		],
+		"traits": [
+			"leader",
+			"social",
+			"calm"
+		],
+		"riasec": "ES",
+		"salaryMin": 2500,
+		"salaryMax": 3500,
+		"employment": "Tam ştat",
+		"summary": "60 operatordan ibarət layihə komandasına rəhbərlik edərək xidmət səviyyəsi göstəricilərinin icrasını təmin edəcəksiniz. Tərəfdaş şirkətlərlə xidmət keyfiyyəti üzrə müntəzəm görüşlər keçirəcəksiniz.",
+		"responsibilities": [
+			"Komanda üçün növbə qrafiklərini planlaşdırmaq",
+			"SLA, AHT və məmnuniyyət göstəricilərinə nəzarət etmək",
+			"Supervayzerlər və operatorlar üçün təlimlər təşkil etmək",
+			"Müştəri şirkətlərə aylıq hesabat təqdim etmək",
+			"Komanda motivasiyası və işçi axınını idarə etmək"
+		],
+		"requirements": [
+			"Çağrı mərkəzində ən azı 5 il, rəhbər vəzifədə 2 il təcrübə",
+			"Göstəricilərlə idarəetmə təcrübəsi",
+			"Güclü liderlik və münaqişələrin həlli bacarığı",
+			"Üç dildə sərbəst ünsiyyət"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Peşəkar müsahibə",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Maliyyə, sığorta və e-ticarət şirkətləri üçün autsorsinq çağrı mərkəzi xidmətləri göstərən 300 nəfərlik şirkət. Növbəli iş qrafiki və daxili təlim akademiyası var."
+	},
+	{
+		"id": "s028",
+		"title": "Elektrik mühəndisi",
+		"company": "Dayaq İnşaat MMC",
+		"sector": "Mühəndislik və istehsal",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"AutoCAD",
+			"Elektrik layihələndirmə",
+			"Elektrik təhlükəsizliyi",
+			"Smeta hazırlanması",
+			"Tikinti normaları",
+			"Sahə nəzarəti"
+		],
+		"traits": [
+			"practical",
+			"detail",
+			"analytical"
+		],
+		"riasec": "RI",
+		"salaryMin": 1600,
+		"salaryMax": 2400,
+		"employment": "Tam ştat",
+		"summary": "Yaşayış komplekslərinin elektrik sistemlərinin layihələndirilməsi və quraşdırılmasına texniki nəzarət edəcəksiniz. Layihə komandası və subpodratçılarla gündəlik əlaqədə olacaqsınız.",
+		"responsibilities": [
+			"Elektrik təchizatı sxemlərini AutoCAD-də hazırlamaq",
+			"Quraşdırma işlərinin layihəyə uyğunluğunu yoxlamaq",
+			"Material sifarişləri və smetalar hazırlamaq",
+			"Təhlükəsizlik qaydalarına əməl olunmasına nəzarət etmək",
+			"Təhvil-təslim sənədlərini hazırlamaq"
+		],
+		"requirements": [
+			"Elektrik mühəndisliyi üzrə ali təhsil",
+			"Tikinti sahəsində ən azı 3 il təcrübə",
+			"AutoCAD-də sərbəst işləmək",
+			"Tikinti obyektlərində işləməyə hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Yaşayış və kommersiya binalarının tikintisi ilə məşğul olan 250 nəfərlik podratçı şirkət. Əməyin təhlükəsizliyi və keyfiyyət standartlarına ciddi riayət edir."
+	},
+	{
+		"id": "s029",
+		"title": "İstehsalat ustası",
+		"company": "Yarpaq Plast MMC",
+		"sector": "Mühəndislik və istehsal",
+		"city": "Sumqayıt",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Peşə",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"İstehsal planlaşdırması",
+			"Növbə idarəetməsi",
+			"Plastik qəlibləmə avadanlığı",
+			"Əməyin mühafizəsi",
+			"5S",
+			"Hesabat aparılması"
+		],
+		"traits": [
+			"practical",
+			"leader",
+			"organized"
+		],
+		"riasec": "RE",
+		"salaryMin": 1100,
+		"salaryMax": 1500,
+		"employment": "Tam ştat",
+		"summary": "İstehsal sexində 15 nəfərlik növbəyə rəhbərlik edərək gündəlik planın vaxtında və keyfiyyətlə icrasını təmin edəcəksiniz. Avadanlıqların səmərəli işləməsi və işçilərin təhlükəsizliyi sizin məsuliyyətinizdə olacaq.",
+		"responsibilities": [
+			"Növbə üzrə istehsal tapşırıqlarını bölüşdürmək",
+			"Avadanlıqların düzgün istismarına nəzarət etmək",
+			"Brak hallarını qeydə almaq və səbəblərini araşdırmaq",
+			"Təhlükəsizlik təlimatlarının icrasını təmin etmək",
+			"Növbə hesabatlarını hazırlamaq"
+		],
+		"requirements": [
+			"Texniki peşə və ya ali təhsil",
+			"İstehsalatda ən azı 3 il, o cümlədən briqadir kimi təcrübə",
+			"Növbəli iş qrafikinə hazır olmaq",
+			"Tələbkar, lakin ədalətli rəhbərlik üslubu"
+		],
+		"process": [
+			"CV seçimi",
+			"Rəhbərlə müsahibə",
+			"Sexdə praktik görüş"
+		],
+		"companyAbout": "Qida qablaşdırması üçün plastik və bioparçalanan məmulatlar istehsal edən Sumqayıt zavodu. 180 əməkdaşı var və istehsalı ekoloji standartlara uyğunlaşdırmağa çalışır."
+	},
+	{
+		"id": "s030",
+		"title": "Mexanik təmir texniki",
+		"company": "Ölçü Mexanika MMC",
+		"sector": "Mühəndislik və istehsal",
+		"city": "Mingəçevir",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Peşə",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Mexaniki təmir",
+			"Çertyoj oxuma",
+			"Qaynaq əsasları",
+			"Ölçü alətləri",
+			"Hidravlika əsasları",
+			"Planlı texniki baxış"
+		],
+		"traits": [
+			"practical",
+			"detail",
+			"calm"
+		],
+		"riasec": "RC",
+		"salaryMin": 800,
+		"salaryMax": 1100,
+		"employment": "Tam ştat",
+		"summary": "Müştəri müəssisələrinin nasos, kompressor və konveyer avadanlıqlarının təmirində iştirak edəcəksiniz. Təcrübəli ustaların yanında peşəkar bacarıqlarınızı inkişaf etdirəcəksiniz.",
+		"responsibilities": [
+			"Avadanlıqların sökülməsi, təmiri və yığılması",
+			"Planlı texniki baxışları aparmaq",
+			"Nasazlıqların səbəbini müəyyən etmək",
+			"Ehtiyat hissələrinin uçotunu aparmaq"
+		],
+		"requirements": [
+			"Mexanika və ya maşınqayırma üzrə peşə təhsili",
+			"Ən azı 1 il praktik təcrübə və ya istehsalat təcrübəsi",
+			"Texniki çertyojları oxuya bilmək",
+			"Fiziki işə və ezamiyyətlərə hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Praktik sınaq",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Sənaye avadanlıqlarının təmiri və texniki xidməti ilə məşğul olan regional şirkət. Mingəçevirdəki emalatxanasında 50 nəfər çalışır."
+	},
+	{
+		"id": "s031",
+		"title": "İnşaat mühəndisliyi üzrə təcrübəçi",
+		"company": "Dayaq İnşaat MMC",
+		"sector": "Mühəndislik və istehsal",
+		"city": "Bakı",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"AutoCAD əsasları",
+			"Çertyoj oxuma",
+			"Excel",
+			"Tikinti materialları",
+			"Sahə ölçmələri"
+		],
+		"traits": [
+			"practical",
+			"detail",
+			"organized"
+		],
+		"riasec": "RI",
+		"salaryMin": 500,
+		"salaryMax": 700,
+		"employment": "Təcrübə proqramı",
+		"summary": "Tikinti obyektində sahə mühəndisinin köməkçisi kimi real layihənin gedişatını öyrənəcəksiniz. Altı aylıq proqramın sonunda ən yaxşı təcrübəçilərə iş təklifi edilir.",
+		"responsibilities": [
+			"Gündəlik işlərin icrasını jurnalda qeyd etmək",
+			"Ölçmə və həcm hesablamalarında kömək etmək",
+			"Materialların qəbulunda iştirak etmək",
+			"Texniki sənədləri sistemləşdirmək"
+		],
+		"requirements": [
+			"İnşaat mühəndisliyi üzrə son kurs tələbəsi və ya təzə məzun",
+			"AutoCAD-də əsas bilik",
+			"Tikinti sahəsində işləməyə hazır olmaq",
+			"Məsuliyyətli və öyrənməyə açıq olmaq"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Qısa test",
+			"Qrup müsahibəsi"
+		],
+		"companyAbout": "Yaşayış və kommersiya binalarının tikintisi ilə məşğul olan 250 nəfərlik podratçı şirkət. Əməyin təhlükəsizliyi və keyfiyyət standartlarına ciddi riayət edir."
+	},
+	{
+		"id": "s032",
+		"title": "Keyfiyyətə nəzarət mühəndisi",
+		"company": "Yarpaq Plast MMC",
+		"sector": "Mühəndislik və istehsal",
+		"city": "Sumqayıt",
+		"level": "Böyük mütəxəssis",
+		"minYears": 5,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"ISO 9001",
+			"Keyfiyyət auditi",
+			"Ölçmə və sınaq",
+			"Kök səbəb təhlili",
+			"5S və Kaizen",
+			"Statistik proses nəzarəti",
+			"Hesabat"
+		],
+		"traits": [
+			"detail",
+			"analytical",
+			"organized"
+		],
+		"riasec": "CR",
+		"minIq": 105,
+		"salaryMin": 2000,
+		"salaryMax": 2800,
+		"employment": "Tam ştat",
+		"summary": "Zavodun keyfiyyət idarəetmə sisteminə cavabdeh olacaq və ixrac məhsullarının beynəlxalq standartlara uyğunluğunu təmin edəcəksiniz. Laboratoriya əməkdaşlarına texniki rəhbərlik edəcəksiniz.",
+		"responsibilities": [
+			"Keyfiyyət standartlarını və yoxlama planlarını hazırlamaq",
+			"Daxili auditlər keçirmək və sertifikasiya auditlərinə hazırlaşmaq",
+			"Uyğunsuzluqların kök səbəblərini araşdırmaq",
+			"Təchizatçıların keyfiyyətini qiymətləndirmək",
+			"Keyfiyyət göstəriciləri üzrə aylıq hesabat vermək"
+		],
+		"requirements": [
+			"Mühəndislik və ya kimya texnologiyası üzrə ali təhsil",
+			"Keyfiyyətə nəzarət sahəsində ən azı 5 il təcrübə",
+			"ISO 9001 tələblərini dərindən bilmək",
+			"Daxili auditor sertifikatı üstünlükdür"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Peşəkar müsahibə",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Qida qablaşdırması üçün plastik və bioparçalanan məmulatlar istehsal edən Sumqayıt zavodu. 180 əməkdaşı var və istehsalı ekoloji standartlara uyğunlaşdırmağa çalışır."
+	},
+	{
+		"id": "s033",
+		"title": "Anbar operatoru",
+		"company": "Körpüyol Anbar Xidmətləri",
+		"sector": "Logistika",
+		"city": "Bakı",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Mal qəbulu",
+			"Sifariş toplama",
+			"Barkod skaneri",
+			"Anbar uçotu (WMS)",
+			"Fiziki dözümlülük"
+		],
+		"traits": [
+			"practical",
+			"organized",
+			"detail"
+		],
+		"riasec": "RC",
+		"salaryMin": 700,
+		"salaryMax": 900,
+		"employment": "Tam ştat",
+		"summary": "E-ticarət müştərilərinin sifarişlərinin qəbulu, yerləşdirilməsi və göndərişə hazırlanmasında çalışacaqsınız. Şirkət xidməti nəqliyyat və pulsuz nahar təmin edir.",
+		"responsibilities": [
+			"Daxil olan malları qəbul etmək və sayını yoxlamaq",
+			"Malları anbar sistemi üzrə yerləşdirmək",
+			"Sifarişləri toplamaq və qablaşdırmaq",
+			"İnventarizasiyada iştirak etmək"
+		],
+		"requirements": [
+			"Təcrübə tələb olunmur, təlim verilir",
+			"Diqqətli və məsuliyyətli olmaq",
+			"Fiziki işə hazır olmaq",
+			"Növbəli qrafikdə işləmək imkanı"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Müsahibə",
+			"Sınaq günü"
+		],
+		"companyAbout": "Bakı ətrafında 20 min kv.m-lik anbar kompleksini idarə edən 3PL operatoru. E-ticarət və pərakəndə müştəriləri üçün saxlanma və sifariş toplama xidmətləri göstərir."
+	},
+	{
+		"id": "s034",
+		"title": "Logistika koordinatoru",
+		"company": "NovaLog Logistika",
+		"sector": "Logistika",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Yükdaşıma planlaşdırması",
+			"İnkoterms",
+			"Excel",
+			"Daşıyıcılarla danışıqlar",
+			"Nəqliyyat sənədləri (CMR)",
+			"İşgüzar yazışma"
+		],
+		"traits": [
+			"organized",
+			"social",
+			"calm"
+		],
+		"riasec": "CE",
+		"salaryMin": 1400,
+		"salaryMax": 2000,
+		"employment": "Tam ştat",
+		"summary": "Türkiyə və Gürcüstan istiqamətində avtomobil yükdaşımalarını planlaşdıracaq və izləyəcəksiniz. Müştərilər, daşıyıcılar və gömrük brokerləri arasında əlaqələndirməni təmin edəcəksiniz.",
+		"responsibilities": [
+			"Müştəri sifarişlərinə uyğun daşıma marşrutunu planlaşdırmaq",
+			"Daşıyıcılardan təkliflər alıb müqayisə etmək",
+			"Yüklərin hərəkətini real vaxtda izləmək",
+			"Nəqliyyat sənədlərinin düzgünlüyünə nəzarət etmək",
+			"Gecikmə hallarında müştərini məlumatlandırmaq"
+		],
+		"requirements": [
+			"Logistika sahəsində ən azı 2 il təcrübə",
+			"İnkoterms qaydalarını bilmək",
+			"İngilis və rus dillərində işgüzar yazışma",
+			"Eyni anda bir neçə sifarişlə işləyə bilmək"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Beynəlxalq yükdaşıma, ekspeditor və gömrük xidmətləri göstərən logistika şirkəti. Türkiyə, Gürcüstan və Mərkəzi Asiya istiqamətlərində ixtisaslaşıb."
+	},
+	{
+		"id": "s035",
+		"title": "Təchizat zənciri meneceri",
+		"company": "NovaLog Logistika",
+		"sector": "Logistika",
+		"city": "Bakı",
+		"level": "Rəhbər",
+		"minYears": 6,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Təchizat zənciri strategiyası",
+			"Tələb planlaşdırması",
+			"Satınalma",
+			"ERP sistemləri",
+			"Xərclərin optimallaşdırılması",
+			"Komanda idarəetməsi",
+			"KPI idarəetməsi"
+		],
+		"traits": [
+			"leader",
+			"analytical",
+			"organized"
+		],
+		"riasec": "EC",
+		"minIq": 108,
+		"salaryMin": 3500,
+		"salaryMax": 5000,
+		"employment": "Tam ştat",
+		"summary": "Korporativ müştərilər üçün təchizat zənciri həllərini idarə edəcək və 10 nəfərlik əməliyyat komandasına rəhbərlik edəcəksiniz. Xərclərin azaldılması və çatdırılma müddətlərinin qısaldılması əsas hədəflərinizdir.",
+		"responsibilities": [
+			"Təchizat zəncirinin uçdan-uca idarə olunması",
+			"Əsas tərəfdaş və daşıyıcılarla müqavilə danışıqları",
+			"Xərc və performans göstəricilərini izləmək",
+			"Proseslərin rəqəmsallaşdırılması layihələrinə rəhbərlik",
+			"Komandanın inkişafını planlaşdırmaq"
+		],
+		"requirements": [
+			"Logistika və ya təchizat zəncirində ən azı 6 il təcrübə",
+			"Rəhbər vəzifədə ən azı 2 il təcrübə",
+			"ERP sistemləri ilə iş təcrübəsi",
+			"Peşəkar logistika sertifikatı üstünlükdür"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Peşəkar müsahibə",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Beynəlxalq yükdaşıma, ekspeditor və gömrük xidmətləri göstərən logistika şirkəti. Türkiyə, Gürcüstan və Mərkəzi Asiya istiqamətlərində ixtisaslaşıb."
+	},
+	{
+		"id": "s036",
+		"title": "Gömrük rəsmiləşdirməsi üzrə mütəxəssis",
+		"company": "Körpüyol Anbar Xidmətləri",
+		"sector": "Logistika",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Gömrük qanunvericiliyi",
+			"Bəyannamə tərtibi",
+			"XİF MN kodlaşdırması",
+			"Gömrük rüsumlarının hesablanması",
+			"Sənədləşmə",
+			"Excel"
+		],
+		"traits": [
+			"detail",
+			"organized",
+			"calm"
+		],
+		"riasec": "CE",
+		"salaryMin": 1800,
+		"salaryMax": 2600,
+		"employment": "Tam ştat",
+		"summary": "İdxal və ixrac yüklərinin gömrük rəsmiləşdirməsini həyata keçirəcək və müştərilərə gömrük məsələləri üzrə məsləhət verəcəksiniz. Rəsmiləşdirmənin sürətli və qanuna uyğun aparılması sizin məsuliyyətinizdə olacaq.",
+		"responsibilities": [
+			"Gömrük bəyannamələrini hazırlamaq və təqdim etmək",
+			"Malları XİF MN üzrə düzgün təsnif etmək",
+			"Rüsum və vergiləri hesablamaq",
+			"Müştərilərə tələb olunan sənədlər üzrə məsləhət vermək",
+			"Qanunvericilik dəyişikliklərini izləmək"
+		],
+		"requirements": [
+			"Gömrük rəsmiləşdirməsi üzrə ən azı 4 il təcrübə",
+			"Gömrük Məcəlləsini yaxşı bilmək",
+			"Dəqiqlik və sənədlərlə işləmə bacarığı",
+			"Rus dilində sənədləri anlamaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Bakı ətrafında 20 min kv.m-lik anbar kompleksini idarə edən 3PL operatoru. E-ticarət və pərakəndə müştəriləri üçün saxlanma və sifariş toplama xidmətləri göstərir."
+	},
+	{
+		"id": "s037",
+		"title": "İnsan resursları üzrə təcrübəçi",
+		"company": "İstedad Xəritəsi HR",
+		"sector": "İnsan resursları",
+		"city": "Bakı",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"CV seçimi",
+			"MS Office",
+			"Sosial şəbəkələrdə axtarış",
+			"Ünsiyyət",
+			"Sənədləşmə"
+		],
+		"traits": [
+			"social",
+			"organized"
+		],
+		"riasec": "SC",
+		"salaryMin": 400,
+		"salaryMax": 600,
+		"employment": "Təcrübə proqramı",
+		"summary": "İşə qəbul layihələrində CV-lərin ilkin seçimi və müsahibələrin təşkilində komandaya dəstək olacaqsınız. HR sahəsinin müxtəlif istiqamətlərini praktikada görmək imkanı qazanacaqsınız.",
+		"responsibilities": [
+			"Vakansiya elanlarını yerləşdirmək",
+			"CV-ləri ilkin meyarlar üzrə seçmək",
+			"Namizədlərlə müsahibə vaxtlarını razılaşdırmaq",
+			"Namizəd bazasını yeniləmək"
+		],
+		"requirements": [
+			"Psixologiya, menecment və ya oxşar ixtisas üzrə tələbə",
+			"Ünsiyyətcil və nəzakətli olmaq",
+			"MS Office proqramlarını bilmək",
+			"Həftədə ən azı 20 saat"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Qısa test",
+			"Qrup müsahibəsi"
+		],
+		"companyAbout": "Kiçik və orta şirkətlər üçün HR proseslərinin qurulması və təlimlər üzrə ixtisaslaşmış startap. 15 nəfərlik çevik komandası var."
+	},
+	{
+		"id": "s038",
+		"title": "İşə qəbul mütəxəssisi",
+		"company": "Kadr Körpüsü Konsaltinq",
+		"sector": "İnsan resursları",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Müsahibə texnikaları",
+			"Namizəd axtarışı",
+			"LinkedIn axtarışı",
+			"ATS sistemləri",
+			"Kompetensiya modelləri",
+			"Danışıqlar"
+		],
+		"traits": [
+			"social",
+			"organized",
+			"analytical"
+		],
+		"riasec": "SE",
+		"salaryMin": 1300,
+		"salaryMax": 1900,
+		"employment": "Tam ştat",
+		"summary": "Müştəri şirkətlərin İT, maliyyə və satış vakansiyaları üçün namizəd axtarışı və seçimini həyata keçirəcəksiniz. Uğurla bağlanan hər vakansiyaya görə maaşa əlavə bonus ödənilir.",
+		"responsibilities": [
+			"Müştəri ilə vakansiya tələblərini dəqiqləşdirmək",
+			"Aktiv namizəd axtarışı aparmaq",
+			"Kompetensiya əsaslı müsahibələr keçirmək",
+			"Namizədlər üzrə qısa siyahı və rəy hazırlamaq",
+			"İş təklifi mərhələsində danışıqları dəstəkləmək"
+		],
+		"requirements": [
+			"İşə qəbul sahəsində ən azı 2 il təcrübə",
+			"Müxtəlif axtarış kanallarından istifadə bacarığı",
+			"Güclü ünsiyyət və insanları dəyərləndirmə bacarığı",
+			"Eyni vaxtda 8-10 vakansiya ilə işləyə bilmək"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Keys tapşırığı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Şirkətlərə işə qəbul, kadr axtarışı və HR autsorsinqi xidmətləri göstərən məsləhət firması. Namizədlərə qarşı şəffaf və hörmətli yanaşmanı əsas tutur."
+	},
+	{
+		"id": "s039",
+		"title": "Kadrlar üzrə mütəxəssis",
+		"company": "Aran Agro MMC",
+		"sector": "İnsan resursları",
+		"city": "Gəncə",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Əmək Məcəlləsi",
+			"Kadr sənədləşməsi",
+			"Əmək müqavilələrinin elektron qeydiyyatı",
+			"Məzuniyyət uçotu",
+			"Excel",
+			"Arxivləşdirmə"
+		],
+		"traits": [
+			"organized",
+			"detail",
+			"social"
+		],
+		"riasec": "CS",
+		"salaryMin": 800,
+		"salaryMax": 1100,
+		"employment": "Tam ştat",
+		"summary": "Mövsümi işçilər də daxil olmaqla 300-dən çox əməkdaşın kadr sənədləşməsini aparacaqsınız. HR rəhbəri ilə birlikdə işçilərin uyğunlaşma proseslərini təkmilləşdirəcəksiniz.",
+		"responsibilities": [
+			"Əmək müqavilələrini hazırlamaq və elektron sistemdə qeydiyyata almaq",
+			"İşə qəbul, köçürmə və azadolma əmrlərini rəsmiləşdirmək",
+			"Məzuniyyət və iş vaxtı uçotunu aparmaq",
+			"Şəxsi işləri və arxivi qaydasında saxlamaq"
+		],
+		"requirements": [
+			"Ali təhsil, kadr işində ən azı 1 il təcrübə",
+			"Əmək Məcəlləsini yaxşı bilmək",
+			"Sənədlərlə dəqiq və səliqəli işləmək",
+			"Gəncədə yaşamaq və ya köçməyə hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Gəncə ətrafında 1200 hektar ərazidə taxıl, tərəvəz və meyvə yetişdirən aqrar şirkət. Müasir suvarma texnologiyalarına və davamlı kənd təsərrüfatına sərmayə qoyur."
+	},
+	{
+		"id": "s040",
+		"title": "HR biznes tərəfdaşı",
+		"company": "Kəhrəba Texnologiyaları",
+		"sector": "İnsan resursları",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 5,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"HR strategiyası",
+			"Performansın idarə edilməsi",
+			"Təşkilati inkişaf",
+			"Əmək hüququ",
+			"Kouçinq",
+			"HR analitikası"
+		],
+		"traits": [
+			"social",
+			"leader",
+			"analytical"
+		],
+		"riasec": "SE",
+		"salaryMin": 3000,
+		"salaryMax": 4200,
+		"employment": "Tam ştat",
+		"summary": "Mühəndislik departamentinin rəhbərləri üçün insan resursları üzrə strateji tərəfdaş olacaqsınız. İşçi bağlılığını, performans proseslərini və istedadların saxlanmasını gücləndirəcəksiniz.",
+		"responsibilities": [
+			"Departament rəhbərlərinə HR məsələlərində məsləhət vermək",
+			"Performans qiymətləndirmə dövrünü idarə etmək",
+			"İşçi məmnuniyyəti sorğularının nəticələrini təhlil etmək",
+			"Kadr planlaşdırması və təşkilati dəyişikliklərdə iştirak",
+			"Rəhbərlər üçün inkişaf proqramları təşkil etmək"
+		],
+		"requirements": [
+			"HR sahəsində ən azı 5 il təcrübə",
+			"Texnologiya şirkətində iş təcrübəsi üstünlükdür",
+			"HR göstəriciləri ilə işləmək bacarığı",
+			"İngilis dilində sərbəst ünsiyyət"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Peşəkar müsahibə",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Bulud infrastrukturu və kibertəhlükəsizlik xidmətləri göstərən 150 nəfərlik texnologiya şirkəti. Mühəndislik mədəniyyəti, sənədləşmə və komanda işi əsas dəyərləridir."
+	},
+	{
+		"id": "s041",
+		"title": "Qrafik dizayner",
+		"company": "Parlaq İdeya Agentliyi",
+		"sector": "Dizayn və media",
+		"city": "Bakı",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Peşə",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Adobe Illustrator",
+			"Adobe Photoshop",
+			"Brend identikası",
+			"Tipoqrafiya",
+			"Çap fayllarının hazırlanması",
+			"Figma"
+		],
+		"traits": [
+			"creative",
+			"detail"
+		],
+		"riasec": "AR",
+		"salaryMin": 900,
+		"salaryMax": 1300,
+		"employment": "Tam ştat",
+		"summary": "Agentliyin müştəriləri üçün sosial media vizualları, çap materialları və brend elementləri hazırlayacaqsınız. Art-direktorun rəhbərliyi altında müxtəlif sahələrdən olan brendlərlə işləyəcəksiniz.",
+		"responsibilities": [
+			"Kampaniyalar üçün vizual konsepsiyalar hazırlamaq",
+			"Sosial media üçün post və banner dizaynı",
+			"Çap üçün fayllar hazırlamaq",
+			"Brend kitabçalarına uyğunluğu təmin etmək"
+		],
+		"requirements": [
+			"Qrafik dizayn üzrə ən azı 1 il təcrübə",
+			"Güclü portfolio",
+			"Adobe paketində sərbəst işləmək",
+			"Rəy qəbul etməyə və düzəlişlər etməyə açıq olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Portfolio baxışı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Yerli brendlər üçün sosial media, dizayn və kampaniya xidmətləri göstərən 20 nəfərlik kreativ agentlik. Cəsarətli ideyalara və gənc istedadlara açıqdır."
+	},
+	{
+		"id": "s042",
+		"title": "UI/UX dizayner",
+		"company": "Xəzər Rəqəmsal Həllər",
+		"sector": "Dizayn və media",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Figma",
+			"Prototipləmə",
+			"İstifadəçi araşdırması",
+			"Dizayn sistemi",
+			"Wireframe",
+			"Usability test"
+		],
+		"traits": [
+			"creative",
+			"analytical",
+			"detail"
+		],
+		"riasec": "AI",
+		"minIq": 105,
+		"salaryMin": 2200,
+		"salaryMax": 3200,
+		"employment": "Tam ştat",
+		"summary": "Mobil və veb məhsullar üçün istifadəçi səyahətlərini araşdıracaq və rahat, estetik interfeyslər dizayn edəcəksiniz. Məhsul menecerləri və proqramçılarla bir komandada işləyəcəksiniz.",
+		"responsibilities": [
+			"İstifadəçi müsahibələri və usability testləri keçirmək",
+			"Wireframe və interaktiv prototiplər hazırlamaq",
+			"Dizayn sistemini inkişaf etdirmək",
+			"Dizaynların proqramçılara ötürülməsini təmin etmək",
+			"Məhsul göstəricilərinə əsasən dizaynı təkmilləşdirmək"
+		],
+		"requirements": [
+			"UI/UX dizayn üzrə ən azı 3 il təcrübə",
+			"Real məhsullardan ibarət portfolio",
+			"Figma-da qabaqcıl bacarıq",
+			"İstifadəçi araşdırması metodlarını bilmək"
+		],
+		"process": [
+			"CV seçimi",
+			"Portfolio təqdimatı",
+			"Dizayn tapşırığı",
+			"Komanda ilə görüş"
+		],
+		"companyAbout": "Bakıda yerləşən, 80 nəfərlik komandası ilə yerli bizneslər üçün veb və mobil məhsullar hazırlayan proqram təminatı şirkəti. Şəffaflığa, kod keyfiyyətinə və davamlı öyrənməyə önəm verir."
+	},
+	{
+		"id": "s043",
+		"title": "Video montajçı",
+		"company": "Çərçivə Prodakşn",
+		"sector": "Dizayn və media",
+		"city": "Uzaqdan",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Peşə",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Adobe Premiere Pro",
+			"DaVinci Resolve",
+			"Rəng korreksiyası",
+			"Səs montajı",
+			"After Effects əsasları",
+			"Qısa video formatları"
+		],
+		"traits": [
+			"creative",
+			"detail",
+			"calm"
+		],
+		"riasec": "AR",
+		"salaryMin": 1200,
+		"salaryMax": 1800,
+		"employment": "Layihə əsaslı",
+		"summary": "Reklam çarxları, korporativ videolar və sosial media üçün qısa formatlı videoların montajını həyata keçirəcəksiniz. Layihələr uzaqdan, aylıq razılaşdırılmış həcm əsasında icra olunur.",
+		"responsibilities": [
+			"Çəkilmiş materialları ssenariyə uyğun montaj etmək",
+			"Rəng korreksiyası və səs balansını tənzimləmək",
+			"Sadə animasiya və titrlər əlavə etmək",
+			"Müxtəlif platformalar üçün versiyalar hazırlamaq",
+			"Rejissorun düzəlişlərini vaxtında tətbiq etmək"
+		],
+		"requirements": [
+			"Video montaj üzrə ən azı 2 il təcrübə",
+			"Montaj nümunələrindən ibarət şou-reel",
+			"Güclü kompüter və lisenziyalı proqram təminatı",
+			"Son tarixlərə ciddi riayət"
+		],
+		"process": [
+			"Portfolio baxışı",
+			"Sınaq montaj tapşırığı",
+			"Onlayn görüş"
+		],
+		"companyAbout": "Reklam çarxları, korporativ videolar və sənədli layihələr çəkən müstəqil prodakşn studiyası. Layihə əsaslı işləyir və geniş frilanser şəbəkəsinə malikdir."
+	},
+	{
+		"id": "s044",
+		"title": "Kreativ direktor",
+		"company": "Ritm Kommunikasiya Agentliyi",
+		"sector": "Dizayn və media",
+		"city": "Bakı",
+		"level": "Rəhbər",
+		"minYears": 7,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Kreativ konsepsiya",
+			"Art-direksiya",
+			"Kampaniya strategiyası",
+			"Komanda idarəetməsi",
+			"Müştəri təqdimatları",
+			"Brend kommunikasiyası"
+		],
+		"traits": [
+			"creative",
+			"leader",
+			"social"
+		],
+		"riasec": "AE",
+		"salaryMin": 4000,
+		"salaryMax": 5500,
+		"employment": "Tam ştat",
+		"summary": "Agentliyin kreativ istiqamətinə rəhbərlik edərək böyük müştərilər üçün inteqrasiya olunmuş kampaniyaların ideyalarını formalaşdıracaqsınız. Dizayner, kopirayter və video komandasından ibarət 12 nəfərlik qrupu idarə edəcəksiniz.",
+		"responsibilities": [
+			"Kampaniyalar üçün böyük ideyalar və konsepsiyalar yaratmaq",
+			"Kreativ komandanın işinə istiqamət vermək və keyfiyyətə nəzarət",
+			"Müştərilərə konsepsiyaları təqdim etmək və müdafiə etmək",
+			"Yeni müştəri tenderlərində iştirak etmək",
+			"Komandada yaradıcı mədəniyyəti inkişaf etdirmək"
+		],
+		"requirements": [
+			"Reklam sahəsində ən azı 7 il, kreativ rəhbər kimi 2 il təcrübə",
+			"Uğurlu kampaniyalardan ibarət portfolio",
+			"Güclü təqdimat və liderlik bacarığı",
+			"İngilis dilində sərbəst ünsiyyət"
+		],
+		"process": [
+			"CV seçimi",
+			"Portfolio təqdimatı",
+			"Təsisçilərlə görüş"
+		],
+		"companyAbout": "İnteqrasiya olunmuş marketinq və PR xidmətləri göstərən 45 nəfərlik agentlik. Data əsaslı yaradıcılıq və şəffaf hesabatlılıq onun iş üslubudur."
+	},
+	{
+		"id": "s045",
+		"title": "Hüquq üzrə təcrübəçi",
+		"company": "Mötəbər Hüquq Bürosu",
+		"sector": "Hüquq",
+		"city": "Bakı",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Hüquqi araşdırma",
+			"Normativ aktlarla iş",
+			"İşgüzar yazı",
+			"MS Word",
+			"Sənədləşmə"
+		],
+		"traits": [
+			"detail",
+			"analytical",
+			"organized"
+		],
+		"riasec": "CI",
+		"minIq": 100,
+		"salaryMin": 500,
+		"salaryMax": 650,
+		"employment": "Təcrübə proqramı",
+		"summary": "Korporativ və məhkəmə təcrübəsi qruplarında hüquqi araşdırmalar və sənəd layihələrinin hazırlanmasında iştirak edəcəksiniz. Təcrübəli vəkillərin mentorluğu ilə peşəkar vərdişlər qazanacaqsınız.",
+		"responsibilities": [
+			"Qanunvericilik və məhkəmə təcrübəsi üzrə araşdırma aparmaq",
+			"Sadə hüquqi rəylərin layihəsini hazırlamaq",
+			"Müqavilələrin ilkin yoxlanışında kömək etmək",
+			"Sənəd arxivini sistemləşdirmək"
+		],
+		"requirements": [
+			"Hüquq fakültəsinin son kurs tələbəsi və ya məzunu",
+			"Azərbaycan dilində güclü yazı bacarığı",
+			"İngilis dilində hüquqi mətnləri oxuya bilmək",
+			"Məxfiliyə ciddi riayət"
+		],
+		"process": [
+			"CV seçimi",
+			"Yazılı hüquqi tapşırıq",
+			"Partnyorla müsahibə"
+		],
+		"companyAbout": "Korporativ hüquq, mübahisələrin həlli və əqli mülkiyyət üzrə xidmət göstərən 25 hüquqşünaslı büro. Peşəkar etika və məxfilik onun əsas prinsipləridir."
+	},
+	{
+		"id": "s046",
+		"title": "Korporativ hüquqşünas",
+		"company": "Mötəbər Hüquq Bürosu",
+		"sector": "Hüquq",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 5,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Korporativ hüquq",
+			"Müqavilə hüququ",
+			"Birləşmə və satınalmalar",
+			"Due diligence",
+			"Hüquqi rəy hazırlanması",
+			"Danışıqlar"
+		],
+		"traits": [
+			"analytical",
+			"detail",
+			"calm"
+		],
+		"riasec": "IE",
+		"minIq": 110,
+		"salaryMin": 3000,
+		"salaryMax": 4500,
+		"employment": "Tam ştat",
+		"summary": "Yerli və xarici müştərilərə korporativ məsələlər, investisiya əməliyyatları və müqavilə strukturlaşdırılması üzrə hüquqi xidmət göstərəcəksiniz. Kiçik hüquqşünaslardan ibarət qrupun işini əlaqələndirəcəksiniz.",
+		"responsibilities": [
+			"Mürəkkəb kommersiya müqavilələrini hazırlamaq və yoxlamaq",
+			"Şirkətlərin hüquqi yoxlanışını (due diligence) aparmaq",
+			"Korporativ əməliyyatların strukturlaşdırılması üzrə məsləhət vermək",
+			"Müştərilərin danışıqlarında iştirak etmək",
+			"Kiçik hüquqşünasların işinə nəzarət etmək"
+		],
+		"requirements": [
+			"Hüquq üzrə magistr dərəcəsi",
+			"Korporativ hüquq sahəsində ən azı 5 il təcrübə",
+			"İngilis dilində hüquqi sənəd hazırlama bacarığı",
+			"Hüquq firmasında iş təcrübəsi üstünlükdür"
+		],
+		"process": [
+			"CV seçimi",
+			"Yazılı tapşırıq",
+			"Partnyorlarla müsahibə"
+		],
+		"companyAbout": "Korporativ hüquq, mübahisələrin həlli və əqli mülkiyyət üzrə xidmət göstərən 25 hüquqşünaslı büro. Peşəkar etika və məxfilik onun əsas prinsipləridir."
+	},
+	{
+		"id": "s047",
+		"title": "Əmək hüququ üzrə məsləhətçi",
+		"company": "Sənəd Hüquq Məsləhət",
+		"sector": "Hüquq",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Əmək hüququ",
+			"Hüquqi məsləhət",
+			"İddia ərizələri",
+			"Məhkəmə təmsilçiliyi",
+			"Müştəri ilə ünsiyyət",
+			"Sənəd hazırlanması"
+		],
+		"traits": [
+			"social",
+			"analytical",
+			"calm"
+		],
+		"riasec": "IS",
+		"salaryMin": 1600,
+		"salaryMax": 2400,
+		"employment": "Tam ştat",
+		"summary": "Fiziki şəxslərə və kiçik bizneslərə əmək mübahisələri, müqavilələr və işdən azad olunma məsələləri üzrə məsləhət verəcəksiniz. Lazım olduqda müştəriləri məhkəmədə təmsil edəcəksiniz.",
+		"responsibilities": [
+			"Müştəri müraciətlərini qəbul edib hüquqi qiymətləndirmə vermək",
+			"İddia ərizələri və şikayətlər hazırlamaq",
+			"Məhkəmə proseslərində təmsilçilik etmək",
+			"İşəgötürənlər üçün daxili qaydaların layihəsini hazırlamaq"
+		],
+		"requirements": [
+			"Hüquq üzrə ali təhsil",
+			"Əmək hüququ sahəsində ən azı 3 il təcrübə",
+			"Mürəkkəb hüquqi məsələləri sadə dillə izah edə bilmək",
+			"Məhkəmə təcrübəsi üstünlükdür"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Fiziki şəxslərə və kiçik bizneslərə əmək, ailə və mülkiyyət hüququ üzrə məsləhət verən hüquq firması. Əlçatan qiymətləri və aydın izahları ilə tanınır."
+	},
+	{
+		"id": "s048",
+		"title": "Müqavilələr üzrə hüquqşünas",
+		"company": "Dayaq İnşaat MMC",
+		"sector": "Hüquq",
+		"city": "Bakı",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Müqavilə hüququ",
+			"Tikinti podrat müqavilələri",
+			"Sənəd yoxlanışı",
+			"Hüquqi yazışma",
+			"MS Word və Excel"
+		],
+		"traits": [
+			"detail",
+			"organized",
+			"analytical"
+		],
+		"riasec": "CI",
+		"salaryMin": 1000,
+		"salaryMax": 1400,
+		"employment": "Tam ştat",
+		"summary": "Şirkətin subpodratçı, təchizatçı və müştəriləri ilə bağlanan müqavilələrin hazırlanması və yoxlanılmasında iştirak edəcəksiniz. Baş hüquqşünasın rəhbərliyi altında işləyəcəksiniz.",
+		"responsibilities": [
+			"Standart müqavilə şablonlarını hazırlamaq və yeniləmək",
+			"Qarşı tərəfin müqavilə layihələrini yoxlamaq",
+			"Müqavilələrin reyestrini aparmaq",
+			"Şöbələrə hüquqi suallar üzrə ilkin məsləhət vermək"
+		],
+		"requirements": [
+			"Hüquq üzrə bakalavr dərəcəsi",
+			"Ən azı 1 il hüquqi iş təcrübəsi",
+			"Mülki Məcəlləni yaxşı bilmək",
+			"Diqqətli və sistemli işləmək"
+		],
+		"process": [
+			"CV seçimi",
+			"Yazılı tapşırıq",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Yaşayış və kommersiya binalarının tikintisi ilə məşğul olan 250 nəfərlik podratçı şirkət. Əməyin təhlükəsizliyi və keyfiyyət standartlarına ciddi riayət edir."
+	},
+	{
+		"id": "s049",
+		"title": "Resepşn əməkdaşı",
+		"company": "Yaşıl Vadi Butik Otel",
+		"sector": "Turizm və xidmət",
+		"city": "Şəki",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Qonaq qəbulu",
+			"Rezervasiya sistemi",
+			"Telefon etiketi",
+			"Kassa əməliyyatları",
+			"Problem həlli"
+		],
+		"traits": [
+			"social",
+			"calm",
+			"organized"
+		],
+		"riasec": "SC",
+		"salaryMin": 600,
+		"salaryMax": 850,
+		"employment": "Tam ştat",
+		"summary": "Otelə gələn yerli və xarici qonaqları qarşılayacaq, qeydiyyat və rezervasiya proseslərini həyata keçirəcəksiniz. Kənardan gələn əməkdaşlar üçün yaşayış yeri təmin olunur.",
+		"responsibilities": [
+			"Qonaqların qeydiyyatını və çıxışını rəsmiləşdirmək",
+			"Rezervasiyaları sistemdə idarə etmək",
+			"Qonaqlara ekskursiya və xidmətlər barədə məlumat vermək",
+			"Ödənişləri qəbul etmək və kassa hesabatı hazırlamaq"
+		],
+		"requirements": [
+			"İngilis və rus dillərində danışıq səviyyəsində bilik",
+			"Qonaqpərvər və səliqəli olmaq",
+			"Növbəli iş qrafikinə hazır olmaq",
+			"Turizm sahəsində təcrübə üstünlükdür"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Şəkinin dağ ətəyində yerləşən 32 otaqlı butik otel. Yerli mətbəxi, ekoturizmi və qonaqpərvərlik ənənələrini ön plana çıxarır."
+	},
+	{
+		"id": "s050",
+		"title": "Tur meneceri",
+		"company": "Səyyah Turizm Agentliyi",
+		"sector": "Turizm və xidmət",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Türk dili"
+		],
+		"skills": [
+			"Tur paketlərinin hazırlanması",
+			"Rezervasiya sistemləri",
+			"Müştəri ilə ünsiyyət",
+			"Satış",
+			"Viza prosedurları",
+			"Excel"
+		],
+		"traits": [
+			"social",
+			"organized",
+			"creative"
+		],
+		"riasec": "ES",
+		"salaryMin": 1100,
+		"salaryMax": 1600,
+		"employment": "Tam ştat",
+		"summary": "Fərdi və korporativ müştərilər üçün xarici və daxili tur paketləri hazırlayıb satacaqsınız. Otel, aviaşirkət və yerli tərəfdaşlarla əməkdaşlığı idarə edəcəksiniz.",
+		"responsibilities": [
+			"Müştəri istəyinə uyğun marşrutlar hazırlamaq",
+			"Otel və nəqliyyat rezervasiyalarını etmək",
+			"Viza sənədlərinin hazırlanmasına kömək etmək",
+			"Tərəfdaşlardan qiymət təklifləri almaq",
+			"Səfər zamanı müştərilərə dəstək göstərmək"
+		],
+		"requirements": [
+			"Turizm sahəsində ən azı 2 il təcrübə",
+			"Rezervasiya sistemləri ilə iş təcrübəsi",
+			"İngilis və türk dillərində ünsiyyət",
+			"Satış yönümlü və ünsiyyətcil olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Daxili və xarici turlar təşkil edən, 12 ildir fəaliyyət göstərən turizm agentliyi. Fərdi marşrutlar və korporativ səfərlər üzrə ixtisaslaşıb."
+	},
+	{
+		"id": "s051",
+		"title": "Restoran meneceri",
+		"company": "Ləzzət Karvanı Restoran Qrupu",
+		"sector": "Turizm və xidmət",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Restoran əməliyyatları",
+			"Komanda idarəetməsi",
+			"Xərclərə nəzarət",
+			"Qida təhlükəsizliyi",
+			"Qonaq məmnuniyyəti",
+			"Növbə planlaşdırması"
+		],
+		"traits": [
+			"leader",
+			"social",
+			"organized"
+		],
+		"riasec": "ES",
+		"salaryMin": 1800,
+		"salaryMax": 2500,
+		"employment": "Tam ştat",
+		"summary": "150 yerlik restoranın gündəlik fəaliyyətinə rəhbərlik edərək yüksək xidmət keyfiyyətini və maliyyə nəticələrini təmin edəcəksiniz. Zal və mətbəx komandalarından ibarət 35 nəfərlik heyəti idarə edəcəksiniz.",
+		"responsibilities": [
+			"Zal və mətbəx işinin əlaqələndirilməsi",
+			"İşçi növbələrini planlaşdırmaq və təlimlər keçirmək",
+			"Xərcləri, inventarı və gəlirliliyi izləmək",
+			"Qonaq rəylərinə cavab vermək və şikayətləri həll etmək",
+			"Sanitariya və qida təhlükəsizliyi tələblərinə nəzarət"
+		],
+		"requirements": [
+			"Restoran sahəsində ən azı 4 il, menecer kimi 2 il təcrübə",
+			"Komandanı idarə etmə və motivasiya bacarığı",
+			"Əsas maliyyə göstəricilərini anlamaq",
+			"Axşam və həftəsonu işləməyə hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Restoranda sınaq növbəsi",
+			"Əməliyyat direktoru ilə görüş"
+		],
+		"companyAbout": "Bakıda milli və Avropa mətbəxi təqdim edən 4 restoranı idarə edən qrup. Komanda daxilində böyüməyə və xidmət keyfiyyətinə önəm verir."
+	},
+	{
+		"id": "s052",
+		"title": "Turizm üzrə təcrübəçi (bələdçi köməkçisi)",
+		"company": "Yaşıl Vadi Butik Otel",
+		"sector": "Turizm və xidmət",
+		"city": "Şəki",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Təqdimat bacarığı",
+			"Yerli tarix biliyi",
+			"İngilis dili",
+			"Qrupla iş",
+			"Sosial media"
+		],
+		"traits": [
+			"social",
+			"creative"
+		],
+		"riasec": "SA",
+		"salaryMin": 400,
+		"salaryMax": 550,
+		"employment": "Təcrübə proqramı",
+		"summary": "Yay və payız mövsümündə otel qonaqları üçün şəhər və təbiət turlarının keçirilməsində bələdçiyə kömək edəcəksiniz. Turizm sahəsində ilk təcrübə qazanmaq istəyən tələbələr üçün uyğundur.",
+		"responsibilities": [
+			"Tur qruplarını qarşılamaq və müşayiət etmək",
+			"Qonaqlara tarixi məkanlar barədə məlumat vermək",
+			"Turların təşkilati detallarına kömək etmək",
+			"Otelin sosial media hesabları üçün foto və video çəkmək"
+		],
+		"requirements": [
+			"Turizm, tarix və ya dil ixtisası üzrə tələbə",
+			"İngilis dilində sərbəst danışıq",
+			"Enerjili və ünsiyyətcil olmaq",
+			"Mövsüm ərzində Şəkidə qala bilmək"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Video müsahibə"
+		],
+		"companyAbout": "Şəkinin dağ ətəyində yerləşən 32 otaqlı butik otel. Yerli mətbəxi, ekoturizmi və qonaqpərvərlik ənənələrini ön plana çıxarır."
+	},
+	{
+		"id": "s053",
+		"title": "Layihə koordinatoru",
+		"company": "Gənc Addımlar İctimai Birliyi",
+		"sector": "Dövlət və QHT",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Layihə idarəetməsi",
+			"Tədbir təşkili",
+			"Büdcə izlənməsi",
+			"Hesabat yazımı",
+			"Tərəfdaşlarla əlaqə",
+			"Könüllülərin idarəsi"
+		],
+		"traits": [
+			"organized",
+			"social",
+			"leader"
+		],
+		"riasec": "SE",
+		"salaryMin": 1200,
+		"salaryMax": 1700,
+		"employment": "Layihə əsaslı",
+		"summary": "Regionlarda gənclər üçün peşə yönümlü təlimlər layihəsini 12 ay ərzində koordinasiya edəcəksiniz. Donor təşkilata vaxtında və keyfiyyətli hesabatların təqdim olunmasına cavabdeh olacaqsınız.",
+		"responsibilities": [
+			"Layihə fəaliyyətlərinin iş planını hazırlamaq və izləmək",
+			"Regionlarda təlim və tədbirləri təşkil etmək",
+			"Layihə büdcəsinin xərclənməsini izləmək",
+			"Donor üçün rüblük narrativ hesabatlar yazmaq",
+			"Könüllü və təlimçilərin işini əlaqələndirmək"
+		],
+		"requirements": [
+			"Layihə idarəetməsində ən azı 2 il təcrübə",
+			"QHT və ya beynəlxalq layihələrdə iş təcrübəsi üstünlükdür",
+			"İngilis dilində hesabat yazma bacarığı",
+			"Regionlara ezamiyyətlərə hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Keys tapşırığı",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Gənclərin peşə inkişafı və vətəndaş fəallığı üzrə layihələr həyata keçirən qeyri-hökumət təşkilatı. Beynəlxalq donor proqramları ilə əməkdaşlıq edir."
+	},
+	{
+		"id": "s054",
+		"title": "Monitorinq və qiymətləndirmə mütəxəssisi",
+		"company": "Kənd Səsi İctimai Birliyi",
+		"sector": "Dövlət və QHT",
+		"city": "Lənkəran",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Monitorinq və qiymətləndirmə",
+			"Məntiqi çərçivə",
+			"Sorğu dizaynı",
+			"Excel və SPSS",
+			"Fokus qrup müsahibələri",
+			"Analitik hesabat"
+		],
+		"traits": [
+			"analytical",
+			"organized",
+			"detail"
+		],
+		"riasec": "IC",
+		"minIq": 105,
+		"salaryMin": 1800,
+		"salaryMax": 2600,
+		"employment": "Tam ştat",
+		"summary": "Təşkilatın kənd icmalarında həyata keçirdiyi proqramların nəticə və təsirini ölçmək üçün sistem quracaqsınız. Toplanan məlumatlar əsasında proqramların təkmilləşdirilməsi üzrə tövsiyələr verəcəksiniz.",
+		"responsibilities": [
+			"Layihələr üçün göstəricilər və M&Q planı hazırlamaq",
+			"Sahə sorğularını və fokus qrupları təşkil etmək",
+			"Məlumatları təhlil edib hesabatlar hazırlamaq",
+			"Komanda üzvlərinə məlumat toplama üzrə təlim keçmək",
+			"Donorların qiymətləndirmə missiyalarını dəstəkləmək"
+		],
+		"requirements": [
+			"Sosial elmlər, iqtisadiyyat və ya statistika üzrə magistr",
+			"M&Q sahəsində ən azı 4 il təcrübə",
+			"Kəmiyyət və keyfiyyət metodlarını bilmək",
+			"İngilis dilində sərbəst yazı"
+		],
+		"process": [
+			"CV seçimi",
+			"Yazılı tapşırıq",
+			"Panel müsahibəsi"
+		],
+		"companyAbout": "Cənub bölgəsində kənd icmalarının inkişafı, qadın sahibkarlığı və təhsilə çıxış üzrə çalışan QHT. Lənkəranda regional ofisi var."
+	},
+	{
+		"id": "s055",
+		"title": "Könüllü proqramı üzrə təcrübəçi",
+		"company": "Təmiz Sahil Ekoloji İctimai Birliyi",
+		"sector": "Dövlət və QHT",
+		"city": "Sumqayıt",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Orta",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Tədbir təşkili",
+			"Sosial media",
+			"Ünsiyyət",
+			"Komanda işi",
+			"Google Forms"
+		],
+		"traits": [
+			"social",
+			"practical",
+			"organized"
+		],
+		"riasec": "SE",
+		"salaryMin": 400,
+		"salaryMax": 500,
+		"employment": "Təcrübə proqramı",
+		"summary": "Sahil təmizlik aksiyalarının və ekoloji maarifləndirmə tədbirlərinin təşkilində koordinatora kömək edəcəksiniz. Həftəsonu aksiyalarında iştirak tələb olunur, həftəiçi qrafik çevikdir.",
+		"responsibilities": [
+			"Könüllülərin qeydiyyatını aparmaq",
+			"Aksiyalar üçün inventar və logistikanı hazırlamaq",
+			"Tədbirlərdən foto-video materiallar toplamaq",
+			"Məktəblərdə maarifləndirici görüşlərə kömək etmək"
+		],
+		"requirements": [
+			"Ekologiyaya və ictimai fəallığa maraq",
+			"Ünsiyyətcil və təşəbbüskar olmaq",
+			"Həftəsonları açıq havada işləməyə hazır olmaq",
+			"Tələbə və ya təzə məzun olmaq"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Tanışlıq görüşü"
+		],
+		"companyAbout": "Xəzər sahillərinin təmizlənməsi və ekoloji maarifləndirmə üzrə könüllü kampaniyalar keçirən təşkilat. 500-dən çox aktiv könüllüsü var."
+	},
+	{
+		"id": "s056",
+		"title": "Qrant yazımı mütəxəssisi",
+		"company": "Gənc Addımlar İctimai Birliyi",
+		"sector": "Dövlət və QHT",
+		"city": "Uzaqdan",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Qrant müraciəti yazımı",
+			"Layihə dizaynı",
+			"Büdcə tərtibi",
+			"Donor araşdırması",
+			"İngilis dilində akademik yazı",
+			"Son tarixlərin idarəsi"
+		],
+		"traits": [
+			"creative",
+			"organized",
+			"analytical"
+		],
+		"riasec": "AS",
+		"salaryMin": 1400,
+		"salaryMax": 2000,
+		"employment": "Yarım ştat",
+		"summary": "Beynəlxalq donor proqramlarına təşkilat adından qrant müraciətləri hazırlayacaqsınız. Proqram komandası ilə birlikdə layihə ideyalarını güclü və inandırıcı təkliflərə çevirəcəksiniz.",
+		"responsibilities": [
+			"Uyğun qrant imkanlarını araşdırmaq və izləmək",
+			"Layihə təkliflərini və məntiqi çərçivələri yazmaq",
+			"Büdcə layihələrini maliyyə şöbəsi ilə hazırlamaq",
+			"Donorların suallarına cavablar hazırlamaq"
+		],
+		"requirements": [
+			"Qrant yazımında ən azı 3 il təcrübə və uğurlu müraciət nümunələri",
+			"İngilis dilində mükəmməl yazı bacarığı",
+			"Layihə dövrü idarəetməsini bilmək",
+			"Müstəqil və son tarixlərə uyğun işləmək"
+		],
+		"process": [
+			"CV və yazı nümunəsi",
+			"Yazılı tapşırıq",
+			"Onlayn müsahibə"
+		],
+		"companyAbout": "Gənclərin peşə inkişafı və vətəndaş fəallığı üzrə layihələr həyata keçirən qeyri-hökumət təşkilatı. Beynəlxalq donor proqramları ilə əməkdaşlıq edir."
+	},
+	{
+		"id": "s057",
+		"title": "Qazma mühəndisi",
+		"company": "Dərinlik Qazma Servis",
+		"sector": "Neft-qaz və enerji",
+		"city": "Bakı",
+		"level": "Böyük mütəxəssis",
+		"minYears": 5,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Qazma əməliyyatları",
+			"Quyu konstruksiyası",
+			"Qazma məhlulları",
+			"HSE standartları",
+			"Texniki hesabatlar",
+			"Mühəndis hesablama proqramları"
+		],
+		"traits": [
+			"practical",
+			"analytical",
+			"calm"
+		],
+		"riasec": "RI",
+		"minIq": 108,
+		"salaryMin": 3500,
+		"salaryMax": 5000,
+		"employment": "Tam ştat",
+		"summary": "Dənizdə və quruda qazma layihələri üçün mühəndislik dəstəyi göstərəcək, quyuların təhlükəsiz və səmərəli qazılmasını planlaşdıracaqsınız. İş rejimi ofis və 14/14 növbəli sahə işini əhatə edir.",
+		"responsibilities": [
+			"Qazma proqramlarını hazırlamaq və icrasına nəzarət etmək",
+			"Quyu konstruksiyası üzrə mühəndis hesablamaları aparmaq",
+			"Qazma zamanı yaranan texniki problemlərin həllində iştirak",
+			"Gündəlik qazma hesabatlarını təhlil etmək",
+			"Təhlükəsizlik və ətraf mühit tələblərinə riayət etmək"
+		],
+		"requirements": [
+			"Neft-qaz mühəndisliyi üzrə ali təhsil",
+			"Qazma sahəsində ən azı 5 il təcrübə",
+			"Növbəli sahə işinə hazır olmaq",
+			"Etibarlı təhlükəsizlik sertifikatları",
+			"İngilis dilində texniki ünsiyyət"
+		],
+		"process": [
+			"CV seçimi",
+			"Texniki müsahibə",
+			"Tibbi yoxlama",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Quruda və dənizdə qazma əməliyyatları üçün mühəndislik və texniki xidmətlər göstərən servis şirkəti. Təhlükəsizlik mədəniyyəti və beynəlxalq standartlar əsas prioritetidir."
+	},
+	{
+		"id": "s058",
+		"title": "Əməyin mühafizəsi (HSE) mütəxəssisi",
+		"company": "Xəttboyu Mühəndislik Servis",
+		"sector": "Neft-qaz və enerji",
+		"city": "Sumqayıt",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"HSE idarəetmə sistemləri",
+			"Risklərin qiymətləndirilməsi",
+			"İnsidentlərin araşdırılması",
+			"Təlim keçmə",
+			"ISO 45001",
+			"Sahə yoxlamaları"
+		],
+		"traits": [
+			"detail",
+			"organized",
+			"leader"
+		],
+		"riasec": "CR",
+		"salaryMin": 1800,
+		"salaryMax": 2500,
+		"employment": "Tam ştat",
+		"summary": "Boru kəməri təmir layihələrində əməyin mühafizəsi və təhlükəsizlik standartlarına riayət olunmasını təmin edəcəksiniz. Sahə komandaları üçün təlimlər keçirəcək və riskləri qabaqcadan müəyyən edəcəksiniz.",
+		"responsibilities": [
+			"İş yerlərində risk qiymətləndirmələri aparmaq",
+			"Gündəlik təhlükəsizlik brifinqləri keçirmək",
+			"İş icazələri sisteminə nəzarət etmək",
+			"İnsident və təhlükəli halları araşdırmaq",
+			"HSE göstəriciləri üzrə hesabatlar hazırlamaq"
+		],
+		"requirements": [
+			"Mühəndislik və ya əməyin mühafizəsi üzrə ali təhsil",
+			"HSE sahəsində ən azı 3 il təcrübə",
+			"Beynəlxalq HSE sertifikatı üstünlükdür",
+			"Sahədə işləməyə və ezamiyyətlərə hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Boru kəmərlərinin texniki baxışı, təmiri və korroziyadan qorunması üzrə ixtisaslaşmış mühəndislik şirkəti. 120 əməkdaşı var."
+	},
+	{
+		"id": "s059",
+		"title": "Günəş enerjisi sistemləri mühəndisi",
+		"company": "Səmt Bərpa Olunan Enerji",
+		"sector": "Neft-qaz və enerji",
+		"city": "Mingəçevir",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Fotovoltaik sistemlər",
+			"Elektrik sxemləri",
+			"PVsyst əsasları",
+			"AutoCAD",
+			"Sahə quraşdırması",
+			"Ölçü cihazları"
+		],
+		"traits": [
+			"practical",
+			"analytical",
+			"detail"
+		],
+		"riasec": "RI",
+		"salaryMin": 1100,
+		"salaryMax": 1500,
+		"employment": "Tam ştat",
+		"summary": "Günəş elektrik stansiyalarının layihələndirilməsi, quraşdırılması və istismara verilməsində iştirak edəcəksiniz. Bərpa olunan enerji sahəsində sürətli peşəkar inkişaf üçün yaxşı imkandır.",
+		"responsibilities": [
+			"Panel düzülüşü və enerji hasilatı hesablamalarında iştirak",
+			"Quraşdırma işlərinə texniki nəzarət etmək",
+			"Sistemlərin sınaq və istismara verilməsində iştirak",
+			"Avadanlıqların texniki xidmət qrafikini aparmaq"
+		],
+		"requirements": [
+			"Elektrik və ya energetika mühəndisliyi üzrə ali təhsil",
+			"Ən azı 1 il təcrübə və ya müvafiq təcrübə proqramı",
+			"Açıq havada sahə işinə hazır olmaq",
+			"İngilis dilində texniki sənədləri oxumaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Texniki müsahibə",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Günəş və külək enerjisi stansiyalarının quraşdırılması və istismarı ilə məşğul olan yerli şirkət. Layihələrində 70 nəfər çalışır."
+	},
+	{
+		"id": "s060",
+		"title": "Enerji sektoru üzrə təcrübəçi",
+		"company": "Dərinlik Qazma Servis",
+		"sector": "Neft-qaz və enerji",
+		"city": "Bakı",
+		"level": "Təcrübəçi",
+		"minYears": 0,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Mühəndis hesablamaları",
+			"Excel",
+			"Texniki rəsm",
+			"Təhlükəsizlik qaydaları",
+			"Texniki ingilis dili"
+		],
+		"traits": [
+			"analytical",
+			"practical",
+			"organized"
+		],
+		"riasec": "RI",
+		"minIq": 100,
+		"salaryMin": 600,
+		"salaryMax": 700,
+		"employment": "Təcrübə proqramı",
+		"summary": "Mühəndislik şöbəsində altı aylıq təcrübə proqramında qazma və quyu əməliyyatlarının əsaslarını öyrənəcəksiniz. Proqram müddətində sahəyə müşayiətli səfərlər planlaşdırılır.",
+		"responsibilities": [
+			"Mühəndislərə hesablamalarda və hesabatlarda kömək etmək",
+			"Texniki sənədləri sistemləşdirmək",
+			"Təhlükəsizlik təlimlərində iştirak etmək",
+			"Proqramın sonunda kiçik layihə təqdim etmək"
+		],
+		"requirements": [
+			"Neft-qaz, mexanika və ya kimya mühəndisliyi üzrə son kurs tələbəsi və ya məzun",
+			"Yüksək akademik göstəricilər",
+			"İngilis dilində texniki mətnləri anlaya bilmək",
+			"Tibbi müayinədən keçə bilmək"
+		],
+		"process": [
+			"Onlayn müraciət",
+			"Məntiqi test",
+			"Panel müsahibəsi"
+		],
+		"companyAbout": "Quruda və dənizdə qazma əməliyyatları üçün mühəndislik və texniki xidmətlər göstərən servis şirkəti. Təhlükəsizlik mədəniyyəti və beynəlxalq standartlar əsas prioritetidir."
+	},
+	{
+		"id": "s061",
+		"title": "Aqronom",
+		"company": "Aran Agro MMC",
+		"sector": "Kənd təsərrüfatı",
+		"city": "Gəncə",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Bitkiçilik",
+			"Torpaq analizi",
+			"Gübrələmə planı",
+			"Bitki mühafizəsi",
+			"Damcı suvarma",
+			"Sahə hesabatları"
+		],
+		"traits": [
+			"practical",
+			"analytical",
+			"organized"
+		],
+		"riasec": "RI",
+		"salaryMin": 1100,
+		"salaryMax": 1600,
+		"employment": "Tam ştat",
+		"summary": "Tərəvəz və meyvə sahələrində əkin, gübrələmə və bitki mühafizəsi işlərini planlaşdırıb icrasına nəzarət edəcəksiniz. Məhsuldarlığın artırılması və itkilərin azaldılması əsas hədəfinizdir.",
+		"responsibilities": [
+			"Mövsümi aqrotexniki iş planlarını hazırlamaq",
+			"Torpaq və bitki nümunələrinin analizini təşkil etmək",
+			"Xəstəlik və zərərvericilərə qarşı tədbirlər görmək",
+			"Suvarma rejimini tənzimləmək",
+			"Sahə işçilərinə texniki göstərişlər vermək"
+		],
+		"requirements": [
+			"Aqronomluq üzrə ali təhsil",
+			"Sahədə ən azı 3 il təcrübə",
+			"Müasir suvarma sistemlərini bilmək",
+			"Sürücülük vəsiqəsi üstünlükdür"
+		],
+		"process": [
+			"CV seçimi",
+			"Sahədə müsahibə"
+		],
+		"companyAbout": "Gəncə ətrafında 1200 hektar ərazidə taxıl, tərəvəz və meyvə yetişdirən aqrar şirkət. Müasir suvarma texnologiyalarına və davamlı kənd təsərrüfatına sərmayə qoyur."
+	},
+	{
+		"id": "s062",
+		"title": "Ferma meneceri",
+		"company": "Dağətəyi Fermer Təsərrüfatı",
+		"sector": "Kənd təsərrüfatı",
+		"city": "Şəki",
+		"level": "Rəhbər",
+		"minYears": 6,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Ferma idarəetməsi",
+			"Heyvandarlıq",
+			"Büdcə və xərc nəzarəti",
+			"Komanda idarəetməsi",
+			"Satınalma",
+			"Qida təhlükəsizliyi standartları"
+		],
+		"traits": [
+			"leader",
+			"practical",
+			"organized"
+		],
+		"riasec": "ER",
+		"salaryMin": 2000,
+		"salaryMax": 3000,
+		"employment": "Tam ştat",
+		"summary": "Heyvandarlıq fermasının və fındıq bağlarının gündəlik əməliyyatlarına rəhbərlik edəcəksiniz. Təsərrüfatın orqanik sertifikasiyaya keçidində əsas rol oynayacaqsınız.",
+		"responsibilities": [
+			"Ferma və bağ işlərinin illik planını hazırlamaq",
+			"40 nəfərlik işçi heyətini idarə etmək",
+			"Yem, dərman və avadanlıq satınalmalarına nəzarət",
+			"Məhsulun satışı üzrə alıcılarla danışıqlar aparmaq",
+			"Xərcləri və gəlirliliyi izləmək"
+		],
+		"requirements": [
+			"Kənd təsərrüfatı və ya zootexnika üzrə ali təhsil",
+			"Ferma idarəetməsində ən azı 6 il təcrübə",
+			"Orqanik istehsal standartları ilə tanışlıq üstünlükdür",
+			"Kənd yerində yaşamağa hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Təsisçi ilə müsahibə",
+			"Fermaya səfər"
+		],
+		"companyAbout": "Şəki bölgəsində heyvandarlıq və fındıq bağları ilə məşğul olan ailə təsərrüfatı. 60 işçisi var və orqanik istehsala keçid edir."
+	},
+	{
+		"id": "s063",
+		"title": "Baytar həkimi",
+		"company": "Dağətəyi Fermer Təsərrüfatı",
+		"sector": "Kənd təsərrüfatı",
+		"city": "Şəki",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Heyvanların müayinəsi",
+			"Peyvənd cədvəli",
+			"Mama-ginekologiya",
+			"Xəstəliklərin profilaktikası",
+			"Baytarlıq sənədləşməsi",
+			"Yemləmə rasionu"
+		],
+		"traits": [
+			"practical",
+			"calm",
+			"detail"
+		],
+		"riasec": "IR",
+		"salaryMin": 1000,
+		"salaryMax": 1500,
+		"employment": "Tam ştat",
+		"summary": "300 başlıq iribuynuzlu mal-qara fermasında heyvanların sağlamlığına cavabdeh olacaqsınız. Profilaktik tədbirlər və vaxtında müalicə ilə məhsuldarlığın qorunmasını təmin edəcəksiniz.",
+		"responsibilities": [
+			"Heyvanların müntəzəm müayinəsini aparmaq",
+			"Peyvənd və profilaktika planını icra etmək",
+			"Xəstə heyvanları müalicə etmək",
+			"Baytarlıq qeydlərini və dərman uçotunu aparmaq"
+		],
+		"requirements": [
+			"Baytarlıq üzrə ali təhsil",
+			"İribuynuzlu heyvanlarla ən azı 2 il təcrübə",
+			"Təcili hallarda çağırışa hazır olmaq",
+			"Fermada yaşamaq imkanı (yaşayış yeri verilir)"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Şəki bölgəsində heyvandarlıq və fındıq bağları ilə məşğul olan ailə təsərrüfatı. 60 işçisi var və orqanik istehsala keçid edir."
+	},
+	{
+		"id": "s064",
+		"title": "Çay emalı üzrə texnoloq",
+		"company": "Yaşıl Çay Yamacı MMC",
+		"sector": "Kənd təsərrüfatı",
+		"city": "Lənkəran",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Peşə",
+		"languages": [
+			"Azərbaycan dili"
+		],
+		"skills": [
+			"Çay emalı texnologiyası",
+			"Keyfiyyət yoxlaması",
+			"Avadanlıq istismarı",
+			"Sanitariya qaydaları",
+			"Partiya uçotu"
+		],
+		"traits": [
+			"practical",
+			"detail",
+			"organized"
+		],
+		"riasec": "RC",
+		"salaryMin": 800,
+		"salaryMax": 1100,
+		"employment": "Tam ştat",
+		"summary": "Yığılmış çay yarpağının qurudulması, fermentasiyası və qablaşdırılması proseslərinə texnoloji nəzarət edəcəksiniz. Mövsüm ərzində məhsul keyfiyyətinin sabit qalmasını təmin edəcəksiniz.",
+		"responsibilities": [
+			"Emal mərhələlərində temperatur və rütubəti nəzarətdə saxlamaq",
+			"Hər partiyanın keyfiyyətini yoxlamaq və qeyd etmək",
+			"Avadanlıqların təmizliyinə və işlək vəziyyətinə nəzarət",
+			"Sex işçilərinə texnoloji göstərişlər vermək"
+		],
+		"requirements": [
+			"Qida texnologiyası üzrə peşə və ya ali təhsil",
+			"Qida emalında ən azı 1 il təcrübə",
+			"Mövsüm ərzində uzadılmış iş saatlarına hazır olmaq",
+			"Diqqətli və səliqəli olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Sexdə müsahibə"
+		],
+		"companyAbout": "Lənkəran bölgəsində çay bağları və emal sexi olan istehsalçı. Yerli çayı yüksək keyfiyyətlə daxili və xarici bazara çıxarmağı hədəfləyir."
+	},
+	{
+		"id": "s065",
+		"title": "İngilis dili müəllimi",
+		"company": "Bilik Körpüsü Tədris Mərkəzi",
+		"sector": "Təhsil",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"İngilis dili (C1)",
+			"IELTS hazırlığı",
+			"Dərs planlaşdırması",
+			"Kommunikativ metod",
+			"Sinif idarəetməsi",
+			"Onlayn tədris alətləri"
+		],
+		"traits": [
+			"social",
+			"creative",
+			"organized"
+		],
+		"riasec": "SA",
+		"salaryMin": 1000,
+		"salaryMax": 1600,
+		"employment": "Yarım ştat",
+		"summary": "Yeniyetmə və yetkin qruplara ümumi ingilis dili və IELTS hazırlığı dərsləri keçəcəksiniz. Axşam və həftəsonu qrafiki ilə yarım ştat iş formatıdır.",
+		"responsibilities": [
+			"Səviyyəyə uyğun dərs planları hazırlamaq",
+			"Qruplarla interaktiv dərslər keçmək",
+			"Tələbələrin irəliləyişini qiymətləndirmək",
+			"Valideynlərlə və ya tələbələrlə rəy görüşləri keçirmək",
+			"Metodiki iclaslarda iştirak etmək"
+		],
+		"requirements": [
+			"İngilis dili üzrə ali təhsil və ya C1 səviyyə sertifikatı",
+			"Ən azı 2 il tədris təcrübəsi",
+			"IELTS formatını yaxşı bilmək",
+			"Səbirli və motivasiyaedici olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Nümunə dərs",
+			"Metodistlə müsahibə"
+		],
+		"companyAbout": "Məktəblilər və tələbələr üçün dil, riyaziyyat və imtahan hazırlığı kursları təşkil edən tədris mərkəzi. Bakıda 3 filialı və 60 müəllimi var."
+	},
+	{
+		"id": "s066",
+		"title": "Riyaziyyat müəllimi",
+		"company": "Pillə Akademiyası",
+		"sector": "Təhsil",
+		"city": "Sumqayıt",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Riyaziyyat",
+			"Buraxılış imtahanına hazırlıq",
+			"Dərs planlaşdırması",
+			"Fərdi yanaşma",
+			"Test tərtibi"
+		],
+		"traits": [
+			"analytical",
+			"social",
+			"calm"
+		],
+		"riasec": "SI",
+		"minIq": 100,
+		"salaryMin": 800,
+		"salaryMax": 1200,
+		"employment": "Tam ştat",
+		"summary": "Sumqayıt filialında 7-11-ci sinif şagirdlərinə riyaziyyat və imtahan hazırlığı dərsləri keçəcəksiniz. Gənc müəllimlər üçün metodiki dəstək və təlimlər təqdim olunur.",
+		"responsibilities": [
+			"Kiçik qruplarla riyaziyyat dərsləri keçmək",
+			"Sınaq imtahanları üçün testlər tərtib etmək",
+			"Şagirdlərin nəticələrini izləmək və hesabat vermək",
+			"Zəif mövzular üzrə əlavə məşğələlər təşkil etmək"
+		],
+		"requirements": [
+			"Riyaziyyat və ya riyaziyyat müəllimliyi üzrə ali təhsil",
+			"Ən azı 1 il tədris təcrübəsi",
+			"Mövzuları sadə və aydın izah edə bilmək",
+			"Azərbaycan və rus bölmələrində dərs deyə bilmək üstünlükdür"
+		],
+		"process": [
+			"CV seçimi",
+			"Nümunə dərs",
+			"Müdirlə müsahibə"
+		],
+		"companyAbout": "Onlayn və əyani formatda STEM və rəqəmsal bacarıqlar üzrə kurslar təşkil edən təhsil şirkəti. Hər şagirdin fərdi inkişafına önəm verir."
+	},
+	{
+		"id": "s067",
+		"title": "Tədris proqramı dizayneri",
+		"company": "Pillə Akademiyası",
+		"sector": "Təhsil",
+		"city": "Uzaqdan",
+		"level": "Böyük mütəxəssis",
+		"minYears": 4,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili"
+		],
+		"skills": [
+			"Tədris dizaynı",
+			"Kurikulum hazırlanması",
+			"Onlayn öyrənmə platformaları",
+			"Qiymətləndirmə metodları",
+			"Video dərs ssenarisi",
+			"Layihə idarəetməsi"
+		],
+		"traits": [
+			"creative",
+			"organized",
+			"analytical"
+		],
+		"riasec": "AS",
+		"salaryMin": 2000,
+		"salaryMax": 3000,
+		"employment": "Tam ştat",
+		"summary": "Şagirdlər üçün onlayn STEM və rəqəmsal bacarıqlar kurslarının strukturunu və məzmununu hazırlayacaqsınız. Mövzu ekspertləri və video komandası ilə birlikdə cəlbedici öyrənmə təcrübəsi yaradacaqsınız.",
+		"responsibilities": [
+			"Kurs məqsədlərini və modul strukturunu hazırlamaq",
+			"Ekspertlərlə birlikdə dərs məzmununu yaratmaq",
+			"Tapşırıq və qiymətləndirmə alətlərini dizayn etmək",
+			"Kursların nəticələrini təhlil edib təkmilləşdirmək",
+			"Video dərslər üçün ssenarilər yazmaq"
+		],
+		"requirements": [
+			"Təhsil, pedaqogika və ya oxşar sahədə magistr",
+			"Tədris dizaynında ən azı 4 il təcrübə",
+			"Onlayn kurs platformaları ilə iş təcrübəsi",
+			"İngilis dilində mənbələrlə sərbəst işləmək"
+		],
+		"process": [
+			"CV və portfolio",
+			"Tapşırıq",
+			"Onlayn müsahibə"
+		],
+		"companyAbout": "Onlayn və əyani formatda STEM və rəqəmsal bacarıqlar üzrə kurslar təşkil edən təhsil şirkəti. Hər şagirdin fərdi inkişafına önəm verir."
+	},
+	{
+		"id": "s068",
+		"title": "Tədris mərkəzi direktoru",
+		"company": "Bilik Körpüsü Tədris Mərkəzi",
+		"sector": "Təhsil",
+		"city": "Bakı",
+		"level": "Rəhbər",
+		"minYears": 6,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"İngilis dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Təhsil menecmenti",
+			"Komanda idarəetməsi",
+			"Keyfiyyət təminatı",
+			"Büdcə planlaşdırması",
+			"Valideyn ünsiyyəti",
+			"Marketinq əsasları"
+		],
+		"traits": [
+			"leader",
+			"social",
+			"organized"
+		],
+		"riasec": "ES",
+		"salaryMin": 2800,
+		"salaryMax": 3800,
+		"employment": "Tam ştat",
+		"summary": "Üç filialdan ibarət tədris mərkəzinin akademik və inzibati fəaliyyətinə rəhbərlik edəcəksiniz. Tədris keyfiyyətinin artırılması və tələbə sayının böyüdülməsi əsas hədəflərinizdir.",
+		"responsibilities": [
+			"Filialların akademik və maliyyə planlarını hazırlamaq",
+			"60 nəfərlik müəllim heyətini idarə etmək və qiymətləndirmək",
+			"Tədris keyfiyyətinə nəzarət sistemini qurmaq",
+			"Yeni kurs istiqamətlərinin açılmasını planlaşdırmaq",
+			"Valideyn və tərəfdaşlarla münasibətləri idarə etmək"
+		],
+		"requirements": [
+			"Təhsil və ya menecment üzrə magistr",
+			"Təhsil sahəsində ən azı 6 il, rəhbər vəzifədə 2 il təcrübə",
+			"Güclü liderlik və ünsiyyət bacarığı",
+			"Büdcə və göstəricilərlə idarəetmə təcrübəsi"
+		],
+		"process": [
+			"CV seçimi",
+			"HR müsahibəsi",
+			"Peşəkar müsahibə",
+			"Direktorla görüş"
+		],
+		"companyAbout": "Məktəblilər və tələbələr üçün dil, riyaziyyat və imtahan hazırlığı kursları təşkil edən tədris mərkəzi. Bakıda 3 filialı və 60 müəllimi var."
+	},
+	{
+		"id": "s069",
+		"title": "Tibb bacısı",
+		"company": "Sağlam Nəfəs Tibb Mərkəzi",
+		"sector": "Səhiyyə",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 2,
+		"education": "Peşə",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Pasiyent qulluğu",
+			"İnyeksiya və damcı",
+			"Steril texnika",
+			"Tibbi sənədləşmə",
+			"İlk tibbi yardım",
+			"Pasiyentlə ünsiyyət"
+		],
+		"traits": [
+			"social",
+			"calm",
+			"detail"
+		],
+		"riasec": "SR",
+		"salaryMin": 800,
+		"salaryMax": 1200,
+		"employment": "Tam ştat",
+		"summary": "Ambulator və gündüz stasionar şöbəsində həkimlərə yardım edəcək və pasiyentlərə peşəkar qulluq göstərəcəksiniz. Növbəli iş qrafiki və mütəmadi peşəkar təlimlər təklif olunur.",
+		"responsibilities": [
+			"Həkim təyinatlarına uyğun prosedurları icra etmək",
+			"Pasiyentlərin vəziyyətini izləmək və qeyd etmək",
+			"Tibbi alətlərin sterilizasiyasına nəzarət etmək",
+			"Dərman və sərf materiallarının uçotunu aparmaq",
+			"Pasiyentlərə prosedurlar barədə izahat vermək"
+		],
+		"requirements": [
+			"Tibb kolleci diplomu",
+			"Ən azı 2 il iş təcrübəsi",
+			"İnfeksiya nəzarəti qaydalarını bilmək",
+			"Mehriban və stressə davamlı olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Baş tibb bacısı ilə müsahibə",
+			"Praktik yoxlama"
+		],
+		"companyAbout": "Ambulator müayinə, diaqnostika və reabilitasiya xidmətləri göstərən çoxprofilli tibb mərkəzi. 90 nəfərlik heyəti pasiyent təhlükəsizliyini hər şeydən üstün tutur."
+	},
+	{
+		"id": "s070",
+		"title": "Əczaçı",
+		"company": "Ləçək Aptek Şəbəkəsi",
+		"sector": "Səhiyyə",
+		"city": "Lənkəran",
+		"level": "Kiçik mütəxəssis",
+		"minYears": 1,
+		"education": "Bakalavr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Farmakologiya",
+			"Resept yoxlanışı",
+			"Müştəri məsləhəti",
+			"Aptek proqramı",
+			"Dərman saxlanma qaydaları",
+			"Kassa əməliyyatları"
+		],
+		"traits": [
+			"detail",
+			"social",
+			"calm"
+		],
+		"riasec": "IS",
+		"salaryMin": 800,
+		"salaryMax": 1100,
+		"employment": "Tam ştat",
+		"summary": "Lənkəran şəhərindəki aptekdə müştərilərə dərman vasitələri üzrə peşəkar məsləhət verəcək və reseptlərə uyğun satış həyata keçirəcəksiniz. Şəbəkə daxilində müdir köməkçisi vəzifəsinə yüksəlmə imkanı var.",
+		"responsibilities": [
+			"Reseptləri yoxlamaq və dərmanları təhvil vermək",
+			"Müştərilərə dərmanların istifadəsi barədə izahat vermək",
+			"Dərmanların saxlanma şəraitinə və son istifadə tarixlərinə nəzarət",
+			"Mal qəbulu və inventarizasiyada iştirak etmək"
+		],
+		"requirements": [
+			"Əczaçılıq üzrə ali təhsil",
+			"Aptekdə ən azı 1 il təcrübə",
+			"Dərman preparatlarını yaxşı bilmək",
+			"Növbəli qrafikdə işləməyə hazır olmaq"
+		],
+		"process": [
+			"CV seçimi",
+			"Telefon müsahibəsi",
+			"Rəhbərlə müsahibə"
+		],
+		"companyAbout": "Cənub bölgəsində 18 apteki olan aptek şəbəkəsi. Əczaçılara mütəmadi təlimlər və karyera imkanları təqdim edir."
+	},
+	{
+		"id": "s071",
+		"title": "Ailə həkimi",
+		"company": "Ağçiçək Ailə Klinikası",
+		"sector": "Səhiyyə",
+		"city": "Gəncə",
+		"level": "Böyük mütəxəssis",
+		"minYears": 5,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Terapevtik müayinə",
+			"Diaqnostika",
+			"Xroniki xəstəliklərin idarəsi",
+			"Profilaktik tibb",
+			"Elektron tibbi qeydlər",
+			"Pasiyentlə ünsiyyət"
+		],
+		"traits": [
+			"analytical",
+			"social",
+			"calm"
+		],
+		"riasec": "IS",
+		"minIq": 112,
+		"salaryMin": 2500,
+		"salaryMax": 3800,
+		"employment": "Tam ştat",
+		"summary": "Klinikaya müraciət edən uşaq və böyüklərə ilkin tibbi yardım göstərəcək, xroniki xəstəliyi olan pasiyentlərin müalicəsini izləyəcəksiniz. Uzunmüddətli pasiyent münasibətləri qurmağa üstünlük verən həkimlər üçün uyğundur.",
+		"responsibilities": [
+			"Pasiyentləri müayinə etmək və ilkin diaqnoz qoymaq",
+			"Müayinə və analizlər təyin etmək",
+			"Lazım olduqda dar ixtisaslı həkimlərə yönləndirmək",
+			"Profilaktik müayinə proqramları keçirmək",
+			"Tibbi qeydləri elektron sistemdə aparmaq"
+		],
+		"requirements": [
+			"Müalicə işi üzrə ali tibbi təhsil və rezidentura",
+			"Terapiya və ya ailə təbabəti üzrə ən azı 5 il təcrübə",
+			"Etibarlı həkim sertifikatı",
+			"Empatiya və aydın ünsiyyət bacarığı"
+		],
+		"process": [
+			"CV seçimi",
+			"Baş həkimlə müsahibə",
+			"Klinik keys müzakirəsi"
+		],
+		"companyAbout": "Gəncədə ailələrə ilkin tibbi yardım və profilaktik müayinə xidmətləri göstərən özəl klinika. Uzunmüddətli pasiyent münasibətlərinə önəm verir."
+	},
+	{
+		"id": "s072",
+		"title": "Klinik psixoloq",
+		"company": "Sağlam Nəfəs Tibb Mərkəzi",
+		"sector": "Səhiyyə",
+		"city": "Bakı",
+		"level": "Mütəxəssis",
+		"minYears": 3,
+		"education": "Magistr",
+		"languages": [
+			"Azərbaycan dili",
+			"Rus dili"
+		],
+		"skills": [
+			"Psixoloji qiymətləndirmə",
+			"Koqnitiv-davranış terapiyası",
+			"Fərdi konsultasiya",
+			"Psixodiaqnostik testlər",
+			"Məxfilik etikası",
+			"Hesabat yazımı"
+		],
+		"traits": [
+			"social",
+			"calm",
+			"analytical"
+		],
+		"riasec": "SI",
+		"minIq": 105,
+		"salaryMin": 1500,
+		"salaryMax": 2200,
+		"employment": "Tam ştat",
+		"summary": "Reabilitasiya şöbəsində böyüklərə və yeniyetmələrə psixoloji qiymətləndirmə və terapiya xidmətləri göstərəcəksiniz. Multidissiplinar komandanın üzvü kimi həkimlərlə birgə müalicə planları hazırlayacaqsınız.",
+		"responsibilities": [
+			"İlkin psixoloji qiymətləndirmə aparmaq",
+			"Fərdi terapiya seanslarını planlaşdırmaq və keçirmək",
+			"Psixodiaqnostik testləri tətbiq edib şərh etmək",
+			"Həkimlərlə birgə müalicə planı hazırlamaq",
+			"Seans qeydlərini məxfilik qaydalarına uyğun aparmaq"
+		],
+		"requirements": [
+			"Klinik psixologiya üzrə magistr dərəcəsi",
+			"Ən azı 3 il klinik təcrübə",
+			"Təsdiq olunmuş terapiya metodlarından birində təlim",
+			"Peşə etikasına və məxfiliyə ciddi riayət"
+		],
+		"process": [
+			"CV seçimi",
+			"Peşəkar müsahibə",
+			"Keys müzakirəsi"
+		],
+		"companyAbout": "Ambulator müayinə, diaqnostika və reabilitasiya xidmətləri göstərən çoxprofilli tibb mərkəzi. 90 nəfərlik heyəti pasiyent təhlükəsizliyini hər şeydən üstün tutur."
+	}
+]

@@ -40,11 +40,26 @@ export interface EnneaResult {
 	answers: Record<string, number>
 }
 
+export interface Big5Result {
+	date: string
+	domains: Record<string, number> // O C E A N → 0–100
+	answers: Record<string, number>
+}
+
+export interface RiasecResult {
+	date: string
+	scores: Record<string, number> // R I A S E C → 0–100
+	code: string // top three letters, e.g. 'IAS'
+	answers: Record<string, number>
+}
+
 export interface UserResults {
 	talent?: TalentResult
 	iq?: IqResult
 	mbti?: MbtiResult
 	ennea?: EnneaResult
+	big5?: Big5Result
+	riasec?: RiasecResult
 	photo?: string // data URL, small JPEG
 	cv?: any // the person's edited CV
 	progress?: Record<string, any> // unfinished tests

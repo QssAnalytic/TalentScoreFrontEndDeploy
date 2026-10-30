@@ -1,178 +1,140 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from 'hooks/useAuth'
-import PageShell from './PageShell'
-import { getDemoState, saveDb } from 'mock/mockApi'
-
-// Prices are taken from the Account page sketch in Drive and are not confirmed.
-const plans = [
-	{
-		id: 'free',
-		name: 'Free plan',
-		price: '$0',
-		note: 'Available to everyone',
-		features: ["Talent report with applicant's overall and peer percentile scores", 'Limited CV templates']
-	},
-	{
-		id: 'paid',
-		name: 'Paid certifications',
-		price: '$99.99',
-		note: 'Pick the documents you need',
-		features: ['Verified certification', 'Career planning', 'Job fit assessment', 'Professional development guide']
-	},
-	{
-		id: 'premium',
-		name: 'Premium package',
-		price: '$149.99',
-		note: 'All the certifications and reports in one package',
-		features: ['Verified certification', 'Career planning', 'Job fit assessment', 'Professional development guide', 'Talent bot', 'All CV templates']
-	}
-]
-
-const Check = () => (
-	<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 mt-[2px]">
-		<path d="M5 12.5L10 17L19 7" stroke="#038477" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-	</svg>
-)
+import { useTestStatus } from 'components/AppShell/AppShell'
+import { BADGE_BUNDLE_PRICE, BADGE_PRICE, BADGE_TESTS, CheckoutItem, completePurchase, PLANS } from 'jobs/billing'
+import { azn, useCareer } from 'jobs/store'
+import { formatDate } from 'tests/store'
+import { TESTS } from 'tests/registry'
+import { btnGhost, btnPrimary, card, Checkout, Page, TestModeNote } from 'pages/Jobs/ui'
 
 const Plans = () => {
-	const { user, setUser } = useAuth()
-	const db = getDemoState()
-	const [current, setCurrent] = useState(db.plan || 'free')
-	const [firstName, setFirstName] = useState(user?.first_name || '')
-	const [lastName, setLastName] = useState(user?.last_name || '')
-	const [emailNotes, setEmailNotes] = useState(true)
-	const [saved, setSaved] = useState(false)
-
-	const choose = (id: string) => {
-		setCurrent(id)
-		db.plan = id
-		saveDb()
-	}
-
-	const saveProfile = (e: React.FormEvent) => {
-		e.preventDefault()
-		const u = db.session ? db.users[db.session] : null
-		if (u) {
-			u.first_name = firstName
-			u.last_name = lastName
-			saveDb()
-		}
-		setUser({ ...user, first_name: firstName, last_name: lastName })
-		setSaved(true)
-		setTimeout(() => setSaved(false), 2000)
-	}
+	const { user } = useAuth()
+	const { done } = useTestStatus()
+	const c = useCareer(user?.email)
+	const [checkout, setCheckout] = useState<CheckoutItem | null>(null)
+	const missingBadges = BADGE_TESTS.filter(t => done[t.id] && !c.badges[t.id])
+	const pathOf = (id: string) => TESTS.find(t => t.id === id)?.path || '/profile'
 
 	return (
-		<PageShell
-			badge="Account"
-			title="My plan"
-			subtitle="Upgrade your plan for a verified certificate, AI career advice, personalised chat support and more."
-		>
-			<div className="grid grid-cols-3 gap-6">
-				{plans.map(plan => {
-					const active = current === plan.id
+		<Page eyebrow="Hesab" title="Planlar və ödənişlər" subtitle="Testlər və hesabatlar pulsuzdur. Ödənişli xidmətlər: təsdiqlənmiş nişanlar və avtomatik müraciət.">
+			<section className="grid gap-5 md:grid-cols-3">
+				<div className={`${card} p-7 flex flex-col gap-4`}>
+					<p className="font-manrope text-xl font-bold text-qss-primary">Pulsuz</p>
+					<p className="font-manrope text-4xl font-bold text-qss-primary">0 ₼</p>
+					<ul className="flex flex-col gap-2 text-sm text-qss-inputText flex-1">
+						<li>✓ 6 test və hər biri üçün ətraflı hesabat</li>
+						<li>✓ Tam hesabat və karyera tövsiyələri</li>
+						<li>✓ CV şablonları, sosial şəbəkədə paylaşma</li>
+						<li>✓ Gündəlik vakansiyalar və uyğunluq faizi</li>
+						<li>✓ Əl ilə müraciət və müraciət məktubu</li>
+					</ul>
+					<p className="text-center text-[14px] py-[10px] rounded-[25px] bg-qss-transbg text-qss-alternative font-semibold">Hamı üçün aktivdir</p>
+				</div>
+				{(['start', 'pro'] as const).map(id => {
+					const p = PLANS[id]
+					const active = c.subscription?.plan === id && c.subscription.active
 					return (
-						<div
-							key={plan.id}
-							className={`rounded-xl bg-white p-8 flex flex-col gap-5 shadow ${active ? 'border-2 border-qss-secondary' : 'border border-qss-border'}`}
-						>
-							<div className="flex items-center justify-between">
-								<h2 className="font-manrope text-xl font-semibold text-qss-primary">{plan.name}</h2>
-								{plan.id === 'premium' && (
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-										<path d="M5 18H19M5 14H19L20 5L16 8L12 3L8 8L4 5L5 14Z" stroke="#FFA723" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-									</svg>
-								)}
-							</div>
-							<div>
-								<p className="font-manrope text-4xl font-bold text-qss-primary">{plan.price}</p>
-								<p className="text-sm text-qss-inputText mt-1">{plan.note}</p>
-							</div>
-							<ul className="flex flex-col gap-3 flex-1">
-								{plan.features.map(f => (
-									<li key={f} className="flex gap-2 text-sm text-qss-inputText">
-										<Check />
-										{f}
-									</li>
+						<div key={id} className={`${card} p-7 flex flex-col gap-4 ${id === 'pro' ? 'border-2 border-qss-secondary' : ''}`}>
+							<p className="font-manrope text-xl font-bold text-qss-primary">{p.name}</p>
+							<p className="font-manrope text-4xl font-bold text-qss-primary">
+								{azn(p.price)}
+								<span className="text-base font-normal text-qss-inputText"> / ay</span>
+							</p>
+							<ul className="flex flex-col gap-2 text-sm text-qss-inputText flex-1">
+								{p.features.map(f => (
+									<li key={f}>✓ {f}</li>
 								))}
 							</ul>
 							{active ? (
-								<p className="text-center text-[14px] text-white py-[10px] px-[24px] rounded-[25px] bg-gradient-to-t from-qss-gradientBottom to-qss-gradientTop">Current plan</p>
+								<Link to="/profile/jobs/auto" className={btnGhost}>
+									Aktivdir · idarə et
+								</Link>
 							) : (
-								<button
-									type="button"
-									onClick={() => choose(plan.id)}
-									className="text-[14px] py-[10px] px-[24px] rounded-[25px] border border-qss-secondary text-qss-secondary hover:bg-qss-secondary hover:text-white transition duration-300"
-								>
-									{plan.id === 'free' ? 'Switch to free' : 'Choose plan'}
+								<button type="button" className={btnPrimary} onClick={() => setCheckout({ item: `plan:${id}`, label: `${p.name} (1 ay)`, amount: p.price })}>
+									Aktiv et
 								</button>
 							)}
 						</div>
 					)
 				})}
-			</div>
-			<p className="text-xs text-qss-inputText -mt-4">Demo: choosing a plan here does not take a payment — billing is not connected yet.</p>
+			</section>
 
-			<div className="grid grid-cols-2 gap-6">
-				<form onSubmit={saveProfile} className="rounded-xl bg-white p-8 shadow flex flex-col gap-5">
-					<h2 className="font-manrope text-xl font-semibold text-qss-primary">Account settings</h2>
-					<div className="grid grid-cols-2 gap-4">
-						<label className="flex flex-col gap-2 text-sm text-qss-inputText">
-							First name
-							<input value={firstName} onChange={e => setFirstName(e.target.value)} className="bg-qss-input rounded-[25px] px-5 py-3 outline-none text-qss-primary" />
-						</label>
-						<label className="flex flex-col gap-2 text-sm text-qss-inputText">
-							Last name
-							<input value={lastName} onChange={e => setLastName(e.target.value)} className="bg-qss-input rounded-[25px] px-5 py-3 outline-none text-qss-primary" />
-						</label>
+			<section className={`${card} p-7 flex flex-col gap-5`}>
+				<div className="flex flex-wrap items-end justify-between gap-4">
+					<div>
+						<h2 className="font-manrope text-xl font-bold text-qss-primary">Təsdiqlənmiş nişanlar</h2>
+						<p className="text-sm text-qss-inputText max-w-2xl mt-1">
+							Nişan test nəticənizi profilinizdə və müraciətlərinizdə “təsdiqlənmiş” kimi göstərir; işəgötürən sertifikat ID ilə yoxlaya bilər. Hər test üçün {azn(BADGE_PRICE)}, hamısı birlikdə {azn(BADGE_BUNDLE_PRICE)}.
+						</p>
 					</div>
-					<label className="flex flex-col gap-2 text-sm text-qss-inputText">
-						Email
-						<input value={user?.email || ''} readOnly className="bg-qss-input rounded-[25px] px-5 py-3 outline-none text-qss-base-300" />
-					</label>
-					<label className="flex items-center justify-between gap-4 text-sm text-qss-primary">
-						Send me notifications by email
-						<input type="checkbox" checked={emailNotes} onChange={e => setEmailNotes(e.target.checked)} className="w-5 h-5 accent-[#038477]" />
-					</label>
-					<button type="submit" className="self-start text-[14px] text-white py-[10px] px-[32px] rounded-[25px] bg-qss-secondary">
-						{saved ? 'Saved' : 'Save changes'}
-					</button>
-				</form>
-
-				<div className="rounded-xl bg-white p-8 shadow flex flex-col gap-4">
-					<h2 className="font-manrope text-xl font-semibold text-qss-primary">Your documents</h2>
-					<Link to="/profile/report" className="flex justify-between items-center rounded-xl bg-qss-transbg px-5 py-4 text-qss-primary hover:text-qss-secondary">
-						<span>
-							<span className="block font-semibold">Talent report</span>
-							<span className="text-sm text-qss-inputText">Open to see your overall and peer percentile and interpretation</span>
-						</span>
-						<span aria-hidden="true">→</span>
-					</Link>
-					<Link to="/profile/cv" className="flex justify-between items-center rounded-xl bg-qss-transbg px-5 py-4 text-qss-primary hover:text-qss-secondary">
-						<span>
-							<span className="block font-semibold">CV</span>
-							<span className="text-sm text-qss-inputText">Edit it yourself or let ChatGPT improve and paraphrase the content</span>
-						</span>
-						<span aria-hidden="true">→</span>
-					</Link>
-					<Link to="/profile/career" className="flex justify-between items-center rounded-xl bg-qss-transbg px-5 py-4 text-qss-primary hover:text-qss-secondary">
-						<span>
-							<span className="block font-semibold">Career Advancement Report</span>
-							<span className="text-sm text-qss-inputText">Career planning, job fit and professional development</span>
-						</span>
-						<span aria-hidden="true">→</span>
-					</Link>
-					<Link to="/profile/verification" className="flex justify-between items-center rounded-xl bg-qss-transbg px-5 py-4 text-qss-primary hover:text-qss-secondary">
-						<span>
-							<span className="block font-semibold">Verification</span>
-							<span className="text-sm text-qss-inputText">Upload documents to get a verified certificate</span>
-						</span>
-						<span aria-hidden="true">→</span>
-					</Link>
+					{missingBadges.length > 1 && (
+						<button type="button" className={btnPrimary} onClick={() => setCheckout({ item: 'badges:all', label: `Bütün tamamlanmış testlər üçün nişan (${missingBadges.length})`, amount: BADGE_BUNDLE_PRICE })}>
+							Hamısı · {azn(BADGE_BUNDLE_PRICE)}
+						</button>
+					)}
 				</div>
-			</div>
-		</PageShell>
+				<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+					{BADGE_TESTS.map(t => {
+						const has = c.badges[t.id]
+						return (
+							<div key={t.id} className={`rounded-xl border p-4 flex items-center gap-3 ${has ? 'border-[#F5B301] bg-[#FFFBEB]' : 'border-qss-border'}`}>
+								<span className={`w-10 h-10 rounded-full grid place-items-center shrink-0 text-lg ${has ? 'bg-[#F5B301] text-white' : 'bg-qss-input text-qss-base-300'}`} aria-hidden="true">
+									★
+								</span>
+								<div className="flex-1 min-w-0">
+									<p className="font-semibold text-qss-primary text-sm">{t.label}</p>
+									<p className="text-xs text-qss-inputText">{has ? `Təsdiqləndi · ${formatDate(has)}` : done[t.id] ? 'Test tamamlanıb' : 'Əvvəlcə testi keçin'}</p>
+								</div>
+								{!has &&
+									(done[t.id] ? (
+										<button type="button" className="text-[13px] font-semibold text-qss-secondary" onClick={() => setCheckout({ item: `badge:${t.id}`, label: `${t.label} — təsdiqlənmiş nişan`, amount: BADGE_PRICE })}>
+											{azn(BADGE_PRICE)}
+										</button>
+									) : (
+										<Link to={pathOf(t.id)} className="text-[13px] font-semibold text-qss-inputText">
+											Testə keç
+										</Link>
+									))}
+							</div>
+						)
+					})}
+				</div>
+			</section>
+
+			<section className={`${card} p-7 flex flex-col gap-4`}>
+				<h2 className="font-manrope text-xl font-bold text-qss-primary">Ödəniş tarixçəsi</h2>
+				{c.purchases.length === 0 ? (
+					<p className="text-sm text-qss-inputText">Hələ ödəniş yoxdur.</p>
+				) : (
+					<table className="w-full text-sm">
+						<thead>
+							<tr className="text-left text-qss-inputText border-b border-qss-border">
+								<th className="py-2 font-normal">Tarix</th>
+								<th className="py-2 font-normal">Xidmət</th>
+								<th className="py-2 font-normal">Kart</th>
+								<th className="py-2 font-normal text-right">Məbləğ</th>
+							</tr>
+						</thead>
+						<tbody>
+							{c.purchases.map(p => (
+								<tr key={p.id} className="border-b border-qss-border/60">
+									<td className="py-2.5 text-qss-inputText">{formatDate(p.date)}</td>
+									<td className="py-2.5 text-qss-primary">
+										{p.label} <span className="text-xs text-[#8A5300]">(test rejimi · {p.id})</span>
+									</td>
+									<td className="py-2.5 text-qss-inputText">•••• {p.card}</td>
+									<td className="py-2.5 text-right font-semibold text-qss-primary tabular-nums">{azn(p.amount)}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				)}
+				<TestModeNote />
+			</section>
+
+			{checkout && <Checkout item={checkout} onClose={() => setCheckout(null)} onPaid={cardNo => completePurchase(user.email, checkout, cardNo, done)} />}
+		</Page>
 	)
 }
 

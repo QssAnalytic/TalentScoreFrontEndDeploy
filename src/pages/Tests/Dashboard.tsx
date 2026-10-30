@@ -8,6 +8,8 @@ import { useTestStatus } from 'components/AppShell/AppShell'
 import { IconArrow, IconCheck, IconClock, IconLock } from 'components/AppShell/icons'
 import { MBTI_TYPES } from 'tests/mbti/data'
 import { ENNEA_TYPES } from 'tests/enneagram/data'
+import { BIG5_DOMAINS } from 'tests/big5/data'
+import { useCareer } from 'jobs/store'
 
 export async function uploadProfilePhoto(email: string, file: File) {
 	const dataUrl = await imageToDataUrl(file)
@@ -26,7 +28,8 @@ const genderAz = (g?: string) => (g === 'Male' ? 'Kişi' : g === 'Female' ? 'Qad
 
 const Dashboard = () => {
 	const { user } = useAuth()
-	const { done, started, results, count } = useTestStatus()
+	const { done, started, results, count, total } = useTestStatus()
+	const career = useCareer(user?.email)
 	const fileRef = useRef<HTMLInputElement>(null)
 	const [busy, setBusy] = useState(false)
 	const photo = results.photo
@@ -36,8 +39,18 @@ const Dashboard = () => {
 		talent: results.talent ? 'Hesabat hazırdır' : done.talent ? 'Tamamlanıb' : '',
 		iq: results.iq ? `IQ ${results.iq.iq} · ${results.iq.band}` : '',
 		mbti: results.mbti ? `${results.mbti.code} · ${MBTI_TYPES[results.mbti.code]?.name || ''}` : '',
-		ennea: results.ennea ? `Tip ${results.ennea.type}w${results.ennea.wing} · ${ENNEA_TYPES[results.ennea.type]?.name || ''}` : ''
+		ennea: results.ennea ? `Tip ${results.ennea.type}w${results.ennea.wing} · ${ENNEA_TYPES[results.ennea.type]?.name || ''}` : '',
+		big5: results.big5 ? `Ən yüksək: ${BIG5_DOMAINS[(['O', 'C', 'E', 'A'] as const).reduce((a, b) => (results.big5!.domains[b] > results.big5!.domains[a] ? b : a))].name}` : '',
+		riasec: results.riasec ? `Kod ${results.riasec.code}` : ''
 	}
+	// The chain: six tests, then the career steps they unlock.
+	const chain = [
+		...TESTS.map(t => ({ id: t.id, label: t.short, to: t.path, done: done[t.id], badge: !!career.badges[t.id] })),
+		{ id: 'profile', label: 'Karyera profili', to: '/profile/jobs/profile', done: !!career.profile, badge: false },
+		{ id: 'jobs', label: 'İlk müraciət', to: '/profile/jobs', done: career.applications.length > 0, badge: false },
+		{ id: 'auto', label: 'Avto-müraciət', to: '/profile/jobs/auto', done: !!career.subscription?.active, badge: false }
+	]
+	const nextIdx = chain.findIndex(c => !c.done)
 
 	const onPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const f = e.target.files?.[0]
@@ -86,15 +99,54 @@ const Dashboard = () => {
 						<span className="relative w-14 h-14">
 							<svg viewBox="0 0 36 36" className="w-14 h-14 -rotate-90" aria-hidden="true">
 								<circle cx="18" cy="18" r="15.5" fill="none" stroke="#E1EEED" strokeWidth="4" />
-								<circle cx="18" cy="18" r="15.5" fill="none" stroke="#038477" strokeWidth="4" strokeDasharray={`${(count / 4) * 97.4} 97.4`} strokeLinecap="round" />
+								<circle cx="18" cy="18" r="15.5" fill="none" stroke="#038477" strokeWidth="4" strokeDasharray={`${(count / total) * 97.4} 97.4`} strokeLinecap="round" />
 							</svg>
-							<span className="absolute inset-0 grid place-items-center text-sm font-bold text-qss-primary tabular-nums">{count}/4</span>
+							<span className="absolute inset-0 grid place-items-center text-sm font-bold text-qss-primary tabular-nums">{count}/{total}</span>
 						</span>
 						<span>
 							<span className="block font-semibold text-qss-primary">Tam hesabat</span>
 							<span className="text-sm text-qss-inputText">{count >= 2 ? 'Bütün nəticələriniz bir hesabatda' : 'Ən azı 2 test tamamlayın'}</span>
 						</span>
 					</Link>
+				</section>
+
+				<section className="rounded-2xl bg-white border border-qss-border shadow-sm p-6 flex flex-col gap-5" aria-label="Test zənciri">
+					<div className="flex flex-wrap items-end justify-between gap-3">
+						<div>
+							<h2 className="font-manrope text-xl font-bold text-qss-primary">Sizin yolunuz</h2>
+							<p className="text-sm text-qss-inputText">Testləri ardıcıllıqla keçin — hər biri vakansiya uyğunluğunu daha dəqiq edir və sonunda avto-müraciəti açır.</p>
+						</div>
+						<span className="text-sm font-semibold text-qss-secondary tabular-nums">
+							{chain.filter(c => c.done).length} / {chain.length} addım
+						</span>
+					</div>
+					<ol className="flex items-start overflow-x-auto pb-2 -mx-1">
+						{chain.map((c, i) => {
+							const isNext = i === nextIdx
+							return (
+								<li key={c.id} className="flex items-start shrink-0">
+									<Link to={c.to} className="flex flex-col items-center gap-2 w-[78px] px-0.5 group">
+										<span
+											className={`relative w-11 h-11 rounded-full grid place-items-center text-sm font-bold transition-colors ${
+												c.done ? 'bg-qss-secondary text-white' : isNext ? 'bg-white text-qss-secondary border-2 border-qss-secondary ring-4 ring-qss-secondary/15' : 'bg-qss-input text-qss-base-300'
+											}`}
+										>
+											{c.done ? <IconCheck /> : i + 1}
+											{c.badge && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#F5B301] border-2 border-white" title="Təsdiqlənmiş nişan" />}
+										</span>
+										<span className={`text-[12px] text-center leading-tight ${c.done ? 'text-qss-primary font-semibold' : isNext ? 'text-qss-secondary font-semibold' : 'text-qss-inputText'} group-hover:text-qss-secondary`}>{c.label}</span>
+										{isNext && <span className="text-[10px] uppercase tracking-wider font-bold text-qss-secondary">Növbəti</span>}
+									</Link>
+									{i < chain.length - 1 && <span className={`mt-[21px] w-3 h-[3px] rounded-full ${c.done ? 'bg-qss-secondary' : 'bg-qss-base-400'}`} aria-hidden="true" />}
+								</li>
+							)
+						})}
+					</ol>
+					{Object.keys(career.badges).length > 0 && (
+						<p className="text-xs text-qss-inputText flex items-center gap-2">
+							<span className="w-3 h-3 rounded-full bg-[#F5B301]" /> Təsdiqlənmiş nişan — işəgötürənlər sertifikat ID ilə yoxlaya bilər.
+						</p>
+					)}
 				</section>
 
 				<section className="flex flex-col gap-4">

@@ -42,7 +42,7 @@ const ans = (v: any) => (typeof v === 'string' ? v : v?.answer || '')
 const period = (start?: string, end?: string, present = 'hazırda') => [start, end && end !== 'currently working' ? end : start ? present : ''].filter(Boolean).join(' – ')
 
 // Builds a first draft from the talent-test answers (stored locally or fetched from the backend).
-async function draftCv(user: any, results: any): Promise<Cv> {
+export async function draftCv(user: any, results: any): Promise<Cv> {
 	const stages: any[] = results.talent?.answers || []
 	const st = (name: string) => stages.find(s => s?.name === name)?.formData
 	let edu = st('orta-texniki-ve-ali-tehsil-suallari')?.education

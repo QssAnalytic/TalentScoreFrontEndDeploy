@@ -87,6 +87,12 @@ const talentKey: Record<string, string> = {
 	program: 'program'
 }
 
+// Holland codes of each direction (first letter weighs most).
+const CAREER_RIASEC: Record<string, string> = {
+	software: 'ICR', data: 'ICE', engineer: 'RIC', architect: 'AIR', designer: 'AES', finance: 'CEI', actuary: 'ICE', researcher: 'IRA', doctor: 'ISR', lawyer: 'ESI',
+	journalist: 'AES', translator: 'ASC', diplomat: 'ESA', teacher: 'SAE', psychologist: 'SIA', marketing: 'EAS', manager: 'ECS', entrepreneur: 'ECA', pilot: 'RIC', cyber: 'ICR', coach: 'SRE', artist: 'AER'
+}
+
 // Combined ranking: every completed test contributes; the more tests agree on a direction, the higher it ranks.
 export function rankCombined(r: UserResults, n = 8): RankedCareer[] {
 	const mbti = r.mbti ? MBTI_TYPES[r.mbti.code] : undefined
