@@ -209,6 +209,12 @@ http
 		if (cert && req.method === 'GET') return lookupCert(res, decodeURIComponent(cert[1]).toUpperCase())
 		const shared = /^\/s\/([^/.?]+)(\.png)?(?:\?.*)?$/.exec(req.url)
 		if (shared && req.method === 'GET') return serveShare(req, res, shared[1], shared[2])
+		// Plain paths that always load a fresh copy of the app (hash links don't reload an open tab).
+		const shortcut = { '/demo': '/#/demo', '/login': '/#/login', '/register': '/#/register', '/verify': '/#/verify', '/profile': '/#/profile' }[req.url.split('?')[0].replace(/\/+$/, '')]
+		if (shortcut && req.method === 'GET') {
+			res.writeHead(302, { location: shortcut, 'cache-control': 'no-store' })
+			return res.end()
+		}
 		if (req.method !== 'GET' && req.method !== 'HEAD') {
 			res.writeHead(405)
 			return res.end()
