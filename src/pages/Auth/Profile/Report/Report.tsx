@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 
 import { HashLoader } from 'react-spinners'
 import { GiCancel } from 'react-icons/gi'
+import { loadResults, saveResults } from 'tests/store'
 
 interface User {
   first_name: string,
@@ -92,6 +93,15 @@ function App(props: any) {
     }
     // response.status === 200 && setData(response.data)
   }
+
+  // Keep the talent scores with the user's other test results (dashboard, full report, share card).
+  useEffect(() => {
+    const d: any = data
+    if (d?.data && user?.email) {
+      const answers = currentState?.stageForm?.length ? currentState.stageForm : loadResults(user.email).talent?.answers
+      saveResults(user.email, { talent: { data: d.data, report_key: d.report_key, date: new Date().toISOString(), ...(answers ? { answers } : {}) } })
+    }
+  }, [data, user])
 
   useEffect(() => {
     async function getUser() {

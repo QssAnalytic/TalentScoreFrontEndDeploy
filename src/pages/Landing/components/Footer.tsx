@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useInShell } from "components/AppShell/AppShell";
 const Footer = () => {
+  if (useInShell()) return null;
   const links = [
     {
       text: "Home",

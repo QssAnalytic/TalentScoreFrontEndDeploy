@@ -9,6 +9,7 @@ export  interface AuthContextType {
             email:string,
             profile_photo:string    
             birth_date:string
+            gender?:string
             
         }; // Adjust this according to your actual context structure
         setUser: (user:any) => void;

@@ -155,58 +155,85 @@ const Stage = () => {
 
   if (isLoading)
     return (
-      <div className="absolute  top-[150%] left-[50%] -translate-y-1/2 -translate-x-1/2">
-        <ClockLoader size={90} color="#038477" />
+      <div className="py-24 grid place-items-center">
+        <ClockLoader size={70} color="#038477" />
       </div>
     );
   if (error || stageName === "")
-    return <div className="flex items-center w-full justify-center">Error</div>;
+    return (
+      <div className="rounded-2xl bg-white border border-qss-border p-8 max-w-xl">
+        <p className="font-semibold text-qss-primary">Mərhələ yüklənmədi.</p>
+        <p className="text-sm text-qss-inputText mt-1">Testə test səhifəsindən yenidən başlayın.</p>
+        <Link to="/profile/tests/talent" className="inline-block mt-4 text-[14px] text-white py-[9px] px-[22px] rounded-[25px] bg-qss-secondary">Test səhifəsi</Link>
+      </div>
+    );
+
+  const cleanName = (n?: string) =>
+    (n || "")
+      .replace(/ substage2?$/i, "")
+      .replace(/^Xususi bacarıqlar sertifikat$/i, "Xüsusi bacarıqlar — sertifikatlar")
+      .replace(/^Idman/i, "İdman");
+
+  const stageHelp: Record<string, string> = {
+    tehsil: "Hazırkı məşğuliyyətiniz, təhsil səviyyəniz, universitet və olimpiada nəticələriniz.",
+    "dil-bilikleri": "Bildiyiniz dillər və hər birində səviyyəniz (sertifikat varsa qeyd edin).",
+    "xususi-bacariqlar": "Musiqi, rəsm, aktyorluq kimi bacarıqlar və bu sahədəki nailiyyətləriniz.",
+    idman: "Məşğul olduğunuz idman növləri və peşəkar nəticələriniz.",
+    "is-tecrubesi": "Çalışdığınız yerlər, vəzifələr və müddət.",
+    "proqram-bilikleri": "İstifadə etdiyiniz proqramlar və proqramlaşdırma dilləri, səviyyəsi ilə."
+  };
 
   return (
-    <Fragment>
-      <div className="flex-1 flex justify-end pr-32 mt-10 min-w-[1130px] max-w-[1175px] relative">
-        <div className="w-full z-10 relative rounded-xl bg-white py-8 px-9 h-[611px] shadow max-w-xl">
-          <h1 className="mb-4">
-            <span className=" text-qss-secondary">
-              {subStageName === "Dil Bilikləri substage"
-                ? "Dil Bilikləri"
-                : subStageName === "Xüsusi bacarıqlar substage"
-                ? "Xüsusi bacarıqlar"
-                : subStageName === "Idman substage" ||
-                  subStageName === "Idman substage2"
-                ? "İdman"
-                : subStageName === "İş təcrübəsi substage"
-                ? "İş təcrübəsi"
-                : subStageName}
-            </span>
-          </h1>
-          <ProgressBar
-            progress={progress}
-            subStageIndex={subStageIndex}
-            stageIndex={stageIndex}
-          />
-
-          {getSubStageForm()}
-        </div>
-
-        <div className="absolute max-w-xs w-full left-72 space-y-4 top-1">
-          {data?.map(({ stage_name }, id) => (
-            <div
+    <div className="flex flex-col gap-8">
+      <ol className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2" aria-label="Mərhələlər">
+        {data?.map(({ stage_name, slug }, id) => {
+          const current = id === stageIndex;
+          const passed = (stageIndex ?? 0) > id;
+          return (
+            <li
               key={id}
-              className={`${
-                stageName?.toLowerCase().includes(stage_name.toLowerCase()) &&
-                "!pl-20 active"
-              } whitespace-nowrap stage-box transition-all duration-500`}
+              aria-current={current ? "step" : undefined}
+              className={`flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm border transition-colors ${
+                current
+                  ? "bg-qss-primary text-white border-qss-primary"
+                  : passed
+                  ? "bg-qss-transbg text-qss-alternative border-qss-base-400"
+                  : "bg-white text-qss-inputText border-qss-border"
+              }`}
             >
-              {id === stageIndex && (
-                <h2 className="absolute left-4">{id + 1}.</h2>
-              )}
-              <h2>{stage_name}</h2>
-            </div>
-          ))}
+              <span
+                className={`w-6 h-6 shrink-0 rounded-full grid place-items-center text-xs font-bold tabular-nums ${
+                  current ? "bg-white text-qss-primary" : passed ? "bg-qss-secondary text-white" : "bg-qss-input text-qss-inputText"
+                }`}
+              >
+                {passed ? "✓" : id + 1}
+              </span>
+              <span className="truncate">{stage_name}</span>
+            </li>
+          );
+        })}
+      </ol>
+
+      <div className="flex flex-wrap gap-8 items-start">
+        <div className="relative w-full max-w-xl mb-24">
+          <div className="w-full rounded-2xl bg-white py-8 px-9 h-[611px] shadow-sm border border-qss-border">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-qss-base-300 mb-1">
+              Mərhələ {(stageIndex ?? 0) + 1} / {data?.length || 6}
+            </p>
+            <h2 className="font-manrope text-xl font-bold text-qss-primary mb-4">{cleanName(subStageName)}</h2>
+            <ProgressBar progress={progress} subStageIndex={subStageIndex} stageIndex={stageIndex} />
+            {getSubStageForm()}
+          </div>
         </div>
+        <aside className="flex-1 min-w-[240px] max-w-sm rounded-2xl bg-qss-transbg p-6 flex flex-col gap-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-qss-alternative">Bu mərhələdə</p>
+          <p className="text-qss-primary leading-relaxed">{stageHelp[stageSlug || ""] || "Suallara cavab verin və növbəti addıma keçin."}</p>
+          <p className="text-sm text-qss-inputText leading-relaxed">
+            Cavablarınız yaşıdlarınızla müqayisə olunur. Dəqiq cavab verin — hesabatınız və CV-niz bu məlumatlardan hazırlanır.
+          </p>
+        </aside>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

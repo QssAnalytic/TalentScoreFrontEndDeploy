@@ -9,8 +9,8 @@ module.exports = {
 				center: true
 			},
 			fontFamily: {
-				inter: 'Inter',
-				manrope: 'Manrope'
+				inter: ['Inter', 'system-ui', 'Arial', 'sans-serif'],
+				manrope: ['Manrope', 'Inter', 'system-ui', 'Arial', 'sans-serif']
 			},
 			colors: {
 				qss: {

@@ -4,6 +4,7 @@ import { Bars3Icon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import useAuth from 'hooks/useAuth';
 import { axiosPrivateInstance } from 'axioss';
+import { useInShell } from 'components/AppShell/AppShell';
 
 export interface IWebMenu {
 	links: { text: string; path: string }[];
@@ -25,6 +26,7 @@ export const WebMenu = ({ links }: IWebMenu) => {
 };
 
 const NavBar = () => {
+	if (useInShell()) return null
 	const { user } = useAuth()
 	const [isLogin, setIsLogin] = useState(false);
 
