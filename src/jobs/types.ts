@@ -75,6 +75,8 @@ export interface Application {
 	events: AppEvent[] // manual updates; sample jobs also get simulated replies (see status.ts)
 	replySent?: string // when the person answered an invitation
 	interviewDone?: string
+	scripted?: boolean // demo profiles: the events are fixed, nothing is simulated
+	full?: Job // demo profiles: the vacancy itself, since it is not in the live feed
 }
 
 export type PlanId = 'start' | 'pro'

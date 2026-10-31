@@ -7,6 +7,7 @@ import { makeApplication } from 'jobs/useAutoApply'
 import { nextSteps } from 'jobs/coach'
 import { useTestStatus } from 'components/AppShell/AppShell'
 import { Job } from 'jobs/types'
+import { viewingAs } from 'demo/viewAs'
 import { formatDate } from 'tests/store'
 import { Bullets } from '../Tests/mbti/MbtiTest'
 import { btnGhost, btnPrimary, btnText, card, CopyBox, Empty, MatchRing, Page, SourceTag, Tag } from './ui'
@@ -312,6 +313,8 @@ const JobDrawer = ({ x, onClose, appliedId, email, name }: { x: Scored; onClose:
 										Müsahibəyə hazırlıq
 									</Link>
 								</>
+							) : viewingAs() ? (
+								<span className="text-sm text-[#8A5300] bg-[#FFF4E0] rounded-xl px-4 py-2.5">Demo profil: buradan müraciət edilmir — hazır müraciətlərə “Müraciətlərim”də baxın.</span>
 							) : (
 								<button type="button" className={btnPrimary} onClick={apply}>
 									{job.external ? 'Müraciət paketini hazırla və elanı aç' : 'Müraciət et'}

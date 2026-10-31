@@ -9,6 +9,7 @@ import { bakuDay, loadCareer, saveCareer } from './store'
 import { coverLetter } from './letters'
 import { Application, Job } from './types'
 import { MatchResult } from './match'
+import { viewingAs } from 'demo/viewAs'
 
 let runningFor = ''
 
@@ -55,7 +56,8 @@ export function useAutoApply() {
 	const { user } = useAuth()
 	useEffect(() => {
 		const email = user?.email
-		if (!email || runningFor === email) return
+		// Demo profiles show fixed applications; nothing is applied for them.
+		if (!email || runningFor === email || viewingAs()) return
 		runningFor = email
 		const name = `${user?.first_name || ''} ${user?.last_name || ''}`.trim()
 		runAutoApply(email, name)

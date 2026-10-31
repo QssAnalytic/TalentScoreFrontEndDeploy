@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import ClockLoader from 'react-spinners/ClockLoader'
 import axiosInstance from 'axioss'
 import useAuth from 'hooks/useAuth'
@@ -21,6 +21,9 @@ export const DEMO_ACCOUNT = {
 const DemoLogin = () => {
 	const { setAccessToken, setCSRFToken, setUser } = useAuth()
 	const navigate = useNavigate()
+	const { search } = useLocation()
+	// ?next=personas opens a page inside the profile after signing in.
+	const next = new URLSearchParams(search).get('next')
 	const [error, setError] = useState('')
 	const started = useRef(false)
 
@@ -51,7 +54,7 @@ const DemoLogin = () => {
 				} catch {
 					/* the profile page loads the user itself */
 				}
-				navigate('/profile', { replace: true })
+				navigate(next && /^[a-z/-]+$/.test(next) ? `/profile/${next}` : '/profile', { replace: true })
 			} catch (err: any) {
 				console.log(err)
 				setError(err?.response?.status ? `The server answered ${err.response.status}.` : 'The server could not be reached.')

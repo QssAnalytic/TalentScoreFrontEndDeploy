@@ -74,6 +74,7 @@ export const CoachReport = () => {
 
 	useEffect(() => {
 		if (!a) return
+		if (a.full) return setJob(a.full) // demo profiles carry the vacancy with them
 		const fromFeed = feed?.jobs.find(j => j.id === a.job.id)
 		if (fromFeed) setJob(fromFeed)
 		fetchJob(a.job.id)

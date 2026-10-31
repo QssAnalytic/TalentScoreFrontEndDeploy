@@ -1,4 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import Landing from './pages/Landing/Landing';
 import ReportFront from './assets/report-front.png';
 import ReportBack from './assets/report-back.png';
@@ -34,6 +35,16 @@ import Applications from 'pages/Jobs/Applications';
 import AutoApply from 'pages/Jobs/AutoApply';
 import JobProfile from 'pages/Jobs/JobProfile';
 import { CoachHome, CoachReport } from 'pages/Jobs/Coach';
+import TalentReport from 'pages/Tests/TalentReport';
+import { viewingAs } from 'demo/viewAs';
+
+// Demo profiles and the question guide load on demand (they carry a lot of data).
+const Personas = lazy(() => import('pages/Demo/Personas'));
+const Guide = lazy(() => import('pages/Demo/Guide'));
+const Loading = () => <p className='px-12 py-10 text-qss-inputText'>Yüklənir…</p>;
+const lazyEl = (C: any) => <Suspense fallback={<Loading />}><C /></Suspense>;
+// The talent report: demo profiles use the stored results; real accounts keep the server report.
+const ReportRoute = () => (viewingAs() ? <TalentReport /> : <Report />);
 
 
 // Talent bot on the signed-in pages (the landing page already renders it).
@@ -81,7 +92,10 @@ const App = () => {
 							<Route path='full-report' element={<FullReport />}></Route>
 							<Route path='certificates' element={<Certificates />}></Route>
 							<Route path='cv' element={<CvBuilder />}></Route>
-							<Route path='report' element={<Report />}></Route>
+							<Route path='report' element={<ReportRoute />}></Route>
+							<Route path='talent-report' element={<TalentReport />}></Route>
+							<Route path='personas' element={lazyEl(Personas)}></Route>
+							<Route path='guide' element={lazyEl(Guide)}></Route>
 							<Route path='plans' element={<Plans />}></Route>
 							<Route path='verification' element={<Verification />}></Route>
 							<Route path='career' element={<CareerReport />}></Route>

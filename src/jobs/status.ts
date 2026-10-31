@@ -61,7 +61,7 @@ function simulated(a: Application): AppEvent[] {
 
 export function timeline(a: Application): AppEvent[] {
 	const base: AppEvent[] = [{ at: a.createdAt, status: a.job.external ? 'ready' : 'sent', note: a.mode === 'auto' ? 'Avto-müraciət sistemi tərəfindən hazırlandı.' : 'Siz müraciət etdiniz.' }]
-	const sim = a.job.sample ? simulated(a) : []
+	const sim = a.job.sample && !a.scripted ? simulated(a) : []
 	return [...base, ...sim, ...a.events].sort((x, y) => x.at.localeCompare(y.at))
 }
 

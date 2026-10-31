@@ -10,10 +10,12 @@ import { MBTI_TYPES } from 'tests/mbti/data'
 import { ENNEA_TYPES } from 'tests/enneagram/data'
 import { BIG5_DOMAINS } from 'tests/big5/data'
 import { useCareer } from 'jobs/store'
+import { viewingAs } from 'demo/viewAs'
 
 export async function uploadProfilePhoto(email: string, file: File) {
 	const dataUrl = await imageToDataUrl(file)
 	saveResults(email, { photo: dataUrl })
+	if (viewingAs()) return dataUrl // demo profile: keep the photo in this browser only
 	try {
 		const form = new FormData()
 		form.append('profile_photo', file)

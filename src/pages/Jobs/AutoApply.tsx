@@ -6,6 +6,7 @@ import { CheckoutItem, completePurchase, PLANS } from 'jobs/billing'
 import { azn, bakuDay, saveCareer, useCareer } from 'jobs/store'
 import { runAutoApply } from 'jobs/useAutoApply'
 import { PlanId } from 'jobs/types'
+import { viewingAs } from 'demo/viewAs'
 import { formatDate } from 'tests/store'
 import { btnGhost, btnPrimary, btnText, card, Checkout, Page, TestModeNote } from './ui'
 
@@ -65,7 +66,7 @@ const AutoApply = () => {
 							</p>
 						</div>
 						<div className="flex flex-wrap gap-3">
-							<button type="button" className={btnPrimary} onClick={runNow} disabled={!sub.active}>
+							<button type="button" className={btnPrimary} onClick={runNow} disabled={!sub.active || !!viewingAs()} title={viewingAs() ? 'Demo profildə söndürülüb' : undefined}>
 								İndi işə sal
 							</button>
 							<button type="button" className={btnGhost} onClick={() => setSub({ active: !sub.active })}>

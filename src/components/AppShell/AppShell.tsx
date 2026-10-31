@@ -7,6 +7,7 @@ import { TESTS, TestId } from 'tests/registry'
 import { useCareer } from 'jobs/store'
 import { currentStatus, isInvitation } from 'jobs/status'
 import { useAutoApply } from 'jobs/useAutoApply'
+import ViewAsBanner from 'pages/Demo/ViewAsBanner'
 import { ReactComponent as LogoWhite } from 'assets/logo.svg'
 import {
 	IconAward,
@@ -194,6 +195,19 @@ const AppShell = () => {
 						Sənədlərin təsdiqi
 					</NavLink>
 				</div>
+
+				<SectionLabel>Demo və izahlar</SectionLabel>
+				<div className="flex flex-col gap-1">
+					<NavLink to="/profile/personas" className={linkClass} onClick={() => setOpen(false)}>
+						<IconUser />
+						<span className="flex-1">Demo profillər</span>
+						<span className="text-[11px] rounded-full bg-white/10 px-2 py-0.5">20</span>
+					</NavLink>
+					<NavLink to="/profile/guide" className={linkClass} onClick={() => setOpen(false)}>
+						<IconReport />
+						Suallar bələdçisi
+					</NavLink>
+				</div>
 			</div>
 
 			<div className="border-t border-white/10 px-4 py-4 flex items-center gap-3">
@@ -234,6 +248,7 @@ const AppShell = () => {
 				)}
 
 				<main className="min-w-0">
+					<ViewAsBanner />
 					<Outlet />
 				</main>
 			</div>
