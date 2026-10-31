@@ -63,7 +63,7 @@ function App(props: any) {
       console.log(error);
 
       setStatus('')
-      setErrorText('Fail')
+      setErrorText('Hesabat hazırlanmadı. Bir az sonra yenidən cəhd edin.')
 
     }
 
@@ -147,7 +147,13 @@ function App(props: any) {
 
           {
             errorText && <div className='free'>
-              <div className='flex gap-10 items-center text-xl'>< GiCancel className='text-red-500 text-3xl' /> {errorText}</div>
+              <div className='flex flex-wrap gap-6 items-center text-xl'>< GiCancel className='text-red-500 text-3xl' /> {errorText}
+                {currentState?.stageForm?.length > 0 && (
+                  <button type='button' className='text-[14px] text-white py-[10px] px-[24px] rounded-[25px] bg-qss-secondary' onClick={() => { setErrorText(''); setStatus('Your report is loading...'); getScoresFirstTime() }}>
+                    Yenidən cəhd et
+                  </button>
+                )}
+              </div>
             </div>
           }
           {data &&
