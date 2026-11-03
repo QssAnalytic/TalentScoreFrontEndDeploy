@@ -1,3 +1,4 @@
+import { Big5Full } from 'report/reports/PersonalityFull'
 import { useRef, useState } from 'react'
 import useAuth from 'hooks/useAuth'
 import { BIG5_DOMAINS, BIG5_ORDER, BIG5_QUESTIONS } from 'tests/big5/data'
@@ -45,7 +46,7 @@ const Big5Test = () => {
 				{running ? (
 					<LikertRunner testKey="big5" questions={BIG5_QUESTIONS} onFinish={finish} onCancel={b ? () => setRunning(false) : undefined} />
 				) : b ? (
-					<Big5Report b={b} />
+					<Big5Full b={b} />
 				) : (
 					<div className="grid gap-6 md:grid-cols-[1.3fr_1fr]">
 						<div className="rounded-2xl bg-white border border-qss-border shadow-sm p-7 flex flex-col gap-5">

@@ -15,7 +15,8 @@ export const AuthContext = createContext<AuthContextType>({
     csrftoken: null,
     setAccessToken: () => { },
     setRefreshToken: () => { },
-    setCSRFToken: () => { }
+    setCSRFToken: () => { },
+    setSampleUser: () => { }
 })
 
 export function AuthContextProvider(props:any) {
@@ -24,11 +25,14 @@ export function AuthContextProvider(props:any) {
     }); 
     const [accessToken, setAccessToken] = useState(null); 
     const [refreshToken, setRefreshToken] = useState(null); 
-    const [csrftoken, setCSRFToken] = useState(null); 
+ const [csrftoken, setCSRFToken] = useState(null); 
+    // Public sample reports show a demo persona without signing anyone in.
+    const [sampleUser, setSampleUser] = useState<any>(null);
 
     
     return <AuthContext.Provider value={{
-        user: (viewAsUser as any) || user, setUser,
+        user: sampleUser || (viewAsUser as any) || user, setUser,
+        setSampleUser,
         accessToken, setAccessToken,
         refreshToken, setRefreshToken,
         csrftoken, setCSRFToken

@@ -232,9 +232,9 @@ const AppShell = () => {
 	return (
 		<ShellContext.Provider value={true}>
 			<div className="min-h-screen bg-qss-background lg:pl-[288px]">
-				<aside className="hidden lg:block fixed inset-y-0 left-0 w-[288px] bg-qss-primary z-30">{nav}</aside>
+				<aside className="hidden lg:block fixed inset-y-0 left-0 w-[288px] bg-[#0A2E33] z-30">{nav}</aside>
 
-				<div className="lg:hidden sticky top-0 z-30 bg-qss-primary flex items-center justify-between px-4 py-3">
+				<div className="lg:hidden sticky top-0 z-30 bg-[#0A2E33] flex items-center justify-between px-4 py-3">
 					<LogoWhite className="w-32 h-5" />
 					<button type="button" onClick={() => setOpen(true)} className="text-white p-1" aria-label="Menyunu aç">
 						<IconMenu />
@@ -242,7 +242,7 @@ const AppShell = () => {
 				</div>
 				{open && (
 					<div className="lg:hidden fixed inset-0 z-40 flex">
-						<div className="w-[288px] max-w-[85vw] bg-qss-primary">{nav}</div>
+						<div className="w-[288px] max-w-[85vw] bg-[#0A2E33]">{nav}</div>
 						<button type="button" className="flex-1 bg-black/40" aria-label="Menyunu bağla" onClick={() => setOpen(false)} />
 					</div>
 				)}

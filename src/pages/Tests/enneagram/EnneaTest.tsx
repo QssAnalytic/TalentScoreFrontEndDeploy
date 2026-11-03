@@ -1,3 +1,4 @@
+import { EnneaFull } from 'report/reports/PersonalityFull'
 import { useRef, useState } from 'react'
 import useAuth from 'hooks/useAuth'
 import { ENNEA_CENTERS, ENNEA_QUESTIONS, ENNEA_TYPES } from 'tests/enneagram/data'
@@ -101,7 +102,7 @@ const EnneaTest = () => {
 				{running ? (
 					<LikertRunner testKey="ennea" questions={ENNEA_QUESTIONS} onFinish={finish} onCancel={e ? () => setRunning(false) : undefined} />
 				) : e ? (
-					<EnneaReport e={e} />
+					<EnneaFull e={e} />
 				) : (
 					<div className="grid gap-6 md:grid-cols-[1.3fr_1fr]">
 						<div className="rounded-2xl bg-white border border-qss-border shadow-sm p-7 flex flex-col gap-5">

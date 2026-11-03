@@ -129,6 +129,9 @@ export function imageToDataUrl(file: Blob, size = 360): Promise<string> {
 				canvas.width = size
 				canvas.height = size
 				const ctx = canvas.getContext('2d')!
+				// JPEG has no transparency: paint white first so transparent corners don't turn black.
+				ctx.fillStyle = '#ffffff'
+				ctx.fillRect(0, 0, size, size)
 				const s = Math.min(img.width, img.height)
 				ctx.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size)
 				resolve(canvas.toDataURL('image/jpeg', 0.86))

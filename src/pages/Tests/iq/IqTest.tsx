@@ -1,3 +1,4 @@
+import IqFull from 'report/reports/IqFull'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from 'hooks/useAuth'
@@ -23,7 +24,7 @@ const IqTest = () => {
 	const { user } = useAuth()
 	const results = useResults(user?.email)
 	const [running, setRunning] = useState(!!results.progress?.iq)
-	const [tab, setTab] = useState<Tab>('snapshot')
+	const [tab, setTab] = useState<Tab>('report')
 	const iq = results.iq
 
 	const finish = (answers: Record<string, string>, seconds: number) => {
@@ -31,7 +32,7 @@ const IqTest = () => {
 		saveResults(user.email, { iq: r })
 		registerCertificate({ id: r.certificateId, type: 'İntellektual Qabiliyyət Sertifikatı', name: `${user.first_name} ${user.last_name}`.trim(), value: `IQ ${r.iq}`, band: r.band, issued: formatDate(r.date) })
 		setRunning(false)
-		setTab('snapshot')
+		setTab('report')
 		window.scrollTo({ top: 0 })
 	}
 
@@ -71,8 +72,8 @@ const IqTest = () => {
 						<div className="flex gap-2 bg-qss-input rounded-[25px] p-1 self-start" role="tablist">
 							{(
 								[
-									['snapshot', 'Nəticə'],
 									['report', 'Ətraflı hesabat'],
+									['snapshot', 'Bir səhifəlik nəticə'],
 									['certificate', 'Sertifikat']
 								] as [Tab, string][]
 							).map(([id, label]) => (
@@ -82,7 +83,7 @@ const IqTest = () => {
 							))}
 						</div>
 						{tab === 'snapshot' && <Snapshot r={iq} />}
-						{tab === 'report' && <Detailed r={iq} />}
+						{tab === 'report' && <IqFull r={iq} />}
 						{tab === 'certificate' && <IqCertificate r={iq} />}
 					</>
 				)}

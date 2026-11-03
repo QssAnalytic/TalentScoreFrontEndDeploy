@@ -11,6 +11,7 @@ import { ExportBar } from './iq/IqTest'
 import { Bullets, Section } from './mbti/MbtiTest'
 import ShareButton from 'share/ShareButton'
 import { TalentShareCard } from 'share/cards'
+import TalentFull from 'report/reports/TalentFull'
 
 const KEY_BY_TEXT: Record<string, string> = { Education: 'education', 'Language skills': 'language', 'Special talent': 'special', 'Sport skills': 'sport', 'Work experience': 'work', 'Program skills': 'program' }
 
@@ -41,12 +42,8 @@ const TalentReport = () => {
 				</div>
 			</div>
 		)
-	const vals = Object.values(t.data)
-	const overall = Math.round(vals.reduce((a, v) => a + talentPercent(v.score), 0) / Math.max(1, vals.length))
-	const sorted = [...vals].sort((a, b) => talentPercent(b.score) - talentPercent(a.score))
-	const age = ageFrom(user?.birth_date)
 	return (
-		<div className="px-6 py-10 lg:px-12">
+		<div className="px-4 sm:px-6 py-10 lg:px-12">
 			<div className="max-w-[960px] mx-auto flex flex-col gap-6">
 				<TestHeader
 					eyebrow="Test 1 · Nəticə"
@@ -61,56 +58,7 @@ const TalentReport = () => {
 						</>
 					}
 				/>
-				<ExportBar onPrint={print} />
-				<div ref={ref} className="bg-white rounded-2xl shadow-sm overflow-hidden">
-					<div className="bg-gradient-to-br from-qss-gradientTop via-qss-primary to-qss-alternative text-white px-10 py-10 flex flex-wrap items-center gap-8">
-						{r.photo && <img src={r.photo} alt="" className="w-24 h-24 rounded-full object-cover border-4 border-white/80" />}
-						<div className="flex-1 min-w-[220px]">
-							<p className="text-white/70 text-xs tracking-[0.2em]">TALANT HESABATI</p>
-							<p className="font-manrope text-3xl font-bold mt-1">{name}</p>
-							<p className="text-white/70 text-sm mt-1">{[age != null ? `${age} yaş` : '', formatDate(t.date)].filter(Boolean).join(' · ')}</p>
-						</div>
-						<div className="text-center">
-							<p className="font-manrope text-6xl font-extrabold">{overall}%</p>
-							<p className="text-white/80 text-sm">ümumi talant göstəricisi</p>
-						</div>
-					</div>
-					<div className="px-10 py-10 flex flex-col gap-10">
-						<Section title="Sahələr üzrə nəticə">
-							<div className="flex flex-col gap-3">
-								{sorted.map(v => (
-									<ScoreBar key={v.text} label={talentLabel(v.text)} value={talentPercent(v.score)} display={`${talentPercent(v.score)}%`} sub={v.result} />
-								))}
-							</div>
-						</Section>
-						{sorted.map(v => {
-							const k = KEY_BY_TEXT[v.text] || v.text
-							const a = AREA[k]
-							const p = talentPercent(v.score)
-							if (!a) return null
-							return (
-								<Section key={v.text} title={`${talentLabel(v.text)} — ${p}%`}>
-									<p className="text-sm text-qss-inputText">
-										<b className="text-qss-primary">Nəyi ölçür: </b>
-										{a.what}
-									</p>
-									<p className="text-qss-inputText leading-relaxed">
-										{a[level(p)]} Yaşıdlarınızın təxminən {p}%-dən yüksək nəticə.
-									</p>
-									<Bullets items={[a.next]} tone={p < 35 ? 'amber' : 'teal'} />
-								</Section>
-							)
-						})}
-						<div className="flex flex-wrap gap-3">
-							<Link to="/profile/certificates" className="text-[14px] text-white py-[10px] px-[24px] rounded-[25px] bg-qss-secondary">
-								Talant sertifikatı
-							</Link>
-							<Link to="/profile/cv" className="text-[14px] py-[10px] px-[24px] rounded-[25px] border border-qss-secondary text-qss-secondary">
-								Cavablardan hazırlanan CV
-							</Link>
-						</div>
-					</div>
-				</div>
+				<TalentFull t={t} />
 			</div>
 		</div>
 	)

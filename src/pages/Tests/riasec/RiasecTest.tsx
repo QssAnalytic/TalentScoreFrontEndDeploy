@@ -1,3 +1,4 @@
+import { RiasecFull } from 'report/reports/PersonalityFull'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from 'hooks/useAuth'
@@ -75,7 +76,7 @@ const RiasecTest = () => {
 				{running ? (
 					<LikertRunner testKey="riasec" questions={RIASEC_QUESTIONS} scale={RIASEC_SCALE} ends={['Xoşlamazdım', 'Xoşlayardım']} onFinish={finish} onCancel={r ? () => setRunning(false) : undefined} />
 				) : r ? (
-					<RiasecReport r={r} />
+					<RiasecFull r={r} />
 				) : (
 					<div className="grid gap-6 md:grid-cols-[1.3fr_1fr]">
 						<div className="rounded-2xl bg-white border border-qss-border shadow-sm p-7 flex flex-col gap-5">

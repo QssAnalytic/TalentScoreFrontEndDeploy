@@ -13,6 +13,23 @@ module.exports = {
 				manrope: ['Manrope', 'Inter', 'system-ui', 'Arial', 'sans-serif']
 			},
 			colors: {
+				// CDS-ES report palette (see src/report/design.ts)
+				cds: {
+					deep: '#0B5F5F',
+					teal: '#0A9384',
+					mint: '#5CCBB8',
+					heading: '#0D4F4F',
+					navy: '#12355B',
+					orange: '#F7931E',
+					purple: '#8A4FA5',
+					steel: '#538CA8',
+					green: '#1F925A',
+					red: '#A6262B',
+					paper: '#F7F7F7',
+					line: '#E4E7E7',
+					ink: '#1F2A2E',
+					muted: '#5E6B70'
+				},
 				qss: {
 					saveBtn: '#103557',
 					primary: '#103557',

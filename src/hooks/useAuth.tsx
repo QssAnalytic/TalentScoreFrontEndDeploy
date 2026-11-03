@@ -19,6 +19,7 @@ export  interface AuthContextType {
         setAccessToken: (accessToken:any) => void;
         setRefreshToken: (refreshToken:any)=>void;
         setCSRFToken: (csrfToken:any) => void;
+        setSampleUser: (user:any) => void;
     
 
 }

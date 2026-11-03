@@ -6,7 +6,7 @@ import { Persona } from './types'
 
 const KEY = 'ts_view_as'
 export const DEMO_DOMAIN = 'demo.talentscore.az'
-const SEED_VERSION = 'v5'
+const SEED_VERSION = 'v6'
 
 export const personaEmail = (id: string) => `${id}@${DEMO_DOMAIN}`
 
@@ -37,6 +37,29 @@ export function personaUser(p: Persona) {
 		phone: p.phone,
 		demo: true
 	}
+}
+
+// Seeds a persona's results into this browser if they are missing or outdated.
+export async function ensureSeeded(id: string, force = false) {
+	const p = getPersona(id)
+	if (!p) return null
+	const stamp = `ts_demo_seed::${p.id}`
+	let fresh = false
+	try {
+		fresh = localStorage.getItem(stamp) === SEED_VERSION
+	} catch {
+		/* storage blocked */
+	}
+	if (!fresh || force) {
+		const { seedPersona } = await import('./build')
+		await seedPersona(p)
+		try {
+			localStorage.setItem(stamp, SEED_VERSION)
+		} catch {
+			/* ignore */
+		}
+	}
+	return p
 }
 
 export async function startViewAs(id: string, force = false) {

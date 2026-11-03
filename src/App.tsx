@@ -37,14 +37,23 @@ import JobProfile from 'pages/Jobs/JobProfile';
 import { CoachHome, CoachReport } from 'pages/Jobs/Coach';
 import TalentReport from 'pages/Tests/TalentReport';
 import { viewingAs } from 'demo/viewAs';
+import useAuth from 'hooks/useAuth';
+import { useResults } from 'tests/store';
 
 // Demo profiles and the question guide load on demand (they carry a lot of data).
 const Personas = lazy(() => import('pages/Demo/Personas'));
 const Guide = lazy(() => import('pages/Demo/Guide'));
+const SiteHome = lazy(() => import('pages/Site/Home'));
+const SamplePage = lazy(() => import('pages/Site/Sample'));
 const Loading = () => <p className='px-12 py-10 text-qss-inputText'>Yüklənir…</p>;
 const lazyEl = (C: any) => <Suspense fallback={<Loading />}><C /></Suspense>;
 // The talent report: demo profiles use the stored results; real accounts keep the server report.
-const ReportRoute = () => (viewingAs() ? <TalentReport /> : <Report />);
+const ReportRoute = () => {
+	const { user } = useAuth();
+	const results = useResults(user?.email);
+	// Once the talent scores are stored (demo profiles, or after the server report loaded once) show the detailed report.
+	return viewingAs() || results.talent ? <TalentReport /> : <Report />;
+};
 
 
 // Talent bot on the signed-in pages (the landing page already renders it).
@@ -67,7 +76,10 @@ const App = () => {
 
 
 				<Route path='/' element={<PersistLogin />}>
-					<Route index element={<Landing />}></Route>
+					<Route index element={lazyEl(SiteHome)}></Route>
+					<Route path='classic' element={<Landing />}></Route>
+					<Route path='sample/:pid/:kind' element={lazyEl(SamplePage)}></Route>
+					<Route path='sample/:pid' element={lazyEl(SamplePage)}></Route>
 
 					<Route path='login' element={<Login />}></Route>
 					<Route path='register' element={<Register />}></Route>

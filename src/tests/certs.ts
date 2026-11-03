@@ -5,7 +5,7 @@ const sent = new Set<string>()
 
 export function registerCertificate(c: { id: string; type: string; name: string; value: string; band?: string; issued: string }) {
 	// Demo profiles are invented people: never put their certificates in the public registry.
-	if (!c.id || sent.has(c.id) || viewingAs()) return
+	if (!c.id || sent.has(c.id) || viewingAs() || window.location.hash.startsWith('#/sample')) return
 	sent.add(c.id)
 	fetch('/cert', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(c) }).catch(() => sent.delete(c.id))
 }

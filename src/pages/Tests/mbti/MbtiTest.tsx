@@ -1,3 +1,4 @@
+import MbtiFull from 'report/reports/MbtiFull'
 import { ReactNode, useRef, useState } from 'react'
 import useAuth from 'hooks/useAuth'
 import { MBTI_POLES, MBTI_QUESTIONS, MBTI_TYPES } from 'tests/mbti/data'
@@ -82,7 +83,7 @@ const MbtiTest = () => {
 				{running ? (
 					<LikertRunner testKey="mbti" questions={MBTI_QUESTIONS} onFinish={finish} onCancel={m ? () => setRunning(false) : undefined} />
 				) : m ? (
-					<MbtiReport m={m} />
+					<MbtiFull m={m} />
 				) : (
 					<div className="grid gap-6 md:grid-cols-[1.3fr_1fr]">
 						<div className="rounded-2xl bg-white border border-qss-border shadow-sm p-7 flex flex-col gap-5">
